@@ -1,7 +1,7 @@
 # YZTA-Bootcamp
 
 ## Takım İsmi
-NİNE9
+Parlayan Yıldızlar
 ## Takım Üyeleri
 - ***Kadir Efe Yazılı*** 
 - ***Ebral Karabulut*** 
@@ -10,7 +10,7 @@ NİNE9
 - ***Nurcan Düzkaya*** 
 
 ## Uygulama İSmi
-Cherry Chasers
+
 
 
 ## Uygulama Açıklaması
