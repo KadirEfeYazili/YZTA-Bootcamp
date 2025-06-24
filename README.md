@@ -9,7 +9,7 @@ Parlayan Yıldızlar
 - ***Ebrar Ağralı*** 
 - ***Nurcan Düzkaya*** 
 
-## Uygulama İSmi
+## Uygulama İsmi
 
 
 
