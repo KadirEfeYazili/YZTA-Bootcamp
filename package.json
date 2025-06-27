@@ -2,6 +2,7 @@
   "name": "yds-assistant",
   "version": "1.0.0",
   "scripts": {
+    "postbuild": "echo > docs/.nojekyll",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
