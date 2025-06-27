@@ -1,0 +1,511 @@
+import React, { useState, useEffect } from 'react';
+import { initializeApp } from 'firebase/app';
+import { getAuth, signInAnonymously, onAuthStateChanged } from 'firebase/auth';
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  onSnapshot,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
+} from 'firebase/firestore';
+
+import {
+  BotMessageSquare, Lightbulb, Send, BrainCircuit, Loader2, BookOpen, CheckCircle,
+  XCircle, GraduationCap, Map, User, BarChart2, PlusCircle, MinusCircle,
+  Image as ImageIcon, LayoutDashboard, Component, MessageSquareText,
+  Activity, Clock
+} from 'lucide-react';
+
+import ReactMarkdown from 'react-markdown';
+
+// -------- Bileşenler --------
+
+// Dashboard bileşeni
+const Dashboard = ({ userProgress, handleRemoveLearnedWord }) => (
+  <div className="p-8 animate-fade-in">
+    <h2 className="text-3xl font-bold text-slate-800 mb-8 flex items-center">
+      <LayoutDashboard className="mr-3 text-violet-600" size={32} />
+      İlerleme Paneli
+    </h2>
+
+    {/* Genel İlerleme */}
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div className="bg-white p-6 rounded-xl shadow-lg flex items-center space-x-4 border border-violet-100">
+        <BarChart2 className="text-purple-500" size={32} />
+        <div>
+          <p className="text-slate-500">Okuduğunu Anlama</p>
+          <p className="text-2xl font-semibold text-slate-800">{userProgress.reading.correct} / {userProgress.reading.total} Doğru</p>
+        </div>
+      </div>
+      <div className="bg-white p-6 rounded-xl shadow-lg flex items-center space-x-4 border border-violet-100">
+        <BrainCircuit className="mr-2 text-violet-500" size={32} />
+        <div>
+          <p className="text-slate-500">Dilbilgisi</p>
+          <p className="text-2xl font-semibold text-slate-800">{userProgress.grammar.correct} / {userProgress.grammar.total} Doğru</p>
+        </div>
+      </div>
+      <div className="bg-white p-6 rounded-xl shadow-lg flex items-center space-x-4 border border-violet-100">
+        <GraduationCap className="text-fuchsia-500" size={32} />
+        <div>
+          <p className="text-slate-500">Genel Uzmanlık Seviyesi</p>
+          <p className="text-2xl font-semibold text-slate-800">Başlangıç</p>
+        </div>
+      </div>
+    </div>
+
+    {/* Öğrenilen Kelimeler */}
+    <div className="mb-8">
+      <h3 className="text-2xl font-semibold text-slate-700 mb-4 flex items-center">
+        <Lightbulb className="mr-2 text-amber-500" size={24} />
+        Öğrenilen Kelimeler ({userProgress.learnedWords.length})
+      </h3>
+      {userProgress.learnedWords.length > 0 ? (
+        <div className="flex flex-wrap gap-3">
+          {userProgress.learnedWords.map((word, index) => (
+            <span key={index} className="bg-violet-100 text-violet-800 px-4 py-2 rounded-full text-sm font-medium flex items-center shadow-sm">
+              {word}
+              <button onClick={() => handleRemoveLearnedWord(word)} className="ml-3 text-violet-400 hover:text-red-500 focus:outline-none transition-colors">
+                <XCircle size={16} />
+              </button>
+            </span>
+          ))}
+        </div>
+      ) : (
+        <p className="text-slate-500">Henüz öğrenilen kelimeniz yok. Kelimeleri "Öğrenildi" olarak işaretleyerek buraya ekleyebilirsiniz.</p>
+      )}
+    </div>
+
+    {/* Son Etkinlikler */}
+    <div className="mb-8">
+      <h3 className="text-2xl font-semibold text-slate-700 mb-4 flex items-center">
+        <Activity className="mr-2 text-rose-500" size={24} />
+        Son Etkinlikler
+      </h3>
+      <div className="bg-white p-6 rounded-xl shadow-lg border border-violet-100">
+        <ul className="space-y-2 text-slate-600">
+          <li className="flex items-center"><Clock className="inline mr-3 text-slate-400" size={16} /> "significant" kelimesini karşılaştırdınız.</li>
+          <li className="flex items-center"><Clock className="inline mr-3 text-slate-400" size={16} /> "crucial" kelimesini öğrenilenlere eklediniz.</li>
+          <li className="flex items-center"><Clock className="inline mr-3 text-slate-400" size={16} /> Okuduğunu Anlama alıştırması yaptınız (3/5 doğru).</li>
+          <li className="text-slate-400 flex items-center"><Clock className="inline mr-3 text-slate-400" size={16} /> Daha fazla aktivite yakında burada gösterilecek!</li>
+        </ul>
+      </div>
+    </div>
+
+    {/* Gözden Geçirilecek Kelimeler */}
+    <div>
+      <h3 className="text-2xl font-semibold text-slate-700 mb-4 flex items-center">
+        <BookOpen className="mr-2 text-sky-500" size={24} />
+        Gözden Geçirilecek Kelimeler
+      </h3>
+      <div className="bg-white p-6 rounded-xl shadow-lg border border-violet-100">
+        <p className="text-slate-500">Gözden geçirmeniz gereken kelimeler yakında burada listelenecek.</p>
+      </div>
+    </div>
+  </div>
+);
+
+// WordComparer bileşeni
+const WordComparer = ({ userProgress, saveProgress }) => {
+  const [inputWord, setInputWord] = useState('');
+  const [comparisonResult, setComparisonResult] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleCompare = async () => {
+    if (!inputWord.trim()) {
+      setError('Lütfen karşılaştırmak için bir kelime girin.');
+      return;
+    }
+    setIsLoading(true);
+    setComparisonResult('');
+    setError('');
+    const prompt = `YDS ve YÖKDİL sınavlarına hazırlananlar için, "${inputWord}" kelimesinin akademik eş anlamlılarını, zıt anlamlılarını ve aralarındaki kullanım nüanslarını karşılaştırmalı olarak açıkla. Örnek cümleler (İngilizce ve Türkçe) ekle. Yanıt Türkçe ve madde madde olsun.`;
+    try {
+      const payload = { contents: [{ role: 'user', parts: [{ text: prompt }] }] };
+      const apiKey = ""; // API anahtarını buraya koy
+      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+      const response = await fetch(apiUrl, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
+      });
+      if (!response.ok) throw new Error(`API Hatası: ${response.status}`);
+      const result = await response.json();
+      setComparisonResult(result.candidates?.[0]?.content?.parts?.[0]?.text || 'Yanıt alınamadı.');
+    } catch (err) {
+      setError(`Bir hata oluştu: ${err.message}`);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleMarkAsLearned = async () => {
+    const word = inputWord.trim().toLowerCase();
+    if (word && !userProgress.learnedWords.includes(word)) {
+      await saveProgress({ learnedWords: arrayUnion(word) });
+    }
+  };
+
+  return (
+    <div className="p-8 animate-fade-in">
+      <h2 className="text-3xl font-bold text-slate-800 mb-6 flex items-center">
+        <Component className="mr-3 text-purple-600" size={32} />
+        Akademik Kelime Karşılaştırma
+      </h2>
+      <div className="flex flex-col sm:flex-row gap-4 mb-4">
+        <input
+          type="text"
+          value={inputWord}
+          onChange={(e) => setInputWord(e.target.value)}
+          placeholder="Örn: 'significant', 'crucial'"
+          className="flex-grow bg-white border border-violet-200 rounded-lg p-3 text-slate-700 focus:ring-2 focus:ring-purple-400 focus:outline-none transition-all shadow-sm"
+        />
+        <button
+          onClick={handleCompare}
+          disabled={isLoading}
+          className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-lg flex items-center justify-center transition-all shadow-md hover:shadow-lg disabled:bg-purple-300 disabled:cursor-not-allowed"
+        >
+          {isLoading ? <Loader2 className="animate-spin mr-2" /> : <Send className="mr-2" />} Karşılaştır
+        </button>
+      </div>
+      {error && <div className="bg-red-100 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4">{error}</div>}
+      {comparisonResult && (
+        <div className="mt-6 bg-violet-50/70 border border-violet-200 rounded-lg p-6">
+          <div className="prose max-w-none text-slate-700 leading-relaxed"><ReactMarkdown>{comparisonResult}</ReactMarkdown></div>
+          <div className="flex justify-end mt-4">
+            <button
+              onClick={handleMarkAsLearned}
+              disabled={!inputWord.trim() || userProgress.learnedWords.includes(inputWord.trim().toLowerCase())}
+              className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded-full flex items-center transition-colors shadow hover:shadow-md disabled:bg-teal-200 disabled:cursor-not-allowed"
+            >
+              <PlusCircle className="mr-2" /> Öğrenildi Olarak İşaretle
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+// ReadingPractice bileşeni
+const ReadingPractice = () => (
+  <div className="p-8 animate-fade-in">
+    <h2 className="text-3xl font-bold text-slate-800 mb-6 flex items-center">
+      <BookOpen className="mr-3 text-sky-600" size={32} />
+      Okuduğunu Anlama Alıştırması
+    </h2>
+    <p className="text-slate-500 mb-4">Bu bölüm geliştirme aşamasındadır.</p>
+  </div>
+);
+
+// GrammarPractice bileşeni
+const GrammarPractice = () => (
+  <div className="p-8 animate-fade-in">
+    <h2 className="text-3xl font-bold text-slate-800 mb-6 flex items-center">
+      <BrainCircuit className="mr-3 text-violet-600" size={32} />
+      Dilbilgisi Alıştırmaları
+    </h2>
+    <p className="text-slate-500 mb-4">Bu bölüm geliştirme aşamasındadır.</p>
+  </div>
+);
+
+// MindMapper bileşeni (senin verdiğin akıl haritası kısmı)
+const MindMapper = () => {
+  const [topic, setTopic] = useState('');
+  const [textLoading, setTextLoading] = useState(false);
+  const [textResult, setTextResult] = useState('');
+  const [error, setError] = useState('');
+  const [imageLoading, setImageLoading] = useState(false);
+  const [imageUrl, setImageUrl] = useState('');
+
+  const handleGenerateText = async () => {
+    if (!topic.trim()) {
+      setError('Lütfen bir konu girin.');
+      return;
+    }
+    setError('');
+    setTextLoading(true);
+    setTextResult('');
+    setImageUrl('');
+    try {
+      // Burada OpenAI ya da benzeri bir API ile metin oluşturulabilir.
+      // API anahtarını ve endpoint'ini kendin koymalısın.
+      // Örnek istek simülasyonu:
+      const generatedText = `# Akıl Haritası Konusu: ${topic}\n\n- Ana fikirler\n- Alt başlıklar\n- İlişkili kavramlar\n\n*Bu metin API tarafından otomatik oluşturulmuştur.*`;
+      // Simülasyon olarak 1 saniye bekleyelim
+      await new Promise(res => setTimeout(res, 1000));
+      setTextResult(generatedText);
+    } catch (e) {
+      setError('Metin oluşturulurken hata oluştu.');
+    } finally {
+      setTextLoading(false);
+    }
+  };
+
+  const handleVisualize = async () => {
+    if (!textResult) return;
+    setImageLoading(true);
+    setError('');
+    setImageUrl('');
+    try {
+      // Görselleştirme API çağrısı yapılmalı, örnek simülasyon:
+      // await fetch vs
+      await new Promise(res => setTimeout(res, 1500));
+      // Simüle edilen görsel URL'si (gerçek kullanımda API'den alınacak)
+      setImageUrl('https://via.placeholder.com/600x400?text=Akıl+Haritası+Görseli');
+    } catch {
+      setError('Görselleştirme sırasında hata oluştu.');
+    } finally {
+      setImageLoading(false);
+    }
+  };
+
+  return (
+    <div className="p-8 animate-fade-in">
+      <h2 className="text-3xl font-bold text-slate-800 mb-6 flex items-center">
+        <Map className="mr-3 text-rose-600" size={32} />
+        Akıl Haritası Oluşturucu
+      </h2>
+      <div className="flex flex-col sm:flex-row gap-4 mb-4">
+        <input
+          type="text"
+          value={topic}
+          onChange={(e) => setTopic(e.target.value)}
+          placeholder="Akıl haritası konusu"
+          className="flex-grow bg-white border border-violet-200 rounded-lg p-3 text-slate-700 focus:ring-2 focus:ring-rose-400 focus:outline-none transition-all shadow-sm"
+        />
+        <button
+          onClick={handleGenerateText}
+          disabled={textLoading}
+          className="bg-rose-500 hover:bg-rose-600 text-white font-bold py-3 px-6 rounded-lg flex items-center justify-center transition-all shadow-md hover:shadow-lg disabled:bg-rose-300"
+        >
+          {textLoading ? <Loader2 className="animate-spin mr-2" /> : <Map className="mr-2" />} Harita Metni Oluştur
+        </button>
+      </div>
+      {error && <div className="bg-red-100 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4">{error}</div>}
+      {textResult && (
+        <div className="mt-6 bg-white border border-violet-200 rounded-xl p-6 shadow-lg">
+          <h3 className="text-xl font-semibold text-slate-800 mb-2">Oluşturulan Metin</h3>
+          <div className="prose max-w-none text-slate-600 leading-relaxed whitespace-pre-wrap mb-4"><ReactMarkdown>{textResult}</ReactMarkdown></div>
+          <div className="flex justify-center">
+            <button
+              onClick={handleVisualize}
+              disabled={imageLoading}
+              className="bg-violet-600 hover:bg-violet-700 text-white font-bold py-2 px-6 rounded-full flex items-center transition-colors shadow hover:shadow-md disabled:bg-violet-300"
+            >
+              {imageLoading ? <Loader2 className="animate-spin mr-2" /> : <ImageIcon className="mr-2" />} Görselleştir
+            </button>
+          </div>
+        </div>
+      )}
+      {imageLoading && (
+        <div className="mt-6 flex justify-center items-center h-80 bg-violet-100/50 rounded-lg border border-violet-200">
+          <Loader2 className="animate-spin text-violet-500" size={48} />
+        </div>
+      )}
+      {imageUrl && (
+        <div className="mt-6">
+          <h3 className="text-xl font-semibold text-slate-800 mb-4 text-center">Görselleştirilmiş Akıl Haritası</h3>
+          <div className="bg-violet-100/50 p-4 rounded-lg border border-violet-200">
+            <img src={imageUrl} alt="Oluşturulan Akıl Haritası" className="rounded-md shadow-lg w-full h-auto mx-auto" />
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+// AI Chat bileşeni
+const AIChat = () => {
+  const [prompt, setPrompt] = useState('');
+  const [chatHistory, setChatHistory] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleSendMessage = async () => {
+    if (!prompt.trim()) return;
+    const newChatHistory = [...chatHistory, { role: 'user', text: prompt }];
+    setChatHistory(newChatHistory);
+    setPrompt('');
+    setIsLoading(true);
+    setError('');
+    try {
+      const payload = { contents: [{ role: 'user', parts: [{ text: prompt }] }] };
+      const apiKey = ""; // API key buraya
+      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (!response.ok) throw new Error(`API Hatası: ${response.status}`);
+      const result = await response.json();
+      const aiResponse = result.candidates?.[0]?.content?.parts?.[0]?.text || 'Üzgünüm, yanıt oluşturulamadı.';
+      setChatHistory(prev => [...prev, { role: 'ai', text: aiResponse }]);
+    } catch (err) {
+      setError(`Bir hata oluştu: ${err.message}`);
+      setChatHistory(prev => [...prev, { role: 'ai', text: `Hata: ${err.message}` }]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <div className="p-6 animate-fade-in flex flex-col h-full">
+      <h2 className="text-2xl font-bold text-slate-800 mb-4 flex items-center">
+        <MessageSquareText className="mr-3 text-sky-600" size={28} />
+        AI Sohbet Asistanı
+      </h2>
+
+      <div className="flex-1 bg-white border border-violet-200 rounded-xl shadow-inner p-4 mb-4 overflow-y-auto flex flex-col-reverse custom-scrollbar">
+        {chatHistory.slice().reverse().map((message, index) => (
+          <div key={index} className={`mb-4 flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+            <div className={`inline-block p-3 rounded-lg max-w-[80%] ${message.role === 'user' ? 'bg-violet-600 text-white rounded-br-none' : 'bg-violet-100 text-slate-800 rounded-bl-none'} prose`}>
+              <ReactMarkdown>{message.text}</ReactMarkdown>
+            </div>
+          </div>
+        ))}
+        {isLoading && (
+          <div className="flex justify-center items-center py-4">
+            <Loader2 className="animate-spin text-violet-400" size={32} />
+          </div>
+        )}
+        {error && <div className="bg-red-100 border border-red-200 text-red-700 px-4 py-3 rounded-lg my-2">{error}</div>}
+      </div>
+
+      <div className="flex gap-2">
+        <textarea
+          value={prompt}
+          onChange={(e) => setPrompt(e.target.value)}
+          placeholder="AI Asistanına bir şeyler sorun..."
+          className="flex-grow bg-white border border-violet-200 rounded-lg p-3 text-slate-700 focus:ring-2 focus:ring-sky-400 focus:outline-none transition-all resize-none shadow-sm"
+          rows="2"
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+              e.preventDefault();
+              handleSendMessage();
+            }
+          }}
+        ></textarea>
+        <button
+          onClick={handleSendMessage}
+          disabled={isLoading}
+          className="bg-sky-500 hover:bg-sky-600 text-white font-bold py-3 px-6 rounded-lg flex items-center justify-center transition-all shadow-md hover:shadow-lg disabled:bg-sky-300"
+        >
+          {isLoading ? <Loader2 className="animate-spin" /> : <Send />}
+        </button>
+      </div>
+    </div>
+  );
+};
+
+// Ana Uygulama bileşeni
+const App = () => {
+  const [db, setDb] = useState(null);
+  const [userId, setUserId] = useState(null);
+  const [isAuthReady, setIsAuthReady] = useState(false);
+  const [userProgress, setUserProgress] = useState({
+    reading: { correct: 0, total: 0 },
+    grammar: { correct: 0, total: 0 },
+    learnedWords: []
+  });
+  const [activeTab, setActiveTab] = useState('dashboard');
+  const [isChatOpen, setIsChatOpen] = useState(false);
+
+  // Sabit appId ve kendi firebaseConfig'unu buraya koy
+  const appId = "yds-asistani"; 
+  const firebaseConfig = {
+    apiKey: "FIREBASE_API_KEYIN",
+    authDomain: "proje-adi.firebaseapp.com",
+    projectId: "proje-adi",
+    storageBucket: "proje-adi.appspot.com",
+    messagingSenderId: "xxxxxxx",
+    appId: "xxxxxxx"
+  };
+
+  useEffect(() => {
+    const initFirebase = async () => {
+      try {
+        const app = initializeApp(firebaseConfig);
+        const authInstance = getAuth(app);
+        const dbInstance = getFirestore(app);
+        setDb(dbInstance);
+
+        await signInAnonymously(authInstance);
+
+        onAuthStateChanged(authInstance, (user) => {
+          if (user) {
+            setUserId(user.uid);
+            setIsAuthReady(true);
+          }
+        });
+      } catch (error) {
+        console.error("Firebase init error:", error);
+      }
+    };
+    initFirebase();
+  }, []);
+
+  useEffect(() => {
+    if (!db || !userId || !isAuthReady) return;
+
+    const userProgressDocRef = doc(db, `artifacts/${appId}/users/${userId}/progress/userProgress`);
+
+    const unsubscribe = onSnapshot(userProgressDocRef, (docSnap) => {
+      if (docSnap.exists()) {
+        setUserProgress(docSnap.data());
+      } else {
+        setDoc(userProgressDocRef, userProgress, { merge: true });
+      }
+    });
+
+    return () => unsubscribe();
+  }, [db, userId, isAuthReady]);
+
+  const saveProgressToFirestore = async (newProgress) => {
+    if (!db || !userId) return;
+    const userProgressDocRef = doc(db, `artifacts/${appId}/users/${userId}/progress/userProgress`);
+    await updateDoc(userProgressDocRef, newProgress);
+  };
+
+  const handleRemoveLearnedWord = async (wordToRemove) => {
+    await saveProgressToFirestore({ learnedWords: arrayRemove(wordToRemove) });
+  };
+
+  const NavItem = ({ tabName, icon, children }) => (
+    <button
+      onClick={() => setActiveTab(tabName)}
+      className={`w-full flex items-center px-4 py-3 text-left text-sm font-medium rounded-lg transition-all ${
+        activeTab === tabName
+          ? 'bg-violet-100 text-violet-800 shadow-inner'
+          : 'text-slate-500 hover:bg-violet-50 hover:text-violet-700'
+      }`}
+    >
+      {icon}
+      {children}
+    </button>
+  );
+
+  const renderContent = () => {
+    switch (activeTab) {
+      case 'dashboard': return <Dashboard userProgress={userProgress} handleRemoveLearnedWord={handleRemoveLearnedWord} />;
+      case 'word': return <WordComparer userProgress={userProgress} saveProgress={saveProgressToFirestore} />;
+      case 'reading': return <ReadingPractice />;
+      case 'grammar': return <GrammarPractice />;
+      case 'mindmap': return <MindMapper />;
+      default: return <Dashboard userProgress={userProgress} handleRemoveLearnedWord={handleRemoveLearnedWord} />;
+    }
+  };
+
+  return (
+    <div className="flex h-screen bg-violet-50 text-slate-800 font-sans">
+      <aside className="w-64 bg-white/80 backdrop-blur-lg p-4 flex flex-col border-r border-violet-100">
+        <div className="flex items-center mb-8 px-2">
+          <GraduationCap className="text-violet-600 mr-3" size={30} />
+          <h1 className="text-xl font-bold text-slate-900">YDS Asistanı</h1>
+        </div>
+        <nav className="flex flex-col space-y-2">
+          <NavItem tabName="dashboard" icon={<LayoutDashboard className="mr-3" size={18} />}>İlerleme Paneli</NavItem>
+          <NavItem tabName="word" icon={<Component className="mr-3" size={18} />}>Kelime Karşılaştırma</NavItem>
+          <NavItem tabName="reading" icon={<BookOpen className="mr-3" size={18} />}>Okuma Alıştırması</NavItem>
+          <NavItem tabName="grammar" icon={<BrainCircuit className="mr-3" size={18} />}>Dil
