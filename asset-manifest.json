@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/YZTA-Bootcamp/static/css/main.5e55556b.css",
+    "main.js": "/YZTA-Bootcamp/static/js/main.5d7c0782.js",
+    "index.html": "/YZTA-Bootcamp/index.html",
+    "main.5e55556b.css.map": "/YZTA-Bootcamp/static/css/main.5e55556b.css.map",
+    "main.5d7c0782.js.map": "/YZTA-Bootcamp/static/js/main.5d7c0782.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5e55556b.css",
+    "static/js/main.5d7c0782.js"
+  ]
+}
