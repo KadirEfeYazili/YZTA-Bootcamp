@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { signInAnonymously, signInWithCustomToken, onAuthStateChanged } from 'firebase/auth';
 import { doc, setDoc, getDoc, onSnapshot, updateDoc, arrayUnion, arrayRemove, serverTimestamp } from 'firebase/firestore';
 import { GraduationCap, LayoutDashboard, Component, BookOpen, BrainCircuit, Map, Loader2, XCircle } from 'lucide-react';
-import { auth, db, appId } from './config/firebase';
+import { auth, db} from './config/firebase';
 import Dashboard from './components/Dashboard';
 import WordComparer from './components/WordComparer';
 import ReadingPractice from './components/ReadingPractice';
@@ -69,8 +69,11 @@ const App = () => {
     useEffect(() => {
         if (!db || !userId || !isAuthReady) return;
 
-        const userProgressDocRef = doc(db, `artifacts/${appId}/users/${userId}/progress/userProgress`);
-        
+        import { firebaseConfig } from './config/firebase';
+
+        const userProgressDocRef = doc(db, `artifacts/${firebaseConfig.appId}/users/${userId}/progress/userProgress`);
+
+
         const unsubscribeSnapshot = onSnapshot(userProgressDocRef, (docSnap) => {
             if (docSnap.exists()) {
                 const data = docSnap.data();
