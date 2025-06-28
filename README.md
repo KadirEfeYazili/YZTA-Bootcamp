@@ -9,7 +9,7 @@ Team 9
 - ***Ebrar Ağralı*** 
 - ***Nurcan Düzkaya***
 
-| Fotoğraf                                           | İsim                  | Ünvan | Sosyal                                           |
+|                                                    | İsim                  | Ünvan | Sosyal                                           |
 |:-------------------------------------------------:|:---------------------:|:-----:|:------------------------------------------------:|
 | <img src="https://avatars.githubusercontent.com/u/152311530?v=4" width="150"/>  | Kadir Efe Yazılı      |       | [![linkedin](https://github.com/user-attachments/assets/3baa645a-33bc-4786-8327-cb0f92356f0a)](https://www.linkedin.com/in/kadirefeyazili/) |
 | <img src="https://avatars.githubusercontent.com/u/208370395?v=4" width="150"/>  | Ebral Karabulut       |       | [![linkedin](https://github.com/user-attachments/assets/3baa645a-33bc-4786-8327-cb0f92356f0a)](https://www.linkedin.com/in/incila-kirbac/)    |
