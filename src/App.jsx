@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { signInAnonymously, signInWithCustomToken, onAuthStateChanged } from 'firebase/auth';
-import { doc, setDoc, getDoc, onSnapshot, updateDoc, arrayUnion, arrayRemove, serverTimestamp } from 'firebase/firestore';
+import { doc, setDoc, onSnapshot, updateDoc, arrayUnion, arrayRemove, serverTimestamp } from 'firebase/firestore';
 import { GraduationCap, LayoutDashboard, Component, BookOpen, BrainCircuit, Map, Loader2, XCircle } from 'lucide-react';
-import { auth, db} from './config/firebase';
+import { auth, db, firebaseConfig } from './config/firebase'; // firebaseConfig eklendi
 import Dashboard from './components/Dashboard';
 import WordComparer from './components/WordComparer';
 import ReadingPractice from './components/ReadingPractice';
@@ -18,7 +18,7 @@ const App = () => {
         reading: { correct: 0, total: 0 }, 
         grammar: { correct: 0, total: 0 }, 
         learnedWords: [],
-        activities: [] // Initialize activities array
+        activities: []
     });
     const [activeTab, setActiveTab] = useState('dashboard');
     const [isChatOpen, setIsChatOpen] = useState(false);
@@ -28,93 +28,65 @@ const App = () => {
     useEffect(() => {
         const initFirebase = async () => {
             try {
-                // This logic handles authentication. It tries to sign in with a custom token
-                // if one is provided. If that fails (for any reason), or if no token
-                // is provided, it falls back to signing in anonymously.
-                try {
-                    if (initialAuthToken) {
-                        await signInWithCustomToken(auth, initialAuthToken);
-                        console.log("Signed in with custom token.");
-                    } else {
-                        await signInAnonymously(auth);
-                        console.log("Signed in anonymously (no custom token).");
-                    }
-                } catch (signInError) {
-                    console.error("Custom token sign-in failed, falling back to anonymous sign-in:", signInError);
-                    try {
-                        await signInAnonymously(auth);
-                        console.log("Successfully signed in anonymously after custom token failure.");
-                    } catch (anonSignInError) {
-                        console.error("CRITICAL: Anonymous fallback sign-in also failed:", anonSignInError);
-                    }
+                if (initialAuthToken) {
+                    await signInWithCustomToken(auth, initialAuthToken);
+                    console.log("Signed in with custom token.");
+                } else {
+                    await signInAnonymously(auth);
+                    console.log("Signed in anonymously.");
                 }
-                
-                const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
-                    if (user) {
-                        setUserId(user.uid);
-                    } else {
-                        setUserId(null);
-                    }
-                    setIsAuthReady(true);
-                });
-                return () => unsubscribeAuth();
-            } catch (error) { 
-                console.error("Firebase app initialization error:", error); 
+            } catch (signInError) {
+                console.error("Sign-in failed:", signInError);
                 setIsAuthReady(true);
             }
+            
+            const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
+                if (user) setUserId(user.uid);
+                setIsAuthReady(true);
+            });
+            return () => unsubscribeAuth();
         };
         initFirebase();
-    }, [initialAuthToken]); // Dependencies ensure this runs only if config changes
+    }, [initialAuthToken]);
 
     useEffect(() => {
         if (!db || !userId || !isAuthReady) return;
 
-        import { firebaseConfig } from './config/firebase';
-
         const userProgressDocRef = doc(db, `artifacts/${firebaseConfig.appId}/users/${userId}/progress/userProgress`);
-
 
         const unsubscribeSnapshot = onSnapshot(userProgressDocRef, (docSnap) => {
             if (docSnap.exists()) {
                 const data = docSnap.data();
-                // Convert Firestore Timestamps to Date objects for sorting
-                const activities = data.activities ? data.activities.map(activity => {
-                    const timestamp = activity.timestamp && typeof activity.timestamp.toDate === 'function' ? activity.timestamp.toDate() : new Date();
-                    return { ...activity, timestamp };
-                }) : [];
-                setUserProgress({ ...userProgress, ...data, activities });
+                const activities = data.activities?.map(activity => ({
+                    ...activity,
+                    timestamp: activity.timestamp?.toDate?.() || new Date()
+                })) || [];
+                setUserProgress({ ...data, activities });
             } else {
-                // Initialize user progress if it doesn't exist
-                const initialProgress = { 
-                    reading: { correct: 0, total: 0 }, 
-                    grammar: { correct: 0, total: 0 }, 
+                setDoc(userProgressDocRef, {
+                    reading: { correct: 0, total: 0 },
+                    grammar: { correct: 0, total: 0 },
                     learnedWords: [],
                     activities: []
-                };
-                setDoc(userProgressDocRef, initialProgress, { merge: true })
-                    .catch(e => console.error("Error setting initial progress:", e));
+                }).catch(e => console.error("Error setting initial progress:", e));
             }
         }, (error) => {
             console.error("Error listening to user progress:", error);
         });
 
         return () => unsubscribeSnapshot();
-    }, [db, userId, isAuthReady, appId]);
+    }, [db, userId, isAuthReady, firebaseConfig.appId]); // appId bağımlılık olarak eklendi
 
     const saveProgressToFirestore = async (newProgress) => {
-        if (!db || !userId) {
-            console.error("Firestore DB or User ID not available for saving progress.");
-            return;
-        }
-        const userProgressDocRef = doc(db, `artifacts/${appId}/users/${userId}/progress/userProgress`);
+        if (!db || !userId) return;
+        const userProgressDocRef = doc(db, `artifacts/${firebaseConfig.appId}/users/${userId}/progress/userProgress`);
         try {
             await updateDoc(userProgressDocRef, newProgress);
         } catch (error) {
-            // If the document doesn't exist, set it instead of updating
             if (error.code === 'not-found') {
                 await setDoc(userProgressDocRef, newProgress, { merge: true });
             } else {
-                 console.error("Error updating user progress:", error);
+                console.error("Error updating progress:", error);
             }
         }
     };
@@ -122,7 +94,10 @@ const App = () => {
     const handleRemoveLearnedWord = async (wordToRemove) => {
         await saveProgressToFirestore({ 
             learnedWords: arrayRemove(wordToRemove),
-            activities: arrayUnion({ text: `"${wordToRemove}" kelimesini öğrenilenlerden çıkardınız.`, timestamp: serverTimestamp() })
+            activities: arrayUnion({ 
+                text: `"${wordToRemove}" kelimesini öğrenilenlerden çıkardınız.`, 
+                timestamp: serverTimestamp() 
+            })
         });
     };
 
@@ -144,7 +119,7 @@ const App = () => {
                     <GraduationCap className="text-violet-600 mr-3" size={30} />
                     <h1 className="text-xl font-bold text-slate-900">YDS Asistanı</h1>
                 </div>
-                {userId && ( // Display user ID for debugging/multi-user identification
+                {userId && (
                     <div className="mb-4 text-xs text-slate-500 px-2">
                         Kullanıcı ID: <span className="font-mono break-all">{userId}</span>
                     </div>
@@ -159,33 +134,31 @@ const App = () => {
             </aside>
 
             <main className="flex-1 overflow-y-auto bg-violet-50">
-                {isAuthReady ? renderContent() : <div className="flex justify-center items-center h-full"><Loader2 className="animate-spin text-violet-500" size={48} /></div>}
+                {isAuthReady ? renderContent() : (
+                    <div className="flex justify-center items-center h-full">
+                        <Loader2 className="animate-spin text-violet-500" size={48} />
+                    </div>
+                )}
             </main>
 
-            {/* Floating Chat Button */}
             {!isChatOpen && (
-                   <button
+                <button
                     onClick={() => setIsChatOpen(true)}
-                    title="AI Sohbet Asistanını Aç"
-                    className="fixed bottom-8 right-8 z-40 bg-sky-500 hover:bg-sky-600 text-white p-4 rounded-full shadow-lg transition-all transform hover:scale-110 focus:outline-none ring-4 ring-white/30 animate-fade-in"
+                    className="fixed bottom-8 right-8 z-40 bg-sky-500 hover:bg-sky-600 text-white p-4 rounded-full shadow-lg transition-all transform hover:scale-110 focus:outline-none ring-4 ring-white/30"
                 >
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                        <path d="M13 8H7"></path>
-                        <path d="M17 12H7"></path>
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
                     </svg>
                 </button>
             )}
 
-            {/* AI Chat Modal */}
             {isChatOpen && (
-                <div className="fixed inset-0 bg-slate-900 bg-opacity-50 backdrop-blur-sm flex justify-center items-center z-50 animate-fade-in">
+                <div className="fixed inset-0 bg-slate-900 bg-opacity-50 backdrop-blur-sm flex justify-center items-center z-50">
                     <div className="bg-violet-50 rounded-2xl shadow-2xl w-full max-w-2xl h-[85vh] max-h-[700px] flex flex-col relative">
-                           <button
+                        <button
                             onClick={() => setIsChatOpen(false)}
-                            title="Sohbeti Kapat"
-                            className="absolute top-3 right-3 text-slate-400 hover:text-slate-800 transition-colors z-10"
-                           >
+                            className="absolute top-3 right-3 text-slate-400 hover:text-slate-800 z-10"
+                        >
                             <XCircle size={28} />
                         </button>
                         <AIChat saveProgress={saveProgressToFirestore} />
@@ -196,4 +169,4 @@ const App = () => {
     );
 };
 
-export default App; 
+export default App;
