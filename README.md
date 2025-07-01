@@ -1,7 +1,7 @@
 # YZTA-Bootcamp
 
 ## Takım İsmi
-Team 9
+Shining Stars✨
 ## Takım Üyeleri
 - ***Kadir Efe Yazılı*** 
 - ***Ebral Karabulut*** 
