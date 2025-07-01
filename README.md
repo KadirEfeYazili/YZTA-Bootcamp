@@ -24,13 +24,21 @@ PrepMate
 
 
 ## Uygulama Açıklaması
-
+PrepMate, YDS ve YÖKDİL gibi akademik İngilizce sınavlarına hazırlanan kullanıcılar için kişisel bir çalışma arkadaşıdır. Yapay zekâ destekli bu uygulama sayesinde kullanıcılar kelime öğrenme, soru çözme, çeviri yapma ve akademik yapıları anlama gibi becerileri mobil ortamda geliştirebilir.
 
 ## Uygulama Özellikleri
+- 	•	Günlük kelime ezberleme ve quiz özelliği
+	•	YDS/YÖKDİL tarzında deneme sınavları
+	•	AI destekli cümle açıklama ve çeviri sistemi
+	•	Öğrenme takibi ve kişisel ilerleme paneli
+	•	İngilizce deyim, bağlaç ve akademik kalıp kartları
+	•	Takımyıldızı (gökyüzü teması) ile görsel başarı motivasyonu
 - 
 - 
-- 
-- 
+-
 
 ## Hedef Kitle
-- 
+- YDS/YÖKDİL sınavlarına hazırlanan üniversite öğrencileri
+	•	Akademik İngilizce düzeyini geliştirmek isteyen bireyler
+	•	KPSS/ÖABT gibi sınavlara İngilizce açısından hazırlananlar
+	•	İngilizce öğrenme sürecini daha sistematik ve eğlenceli hale getirmek isteyen herkes
