@@ -1,4 +1,4 @@
-# YZTA-Bootcamp
+# AI-9YZTA-Bootcamp
 
 ## Takım İsmi
 Shining Stars✨
