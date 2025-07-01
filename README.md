@@ -1,4 +1,4 @@
-# YZTA-Bootcamp
+şu# YZTA-Bootcamp
 
 ## Takım İsmi
 Shining Stars✨
@@ -20,7 +20,7 @@ Shining Stars✨
 
 
 ## Uygulama İsmi
-
+PrepMate
 
 
 ## Uygulama Açıklaması
