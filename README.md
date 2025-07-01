@@ -1,4 +1,4 @@
-şu# YZTA-Bootcamp
+# YZTA-Bootcamp
 
 ## Takım İsmi
 Shining Stars✨
