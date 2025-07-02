@@ -20,7 +20,7 @@ const AIChat = ({ saveProgress }) => {
 
         try {
             const payload = { contents: [{ role: 'user', parts: [{ text: userPrompt }] }] };
-            const apiKey = ""; // API key will be provided by Canvas runtime
+            const apiKey = process.env.REACT_APP_GEMINI_API_KEY;
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
             const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
             if (!response.ok) throw new Error(`API Hatası: ${response.status}`);
