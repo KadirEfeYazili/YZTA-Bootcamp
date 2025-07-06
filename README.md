@@ -75,9 +75,12 @@ PrepMate, YDS ve YÖKDİL gibi akademik İngilizce sınavlarına hazırlanan kul
 
 <details>
   <summary>Toplantı Görselleri</summary>
-  
-  ![Toplantı Görselleri](assets/ToplantıGörselleri.jpg)
-
+  <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+    <img src="assets/meet1.png" width="200"/>
+    <img src="assets/meet2.png" width="200"/>
+    <img src="assets/meet3.png" width="200"/>
+    <img src="assets/ToplantıGörselleri.jpg" width="200"/>
+  </div>
 </details>
 
 
