@@ -55,6 +55,7 @@ PrepMate, YDS ve YÖKDİL gibi akademik İngilizce sınavlarına hazırlanan kul
 - Prompt yanıtı veren LLM
 - Gökyüzü temalı arayüz (takımyıldızları)
 - Basit kullanıcı profili
+- Personalar oluşturuldu
 - Geri bildirim ekranı
 
 ---
