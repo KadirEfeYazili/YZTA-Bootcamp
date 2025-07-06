@@ -73,9 +73,21 @@ PrepMate, YDS ve YÖKDİL gibi akademik İngilizce sınavlarına hazırlanan kul
 
 </details>
 
+<details>
+  <summary>Toplantı Görselleri</summary>
+  
+  ![Toplantı Görselleri](assets/ToplantıGörselleri.jpg)
+
+</details>
+
+
 ---
 
 ## 📌 Trello
 
 Proje yönetim sürecimizi Trello üzerinden takip ediyoruz:  
 [🔗 Trello Board](https://trello.com/b/8fP9S0KF/bootcamp)
+
+## 📃 Canva UI/UX 
+
+[🔗 Canva](https://www.canva.com/design/DAGr9V-hQBg/k5EpeSP5GUWiXgXTwk_Thw/edit)
