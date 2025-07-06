@@ -58,8 +58,17 @@ PrepMate, YDS ve YÖKDİL gibi akademik İngilizce sınavlarına hazırlanan kul
 - Geri bildirim ekranı
 
 ---
+<details>
+  <summary>Sprint 1 - App Screenshots</summary>
+  
+</details>
 
-![Sprint Yol Haritası](./assets/SprintListesi.jpg)
+<details>
+  <summary>Sprint 1 - Sprint Board Update Screenshots</summary>
+  
+  ![Sprint Yol Haritası](./assets/SprintListesi.jpg)
+
+</details>
 
 ---
 
