@@ -49,6 +49,7 @@ PrepMate, YDS ve YÖKDİL gibi akademik İngilizce sınavlarına hazırlanan kul
 - **API:** Google Gemini API
 - **Backend & Hosting:** Firebase, Firebase API Key
 - **Versiyon Kontrol & Deploy:** GitHub, GitHub Pages, GitHub Actions
+![Sprint Yol Haritası](./assets/SprintListesi.jpg)
 
 ### İlk Versiyonda Olacaklar
 - Kelime öğretme modülü
