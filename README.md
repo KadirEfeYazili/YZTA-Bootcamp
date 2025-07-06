@@ -49,7 +49,6 @@ PrepMate, YDS ve YÖKDİL gibi akademik İngilizce sınavlarına hazırlanan kul
 - **API:** Google Gemini API
 - **Backend & Hosting:** Firebase, Firebase API Key
 - **Versiyon Kontrol & Deploy:** GitHub, GitHub Pages, GitHub Actions
-![Sprint Yol Haritası](./assets/SprintListesi.jpg)
 
 ### İlk Versiyonda Olacaklar
 - Kelime öğretme modülü
@@ -57,3 +56,14 @@ PrepMate, YDS ve YÖKDİL gibi akademik İngilizce sınavlarına hazırlanan kul
 - Gökyüzü temalı arayüz (takımyıldızları)
 - Basit kullanıcı profili
 - Geri bildirim ekranı
+
+---
+
+![Sprint Yol Haritası](./assets/SprintListesi.jpg)
+
+---
+
+## 📌 Trello
+
+Proje yönetim sürecimizi Trello üzerinden takip ediyoruz:  
+[🔗 Trello Board](https://trello.com/b/8fP9S0KF/bootcamp)
