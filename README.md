@@ -39,3 +39,20 @@ PrepMate, YDS ve YÖKDİL gibi akademik İngilizce sınavlarına hazırlanan kul
  •Üniversite öğrencileri
 	•	YDS/YÖKDİL adayları
 	•	Akademik İngilizce öğrenmek isteyen herkes
+
+# **👥Sprint Yol Haritamız**
+
+<b>İlk Sprint:</b>
+-Kullanılan Teknolojier
+ -Frontend: React.js, Tailwind CSS, React Markdown
+ -API: Google Gemini API
+ -Backend & Hosting: Firebase, Firebase API Key
+ -Versiyon kontrol ve deploy: GitHub + GitHub Pages + GitHub Action
+
+-İlk Versiyonumuzda Olacaklar
+ -Kelime öğretme modülü
+ -Prompt yanıtı veren LLM
+ -Gökyüzü temalı arayüz (takımyıldızlar)
+ -Basit kullanıcı profili
+ -Geri bildirim alma ekranı
+ 
