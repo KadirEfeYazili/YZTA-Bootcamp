@@ -79,6 +79,7 @@ PrepMate, YDS ve YÖKDİL gibi akademik İngilizce sınavlarına hazırlanan kul
     <img src="assets/meet1.png" width="200"/>
     <img src="assets/meet2.png" width="200"/>
     <img src="assets/meet3.png" width="200"/>
+    <img src="assets/meet4.png" width="200"/>
     <img src="assets/ToplantıGörselleri.jpg" width="200"/>
   </div>
 </details>
