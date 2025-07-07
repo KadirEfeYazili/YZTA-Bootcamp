@@ -105,10 +105,10 @@ Puan Tamamlama Mantığı
 Toplamda 1200 puanlık bir proje hedefi belirlenmiştir. Birinci sprintte, temel modüllerin (kelime, AI entegrasyonu) ve UI'ın geliştirilmesi planlandığı için 400 puan hedeflenmiştir. İkinci sprintte, deneme sınavları ve ilerleme paneli gibi daha karmaşık özelliklere odaklanılacağı için 450 puan hedeflenecektir. Üçüncü sprintte ise kalan özelliklerin tamamlanması ve genel iyileştirmeler için 350 puan hedeflenmiştir.
 
 Daily Scrum
-[şüpheli bağlantı kaldırıldı] üzerinden günlük ilerleme takibi ve toplantılar.
+https://trello.com/b/8fP9S0KF/bootcamp üzerinden günlük ilerleme takibi ve toplantılar.
 
 Product Backlog URL
-PrepMate GitHub Pages
+PrepMate GitHub Pages: https://github.com/KadirEfeYazili/YZTA-Bootcamp
 
 Sprint Review
 Kelime öğrenme modülünün temel işlevselliği gösterildi.
@@ -122,7 +122,7 @@ Geri bildirim ekranının işlevselliği test edildi.
 Bu sprintte, temel teknik altyapının kurulması ve ana özelliklerin ilk versiyonlarının geliştirilmesi başarıyla tamamlandı.
 
 Sprint Review Katılımcıları
-Ekip Üyeleri ve İlgili Paydaşlar (Örnek olarak: Melisa Nur Alparslan, Olgun Baran Atik, Oğuzhan Gündüz, vb.)
+Ekip Üyeleri.
 
 Sprint Retrospective
 Firebase kurulumu ve entegrasyonu başarılı oldu, ancak bazı veri modelleme kararları gözden geçirilebilir.
