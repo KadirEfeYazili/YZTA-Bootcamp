@@ -1,7 +1,5 @@
 # AI-9YZTA-Bootcamp
 
-![Uygulama Görüntüsü](app_picture.jpeg)
-
 ## Takım İsmi
 Shining Stars✨
 ## Takım Üyeleri
@@ -19,7 +17,7 @@ Shining Stars✨
 | <img src="https://avatars.githubusercontent.com/u/157977459?v=4" width="150"/>  | Ebrar Ağralı          | Developer      | [![linkedin](https://github.com/user-attachments/assets/3baa645a-33bc-4786-8327-cb0f92356f0a)](https://www.linkedin.com/in/ebrara%C4%9Fral%C4%B1/)    |
 | <img src="https://avatars.githubusercontent.com/u/147709490?v=4" width="150"/>  | Nurcan Düzkaya        | Developer      | [![linkedin](https://github.com/user-attachments/assets/3baa645a-33bc-4786-8327-cb0f92356f0a)](https://tr.linkedin.com/in/nurcan-d%C3%BCzkaya)    |
 
-
+![Uygulama Görüntüsü](assets/app_picture.jpeg)
 
 ## Uygulama İsmi
 PrepMate
