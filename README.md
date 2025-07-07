@@ -1,5 +1,7 @@
 # AI-9YZTA-Bootcamp
 
+![Uygulama Görüntüsü](app_picture.jpeg)
+
 ## Takım İsmi
 Shining Stars✨
 ## Takım Üyeleri
