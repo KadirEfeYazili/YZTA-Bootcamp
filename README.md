@@ -194,6 +194,6 @@ Proje yönetim sürecimizi Trello üzerinden takip ediyoruz:
 
 ---
 
-## 📃 Canva UI/UX 
+## 📃 Proje Dokümanı
 
 [🔗 Canva](https://www.canva.com/design/DAGr9V-hQBg/k5EpeSP5GUWiXgXTwk_Thw/edit)
