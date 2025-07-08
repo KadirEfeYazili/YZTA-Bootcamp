@@ -9,13 +9,13 @@ Shining Stars✨
 - ***Ebrar Ağralı*** 
 - ***Nurcan Düzkaya***
 
-|                                                    | İsim                  | Ünvan          | Sosyal                                           |
-|:-------------------------------------------------:|:---------------------:|:--------------:|:------------------------------------------------:|
-| <img src="https://avatars.githubusercontent.com/u/163898105?v=4" width="150"/>  | Muhammet Berke Ağaya  | Product Owner  | [![linkedin](https://github.com/user-attachments/assets/3baa645a-33bc-4786-8327-cb0f92356f0a)](https://www.linkedin.com/in/muhammet-berke-a%C4%9Faya/)  |
-| <img src="https://avatars.githubusercontent.com/u/208370395?v=4" width="150"/>  | Ebral Karabulut       | Scrum Master   | [![linkedin](https://github.com/user-attachments/assets/3baa645a-33bc-4786-8327-cb0f92356f0a)](https://www.linkedin.com/in/ebral-karabulut/)    |
-| <img src="https://avatars.githubusercontent.com/u/152311530?v=4" width="150"/>  | Kadir Efe Yazılı      | Developer      | [![linkedin](https://github.com/user-attachments/assets/3baa645a-33bc-4786-8327-cb0f92356f0a)](https://www.linkedin.com/in/kadirefeyazili/) |
-| <img src="https://avatars.githubusercontent.com/u/157977459?v=4" width="150"/>  | Ebrar Ağralı          | Developer      | [![linkedin](https://github.com/user-attachments/assets/3baa645a-33bc-4786-8327-cb0f92356f0a)](https://www.linkedin.com/in/ebrara%C4%9Fral%C4%B1/)    |
-| <img src="https://avatars.githubusercontent.com/u/147709490?v=4" width="150"/>  | Nurcan Düzkaya        | Developer      | [![linkedin](https://github.com/user-attachments/assets/3baa645a-33bc-4786-8327-cb0f92356f0a)](https://tr.linkedin.com/in/nurcan-d%C3%BCzkaya)    |
+| Fotoğraf | İsim | Ünvan | Sosyal |
+|:--------:|:-----:|:------:|:-------:|
+| <img src="https://avatars.githubusercontent.com/u/152311530?v=4" width="150"/> | Kadir Efe Yazılı | Product Owner & Developer | [![LinkedIn](https://img.shields.io/badge/LinkedIn-Profile-blue?logo=linkedin)](https://www.linkedin.com/in/kadirefeyazili/) |
+| <img src="https://avatars.githubusercontent.com/u/208370395?v=4" width="150"/> | Ebral Karabulut | Scrum Master | [![LinkedIn](https://img.shields.io/badge/LinkedIn-Profile-blue?logo=linkedin)](https://www.linkedin.com/in/ebral-karabulut/) |
+| <img src="https://avatars.githubusercontent.com/u/163898105?v=4" width="150"/> | Muhammet Berke Ağaya | Developer | [![LinkedIn](https://img.shields.io/badge/LinkedIn-Profile-blue?logo=linkedin)](https://www.linkedin.com/in/muhammet-berke-a%C4%9Faya/) |
+| <img src="https://avatars.githubusercontent.com/u/157977459?v=4" width="150"/> | Ebrar Ağralı | Developer | [![LinkedIn](https://img.shields.io/badge/LinkedIn-Profile-blue?logo=linkedin)](https://www.linkedin.com/in/ebrara%C4%9Fral%C4%B1/) |
+| <img src="https://avatars.githubusercontent.com/u/147709490?v=4" width="150"/> | Nurcan Düzkaya | Developer | [![LinkedIn](https://img.shields.io/badge/LinkedIn-Profile-blue?logo=linkedin)](https://www.linkedin.com/in/nurcan-d%C3%BCzkaya) |
 
 
 ## Uygulama İsmi
