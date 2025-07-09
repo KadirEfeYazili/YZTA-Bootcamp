@@ -7,13 +7,13 @@ const GrammarPractice = ({ userProgress, saveProgress }) => {
     // When implemented, it should also log activities to saveProgress.
     return (
         <div className="p-8 animate-fade-in">
-            <h2 className="text-3xl font-bold text-slate-800 mb-6 flex items-center">
-                <BrainCircuit className="mr-3 text-violet-600" size={32} />
+            <h2 className="text-3xl font-bold text-slate-800 dark:text-slate-100 mb-6 flex items-center">
+                <BrainCircuit className="mr-3 text-violet-600 dark:text-violet-400" size={32} />
                 Dilbilgisi Alıştırmaları
             </h2>
-            <p className="text-slate-500">Bu bölüm geliştirme aşamasındadır.</p>
+            <p className="text-slate-500 dark:text-slate-400">Bu bölüm geliştirme aşamasındadır.</p>
         </div>
     );
 };
 
-export default GrammarPractice; 
+export default GrammarPractice;
