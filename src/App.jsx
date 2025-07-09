@@ -22,7 +22,7 @@ const App = () => {
     });
     const [activeTab, setActiveTab] = useState('dashboard');
     const [isChatOpen, setIsChatOpen] = useState(false);
-    const [darkMode, setDarkMode] = useState(false); // Dark Mode EKLENDİ
+    const [darkMode, setDarkMode] = useState(true); // Dark Mode EKLENDİ
 
     const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
 
