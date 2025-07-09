@@ -51,7 +51,7 @@ const WordComparer = ({ userProgress, saveProgress }) => {
 
     return (
         <div className="p-8 animate-fade-in">
-            <h2 className="text-3xl font-bold text-slate-800 mb-6 flex items-center">
+            <h2 className="text-3xl font-bold text-slate-800 dark:text-slate-100 mb-6 flex items-center">
                 <svg className="mr-3 text-purple-600" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z"></path>
                     <circle cx="7" cy="7" r="1"></circle>
@@ -59,17 +59,37 @@ const WordComparer = ({ userProgress, saveProgress }) => {
                 Akademik Kelime Karşılaştırma
             </h2>
             <div className="flex flex-col sm:flex-row gap-4 mb-4">
-                <input type="text" value={inputWord} onChange={(e) => setInputWord(e.target.value)} placeholder="Örn: 'significant', 'crucial'" className="flex-grow bg-white border border-violet-200 rounded-lg p-3 text-slate-700 focus:ring-2 focus:ring-purple-400 focus:outline-none transition-all shadow-sm" />
-                <button onClick={handleCompare} disabled={isLoading} className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-lg flex items-center justify-center transition-all shadow-md hover:shadow-lg disabled:bg-purple-300 disabled:cursor-not-allowed">
+                <input
+                    type="text"
+                    value={inputWord}
+                    onChange={(e) => setInputWord(e.target.value)}
+                    placeholder="Örn: 'significant', 'crucial'"
+                    className="flex-grow bg-white dark:bg-slate-800 border border-violet-200 dark:border-violet-700 rounded-lg p-3 text-slate-700 dark:text-slate-200 focus:ring-2 focus:ring-purple-400 focus:outline-none transition-all shadow-sm"
+                />
+                <button
+                    onClick={handleCompare}
+                    disabled={isLoading}
+                    className="bg-purple-600 hover:bg-purple-700 dark:bg-purple-700 dark:hover:bg-purple-800 text-white font-bold py-3 px-6 rounded-lg flex items-center justify-center transition-all shadow-md hover:shadow-lg disabled:bg-purple-300 disabled:cursor-not-allowed"
+                >
                     {isLoading ? <Loader2 className="animate-spin mr-2" /> : <Send className="mr-2" />} Karşılaştır
                 </button>
             </div>
-            {error && <div className="bg-red-100 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4">{error}</div>}
+            {error && (
+                <div className="bg-red-100 dark:bg-red-900 border border-red-200 dark:border-red-700 text-red-700 dark:text-red-400 px-4 py-3 rounded-lg mb-4">
+                    {error}
+                </div>
+            )}
             {comparisonResult && (
-                <div className="mt-6 bg-violet-50/70 border border-violet-200 rounded-lg p-6">
-                    <div className="prose max-w-none text-slate-700 leading-relaxed"><ReactMarkdown>{comparisonResult}</ReactMarkdown></div>
+                <div className="mt-6 bg-violet-50/70 dark:bg-slate-700/70 border border-violet-200 dark:border-violet-700 rounded-lg p-6">
+                    <div className="prose max-w-none text-slate-700 dark:text-slate-200 leading-relaxed">
+                        <ReactMarkdown>{comparisonResult}</ReactMarkdown>
+                    </div>
                     <div className="flex justify-end mt-4">
-                        <button onClick={handleMarkAsLearned} disabled={!inputWord.trim() || userProgress.learnedWords.includes(inputWord.trim().toLowerCase())} className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded-full flex items-center transition-colors shadow hover:shadow-md disabled:bg-teal-200 disabled:cursor-not-allowed">
+                        <button
+                            onClick={handleMarkAsLearned}
+                            disabled={!inputWord.trim() || userProgress.learnedWords.includes(inputWord.trim().toLowerCase())}
+                            className="bg-teal-500 hover:bg-teal-600 dark:bg-teal-600 dark:hover:bg-teal-700 text-white font-bold py-2 px-4 rounded-full flex items-center transition-colors shadow hover:shadow-md disabled:bg-teal-200 disabled:cursor-not-allowed"
+                        >
                             <PlusCircle className="mr-2" /> Öğrenildi Olarak İşaretle
                         </button>
                     </div>
@@ -79,4 +99,4 @@ const WordComparer = ({ userProgress, saveProgress }) => {
     );
 };
 
-export default WordComparer; 
+export default WordComparer;
