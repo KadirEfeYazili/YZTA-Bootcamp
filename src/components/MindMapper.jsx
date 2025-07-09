@@ -54,37 +54,57 @@ const MindMapper = ({ saveProgress }) => {
 
     return (
         <div className="p-8 animate-fade-in">
-            <h2 className="text-3xl font-bold text-slate-800 mb-6 flex items-center">
-                <Map className="mr-3 text-rose-600" size={32} />
+            <h2 className="text-3xl font-bold text-slate-800 dark:text-slate-100 mb-6 flex items-center">
+                <Map className="mr-3 text-rose-600 dark:text-rose-400" size={32} />
                 Akıl Haritası Oluşturucu
             </h2>
             <div className="flex flex-col sm:flex-row gap-4 mb-4">
-                <input type="text" value={topic} onChange={(e) => setTopic(e.target.value)} placeholder="Akıl haritası konusu" className="flex-grow bg-white border border-violet-200 rounded-lg p-3 text-slate-700 focus:ring-2 focus:ring-rose-400 focus:outline-none transition-all shadow-sm" />
-                <button onClick={handleGenerateText} disabled={textLoading} className="bg-rose-500 hover:bg-rose-600 text-white font-bold py-3 px-6 rounded-lg flex items-center justify-center transition-all shadow-md hover:shadow-lg disabled:bg-rose-300">
+                <input
+                    type="text"
+                    value={topic}
+                    onChange={(e) => setTopic(e.target.value)}
+                    placeholder="Akıl haritası konusu"
+                    className="flex-grow bg-white dark:bg-slate-800 border border-violet-200 dark:border-violet-700 rounded-lg p-3 text-slate-700 dark:text-slate-300 focus:ring-2 focus:ring-rose-400 focus:outline-none transition-all shadow-sm"
+                />
+                <button
+                    onClick={handleGenerateText}
+                    disabled={textLoading}
+                    className="bg-rose-500 hover:bg-rose-600 dark:bg-rose-700 dark:hover:bg-rose-800 text-white font-bold py-3 px-6 rounded-lg flex items-center justify-center transition-all shadow-md hover:shadow-lg disabled:bg-rose-300 disabled:dark:bg-rose-900"
+                >
                     {textLoading ? <Loader2 className="animate-spin mr-2" /> : <Map className="mr-2" />} Harita Metni Oluştur
                 </button>
             </div>
-            {error && <div className="bg-red-100 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4">{error}</div>}
+            {error && (
+                <div className="bg-red-100 dark:bg-red-900 border border-red-200 dark:border-red-700 text-red-700 dark:text-red-400 px-4 py-3 rounded-lg mb-4">
+                    {error}
+                </div>
+            )}
             {textResult && (
-                <div className="mt-6 bg-white border border-violet-200 rounded-xl p-6 shadow-lg">
-                    <h3 className="text-xl font-semibold text-slate-800 mb-2">Oluşturulan Metin</h3>
-                    <div className="prose max-w-none text-slate-600 leading-relaxed whitespace-pre-wrap mb-4"><ReactMarkdown>{textResult}</ReactMarkdown></div>
+                <div className="mt-6 bg-white dark:bg-slate-900 border border-violet-200 dark:border-violet-700 rounded-xl p-6 shadow-lg">
+                    <h3 className="text-xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Oluşturulan Metin</h3>
+                    <div className="prose max-w-none text-slate-600 dark:text-slate-400 leading-relaxed whitespace-pre-wrap mb-4">
+                        <ReactMarkdown>{textResult}</ReactMarkdown>
+                    </div>
                     <div className="flex justify-center">
-                        <button onClick={handleVisualize} disabled={imageLoading} className="bg-violet-600 hover:bg-violet-700 text-white font-bold py-2 px-6 rounded-full flex items-center transition-colors shadow hover:shadow-md disabled:bg-violet-300">
+                        <button
+                            onClick={handleVisualize}
+                            disabled={imageLoading}
+                            className="bg-violet-600 hover:bg-violet-700 dark:bg-violet-700 dark:hover:bg-violet-800 text-white font-bold py-2 px-6 rounded-full flex items-center transition-colors shadow hover:shadow-md disabled:bg-violet-300 disabled:dark:bg-violet-900"
+                        >
                             {imageLoading ? <Loader2 className="animate-spin mr-2" /> : <ImageIcon className="mr-2" />} Görselleştir
                         </button>
                     </div>
                 </div>
             )}
             {imageLoading && (
-                <div className="mt-6 flex justify-center items-center h-80 bg-violet-100/50 rounded-lg border border-violet-200">
-                    <Loader2 className="animate-spin text-violet-500" size={48} />
+                <div className="mt-6 flex justify-center items-center h-80 bg-violet-100/50 dark:bg-violet-900/50 rounded-lg border border-violet-200 dark:border-violet-700">
+                    <Loader2 className="animate-spin text-violet-500 dark:text-violet-300" size={48} />
                 </div>
             )}
             {imageUrl && (
                 <div className="mt-6">
-                    <h3 className="text-xl font-semibold text-slate-800 mb-4 text-center">Görselleştirilmiş Akıl Haritası</h3>
-                    <div className="bg-violet-100/50 p-4 rounded-lg border border-violet-200">
+                    <h3 className="text-xl font-semibold text-slate-800 dark:text-slate-100 mb-4 text-center">Görselleştirilmiş Akıl Haritası</h3>
+                    <div className="bg-violet-100/50 dark:bg-violet-900/50 p-4 rounded-lg border border-violet-200 dark:border-violet-700">
                         <img src={imageUrl} alt="Oluşturulan Akıl Haritası" className="rounded-md shadow-lg w-full h-auto mx-auto" />
                     </div>
                 </div>
@@ -93,4 +113,4 @@ const MindMapper = ({ saveProgress }) => {
     );
 };
 
-export default MindMapper; 
+export default MindMapper;
