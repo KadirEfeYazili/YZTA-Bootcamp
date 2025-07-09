@@ -39,13 +39,13 @@ const AIChat = ({ saveProgress }) => {
 
     return (
         <div className="p-6 animate-fade-in flex flex-col h-full">
-            <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-4 flex items-center">
+            <h2 className="text-2xl font-bold text-slate-800 dark:text-white mb-4 flex items-center">
                 <svg className="mr-3 text-sky-600 dark:text-sky-400" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                     <path d="M13 8H7"></path>
                     <path d="M17 12H7"></path>
                 </svg>
-                AI Sohbet Asistanı
+                PrepMate Sohbet Asistanı
             </h2>
 
             <div className="flex-1 bg-white dark:bg-slate-800 border border-violet-200 dark:border-violet-700 rounded-xl shadow-inner p-4 mb-4 overflow-y-auto flex flex-col-reverse custom-scrollbar">
