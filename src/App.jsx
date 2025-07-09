@@ -120,7 +120,7 @@ const App = () => {
             <aside className="w-64 bg-white/80 dark:bg-slate-800 backdrop-blur-lg p-4 flex flex-col border-r border-violet-100 dark:border-slate-700">
                 <div className="flex items-center mb-8 px-2">
                     <GraduationCap className="text-violet-600 mr-3" size={30} />
-                    <h1 className="text-xl font-bold">YDS Asistanı</h1>
+                    <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100">PrepMate</h1>
                 </div>
 
                 <button
