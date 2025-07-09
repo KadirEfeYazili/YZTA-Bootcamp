@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { signInAnonymously, signInWithCustomToken, onAuthStateChanged } from 'firebase/auth';
 import { doc, setDoc, onSnapshot, updateDoc, arrayUnion, arrayRemove, serverTimestamp } from 'firebase/firestore';
-import { GraduationCap, LayoutDashboard, Component, BookOpen, BrainCircuit, Map, Loader2, XCircle } from 'lucide-react';
-import { auth, db, firebaseConfig } from './config/firebase'; // firebaseConfig eklendi
+import { GraduationCap, LayoutDashboard, Component, BookOpen, BrainCircuit, Map, Loader2, XCircle, Sun, Moon } from 'lucide-react'; // Sun, Moon eklendi
+import { auth, db, firebaseConfig } from './config/firebase';
 import Dashboard from './components/Dashboard';
 import WordComparer from './components/WordComparer';
 import ReadingPractice from './components/ReadingPractice';
@@ -22,6 +22,7 @@ const App = () => {
     });
     const [activeTab, setActiveTab] = useState('dashboard');
     const [isChatOpen, setIsChatOpen] = useState(false);
+    const [darkMode, setDarkMode] = useState(true); // Dark Mode EKLENDİ
 
     const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
 
@@ -75,7 +76,7 @@ const App = () => {
         });
 
         return () => unsubscribeSnapshot();
-    }, [db, userId, isAuthReady, firebaseConfig.appId]); // appId bağımlılık olarak eklendi
+    }, [db, userId, isAuthReady, firebaseConfig.appId]);
 
     const saveProgressToFirestore = async (newProgress) => {
         if (!db || !userId) return;
@@ -112,15 +113,35 @@ const App = () => {
         }
     };
 
+    const toggleDarkMode = () => setDarkMode(!darkMode); // Toggle fonksiyonu EKLENDİ
+
     return (
-        <div className="flex h-screen bg-violet-50 text-slate-800 font-sans">
-            <aside className="w-64 bg-white/80 backdrop-blur-lg p-4 flex flex-col border-r border-violet-100">
+        <div className={`${darkMode ? 'dark' : ''} flex h-screen bg-violet-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-sans`}>
+            <aside className="w-64 bg-white/80 dark:bg-slate-800 backdrop-blur-lg p-4 flex flex-col border-r border-violet-100 dark:border-slate-700">
                 <div className="flex items-center mb-8 px-2">
                     <GraduationCap className="text-violet-600 mr-3" size={30} />
-                    <h1 className="text-xl font-bold text-slate-900">YDS Asistanı</h1>
+                    <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100">PrepMate</h1>
                 </div>
+
+                <button
+                    onClick={toggleDarkMode}
+                    className="mb-4 px-4 py-2 flex items-center space-x-2 bg-violet-500 text-white rounded hover:bg-violet-600 transition"
+                >
+                    {darkMode ? (
+                        <>
+                            <Sun size={18} />
+                            <span>Açık Moda Geç</span>
+                        </>
+                    ) : (
+                        <>
+                            <Moon size={18} />
+                            <span>Koyu Moda Geç</span>
+                        </>
+                    )}
+                </button>
+
                 {userId && (
-                    <div className="mb-4 text-xs text-slate-500 px-2">
+                    <div className="mb-4 text-xs text-slate-500 dark:text-slate-300 px-2">
                         Kullanıcı ID: <span className="font-mono break-all">{userId}</span>
                     </div>
                 )}
@@ -133,7 +154,7 @@ const App = () => {
                 </nav>
             </aside>
 
-            <main className="flex-1 overflow-y-auto bg-violet-50">
+            <main className="flex-1 overflow-y-auto bg-violet-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100">
                 {isAuthReady ? renderContent() : (
                     <div className="flex justify-center items-center h-full">
                         <Loader2 className="animate-spin text-violet-500" size={48} />
@@ -154,10 +175,10 @@ const App = () => {
 
             {isChatOpen && (
                 <div className="fixed inset-0 bg-slate-900 bg-opacity-50 backdrop-blur-sm flex justify-center items-center z-50">
-                    <div className="bg-violet-50 rounded-2xl shadow-2xl w-full max-w-2xl h-[85vh] max-h-[700px] flex flex-col relative">
+                    <div className="bg-violet-50 dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-2xl h-[85vh] max-h-[700px] flex flex-col relative">
                         <button
                             onClick={() => setIsChatOpen(false)}
-                            className="absolute top-3 right-3 text-slate-400 hover:text-slate-800 z-10"
+                            className="absolute top-3 right-3 text-slate-400 hover:text-slate-800 dark:hover:text-slate-100 z-10"
                         >
                             <XCircle size={28} />
                         </button>
@@ -170,3 +191,4 @@ const App = () => {
 };
 
 export default App;
+
