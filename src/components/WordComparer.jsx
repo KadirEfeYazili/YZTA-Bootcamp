@@ -21,7 +21,7 @@ const WordComparer = ({ userProgress, saveProgress }) => {
         const prompt = `YDS ve YÖKDİL sınavlarına hazırlananlar için, "${wordToCompare}" kelimesinin akademik eş anlamlılarını, zıt anlamlılarını ve aralarındaki kullanım nüanslarını karşılaştırmalı olarak açıkla. Örnek cümleler (İngilizce ve Türkçe) ekle. Yanıt Türkçe ve madde madde olsun.`;
         try {
             const payload = { contents: [{ role: 'user', parts: [{ text: prompt }] }] };
-            const apiKey = ""; // API key will be provided by Canvas runtime
+            const apiKey = process.env.REACT_APP_GEMINI_API_KEY;
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
             const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
             if (!response.ok) throw new Error(`API Hatası: ${response.status}`);
@@ -99,4 +99,7 @@ const WordComparer = ({ userProgress, saveProgress }) => {
     );
 };
 
+
+
 export default WordComparer;
+

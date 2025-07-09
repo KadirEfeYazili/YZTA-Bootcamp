@@ -18,7 +18,7 @@ const MindMapper = ({ saveProgress }) => {
         const prompt = `"${topic}" konusu hakkında hiyerarşik bir akıl haritası metni oluştur. Format: Ana Konu: ... - Başlık 1...`;
         try {
             const payload = { contents: [{ role: 'user', parts: [{ text: prompt }] }] };
-            const apiKey = ""; // API key will be provided by Canvas runtime
+            const apiKey = process.env.REACT_APP_GEMINI_API_KEY;
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
             const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
             if (!response.ok) throw new Error(`API Hatası: ${response.status}`);
@@ -38,7 +38,7 @@ const MindMapper = ({ saveProgress }) => {
         const prompt = `Create a mind map diagram based on this text. Use a light theme with a soft lilac background (#f5f3ff). The central topic should be prominent, with elegant, curved, deep purple lines branching out to sub-topics. Nodes should be pill-shaped with a white background and have clear, dark purple text inside. Make it look like a modern, clean data visualization. Text: "${textResult}"`;
         try {
             const payload = { instances: [{ prompt }], parameters: { "sampleCount": 1 } };
-            const apiKey = ""; // API key will be provided by Canvas runtime
+            const apiKey = process.env.REACT_APP_GEMINI_API_KEY;
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict?key=${apiKey}`;
             const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
             if (!response.ok) throw new Error(`API Hatası: ${response.status}`);
@@ -113,4 +113,6 @@ const MindMapper = ({ saveProgress }) => {
     );
 };
 
-export default MindMapper;
+
+export default MindMapper; 
+
