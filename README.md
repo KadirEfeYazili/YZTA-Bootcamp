@@ -74,10 +74,11 @@ With its minimalist and user-friendly interface, PrepMate offers a seamless expe
 •YDS/YÖKDİL adayları
 •İngilizce öğrenmek isteyen herkes
 
-# Sprint Yol Haritamız
+# Sprint Yol Haritalarımız
 
-## İlk Sprint
-
+<details>
+  <summary><h3>İlk Sprint</h3></summary>
+  
 ### Kullanılan Teknolojiler
 - **Frontend:** React.js, Tailwind CSS, React Markdown
 - **API:** Google Gemini API
@@ -94,32 +95,33 @@ With its minimalist and user-friendly interface, PrepMate offers a seamless expe
 
 Aşağıdaki tabloda, bu sprint içinde ele alınacak kullanıcı hikayeleri ve bunlara bağlı detaylı görevler yer almaktadır:
 
-| Kullanıcı Hikayesi (User Story)                             | Görev (Task)                                                      | Tahmini Süre (Gün) | Puan (Story Point) | Sorumlu        | Durum     |
-|------------------------------------------------------------|------------------------------------------------------------------|--------------------|--------------------|----------------|-----------|
-| US1: Bir kullanıcı olarak, yeni kelimeler öğrenmek için günlük kelime setlerini görmek isterim. | T1.1: Kelime veri yapısını (Firestore) tanımlama.                | 1                  | 3                  | Backend Ekibi  | Başladı   |
-|                                                            | T1.2: Firebase'e örnek kelime setleri yükleme.                   | 1                  | 3                  | Backend Ekibi  | Başladı   |
-|                                                            | T1.3: Kelime kartlarını gösteren React bileşenini oluşturma.     | 2                  | 5                  | Frontend Ekibi | Başladı   |
-|                                                            | T1.4: Kelime kartları için Tailwind CSS stilini uygulama.        | 1                  | 3                  | Frontend Ekibi | Başladı   |
-|                                                            | T1.5: Kelime tekrar mekanizması için test arayüzü ekleme.        | 1                  | 3                  | Frontend Ekibi | Başladı   |
-| US2: Bir kullanıcı olarak, zorlandığım kelimelerin AI tarafından açıklanmış cümle örneklerini görmek isterim. | T2.1: Google Gemini API entegrasyonu için servis katmanı oluşturma. | 2                | 8                  | Backend Ekibi  | Başladı   |
-|                                                            | T2.2: Kullanıcının seçtiği kelime/cümleyi AI'a gönderme işlevi geliştirme. | 1             | 5                  | Frontend Ekibi | Başladı   |
-|                                                            | T2.3: AI yanıtını gösterecek UI bileşenini tasarlama.             | 2                  | 5                  | Frontend Ekibi | Başladı   |
-|                                                            | T2.4: AI yanıtlarının React Markdown ile düzgün görüntülenmesini sağlama. | 1              | 3                  | Frontend Ekibi | Başladı   |
-| US3: Uygulamanın genel temasının gökyüzü ve takımyıldızları ile uyumlu olmasını isterim. | T3.1: Temel renk paletini ve fontları tanımlama (Tailwind config). | 0.5               | 2                  | UI/UX Tasarımcı | Tamamlandı|
-|                                                            | T3.2: Ana sayfa arkaplanına gökyüzü temalı görsel/stil ekleme.    | 1                  | 3                  | Frontend Ekibi | Başladı   |
-|                                                            | T3.3: Basit takımyıldızı başarı sistemi için placeholder UI oluşturma. | 1               | 3                  | Frontend Ekibi | Başladı   |
-| US4: Basit bir kullanıcı profilim olsun isterim.           | T4.1: Kullanıcı profili veri yapısını tanımlama (Firestore).     | 1                  | 3                  | Backend Ekibi  | Başladı   |
-|                                                            | T4.2: Basit kullanıcı profili ekranı oluşturma.                   | 1                  | 3                  | Frontend Ekibi | Başladı   |
-| US5: Uygulama hakkında geri bildirimde bulunmak isterim.   | T5.1: Geri bildirim formu UI bileşenini oluşturma.                | 1                  | 3                  | Frontend Ekibi | Başladı   |
-|                                                            | T5.2: Geri bildirimleri Firebase'e kaydetme işlevini geliştirme. | 1                  | 3                  | Backend Ekibi  | Başladı   |
-| US6: Projenin yönetim süreçlerini ve altyapısını kurmak isterim. | T6.1: Personaların oluşturulması ve dokümantasyonu.             | 1                  | 3                  | Product Owner  | Tamamlandı|
-|                                                            | T6.2: GitHub reposunu oluşturma ve ilk kod yapısını kurma.        | 0.5                | 2                  | Developer      | Tamamlandı|
-|                                                            | T6.3: GitHub Pages ve Actions ile deploy altyapısını kurma.       | 1                  | 5                  | Developer      | Başladı   |
-|                                                            | T6.4: Trello panosunu güncel tutma.                               | Sürekli            | -                  | Tüm Ekip       | Sürekli   |
-|                                                            | T6.5: Günlük Scrum toplantılarını yapma.                          | Sürekli            | -                  | Tüm Ekip       | Sürekli   |
-|                                                            | T6.6: Sprint sonu ekran görüntülerini alma ve dokümantasyona ekleme. | 0.5               | 1                  | Proje Yöneticisi | Planlandı |
-|                                                            | T6.7: Sprint Review toplantısını planlama ve sunumu hazırlama.   | 1                  | 2                  | Scrum Master   | Planlandı |
-|                                                            | T6.8: Sprint Retrospective toplantısını düzenleme.                | 1                  | 2                  | Scrum Master   | Planlandı |
+| Görev (Task)                                                      | Tahmini Süre (Gün) | Puan (Story Point) | Sorumlu        | Durum     |
+|------------------------------------------------------------------|--------------------|--------------------|----------------|-----------|
+| T1.1: Kelime veri yapısını (Firestore) tanımlama.                | 1                  | 3                  | Backend Ekibi  | Başladı   |
+| T1.2: Firebase'e örnek kelime setleri yükleme.                   | 1                  | 3                  | Backend Ekibi  | Başladı   |
+| T1.3: Kelime kartlarını gösteren React bileşenini oluşturma.     | 2                  | 5                  | Frontend Ekibi | Başladı   |
+| T1.4: Kelime kartları için Tailwind CSS stilini uygulama.        | 1                  | 3                  | Frontend Ekibi | Başladı   |
+| T1.5: Kelime tekrar mekanizması için test arayüzü ekleme.        | 1                  | 3                  | Frontend Ekibi | Başladı   |
+| T2.1: Google Gemini API entegrasyonu için servis katmanı oluşturma. | 2                | 8                  | Backend Ekibi  | Başladı   |
+| T2.2: Kullanıcının seçtiği kelime/cümleyi AI'a gönderme işlevi geliştirme. | 1             | 5                  | Frontend Ekibi | Başladı   |
+| T2.3: AI yanıtını gösterecek UI bileşenini tasarlama.             | 2                  | 5                  | Frontend Ekibi | Başladı   |
+| T2.4: AI yanıtlarının React Markdown ile düzgün görüntülenmesini sağlama. | 1              | 3                  | Frontend Ekibi | Başladı   |
+| T3.1: Temel renk paletini ve fontları tanımlama (Tailwind config). | 0.5               | 2                  | UI/UX Tasarımcı | Tamamlandı|
+| T3.2: Ana sayfa arkaplanına gökyüzü temalı görsel/stil ekleme.    | 1                  | 3                  | Frontend Ekibi | Başladı   |
+| T3.3: Basit takımyıldızı başarı sistemi için placeholder UI oluşturma. | 1               | 3                  | Frontend Ekibi | Başladı   |
+| T4.1: Kullanıcı profili veri yapısını tanımlama (Firestore).     | 1                  | 3                  | Backend Ekibi  | Başladı   |
+| T4.2: Basit kullanıcı profili ekranı oluşturma.                   | 1                  | 3                  | Frontend Ekibi | Başladı   |
+| T5.1: Geri bildirim formu UI bileşenini oluşturma.                | 1                  | 3                  | Frontend Ekibi | Başladı   |
+| T5.2: Geri bildirimleri Firebase'e kaydetme işlevini geliştirme. | 1                  | 3                  | Backend Ekibi  | Başladı   |
+| T6.1: Personaların oluşturulması ve dokümantasyonu.             | 1                  | 3                  | Product Owner  | Tamamlandı|
+| T6.2: GitHub reposunu oluşturma ve ilk kod yapısını kurma.        | 0.5                | 2                  | Developer      | Tamamlandı|
+| T6.3: GitHub Pages ve Actions ile deploy altyapısını kurma.       | 1                  | 5                  | Developer      | Başladı   |
+| T6.4: Trello panosunu güncel tutma.                               | Sürekli            | -                  | Tüm Ekip       | Sürekli   |
+| T6.5: Günlük Scrum toplantılarını yapma.                          | Sürekli            | -                  | Tüm Ekip       | Sürekli   |
+| T6.6: Sprint sonu ekran görüntülerini alma ve dokümantasyona ekleme. | 0.5               | 1                  | Proje Yöneticisi | Planlandı |
+| T6.7: Sprint Review toplantısını planlama ve sunumu hazırlama.   | 1                  | 2                  | Scrum Master   | Planlandı |
+| T6.8: Sprint Retrospective toplantısını düzenleme.                | 1                  | 2                  | Scrum Master   | Planlandı |
+
 
 ---
 
@@ -169,18 +171,6 @@ Birinci sprintte, fikir oturması, tasarımların yapılması ve API ekleme plan
 
 ---
 
-## Daily Scrum
-
-Proje yönetim sürecimizi Trello üzerinden takip ediyoruz:  
-[🔗 Trello Board](https://trello.com/b/8fP9S0KF/bootcamp)
-
-## Product Backlog URL
-
-[Projeye Git](https://kadirefeyazili.github.io/YZTA-Bootcamp/)
-
----
-
-
 ## Sprint Gözden Geçirme Katılımcıları:
 
 **Kadir Efe Yazılı**, **Ebral Karabulut**, **Muhammet Berke Ağaya**, **Ebrar Ağralı**, **Nurcan Düzkaya**
@@ -226,6 +216,16 @@ Proje yönetim sürecimizi Trello üzerinden takip ediyoruz:
     <img src="assets/meet4.jpeg" width="200"/>
   </div>
 </details>
+
+---
+## Daily Scrum
+
+Proje yönetim sürecimizi Trello üzerinden takip ediyoruz:  
+[🔗 Trello Board](https://trello.com/b/8fP9S0KF/bootcamp)
+
+## Product Backlog URL
+
+[Projeye Git](https://kadirefeyazili.github.io/YZTA-Bootcamp/)
 
 ---
 
