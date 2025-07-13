@@ -54,7 +54,7 @@ With its minimalist and user-friendly interface, PrepMate offers a seamless expe
 
 
 
-
+<details>
   <summary><h4>English explanation</h4></summary>
 
 - 📚 Effective learning with daily vocabulary reviews and comprehensive tests  
@@ -68,6 +68,7 @@ With its minimalist and user-friendly interface, PrepMate offers a seamless expe
 - 🌍 Learn anytime, anywhere — accessible wherever there is internet connectivity  
 
 </details>
+<details>
 
 ## Hedef Kitle
 •Üniversite öğrencileri
