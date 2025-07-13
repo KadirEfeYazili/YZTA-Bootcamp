@@ -52,9 +52,9 @@ With its minimalist and user-friendly interface, PrepMate offers a seamless expe
 - 📱💻 Telefon, tablet ve bilgisayar gibi tüm cihazlarda uyumlu, kesintisiz kullanım  
 - 🌍 Her zaman, her yerde öğrenme imkânı — internet bağlantısı olan her ortamda erişilebilir
 
-</details>
 
-<details>
+
+
   <summary><h4>English explanation</h4></summary>
 
 - 📚 Effective learning with daily vocabulary reviews and comprehensive tests  
