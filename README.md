@@ -192,6 +192,8 @@ Birinci sprintte, fikir oturması, tasarımların yapılması ve API ekleme plan
 - Takım üyeleri görev dağılımını etkin yaptı ve iş birliği güçlüydü.
 - Sprint sonunda planlanan hedeflerin tamamı gerçekleştirilmiş oldu.
 
+
+
 <details>
   <summary>Sprint 1 - App Screenshots</summary>
   
