@@ -38,8 +38,10 @@ With its minimalist and user-friendly interface, PrepMate offers a seamless expe
 </details>
 
 ---
-</details>
+
+<details>
   <summary><h2>Uygulama Özellikleri</h2></summary>
+
 - 📚 Günlük kelime tekrarları ve kapsamlı testler ile etkin öğrenme  
 - 🤖 Yapay zekâ destekli cümle açıklamaları ve anında çeviri imkanı  
 - ✍️ YDS ve YÖKDİL formatlarına uygun deneme sınavları  
@@ -49,9 +51,12 @@ With its minimalist and user-friendly interface, PrepMate offers a seamless expe
 - 🌟 Zengin ve çeşitli öğrenme materyalleri  
 - 📱💻 Telefon, tablet ve bilgisayar gibi tüm cihazlarda uyumlu, kesintisiz kullanım  
 - 🌍 Her zaman, her yerde öğrenme imkânı — internet bağlantısı olan her ortamda erişilebilir
+
 </details>
-  <summary><h4>English explanation</h4></summary>   
-  
+
+<details>
+  <summary><h4>English explanation</h4></summary>
+
 - 📚 Effective learning with daily vocabulary reviews and comprehensive tests  
 - 🤖 AI-powered sentence explanations and instant translation capabilities  
 - ✍️ Practice exams formatted for YDS and YÖKDİL standards  
@@ -61,6 +66,7 @@ With its minimalist and user-friendly interface, PrepMate offers a seamless expe
 - 🌟 Rich and diverse learning materials  
 - 📱💻 Compatible with all devices including phones, tablets, and computers for seamless usage  
 - 🌍 Learn anytime, anywhere — accessible wherever there is internet connectivity  
+
 </details>
 
 ## Hedef Kitle
