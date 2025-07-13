@@ -38,8 +38,7 @@ With its minimalist and user-friendly interface, PrepMate offers a seamless expe
 </details>
 
 
-## Uygulama Özellikleri
-
+<summary><h2>Uygulama Özellikleri</h2></summary>
 - 📚 Günlük kelime tekrarları ve kapsamlı testler ile etkin öğrenme  
 - 🤖 Yapay zekâ destekli cümle açıklamaları ve anında çeviri imkanı  
 - ✍️ YDS ve YÖKDİL formatlarına uygun deneme sınavları  
