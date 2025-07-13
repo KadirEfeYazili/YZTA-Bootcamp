@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase ID Token Alma</title>
+    <!-- Firebase JS SDK'yı ekleyin -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+</head>
+<body>
+    <h1>Firebase ID Token Alma Aracı</h1>
+    <p>Lütfen Firebase projenizin yapılandırma bilgilerini aşağıdaki `firebaseConfig` objesine yapıştırın.</p>
+    <p>Test kullanıcınızın e-posta ve şifresini girin ve konsolu kontrol edin.</p>
+
+    <label for="email">E-posta:</label>
+    <input type="email" id="email" value="testuser@example.com"><br><br>
+    <label for="password">Şifre:</label>
+    <input type="password" id="password" value="test123"><br><br>
+    <button onclick="signInAndGetToken()">Giriş Yap ve Token Al</button>
+
+    <script>
+        // BURAYA KENDİ FIREBASE PROJE YAPILANDIRMANIZI YAPIŞTIRIN
+        // Firebase konsolunuzdan (Proje Ayarları -> Genel -> Uygulamalarınız -> Web uygulaması) alabilirsiniz.
+        const firebaseConfig = {
+            apiKey: "AIzaSyAKSwjetkHMql81024nhoIj4Ka6W65AplM",
+            authDomain: "yzta-akademi.firebaseapp.com",
+            projectId: "yzta-akademi",
+             storageBucket: "yzta-akademi.appspot.com", // Düzeltme: firebase.google.com'da appspot.com olmalı
+            messagingSenderId: "1033195492342",
+             appId: "1:1033195492342:web:8e7415ba995ba868d2edd7",
+            measurementId: "G-SSZB5BX7LN"
+        };
+
+        // Firebase'i başlat
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        async function signInAndGetToken() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const userCredential = await auth.signInWithEmailAndPassword(email, password);
+                const user = userCredential.user;
+                const idToken = await user.getIdToken();
+
+                console.log("------------------------------------------");
+                console.log("Firebase ID Token'ınız (Kopyalayın):");
+                console.log(idToken);
+                console.log("------------------------------------------");
+                console.log("Kullanıcı UID'si:", user.uid);
+                alert("ID Token konsola yazıldı! Lütfen konsolu kontrol edin.");
+
+            } catch (error) {
+                console.error("Giriş Yaparken Hata Oluştu:", error.message);
+                alert("Giriş Yaparken Hata Oluştu: " + error.message);
+            }
+        }
+    </script>
+</body>
+</html>
