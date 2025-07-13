@@ -218,7 +218,6 @@ Birinci sprintte, fikir oturması, tasarımların yapılması ve API ekleme plan
   
 </details>
 </details>
----
 
 ## Daily Scrum
 
