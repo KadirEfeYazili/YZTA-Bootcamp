@@ -19,7 +19,7 @@ Shining Stars✨
 
 
 ## Uygulama İsmi
-![Uygulama Görüntüsü](assets/app_picture.jpeg)
+![Uygulama Görüntüsü](Project_Management_Files/General_Documents/Github_Pages_Images/PrepMate.jpeg)
 
 
 <summary><h2>Uygulama Açıklaması</h2></summary>
