@@ -52,8 +52,6 @@ With its minimalist and user-friendly interface, PrepMate offers a seamless expe
 - 📱💻 Telefon, tablet ve bilgisayar gibi tüm cihazlarda uyumlu, kesintisiz kullanım  
 - 🌍 Her zaman, her yerde öğrenme imkânı — internet bağlantısı olan her ortamda erişilebilir
 
-
-
 <details>
   <summary><h4>English explanation</h4></summary>
 
@@ -68,7 +66,7 @@ With its minimalist and user-friendly interface, PrepMate offers a seamless expe
 - 🌍 Learn anytime, anywhere — accessible wherever there is internet connectivity  
 
 </details>
-<details>
+</details>
 
 ## Hedef Kitle
 •Üniversite öğrencileri
