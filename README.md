@@ -37,8 +37,9 @@ The app facilitates the learning process with many features including vocabulary
 With its minimalist and user-friendly interface, PrepMate offers a seamless experience on both mobile and desktop devices. PrepMate is your most reliable assistant, guiding, motivating, and supporting you to achieve your academic goals.
 </details>
 
-
-<summary><h2>Uygulama Özellikleri</h2></summary>
+---
+</details>
+  <summary><h2>Uygulama Özellikleri</h2></summary>
 - 📚 Günlük kelime tekrarları ve kapsamlı testler ile etkin öğrenme  
 - 🤖 Yapay zekâ destekli cümle açıklamaları ve anında çeviri imkanı  
 - ✍️ YDS ve YÖKDİL formatlarına uygun deneme sınavları  
@@ -50,6 +51,7 @@ With its minimalist and user-friendly interface, PrepMate offers a seamless expe
 - 🌍 Her zaman, her yerde öğrenme imkânı — internet bağlantısı olan her ortamda erişilebilir
 </details>
   <summary><h4>English explanation</h4></summary>   
+  
 - 📚 Effective learning with daily vocabulary reviews and comprehensive tests  
 - 🤖 AI-powered sentence explanations and instant translation capabilities  
 - ✍️ Practice exams formatted for YDS and YÖKDİL standards  
