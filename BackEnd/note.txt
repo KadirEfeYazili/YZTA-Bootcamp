@@ -1,0 +1,14 @@
+ Sanal Ortam (venv) Notları
+
+Bu proje için Python sanal ortamı kullanılmıştır.
+Sanal Ortamı Kurma Adımları:
+1. Proje klasörüne gidin.
+2. Yeni bir sanal ortam oluşturun:
+   python -m venv venv
+3. Sanal ortamı etkinleştirin:
+   - Windows: .\venv\Scripts\activate
+   - macOS/Linux: source venv/bin/activate
+4. Gerekli kütüphaneleri kurun (requirements.txt dosyasından):
+   pip install -r requirements.txt
+
+Kullanılan Python Sürümü: Python 3.9 (veya kullandığınız sürüm)
