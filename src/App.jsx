@@ -14,6 +14,8 @@ import NavItem from './components/NavItem';
 const App = () => {
     const [userId, setUserId] = useState(null);
     const [isAuthReady, setIsAuthReady] = useState(false);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+    const toggleSidebar = () => setIsSidebarOpen(prev => !prev);
     const [userProgress, setUserProgress] = useState({ 
         reading: { correct: 0, total: 0 }, 
         grammar: { correct: 0, total: 0 }, 
@@ -113,29 +115,34 @@ const App = () => {
         }
     };
 
-    const toggleDarkMode = () => setDarkMode(!darkMode); // Toggle fonksiyonu EKLENDİ
+    const toggleDarkMode = () => setDarkMode(!darkMode); 
 
     return (
         <div className={`${darkMode ? 'dark' : ''} flex h-screen bg-violet-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-sans`}>
-            <aside className="w-64 bg-white/80 dark:bg-slate-800 backdrop-blur-lg p-4 flex flex-col border-r border-violet-100 dark:border-slate-700">
-                <div className="flex items-center mb-8 px-2">
-                    <GraduationCap className="text-violet-600 mr-3" size={30} />
-                    <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100">PrepMate</h1>
+            <aside className={`bg-white/80 dark:bg-slate-800 backdrop-blur-lg p-4 flex flex-col border-r border-violet-100 dark:border-slate-700 transition-width duration-300 ease-in-out`} style={{
+                    width: isSidebarOpen ? '16rem' : '6rem', // 16rem tam genişlik, 6rem ikonlar için dar hali
+                }}>
+                <div
+                className="flex items-center mb-8 px-2 cursor-pointer"
+                onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+                >
+                <GraduationCap className="text-violet-600 mr-3" size={30} />
+                {isSidebarOpen && <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100">PrepMate</h1>}
                 </div>
 
                 <button
                     onClick={toggleDarkMode}
                     className="mb-4 px-4 py-2 flex items-center space-x-2 bg-violet-500 text-white rounded hover:bg-violet-600 transition"
-                >
+                    >
                     {darkMode ? (
                         <>
-                            <Sun size={18} />
-                            <span>Açık Moda Geç</span>
+                        <Sun size={18} />
+                        {isSidebarOpen && <span>Açık Moda Geç</span>}
                         </>
                     ) : (
                         <>
-                            <Moon size={18} />
-                            <span>Koyu Moda Geç</span>
+                        <Moon size={18} />
+                        {isSidebarOpen && <span>Koyu Moda Geç</span>}
                         </>
                     )}
                 </button>
@@ -146,11 +153,11 @@ const App = () => {
                     </div>
                 )}
                 <nav className="flex flex-col space-y-2">
-                    <NavItem tabName="dashboard" icon={<LayoutDashboard className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab}>İlerleme Paneli</NavItem>
-                    <NavItem tabName="word" icon={<Component className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab}>Kelime Karşılaştırma</NavItem>
-                    <NavItem tabName="reading" icon={<BookOpen className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab}>Okuma Alıştırması</NavItem>
-                    <NavItem tabName="grammar" icon={<BrainCircuit className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab}>Dilbilgisi</NavItem>
-                    <NavItem tabName="mindmap" icon={<Map className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab}>Akıl Haritası</NavItem>
+                <NavItem tabName="dashboard" icon={<LayoutDashboard className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>İlerleme Paneli</NavItem>
+                <NavItem tabName="word" icon={<Component className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Kelime Karşılaştırma</NavItem>
+                <NavItem tabName="reading" icon={<BookOpen className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Okuma Alıştırması</NavItem>
+                <NavItem tabName="grammar" icon={<BrainCircuit className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Dilbilgisi</NavItem>
+                <NavItem tabName="mindmap" icon={<Map className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Akıl Haritası</NavItem>
                 </nav>
             </aside>
 
