@@ -48,10 +48,8 @@ With its minimalist and user-friendly interface, PrepMate offers a seamless expe
 - 🌟 Zengin ve çeşitli öğrenme materyalleri  
 - 📱💻 Telefon, tablet ve bilgisayar gibi tüm cihazlarda uyumlu, kesintisiz kullanım  
 - 🌍 Her zaman, her yerde öğrenme imkânı — internet bağlantısı olan her ortamda erişilebilir
-
 </details>
-  <summary><h4>English explanation</h4></summary> 
-  
+  <summary><h4>English explanation</h4></summary>   
 - 📚 Effective learning with daily vocabulary reviews and comprehensive tests  
 - 🤖 AI-powered sentence explanations and instant translation capabilities  
 - ✍️ Practice exams formatted for YDS and YÖKDİL standards  
