@@ -215,9 +215,11 @@ Birinci sprintte, fikir oturması, tasarımların yapılması ve API ekleme plan
     <img src="assets/meet3.jpeg" width="200"/>
     <img src="assets/meet4.jpeg" width="200"/>
   </div>
+  
 </details>
 
 ---
+
 ## Daily Scrum
 
 Proje yönetim sürecimizi Trello üzerinden takip ediyoruz:  
