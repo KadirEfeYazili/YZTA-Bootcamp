@@ -193,8 +193,9 @@ Birinci sprintte, fikir oturması, tasarımların yapılması ve API ekleme plan
 - Sprint sonunda planlanan hedeflerin tamamı gerçekleştirilmiş oldu.
 
 
-
 <details>
+
+  
   <summary>Sprint 1 - App Screenshots</summary>
   
   ![Uygulama Görüntüsü](./assets/UygulamaGörüntüsü.png)
