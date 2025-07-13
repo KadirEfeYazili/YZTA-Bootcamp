@@ -22,13 +22,20 @@ Shining Stars✨
 ![Uygulama Görüntüsü](assets/app_picture.jpeg)
 
 
-## Uygulama Açıklaması
+<summary><h2>Uygulama Açıklaması</h2></summary>
 PrepMate, YDS ve YÖKDİL gibi önemli akademik İngilizce sınavlarına hazırlanan kullanıcıların tüm ihtiyaçlarını karşılayacak şekilde tasarlanmış kapsamlı ve yapay zekâ destekli bir çalışma arkadaşıdır.
 
 Uygulama, kelime öğrenme, okuma ve dilbilgisi alıştırmaları, kişisel ilerleme takibi ve akıl haritası oluşturma gibi birçok fonksiyonla kullanıcıların öğrenme süreçlerini kolaylaştırır. Kullanıcılar günlük kelime tekrarları yapabilir, testler çözebilir ve gelişimlerini detaylı şekilde takip edebilirler. Ayrıca, yapay zekâ destekli sohbet modülü sayesinde İngilizce pratik yapmak ve öğrenme deneyimini zenginleştirmek mümkün olur.
 
 Minimalist ve kullanıcı dostu arayüzü, mobil ve masaüstü cihazlarda sorunsuz bir deneyim sunar. PrepMate, akademik hedeflerinize ulaşmanız için size rehberlik eden, motive eden ve yol gösteren en güvenilir yardımcınızdır.
+<details>
+  <summary><h4>English explanation</h4></summary>
+PrepMate is a comprehensive and AI-powered study companion designed to meet all the needs of users preparing for important academic English exams such as YDS and YÖKDİL.
 
+The app facilitates the learning process with many features including vocabulary learning, reading and grammar exercises, personal progress tracking, and mind mapping. Users can review daily vocabulary, take tests, and monitor their progress in detail. Additionally, the AI-powered chat module allows users to practice English and enrich their learning experience.
+
+With its minimalist and user-friendly interface, PrepMate offers a seamless experience on both mobile and desktop devices. PrepMate is your most reliable assistant, guiding, motivating, and supporting you to achieve your academic goals.
+</details>
 
 ## Uygulama Özellikleri
 
