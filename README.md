@@ -37,19 +37,37 @@ The app facilitates the learning process with many features including vocabulary
 With its minimalist and user-friendly interface, PrepMate offers a seamless experience on both mobile and desktop devices. PrepMate is your most reliable assistant, guiding, motivating, and supporting you to achieve your academic goals.
 </details>
 
+
 ## Uygulama Özellikleri
 
-- 📚 Günlük kelime tekrarları ve testler
-- 🤖 AI destekli cümle açıklamaları ve çeviriler
-- ✍️ YDS/YÖKDİL formatında deneme sınavları
-- 🌌 Gökyüzü temalı takımyıldızı başarı sistemi
-- 📈 Kişisel ilerleme paneli
-- 🧩 Akademik deyim, bağlaç ve yapılarla gelişim
+- 📚 Günlük kelime tekrarları ve kapsamlı testler ile etkin öğrenme  
+- 🤖 Yapay zekâ destekli cümle açıklamaları ve anında çeviri imkanı  
+- ✍️ YDS ve YÖKDİL formatlarına uygun deneme sınavları  
+- 🌌 Gökyüzü temalı takımyıldızı başarı sistemi ile motive edici öğrenme deneyimi  
+- 📈 Kişisel ilerleme paneli sayesinde detaylı performans takibi  
+- 🧩 Akademik deyimler, bağlaçlar ve dil yapılarıyla dil becerilerinin geliştirilmesi  
+- 🌟 Zengin ve çeşitli öğrenme materyalleri  
+- 📱💻 Telefon, tablet ve bilgisayar gibi tüm cihazlarda uyumlu, kesintisiz kullanım  
+- 🌍 Her zaman, her yerde öğrenme imkânı — internet bağlantısı olan her ortamda erişilebilir
+
+</details>
+  <summary><h4>English explanation</h4></summary> 
+  
+- 📚 Effective learning with daily vocabulary reviews and comprehensive tests  
+- 🤖 AI-powered sentence explanations and instant translation capabilities  
+- ✍️ Practice exams formatted for YDS and YÖKDİL standards  
+- 🌌 Motivating learning experience with a sky-themed constellation achievement system  
+- 📈 Detailed performance tracking via personal progress dashboard  
+- 🧩 Development of language skills using academic idioms, conjunctions, and structures  
+- 🌟 Rich and diverse learning materials  
+- 📱💻 Compatible with all devices including phones, tablets, and computers for seamless usage  
+- 🌍 Learn anytime, anywhere — accessible wherever there is internet connectivity  
+</details>
 
 ## Hedef Kitle
- •Üniversite öğrencileri
-	•	YDS/YÖKDİL adayları
-	•	Akademik İngilizce öğrenmek isteyen herkes
+•Üniversite öğrencileri
+•YDS/YÖKDİL adayları
+•İngilizce öğrenmek isteyen herkes
 
 # Sprint Yol Haritamız
 
