@@ -155,7 +155,7 @@ const App = () => {
                     </div>
                 )}
                 <nav className="flex flex-col space-y-2">
-                <NavItem tabName= "questiontest" icon={<BrainCircuit className="mr-3" size={18} />} activeTab={actibetab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Soru Çözümü</NavItem>
+                <NavItem tabName= "questiontest" icon={<BrainCircuit className="mr-3" size={18} />} activeTab={activetab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Soru Çözümü</NavItem>
                 <NavItem tabName="dashboard" icon={<LayoutDashboard className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>İlerleme Paneli</NavItem>
                 <NavItem tabName="word" icon={<Component className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Kelime Karşılaştırma</NavItem>
                 <NavItem tabName="reading" icon={<BookOpen className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Okuma Alıştırması</NavItem>
