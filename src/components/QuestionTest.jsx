@@ -8,7 +8,7 @@ export default function QuestionTest() {
   const [explanation, setExplanation] = useState("");
 
   useEffect(() => {
-    fetch(process.env.PUBLIC_URL + "/data/questions.json")
+    fetch(process.env.PUBLIC_URL + "/questions.json")
       .then((res) => res.json())
       .then(setQuestions)
       .catch(() => {
