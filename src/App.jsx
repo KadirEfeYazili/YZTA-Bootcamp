@@ -112,7 +112,7 @@ const App = () => {
             case 'reading': return <ReadingPractice userProgress={userProgress} saveProgress={saveProgressToFirestore} />;
             case 'grammar': return <GrammarPractice userProgress={userProgress} saveProgress={saveProgressToFirestore} />;
             case 'mindmap': return <MindMapper saveProgress={saveProgressToFirestore} />;
-            case 'questiontest': return <QuestionTest >;
+            case 'questiontest': return <QuestionTest />;
             default: return <Dashboard userProgress={userProgress} handleRemoveLearnedWord={handleRemoveLearnedWord} />;
         }
     };
