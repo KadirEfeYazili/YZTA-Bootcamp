@@ -10,10 +10,8 @@ export default function QuestionTest() {
   useEffect(() => {
     fetch(process.env.PUBLIC_URL + "/data/questions.json")
       .then((res) => res.json())
-      .then(setQuestions)
-      .catch(() => {
-        console.error("Sorular yüklenemedi.");
-      });
+      .then((data) => setQuestions(data))
+      .catch((err) => console.error("JSON fetch error:", err));
   }, []);
 
   if (questions.length === 0) {
