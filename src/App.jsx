@@ -3,7 +3,6 @@ import { signInAnonymously, signInWithCustomToken, onAuthStateChanged } from 'fi
 import { doc, setDoc, onSnapshot, updateDoc, arrayUnion, arrayRemove, serverTimestamp } from 'firebase/firestore';
 import { GraduationCap, LayoutDashboard, Component, BookOpen, BrainCircuit, Map, Loader2, XCircle, Sun, Moon } from 'lucide-react'; // Sun, Moon eklendi
 import { auth, db, firebaseConfig } from './config/firebase';
-import QuestionTest from './components/QuestionTest';
 import Dashboard from './components/Dashboard';
 import WordComparer from './components/WordComparer';
 import ReadingPractice from './components/ReadingPractice';
@@ -112,7 +111,6 @@ const App = () => {
             case 'reading': return <ReadingPractice userProgress={userProgress} saveProgress={saveProgressToFirestore} />;
             case 'grammar': return <GrammarPractice userProgress={userProgress} saveProgress={saveProgressToFirestore} />;
             case 'mindmap': return <MindMapper saveProgress={saveProgressToFirestore} />;
-            case 'questiontest': return <QuestionTest />;
             default: return <Dashboard userProgress={userProgress} handleRemoveLearnedWord={handleRemoveLearnedWord} />;
         }
     };
@@ -155,7 +153,6 @@ const App = () => {
                     </div>
                 )}
                 <nav className="flex flex-col space-y-2">
-                <NavItem tabName= "questiontest" icon={<BrainCircuit className="mr-3" size={18} />} activeTab={activetab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Soru Çözümü</NavItem>
                 <NavItem tabName="dashboard" icon={<LayoutDashboard className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>İlerleme Paneli</NavItem>
                 <NavItem tabName="word" icon={<Component className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Kelime Karşılaştırma</NavItem>
                 <NavItem tabName="reading" icon={<BookOpen className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Okuma Alıştırması</NavItem>
@@ -201,4 +198,6 @@ const App = () => {
 };
 
 export default App;
+
+
 
