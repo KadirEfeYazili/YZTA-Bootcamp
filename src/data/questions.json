@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "question": "Which one is a synonym of 'obvious'?",
+    "options": ["Hidden", "Clear", "Complex", "Rare"],
+    "answer": "Clear"
+  },
+  {
+    "id": 2,
+    "question": "Which tense is used for an action happening now?",
+    "options": ["Present Simple", "Present Continuous", "Past Simple", "Future Simple"],
+    "answer": "Present Continuous"
+  }
+]
