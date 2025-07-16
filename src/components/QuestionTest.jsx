@@ -1,11 +1,24 @@
-import React, { useState } from "react";
-import questions from "../data/questions.json";
+import React, { useState, useEffect } from "react";
 
 export default function QuestionTest() {
+  const [questions, setQuestions] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState("");
   const [isCorrect, setIsCorrect] = useState(null);
   const [explanation, setExplanation] = useState("");
+
+  useEffect(() => {
+    fetch(process.env.PUBLIC_URL + "/data/questions.json")
+      .then((res) => res.json())
+      .then(setQuestions)
+      .catch(() => {
+        console.error("Sorular yüklenemedi.");
+      });
+  }, []);
+
+  if (questions.length === 0) {
+    return <div>Yükleniyor...</div>;
+  }
 
   const currentQuestion = questions[currentIndex];
 
