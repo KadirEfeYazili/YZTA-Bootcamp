@@ -10,6 +10,7 @@ export default function QuestionTest() {
   const currentQuestion = questions[currentIndex];
 
   const handleOptionClick = async (option) => {
+    if (selectedOption) return; // Tek sefer tıklanabilir
     setSelectedOption(option);
     const correct = option === currentQuestion.answer;
     setIsCorrect(correct);
@@ -23,24 +24,30 @@ export default function QuestionTest() {
     }
   };
 
-const fetchExplanation = async (prompt) => {
-  const apiKey = process.env.REACT_APP_GEMINI_API_KEY; // ← DÜZELTİLDİ
-  const response = await fetch(
-    "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" + apiKey,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
-      }),
+  const fetchExplanation = async (prompt) => {
+    const apiKey = process.env.REACT_APP_GEMINI_API_KEY;
+    if (!apiKey) {
+      return "API anahtarı bulunamadı.";
     }
-  );
-
-  const data = await response.json();
-  return data.candidates?.[0]?.content?.parts?.[0]?.text || "Açıklama alınamadı.";
-};
+    try {
+      const response = await fetch(
+        "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" + apiKey,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: prompt }] }],
+          }),
+        }
+      );
+      const data = await response.json();
+      return data.candidates?.[0]?.content?.parts?.[0]?.text || "Açıklama alınamadı.";
+    } catch (error) {
+      return "Açıklama alınırken hata oluştu.";
+    }
+  };
 
   const handleNext = () => {
     setSelectedOption("");
@@ -67,6 +74,7 @@ const fetchExplanation = async (prompt) => {
                   : "#f0f0f0",
               color: selectedOption === option ? "#fff" : "#333",
               cursor: selectedOption ? "default" : "pointer",
+              pointerEvents: selectedOption ? "none" : "auto",
             }}
           >
             {option}
@@ -130,3 +138,4 @@ const styles = {
     cursor: "pointer",
   },
 };
+
