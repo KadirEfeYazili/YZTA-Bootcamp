@@ -213,22 +213,12 @@ Birinci sprintte, fikir oturması, tasarımların yapılması ve API ekleme plan
   
   ![Toplantı Görselleri](https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint%201%20Toplant%C4%B1%20G%C3%B6rselleri.jpg)
   
-  <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-    <img src="assets/ToplantıGörselleri.jpg" width="200"/>
-    <img src="assets/meet1.jpeg" width="200"/>
-    <img src="assets/meet2.jpeg" width="200"/>
-    <img src="assets/meet3.jpeg" width="200"/>
-    <img src="assets/meet4.jpeg" width="200"/>
-  </div>
-  
 </details>
 </details>
 
 <details>
   <summary><h3>İkinci Sprint</h3></summary>
-## Sprint Yol Haritalarımız
 
-İkinci Sprint, ilk sprintte belirlenen temeller üzerine inşa edilerek, uygulamanın çekirdek özelliklerinin kodlanmasına ve kullanıcı deneyiminin geliştirilmesine odaklanacaktır. Bu sprintte, uygulamanın ana modüllerinin işlevselliği artırılacak ve kullanıcı etkileşimi zenginleştirilecektir.
 ---
 ## Kullanılan Teknolojiler
 
@@ -254,6 +244,8 @@ Birinci sprintte, fikir oturması, tasarımların yapılması ve API ekleme plan
 
 * Uygulamanın genel UI düzenlemesi ve açık tema eklenmesi
 ---
+İkinci Sprint, ilk sprintte belirlenen temeller üzerine inşa edilerek, uygulamanın çekirdek özelliklerinin kodlanmasına ve kullanıcı deneyiminin geliştirilmesine odaklanacaktır. Bu sprintte, uygulamanın ana modüllerinin işlevselliği artırılacak ve kullanıcı etkileşimi zenginleştirilecektir.
+
 ## Görev (Task) Tablosu
 
 Aşağıdaki tabloda, bu sprint içinde ele alınacak kullanıcı hikayeleri ve bunlara bağlı detaylı görevler yer almaktadır:
@@ -301,7 +293,11 @@ Aşağıdaki tabloda, bu sprint içinde ele alınacak kullanıcı hikayeleri ve 
 
 ## Puan Tamamlama Mantığı:
 
-Toplamda 1200 puanlık bir hedef belirlenmiştir. Birinci sprintte fikir oturması, tasarımların yapılması ve API ekleme planlandığı için 350 puan hedeflenmiş ve tamamlanmıştır. İkinci sprintte, kod yazma çalışmalarına yoğunlaşılacağı için 400 puan hedeflenmiştir. Üçüncü sprintte ise kalan görevlerin tamamlanması ve entegrasyon çalışmaları yapılacağından 450 puan hedefi konulmuştur.
+Toplamda 1200 puanlık bir hedef belirlenmiştir. 
+Birinci sprintte fikir oturması, tasarımların yapılması ve API ekleme planlandığı için 350 puan hedeflenmiş ve tamamlanmıştır. 
+İkinci sprintte, kod yazma çalışmalarına yoğunlaşılacağı için 400 puan hedeflenmiştir. 
+Üçüncü sprintte ise kalan görevlerin tamamlanması ve entegrasyon çalışmaları yapılacağından 450 puan hedefi konulmuştur.
+
 ---
 
 ## Sprint Gözden Geçirilmesi:
@@ -363,15 +359,31 @@ Kadir Efe Yazılı, Ebral Karabulut, Muhammet Berke Ağaya, Ebrar Ağralı, Nurc
   * Yeni modüllerin (planlayıcı, alışkanlık) detaylı kullanıcı akışları ve ekran tasarımları tamamlanacak.
 
   * Performans optimizasyonlarına daha fazla odaklanılacak.
----
-## Sprint 2 - App Screenshots
 
-## Sprint 2 - Sprint Board Update Screenshots
+<details>
 
-## Toplantı Görselleri
+  
+  <summary>Sprint 2 - App Screenshots (Dark Mode Integration, Chatbot Avatar Plugins  ) </summary>
+  
+  ![Uygulama Görüntüsü](https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint%202%20DarkMode%20Entegrasyonu.png)
+  ![Chatbot Görüntüsü](https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint%202%20Chatbot.png)
+  
 
----
+</details>
 
+<details>
+  <summary>Sprint 2 - Sprint Board Update Screenshots</summary>
+  
+  ![Sprint Yol Haritası](https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint%202%20Board%20Update%20Screenshots.png)
+</details>
+
+<details>
+  <summary>Sprint 2 - Toplantı Görselleri</summary>
+  
+  ![Toplantı Görselleri](https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint%202%20Toplant%C4%B1%20G%C3%B6rselleri.jpg)
+  
+</details>
+</details>
 
 
 Proje yönetim sürecimizi Trello üzerinden takip ediyoruz:  
