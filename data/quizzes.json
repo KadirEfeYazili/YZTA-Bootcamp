@@ -1,0 +1,43 @@
+[
+  {
+    "id": 1,
+    "category": "Grammar",
+    "question": "The report concludes sadly that ________ students have ________ knowledge of nuclear physics.",
+    "options": [
+      "few / little",
+      "a few / a little",
+      "much / few",
+      "a lot of / little",
+      "little / few"
+    ],
+    "answer": "few / little",
+    "explanationPrompt": "Explain why 'few / little' is the correct answer for the sentence: 'The report concludes sadly that ________ students have ________ knowledge of nuclear physics.' Focus on the negative connotation and the difference between countable and uncountable nouns."
+  },
+  {
+    "id": 2,
+    "category": "Vocabulary",
+    "question": "The committee ________ of twelve members, so it is a large group.",
+    "options": [
+      "comprises",
+      "consists",
+      "makes up",
+      "contains",
+      "includes"
+    ],
+    "answer": "consists",
+    "explanationPrompt": "Explain the grammatical difference and common usage between 'consists of' and 'comprises' in the context of the sentence: 'The committee ________ of twelve members.'"
+  },
+  {
+    "id": 3,
+    "category": "Grammar",
+    "question": "I wish I ________ harder for the exam. I might have passed.",
+    "options": [
+        "studied",
+        "had studied",
+        "would study",
+        "have studied"
+    ],
+    "answer": "had studied",
+    "explanationPrompt": "Explain why 'had studied' is the correct form for a past unreal conditional (a regret about the past) in the sentence: 'I wish I ________ harder for the exam.'"
+  }
+]
