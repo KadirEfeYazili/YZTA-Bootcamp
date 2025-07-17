@@ -226,12 +226,10 @@ Birinci sprintte, fikir oturması, tasarımların yapılması ve API ekleme plan
 
 <details>
   <summary><h3>İkinci Sprint</h3></summary>
-  # İkinci Sprint Yol Haritası
-
 ## Sprint Yol Haritalarımız
 
 İkinci Sprint, ilk sprintte belirlenen temeller üzerine inşa edilerek, uygulamanın çekirdek özelliklerinin kodlanmasına ve kullanıcı deneyiminin geliştirilmesine odaklanacaktır. Bu sprintte, uygulamanın ana modüllerinin işlevselliği artırılacak ve kullanıcı etkileşimi zenginleştirilecektir.
-
+---
 ## Kullanılan Teknolojiler
 
 * **Frontend:** React.js, Tailwind CSS, React Markdown
@@ -241,7 +239,7 @@ Birinci sprintte, fikir oturması, tasarımların yapılması ve API ekleme plan
 * **Backend & Hosting:** Firebase, Firebase API Key
 
 * **Versiyon Kontrol & Deploy:** GitHub, GitHub Pages, GitHub Actions
-
+---
 ## İkinci Versiyonda Olacaklar
 
 * Kullanıcı profili geliştirme ve detaylandırma
@@ -255,29 +253,32 @@ Birinci sprintte, fikir oturması, tasarımların yapılması ve API ekleme plan
 * Kelime öğretme ve test modüllerinin tamamlanması
 
 * Uygulamanın genel UI düzenlemesi ve açık tema eklenmesi
-
+---
 ## Görev (Task) Tablosu
 
 Aşağıdaki tabloda, bu sprint içinde ele alınacak kullanıcı hikayeleri ve bunlara bağlı detaylı görevler yer almaktadır:
 
-| **Görev (Task)** | **Tahmini Süre (Gün)** | **Puan (Story Point)** | **Sorumlu** | **Durum** | 
-| T2.5: Mevcut kullanıcı profilini detaylandırma ve düzenleme. | 2 | 5 | Frontend Ekibi | Başladı | 
-| T2.6: Günlük planlayıcı UI bileşenini oluşturma. | 3 | 8 | Frontend Ekibi | Başladı | 
-| T2.7: Takvim entegrasyonu için temel işlevsellik. | 2 | 5 | Backend Ekibi | Başladı | 
-| T2.8: Alışkanlık oluşturma/takip modülü UI tasarımı. | 2 | 5 | UI/UX Tasarımcı | Başladı | 
-| T2.9: Alışkanlık verilerini Firestore'a kaydetme. | 1 | 3 | Backend Ekibi | Başladı | 
-| T2.10: Görev listesi UI bileşenini geliştirme. | 2 | 5 | Frontend Ekibi | Başladı | 
-| T2.11: Görevleri Firebase'e kaydetme ve yönetme. | 1 | 3 | Backend Ekibi | Başladı | 
-| T2.12: Kelime öğretme modülü için yeni kelime setleri entegrasyonu. | 2 | 5 | Backend Ekibi | Başladı | 
-| T2.13: Kelime test modülünü tamamlama (farklı test türleri). | 3 | 8 | Frontend Ekibi | Başladı | 
-| T2.14: Uygulamaya açık tema seçeneği ekleme. | 1 | 3 | Frontend Ekibi | Başladı | 
-| T2.15: Genel UI/UX iyileştirmeleri ve tutarlılık kontrolleri. | 2 | 5 | UI/UX Tasarımcı | Başladı | 
-| T2.16: Gemini API'dan gelen yanıtlar için gelişmiş biçimlendirme. | 1 | 3 | Frontend Ekibi | Başladı | 
-| T2.17: Hata yönetimi ve kullanıcıya geri bildirim mekanizmaları. | 1 | 3 | Developer | Başladı | 
-| T2.18: Performans optimizasyonları (ilk inceleme). | 1 | 3 | Developer | Başladı | 
-| T2.19: GitHub Actions ile sürekli entegrasyon/dağıtım iyileştirmeleri. | 1 | 3 | Developer | Başladı | 
-| T2.20: Sprint sonu dokümantasyon ve sunum hazırlığı. | 0.5 | 2 | Proje Yöneticisi | Planlandı | 
-| T2.21: Sprint Review ve Retrospective toplantılarını düzenleme. | 1 | 2 | Scrum Master | Planlandı | 
+|     Görev (Task)                                                      |  Tahmini Süre (Gün)   |  Puan (Story Point)   |  Sorumlu          |  Durum  |
+| --------------------------------------------------------------------- | --------------------- | --------------------- | ---------------- | --------- |
+| T2.5: Mevcut kullanıcı profilini detaylandırma ve düzenleme           | 2                     | 5                     | Frontend Ekibi   | Başladı   |
+| T2.6: Günlük planlayıcı UI bileşenini oluşturma                       | 3                     | 8                     | Frontend Ekibi   | Başladı   |
+| T2.7: Takvim entegrasyonu için temel işlevsellik                      | 2                     | 5                     | Backend Ekibi    | Başladı   |
+| T2.8: Alışkanlık oluşturma/takip modülü UI tasarımı                   | 2                     | 5                     | UI/UX Tasarımcı  | Başladı   |
+| T2.9: Alışkanlık verilerini Firestore'a kaydetme                      | 1                     | 3                     | Backend Ekibi    | Başladı   |
+| T2.10: Görev listesi UI bileşenini geliştirme                         | 2                     | 5                     | Frontend Ekibi   | Başladı   |
+| T2.11: Görevleri Firebase'e kaydetme ve yönetme                       | 1                     | 3                     | Backend Ekibi    | Başladı   |
+| T2.12: Kelime öğretme modülü için yeni kelime setleri entegrasyonu    | 2                     | 5                     | Backend Ekibi    | Başladı   |
+| T2.13: Kelime test modülünü tamamlama (farklı test türleri)           | 3                     | 8                     | Frontend Ekibi   | Başladı   |
+| T2.14: Uygulamaya açık tema seçeneği ekleme                           | 1                     | 3                     | Frontend Ekibi   | Başladı   |
+| T2.15: Genel UI/UX iyileştirmeleri ve tutarlılık kontrolleri          | 2                     | 5                     | UI/UX Tasarımcı  | Başladı   |
+| T2.16: Gemini API'dan gelen yanıtlar için gelişmiş biçimlendirme      | 1                     | 3                     | Frontend Ekibi   | Başladı   |
+| T2.17: Hata yönetimi ve kullanıcıya geri bildirim mekanizmaları       | 1                     | 3                     | Developer        | Başladı   |
+| T2.18: Performans optimizasyonları (ilk inceleme)                     | 1                     | 3                     | Developer        | Başladı   |
+| T2.19: GitHub Actions ile sürekli entegrasyon/dağıtım iyileştirmeleri | 1                     | 3                     | Developer        | Başladı   |
+| T2.20: Sprint sonu dokümantasyon ve sunum hazırlığı                   | 0.5                   | 2                     | Proje Yöneticisi | Planlandı |
+| T2.21: Sprint Review ve Retrospective toplantılarını düzenleme        | 1                     | 2                     | Scrum Master     | Planlandı |
+
+---
 
 ## Sprint Notları
 
@@ -296,10 +297,12 @@ Aşağıdaki tabloda, bu sprint içinde ele alınacak kullanıcı hikayeleri ve 
 ## Sprint İçinde Tamamlanması Beklenen Puan:
 
 400 Puan
+---
 
 ## Puan Tamamlama Mantığı:
 
 Toplamda 1200 puanlık bir hedef belirlenmiştir. Birinci sprintte fikir oturması, tasarımların yapılması ve API ekleme planlandığı için 350 puan hedeflenmiş ve tamamlanmıştır. İkinci sprintte, kod yazma çalışmalarına yoğunlaşılacağı için 400 puan hedeflenmiştir. Üçüncü sprintte ise kalan görevlerin tamamlanması ve entegrasyon çalışmaları yapılacağından 450 puan hedefi konulmuştur.
+---
 
 ## Sprint Gözden Geçirilmesi:
 
@@ -319,6 +322,7 @@ Toplamda 1200 puanlık bir hedef belirlenmiştir. Birinci sprintte fikir oturmas
 
 Kadir Efe Yazılı, Ebral Karabulut, Muhammet Berke Ağaya, Ebrar Ağralı, Nurcan Düzkaya
 
+---
 ## Sprint Retrospektifi:
 
 * **Ne İyi Gitti?**
@@ -330,6 +334,8 @@ Kadir Efe Yazılı, Ebral Karabulut, Muhammet Berke Ağaya, Ebrar Ağralı, Nurc
   * Firebase veri modellemesindeki önceki kararların gözden geçirilmesi ve iyileştirilmesi faydalı oldu.
 
   * Günlük UI düzenlemesi ve açık tema eklenmesi konusunda iyi bir başlangıç yapıldı.
+ 
+---
 
 * **Ne Geliştirilebilir?**
 
@@ -338,6 +344,7 @@ Kadir Efe Yazılı, Ebral Karabulut, Muhammet Berke Ağaya, Ebrar Ağralı, Nurc
   * Kullanıcı geri bildirimlerinin daha erken aşamalarda toplanması ve değerlendirilmesi için bir mekanizma geliştirilebilir.
 
   * Yeni özelliklerin (günlük planlayıcı, alışkanlık takibi) kullanıcı akışları daha net tanımlanmalıydı.
+---
 
 * **Öğrenilen Dersler:**
 
@@ -346,6 +353,8 @@ Kadir Efe Yazılı, Ebral Karabulut, Muhammet Berke Ağaya, Ebrar Ağralı, Nurc
   * Erken ve sürekli ekip katılımı, projenin ilerlemesi için kritik öneme sahiptir.
 
   * UI/UX iyileştirmeleri, kullanıcı deneyimi için sürekli bir çaba gerektirir.
+    
+---
 
 * **Eylem Maddeleri:**
 
@@ -354,14 +363,14 @@ Kadir Efe Yazılı, Ebral Karabulut, Muhammet Berke Ağaya, Ebrar Ağralı, Nurc
   * Yeni modüllerin (planlayıcı, alışkanlık) detaylı kullanıcı akışları ve ekran tasarımları tamamlanacak.
 
   * Performans optimizasyonlarına daha fazla odaklanılacak.
-
+---
 ## Sprint 2 - App Screenshots
 
 ## Sprint 2 - Sprint Board Update Screenshots
 
 ## Toplantı Görselleri
 
-
+---
 
 
 
