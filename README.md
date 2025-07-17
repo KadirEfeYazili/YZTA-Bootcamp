@@ -197,19 +197,21 @@ Birinci sprintte, fikir oturması, tasarımların yapılması ve API ekleme plan
   
   <summary>Sprint 1 - App Screenshots</summary>
   
-  ![Uygulama Görüntüsü](./assets/UygulamaGörüntüsü.png)
+  ![Uygulama Görüntüsü](ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint 1 App Screenshot.png)
 
 </details>
 
 <details>
   <summary>Sprint 1 - Sprint Board Update Screenshots</summary>
   
-  ![Sprint Yol Haritası](./assets/SprintListesi.jpg)
+  ![Sprint Yol Haritası](ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint 1 Board Update Screenshots.jpg)
 
 </details>
 
 <details>
   <summary>Toplantı Görselleri</summary>
+  ![Toplantı Görselleri](ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint 1 Toplantı Görselleri.jpg)
+  
   <div style="display: flex; gap: 10px; flex-wrap: wrap;">
     <img src="assets/ToplantıGörselleri.jpg" width="200"/>
     <img src="assets/meet1.jpeg" width="200"/>
