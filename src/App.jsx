@@ -10,6 +10,7 @@ import GrammarPractice from './components/GrammarPractice';
 import MindMapper from './components/MindMapper';
 import AIChat from './components/AIChat';
 import NavItem from './components/NavItem';
+import QuizComponent from './components/QuizComponent'; //quizcomponent import edildi
 
 const App = () => {
     const [userId, setUserId] = useState(null);
@@ -111,6 +112,7 @@ const App = () => {
             case 'reading': return <ReadingPractice userProgress={userProgress} saveProgress={saveProgressToFirestore} />;
             case 'grammar': return <GrammarPractice userProgress={userProgress} saveProgress={saveProgressToFirestore} />;
             case 'mindmap': return <MindMapper saveProgress={saveProgressToFirestore} />;
+            case 'quiz': return <QuizComponent />;  // <-- QuizComponent eklendi
             default: return <Dashboard userProgress={userProgress} handleRemoveLearnedWord={handleRemoveLearnedWord} />;
         }
     };
@@ -158,6 +160,7 @@ const App = () => {
                 <NavItem tabName="reading" icon={<BookOpen className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Okuma Alıştırması</NavItem>
                 <NavItem tabName="grammar" icon={<BrainCircuit className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Dilbilgisi</NavItem>
                 <NavItem tabName="mindmap" icon={<Map className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Akıl Haritası</NavItem>
+                <NavItem tabName="quiz" icon={<GraduationCap className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Quiz</NavItem>  
                 </nav>
             </aside>
 
