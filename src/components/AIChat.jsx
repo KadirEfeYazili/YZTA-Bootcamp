@@ -53,7 +53,7 @@ const AIChat = ({ saveProgress }) => {
                         
                         {message.role === 'ai' && (
                             <img 
-                                src="/images/BaykusAvatar.png" // Avatar baykuş resmi eklendi
+                                src={`${process.env.PUBLIC_URL}/images/BaykusAvatar.png`}  // Avatar baykuş resmi eklendi
                                 alt="AI asistanı avatarı"
                                 className="w-10 h-10 rounded-full flex-shrink-0 object-cover"
                             />
