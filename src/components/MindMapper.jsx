@@ -1,61 +1,142 @@
 import React, { useState } from 'react';
-import { Map, Loader2, Image as ImageIcon } from 'lucide-react';
+import { Map, Loader2, PlusCircle } from 'lucide-react'; 
 import ReactMarkdown from 'react-markdown';
-import { arrayUnion, serverTimestamp } from 'firebase/firestore';
+import { arrayUnion, serverTimestamp } from 'firebase/firestore'; 
 
-const MindMapper = ({ saveProgress }) => {
+// MindMapper bileşeni, saveProgress ve userProgress proplarını App.jsx'ten alacak
+const MindMapper = ({ saveProgress, userProgress }) => { 
     const [topic, setTopic] = useState('');
     const [textResult, setTextResult] = useState('');
-    const [imageUrl, setImageUrl] = useState('');
     const [textLoading, setTextLoading] = useState(false);
-    const [imageLoading, setImageLoading] = useState(false);
     const [error, setError] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
 
+    // Öğrenilen kelimeler listesini userProgress prop'undan al
+    const learnedWords = userProgress?.learnedWords || [];
+
+    /**
+     * Kullanıcının konusuna göre akıl haritası metni oluşturmayı yönetir.
+     * Hiyerarşik bir metin oluşturmak için gemini-2.0-flash modelini kullanır.
+     */
     const handleGenerateText = async () => {
         if (!topic.trim()) { setError('Lütfen bir konu girin.'); return; }
         setTextLoading(true);
-        setTextResult(''); setImageUrl(''); setError('');
+        setTextResult(''); // Önceki metin sonucunu temizle
+        setError(''); // Önceki hataları temizle
+
         const prompt = `"${topic}" konusu hakkında hiyerarşik bir akıl haritası metni oluştur. Format: Ana Konu: ... - Başlık 1...`;
+
         try {
             const payload = { contents: [{ role: 'user', parts: [{ text: prompt }] }] };
-            const apiKey = process.env.REACT_APP_GEMINI_API_KEY;
+            const apiKey = "AIzaSyCSuzlRr7AmF59CsaNC9S5Asa-U9Rpx7Mo"; 
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-            const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-            if (!response.ok) throw new Error(`API Hatası: ${response.status}`);
+
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                throw new Error(`API Hatası: ${response.status} - ${response.statusText}`);
+            }
+
             const result = await response.json();
             const generatedText = result.candidates?.[0]?.content?.parts?.[0]?.text || 'Metin oluşturulamadı.';
             setTextResult(generatedText);
 
-            // Log activity
-            await saveProgress({ activities: arrayUnion({ text: `"${topic}" konusunda akıl haritası metni oluşturdunuz.`, timestamp: serverTimestamp() }) });
+            // Etkinliği Firestore'a kaydet
+            await saveProgress({ 
+                activities: arrayUnion({ 
+                    text: `"${topic}" konusunda akıl haritası metni oluşturdunuz.`, 
+                    timestamp: new Date() 
+                }) 
+            });
 
-        } catch (err) { setError(`Bir hata oluştu: ${err.message}`); } finally { setTextLoading(false); }
+        } catch (err) {
+            setError(`Bir hata oluştu: ${err.message}`);
+        } finally {
+            setTextLoading(false); 
+        }
     };
 
-    const handleVisualize = async () => {
-        if (!textResult) return;
-        setImageLoading(true); setImageUrl(''); setError('');
-        const prompt = `Create a mind map diagram based on this text. Use a light theme with a soft lilac background (#f5f3ff). The central topic should be prominent, with elegant, curved, deep purple lines branching out to sub-topics. Nodes should be pill-shaped with a white background and have clear, dark purple text inside. Make it look like a modern, clean data visualization. Text: "${textResult}"`;
+    /**
+     * Mevcut konuyu öğrenilen kelimeler listesine ekler.
+     */
+    const handleMarkAsLearned = async () => {
+        const topicToMark = topic.trim().toLowerCase();
+
+        console.log('handleMarkAsLearned çağrıldı. Konu:', topicToMark);
+        console.log('Mevcut öğrenilen kelimeler:', learnedWords);
+        console.log('userProgress:', userProgress);
+        console.log('saveProgress fonksiyonu:', saveProgress);
+
+        // ✅ Kullanıcı birden fazla kelime girerse engelle
+        if (topicToMark.includes(",") || topicToMark.includes(" ")) {
+            setError('Lütfen aynı anda sadece bir kelime girin (boşluk ve virgül kullanmayın).');
+            return;
+        }
+
+        if (!topicToMark) {
+            setError('Lütfen öğrenildi olarak işaretlemek için bir konu girin.');
+            return;
+        }
+
+        if (!saveProgress) {
+            setError('saveProgress fonksiyonu tanımlı değil.');
+            console.error('saveProgress fonksiyonu undefined!');
+            return;
+        }
+
+        if (!userProgress) {
+            console.log('userProgress undefined, boş obje ile devam ediliyor...');
+        }
+
+        // ✅ learnedWords içinde varsa ekleme
+        if (learnedWords.includes(topicToMark)) {
+            setError(`"${topicToMark}" konusu zaten öğrenilenler listenizde.`);
+            return;
+        }
+
         try {
-            const payload = { instances: [{ prompt }], parameters: { "sampleCount": 1 } };
-            const apiKey = process.env.REACT_APP_GEMINI_API_KEY;
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict?key=${apiKey}`;
-            const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-            if (!response.ok) throw new Error(`API Hatası: ${response.status}`);
-            const result = await response.json();
-            const generatedImageUrl = `data:image/png;base64,${result.predictions?.[0]?.bytesBase64Encoded}`;
-            setImageUrl(generatedImageUrl);
-
-            // Log activity
-            await saveProgress({ activities: arrayUnion({ text: `"${topic}" konusunda bir akıl haritası görseli oluşturdunuz.`, timestamp: serverTimestamp() }) });
-
-        } catch (err) { setError(`Resim oluşturulurken hata: ${err.message}`); } finally { setImageLoading(false); }
+            console.log('Firestore\'a kaydediliyor:', topicToMark);
+            
+            const updateData = {
+                learnedWords: arrayUnion(topicToMark),
+                activities: arrayUnion({
+                    text: `"${topicToMark}" konusunu öğrenilenlere eklediniz.`,
+                    timestamp: new Date()
+                }),
+            };
+            
+            console.log('Kaydetme verisi:', updateData);
+            
+            const result = await saveProgress(updateData);
+            console.log('saveProgress sonucu:', result);
+            
+            setError(''); // Hata mesajını temizle
+            console.log('Başarıyla kaydedildi:', topicToMark);
+            
+            // Başarı mesajı göster
+            setSuccessMessage(`"${topicToMark}" başarıyla öğrenilenlere eklendi!`);
+            setError(''); 
+            
+            // Başarı mesajını 3 saniye sonra temizle
+            setTimeout(() => {
+                setSuccessMessage('');
+            }, 3000);
+            
+        } catch (saveError) {
+            console.error("Kelime kaydedilirken hata:", saveError);
+            console.error("Hata detayları:", saveError.stack);
+            setError(`Konu kaydedilirken hata oluştu: ${saveError.message}`);
+        }
     };
 
     return (
         <div className="p-8 animate-fade-in">
-            <h2 className="text-3xl font-bold text-slate-800 dark:text-slate-100 mb-6 flex items-center">
-                <Map className="mr-3 text-rose-600 dark:text-rose-400" size={32} />
+            <h2 className="text-3xl font-bold text-slate-800 mb-6 flex items-center">
+                <Map className="mr-3 text-rose-600" size={32} />
                 Akıl Haritası Oluşturucu
             </h2>
             <div className="flex flex-col sm:flex-row gap-4 mb-4">
@@ -64,48 +145,48 @@ const MindMapper = ({ saveProgress }) => {
                     value={topic}
                     onChange={(e) => setTopic(e.target.value)}
                     placeholder="Akıl haritası konusu"
-                    className="flex-grow bg-white dark:bg-slate-800 border border-violet-200 dark:border-violet-700 rounded-lg p-3 text-slate-700 dark:text-slate-300 focus:ring-2 focus:ring-rose-400 focus:outline-none transition-all shadow-sm"
+                    className="flex-grow bg-white border border-violet-200 rounded-lg p-3 text-slate-700 focus:ring-2 focus:ring-rose-400 focus:outline-none transition-all shadow-sm"
                 />
                 <button
                     onClick={handleGenerateText}
                     disabled={textLoading}
-                    className="bg-rose-500 hover:bg-rose-600 dark:bg-rose-700 dark:hover:bg-rose-800 text-white font-bold py-3 px-6 rounded-lg flex items-center justify-center transition-all shadow-md hover:shadow-lg disabled:bg-rose-300 disabled:dark:bg-rose-900"
+                    className="bg-rose-500 hover:bg-rose-600 text-white font-bold py-3 px-6 rounded-lg flex items-center justify-center transition-all shadow-md hover:shadow-lg disabled:bg-rose-300"
                 >
                     {textLoading ? <Loader2 className="animate-spin mr-2" /> : <Map className="mr-2" />} Harita Metni Oluştur
                 </button>
             </div>
-            {error && (
-                <div className="bg-red-100 dark:bg-red-900 border border-red-200 dark:border-red-700 text-red-700 dark:text-red-400 px-4 py-3 rounded-lg mb-4">
-                    {error}
-                </div>
-            )}
+            {error && <div className="bg-red-100 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4">{error}</div>}
+            {successMessage && <div className="bg-green-100 border border-green-200 text-green-700 px-4 py-3 rounded-lg mb-4">{successMessage}</div>}
+
             {textResult && (
-                <div className="mt-6 bg-white dark:bg-slate-900 border border-violet-200 dark:border-violet-700 rounded-xl p-6 shadow-lg">
-                    <h3 className="text-xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Oluşturulan Metin</h3>
-                    <div className="prose max-w-none text-slate-600 dark:text-slate-400 leading-relaxed whitespace-pre-wrap mb-4">
+                <div className="mt-6 bg-white border border-violet-200 rounded-xl p-6 shadow-lg">
+                    <h3 className="text-xl font-semibold text-slate-800 mb-2">Oluşturulan Metin</h3>
+                    <div className="prose max-w-none text-slate-600 leading-relaxed whitespace-pre-wrap mb-4">
                         <ReactMarkdown>{textResult}</ReactMarkdown>
                     </div>
-                    <div className="flex justify-center">
+                    {/* Öğrenildi Olarak İşaretle butonu eklendi */}
+                    <div className="flex justify-end mt-4">
                         <button
-                            onClick={handleVisualize}
-                            disabled={imageLoading}
-                            className="bg-violet-600 hover:bg-violet-700 dark:bg-violet-700 dark:hover:bg-violet-800 text-white font-bold py-2 px-6 rounded-full flex items-center transition-colors shadow hover:shadow-md disabled:bg-violet-300 disabled:dark:bg-violet-900"
+                            onClick={handleMarkAsLearned}
+                            disabled={!topic.trim() || learnedWords.includes(topic.trim().toLowerCase())}
+                            className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded-full flex items-center transition-colors shadow hover:shadow-md disabled:bg-teal-200 disabled:cursor-not-allowed"
                         >
-                            {imageLoading ? <Loader2 className="animate-spin mr-2" /> : <ImageIcon className="mr-2" />} Görselleştir
+                            <PlusCircle className="mr-2" /> Öğrenildi Olarak İşaretle
                         </button>
                     </div>
                 </div>
             )}
-            {imageLoading && (
-                <div className="mt-6 flex justify-center items-center h-80 bg-violet-100/50 dark:bg-violet-900/50 rounded-lg border border-violet-200 dark:border-violet-700">
-                    <Loader2 className="animate-spin text-violet-500 dark:text-violet-300" size={48} />
-                </div>
-            )}
-            {imageUrl && (
+            
+            {/* Öğrenilen Konular bölümü (isteğe bağlı, Dashboard'da zaten var) */}
+            {learnedWords.length > 0 && (
                 <div className="mt-6">
-                    <h3 className="text-xl font-semibold text-slate-800 dark:text-slate-100 mb-4 text-center">Görselleştirilmiş Akıl Haritası</h3>
-                    <div className="bg-violet-100/50 dark:bg-violet-900/50 p-4 rounded-lg border border-violet-200 dark:border-violet-700">
-                        <img src={imageUrl} alt="Oluşturulan Akıl Haritası" className="rounded-md shadow-lg w-full h-auto mx-auto" />
+                    <h3 className="text-xl font-semibold text-slate-800 mb-4 text-center">Öğrenilen Konular</h3>
+                    <div className="flex flex-wrap gap-3 justify-center">
+                        {learnedWords.map((word, index) => (
+                            <span key={index} className="bg-violet-100 text-violet-800 px-4 py-2 rounded-full text-sm font-medium shadow-sm">
+                                {word}
+                            </span>
+                        ))}
                     </div>
                 </div>
             )}
@@ -113,6 +194,4 @@ const MindMapper = ({ saveProgress }) => {
     );
 };
 
-
-export default MindMapper; 
-
+export default MindMapper;
