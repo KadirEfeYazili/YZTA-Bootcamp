@@ -210,6 +210,7 @@ Birinci sprintte, fikir oturması, tasarımların yapılması ve API ekleme plan
 
 <details>
   <summary>Toplantı Görselleri</summary>
+  
   ![Toplantı Görselleri](https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint%201%20Toplant%C4%B1%20G%C3%B6rselleri.jpg)
   
   <div style="display: flex; gap: 10px; flex-wrap: wrap;">
