@@ -224,7 +224,146 @@ Birinci sprintte, fikir oturması, tasarımların yapılması ve API ekleme plan
 </details>
 </details>
 
-## Daily Scrum
+<details>
+  <summary><h3>İkinci Sprint</h3></summary>
+  # İkinci Sprint Yol Haritası
+
+## Sprint Yol Haritalarımız
+
+İkinci Sprint, ilk sprintte belirlenen temeller üzerine inşa edilerek, uygulamanın çekirdek özelliklerinin kodlanmasına ve kullanıcı deneyiminin geliştirilmesine odaklanacaktır. Bu sprintte, uygulamanın ana modüllerinin işlevselliği artırılacak ve kullanıcı etkileşimi zenginleştirilecektir.
+
+## Kullanılan Teknolojiler
+
+* **Frontend:** React.js, Tailwind CSS, React Markdown
+
+* **API:** Google Gemini API
+
+* **Backend & Hosting:** Firebase, Firebase API Key
+
+* **Versiyon Kontrol & Deploy:** GitHub, GitHub Pages, GitHub Actions
+
+## İkinci Versiyonda Olacaklar
+
+* Kullanıcı profili geliştirme ve detaylandırma
+
+* Günlük planlayıcı ve takvim entegrasyonu
+
+* Alışkanlık oluşturma/takip modülü
+
+* Görev listesi/hatırlatıcı özellikleri
+
+* Kelime öğretme ve test modüllerinin tamamlanması
+
+* Uygulamanın genel UI düzenlemesi ve açık tema eklenmesi
+
+## Görev (Task) Tablosu
+
+Aşağıdaki tabloda, bu sprint içinde ele alınacak kullanıcı hikayeleri ve bunlara bağlı detaylı görevler yer almaktadır:
+
+| **Görev (Task)** | **Tahmini Süre (Gün)** | **Puan (Story Point)** | **Sorumlu** | **Durum** | 
+| T2.5: Mevcut kullanıcı profilini detaylandırma ve düzenleme. | 2 | 5 | Frontend Ekibi | Başladı | 
+| T2.6: Günlük planlayıcı UI bileşenini oluşturma. | 3 | 8 | Frontend Ekibi | Başladı | 
+| T2.7: Takvim entegrasyonu için temel işlevsellik. | 2 | 5 | Backend Ekibi | Başladı | 
+| T2.8: Alışkanlık oluşturma/takip modülü UI tasarımı. | 2 | 5 | UI/UX Tasarımcı | Başladı | 
+| T2.9: Alışkanlık verilerini Firestore'a kaydetme. | 1 | 3 | Backend Ekibi | Başladı | 
+| T2.10: Görev listesi UI bileşenini geliştirme. | 2 | 5 | Frontend Ekibi | Başladı | 
+| T2.11: Görevleri Firebase'e kaydetme ve yönetme. | 1 | 3 | Backend Ekibi | Başladı | 
+| T2.12: Kelime öğretme modülü için yeni kelime setleri entegrasyonu. | 2 | 5 | Backend Ekibi | Başladı | 
+| T2.13: Kelime test modülünü tamamlama (farklı test türleri). | 3 | 8 | Frontend Ekibi | Başladı | 
+| T2.14: Uygulamaya açık tema seçeneği ekleme. | 1 | 3 | Frontend Ekibi | Başladı | 
+| T2.15: Genel UI/UX iyileştirmeleri ve tutarlılık kontrolleri. | 2 | 5 | UI/UX Tasarımcı | Başladı | 
+| T2.16: Gemini API'dan gelen yanıtlar için gelişmiş biçimlendirme. | 1 | 3 | Frontend Ekibi | Başladı | 
+| T2.17: Hata yönetimi ve kullanıcıya geri bildirim mekanizmaları. | 1 | 3 | Developer | Başladı | 
+| T2.18: Performans optimizasyonları (ilk inceleme). | 1 | 3 | Developer | Başladı | 
+| T2.19: GitHub Actions ile sürekli entegrasyon/dağıtım iyileştirmeleri. | 1 | 3 | Developer | Başladı | 
+| T2.20: Sprint sonu dokümantasyon ve sunum hazırlığı. | 0.5 | 2 | Proje Yöneticisi | Planlandı | 
+| T2.21: Sprint Review ve Retrospective toplantılarını düzenleme. | 1 | 2 | Scrum Master | Planlandı | 
+
+## Sprint Notları
+
+* Tüm ekip üyelerinin kod yazma sürecine aktif olarak dahil olması kararlaştırıldı.
+
+* Uygulamanın genel UI düzenlemesi ve açık tema eklenmesi bu sprintte önceliklendirildi.
+
+* Kelime öğretme ve test modüllerinin bu sprintte tamamlanması hedeflendi.
+
+* Yapay zeka eklentisi için ücretsiz Gemini API entegrasyonuna devam edildi.
+
+* Günlük kısmı UI düzenlemelerine ağırlık verildi.
+
+* Sprint boyunca günlük Scrum toplantıları ve Trello panosu güncellemeleri düzenli olarak sürdürüldü.
+
+## Sprint İçinde Tamamlanması Beklenen Puan:
+
+400 Puan
+
+## Puan Tamamlama Mantığı:
+
+Toplamda 1200 puanlık bir hedef belirlenmiştir. Birinci sprintte fikir oturması, tasarımların yapılması ve API ekleme planlandığı için 350 puan hedeflenmiş ve tamamlanmıştır. İkinci sprintte, kod yazma çalışmalarına yoğunlaşılacağı için 400 puan hedeflenmiştir. Üçüncü sprintte ise kalan görevlerin tamamlanması ve entegrasyon çalışmaları yapılacağından 450 puan hedefi konulmuştur.
+
+## Sprint Gözden Geçirilmesi:
+
+* İkinci sprintte, kullanıcı profili geliştirme, günlük planlayıcı, alışkanlık takip ve görev listesi gibi temel modüllerin kodlanmasına başlandı.
+
+* Kelime öğretme ve test modüllerinin geliştirilmesinde önemli ilerleme kaydedildi.
+
+* UI/UX ekibi, açık tema ve genel arayüz iyileştirmeleri üzerinde çalıştı.
+
+* Firebase entegrasyonları, yeni veri yapıları için genişletildi.
+
+* Takım içi iş birliği ve iletişim, kod yazma sürecine tüm üyelerin dahil olmasıyla daha da güçlendi.
+
+* Sürekli entegrasyon ve dağıtım süreçleri gözden geçirildi ve iyileştirmeler yapıldı.
+
+## Sprint Gözden Geçirme Katılımcıları:
+
+Kadir Efe Yazılı, Ebral Karabulut, Muhammet Berke Ağaya, Ebrar Ağralı, Nurcan Düzkaya
+
+## Sprint Retrospektifi:
+
+* **Ne İyi Gitti?**
+
+  * Tüm ekip üyelerinin kod yazma sürecine erken dahil olması, bilgi paylaşımını ve verimliliği artırdı.
+
+  * Kelime öğretme ve test modüllerinin geliştirilmesi planlandığı gibi ilerledi.
+
+  * Firebase veri modellemesindeki önceki kararların gözden geçirilmesi ve iyileştirilmesi faydalı oldu.
+
+  * Günlük UI düzenlemesi ve açık tema eklenmesi konusunda iyi bir başlangıç yapıldı.
+
+* **Ne Geliştirilebilir?**
+
+  * API entegrasyonlarında olası gecikmeler için daha detaylı risk analizi ve yedek planlar oluşturulmalı.
+
+  * Kullanıcı geri bildirimlerinin daha erken aşamalarda toplanması ve değerlendirilmesi için bir mekanizma geliştirilebilir.
+
+  * Yeni özelliklerin (günlük planlayıcı, alışkanlık takibi) kullanıcı akışları daha net tanımlanmalıydı.
+
+* **Öğrenilen Dersler:**
+
+  * Karmaşık entegrasyonlar için daha fazla zaman ve detaylı planlama ayrılmalı.
+
+  * Erken ve sürekli ekip katılımı, projenin ilerlemesi için kritik öneme sahiptir.
+
+  * UI/UX iyileştirmeleri, kullanıcı deneyimi için sürekli bir çaba gerektirir.
+
+* **Eylem Maddeleri:**
+
+  * Bir sonraki sprintte kullanıcı geri bildirimlerini toplamak için bir prototip test planı oluşturulacak.
+
+  * Yeni modüllerin (planlayıcı, alışkanlık) detaylı kullanıcı akışları ve ekran tasarımları tamamlanacak.
+
+  * Performans optimizasyonlarına daha fazla odaklanılacak.
+
+## Sprint 2 - App Screenshots
+
+## Sprint 2 - Sprint Board Update Screenshots
+
+## Toplantı Görselleri
+
+
+
+
 
 Proje yönetim sürecimizi Trello üzerinden takip ediyoruz:  
 [🔗 Trello Board](https://trello.com/b/8fP9S0KF/bootcamp)
