@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Send, Loader2, XCircle } from 'lucide-react';
+import { Send, Loader2 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { arrayUnion, serverTimestamp } from 'firebase/firestore';
 
@@ -20,7 +20,7 @@ const AIChat = ({ saveProgress }) => {
 
         try {
             const payload = { contents: [{ role: 'user', parts: [{ text: userPrompt }] }] };
-            const apiKey = process.env.REACT_APP_GEMINI_API_KEY;
+            const apiKey = ""; // Bu anahtarın güvenli bir şekilde yönetildiği varsayılıyor
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
             const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
             if (!response.ok) throw new Error(`API Hatası: ${response.status}`);
@@ -28,7 +28,6 @@ const AIChat = ({ saveProgress }) => {
             const aiResponse = result.candidates?.[0]?.content?.parts?.[0]?.text || 'Üzgünüm, yanıt oluşturulamadı.';
             setChatHistory(prev => [...prev, { role: 'ai', text: aiResponse }]);
 
-            // Log activity
             await saveProgress({ activities: arrayUnion({ text: `AI Asistanına bir soru sordunuz: "${userPrompt.substring(0, 50)}${userPrompt.length > 50 ? '...' : ''}"`, timestamp: serverTimestamp() }) });
 
         } catch (err) {
@@ -50,7 +49,16 @@ const AIChat = ({ saveProgress }) => {
 
             <div className="flex-1 bg-white dark:bg-slate-800 border border-violet-200 dark:border-violet-700 rounded-xl shadow-inner p-4 mb-4 overflow-y-auto flex flex-col-reverse custom-scrollbar">
                 {chatHistory.slice().reverse().map((message, index) => (
-                    <div key={index} className={`mb-4 flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                    <div key={index} className={`mb-4 flex items-end gap-3 ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                        
+                        {message.role === 'ai' && (
+                            <img 
+                                src="/images/BaykusAvatar.png" // Avatar baykuş resmi eklendi
+                                alt="AI asistanı avatarı"
+                                className="w-10 h-10 rounded-full flex-shrink-0 object-cover"
+                            />
+                        )}
+
                         <div className={`inline-block p-3 rounded-lg max-w-[80%] prose
                             ${message.role === 'user' 
                                 ? 'bg-violet-600 text-white rounded-br-none dark:bg-violet-700' 
@@ -93,3 +101,4 @@ const AIChat = ({ saveProgress }) => {
 };
 
 export default AIChat;
+
