@@ -73,6 +73,19 @@ With its minimalist and user-friendly interface, PrepMate offers a seamless expe
 •YDS/YÖKDİL adayları
 •İngilizce öğrenmek isteyen herkes
 
+---
+
+<details>
+  <summary><h2>Lean Canvas</h2></summary>
+
+  <h3>Business Model Canvas Poster</h3>
+
+  ![Canvas Poster](https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/business%20model%20canvas%20poster.png)
+
+</details>
+
+---
+  
 # Sprint Yol Haritalarımız
 
 <details>
