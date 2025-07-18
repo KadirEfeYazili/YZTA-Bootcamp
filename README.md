@@ -394,6 +394,7 @@ Kadir Efe Yazılı, Ebral Karabulut, Muhammet Berke Ağaya, Ebrar Ağralı, Nurc
   <summary>Sprint 2 - Toplantı Görselleri</summary>
   
   ![Toplantı Görselleri](https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint%202%20Toplant%C4%B1%20G%C3%B6rselleri.jpg)
+  ![Toplantı Görselleri 2](https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/ProjectManagementFiles/Sprint_2/Sprint2_Meeting_ss/meeting-screenshots.jpg)
   
 </details>
 </details>
