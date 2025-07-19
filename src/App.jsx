@@ -512,9 +512,7 @@ const App = () => {
         }}
       >
         <div
-          className={`flex items-center mb-8 px-2 cursor-pointer ${
-            !isSidebarOpen ? 'justify-center' : ''
-          }`}
+          className={`flex items-center mb-8 px-2 cursor-pointer justify-center`}
           onClick={toggleSidebar}
         >
           <img
@@ -522,11 +520,6 @@ const App = () => {
             alt="PrepMate Logo"
             className="w-8 h-8 object-contain transition-transform hover:scale-105 duration-200"
           />
-          {isSidebarOpen && (
-            <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100 ml-3">
-              PrepMate
-            </h1>
-          )}
         </div>
 
             <button
