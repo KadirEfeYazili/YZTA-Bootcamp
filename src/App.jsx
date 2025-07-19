@@ -502,19 +502,32 @@ const App = () => {
 
   return (
     <div className={`${darkMode ? 'dark' : ''} flex h-screen bg-violet-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-sans`}>
-      {currentUser ? (
-        // Kullanıcı giriş yapmışsa ana uygulama arayüzü
-        <>
-          <aside className={`bg-white/80 dark:bg-slate-800 backdrop-blur-lg p-4 flex flex-col border-r border-violet-100 dark:border-slate-700 transition-width duration-300 ease-in-out`} style={{
-            width: isSidebarOpen ? '16rem' : '6rem', // 16rem tam genişlik, 6rem ikonlar için dar hali
-          }}>
-            <div
-              className="flex items-center mb-8 px-2 cursor-pointer"
-              onClick={toggleSidebar}
-            >
-              <GraduationCap className="text-violet-600 mr-3" size={30} />
-              {isSidebarOpen && <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100">PrepMate</h1>}
-            </div>
+  {currentUser ? (
+    // Kullanıcı giriş yapmışsa ana uygulama arayüzü
+    <>
+      <aside
+        className={`bg-white/80 dark:bg-slate-800 backdrop-blur-lg p-4 flex flex-col border-r border-violet-100 dark:border-slate-700 transition-width duration-300 ease-in-out`}
+        style={{
+          width: isSidebarOpen ? '16rem' : '6rem', // Açıkken geniş, kapalıyken dar
+        }}
+      >
+        <div
+          className={`flex items-center mb-8 px-2 cursor-pointer ${
+            !isSidebarOpen ? 'justify-center' : ''
+          }`}
+          onClick={toggleSidebar}
+        >
+          <img
+            src="/images/PrepmateLogo.png" // logo eklendi
+            alt="PrepMate Logo"
+            className="w-8 h-8 object-contain transition-transform hover:scale-105 duration-200"
+          />
+          {isSidebarOpen && (
+            <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100 ml-3">
+              PrepMate
+            </h1>
+          )}
+        </div>
 
             <button
               onClick={toggleDarkMode}
