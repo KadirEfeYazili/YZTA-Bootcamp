@@ -239,7 +239,7 @@ Birinci sprintte, fikir oturması, tasarımların yapılması ve API ekleme plan
 <details>
   <summary><h2>Burndown Chart</h2></summary>
 
-![Burndown Chart](https://github.com/olgnbrn/planova/raw/main/Project_Management_Files/Sprint_2/Sprint2_Burndown_chart/chart.png)
+![Burndown Chart](https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/ProjectManagementFiles/Sprint_2/Sprint2_Burndown_chart/chart.png)
 
 </details>
 ---  
