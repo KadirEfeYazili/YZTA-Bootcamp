@@ -433,7 +433,6 @@ Proje yönetim sürecimizi Trello üzerinden takip ediyoruz:
 
 [Projeye Git](https://kadirefeyazili.github.io/YZTA-Bootcamp/)
 
----
 
 ## 📃 Proje Dokümanı
 
