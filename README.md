@@ -397,7 +397,7 @@ Kadir Efe Yazılı, Ebral Karabulut, Muhammet Berke Ağaya, Ebrar Ağralı, Nurc
 <details>
   <summary>Sprint 2 - Burndown Chart</summary>
 
-![Burndown Chart](https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/ProjectManagementFiles/Sprint_2/Sprint2_Burndown_chart/chart.png)
+![Burndown Chart](https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/ProjectManagementFiles/Sprint_2/Sprint2_Burndown_chart/burndowmn_chart.png)
 
 </details>
 
