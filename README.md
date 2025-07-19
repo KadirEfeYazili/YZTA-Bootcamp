@@ -388,15 +388,22 @@ Kadir Efe Yazılı, Ebral Karabulut, Muhammet Berke Ağaya, Ebrar Ağralı, Nurc
   </p>
   
 
+<details>
+<summary>Sprint 2 - App Screenshots (Dark Mode Integration, Chatbot Avatar Plugins) </summary>
+
+![Uygulama Görüntüsü](https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/ProjectManagementFiles/General_Documents/Github_Images/Sprint%202%20DarkMode%20Entegrasyonu.png)
+![Chatbot Görüntüsü](https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/ProjectManagementFiles/General_Documents/Github_Images/Sprint%202%20Chatbot.png)
+![Prepmate Login Ekran Görüntüsü](https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/ProjectManagementFiles/Sprint_2/Sprint2_App_ss/Ekran%20g%C3%B6r%C3%BCnt%C3%BCs%C3%BC%202025-07-19%20200611.png)
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/ProjectManagementFiles/Sprint_2/Sprint2_App_ss/screenshots-mobile.png" alt="Mobil Uyumlu Görsel" width="80%"/>
+</p>
+
 </details>
 
 <details>
-  <summary>Sprint 2 - Sprint Board Update Screenshots</summary>
-  
-  ![Sprint Yol Haritası](https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint%202%20Board%20Update%20Screenshots.png)
+<summary>Sprint 2 - Sprint Board Update Screenshots</summary>
 </details>
-
-<details>
   <summary>Sprint 2 - Toplantı Görselleri</summary>
   
     
