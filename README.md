@@ -378,10 +378,11 @@ Kadir Efe Yazılı, Ebral Karabulut, Muhammet Berke Ağaya, Ebrar Ağralı, Nurc
 <details>
 
 
-  <summary>Sprint 2 - App Screenshots (Dark Mode Integration, Chatbot Avatar Plugins  ) </summary>
+  <summary>Sprint 2 - App Screenshots (Dark Mode Integration, Chatbot Avatar Plugins, project logo work) </summary>
 
   ![Uygulama Görüntüsü](https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint%202%20DarkMode%20Entegrasyonu.png)
   ![Chatbot Görüntüsü](https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint%202%20Chatbot.png)
+  ![Uygulama Logolu Görüntüsü](https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint%202%20Logo.png)
   ![Ekran Görüntüsü](https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/ProjectManagementFiles/Sprint_2/Sprint2_App_ss/Ekran%20g%C3%B6r%C3%BCnt%C3%BCs%C3%BC%202025-07-19%20200611.png)
 
   <p align="center">
