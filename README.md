@@ -236,13 +236,6 @@ Birinci sprintte, fikir oturması, tasarımların yapılması ve API ekleme plan
   <summary><h3>İkinci Sprint</h3></summary>
 
 ---
-<details>
-  <summary><h2>Burndown Chart</h2></summary>
-
-![Burndown Chart](https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/ProjectManagementFiles/Sprint_2/Sprint2_Burndown_chart/chart.png)
-
-</details>
----  
 
 ## Kullanılan Teknolojiler
 
@@ -398,6 +391,13 @@ Kadir Efe Yazılı, Ebral Karabulut, Muhammet Berke Ağaya, Ebrar Ağralı, Nurc
     <img src="https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/ProjectManagementFiles/Sprint_2/Sprint2_App_ss/screenshots-mobile.png" alt="Mobil Uyumlu Görsel" width="80%" />
   </p>
 
+
+</details>
+
+<details>
+  <summary><h2>Burndown Chart</h2></summary>
+
+![Burndown Chart](https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/ProjectManagementFiles/Sprint_2/Sprint2_Burndown_chart/chart.png)
 
 </details>
 
