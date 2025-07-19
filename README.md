@@ -69,13 +69,12 @@ With its minimalist and user-friendly interface, PrepMate offers a seamless expe
 </details>
 
 ## Hedef Kitle
-- Üniversite öğrencileri
-- YDS/YÖKDİL adayları
-- İngilizce öğrenmek isteyen herkes
-
-  [Persona](ProjectManagementFiles/General_Documents/Persona_Turkce.pdf)
+•Üniversite öğrencileri
+•YDS/YÖKDİL adayları
+•İngilizce öğrenmek isteyen herkes
 
 ---
+
 <details>
   <summary><h2>Lean Canvas</h2></summary>
 
@@ -86,12 +85,12 @@ With its minimalist and user-friendly interface, PrepMate offers a seamless expe
 </details>
 
 ---
-  
+
 # Sprint Yol Haritalarımız
 
 <details>
   <summary><h3>İlk Sprint</h3></summary>
-  
+
 ### Kullanılan Teknolojiler
 - **Frontend:** React.js, Tailwind CSS, React Markdown
 - **API:** Google Gemini API
@@ -208,25 +207,25 @@ Birinci sprintte, fikir oturması, tasarımların yapılması ve API ekleme plan
 
 <details>
 
-  
+
   <summary>Sprint 1 - App Screenshots</summary>
-  
+
   ![Uygulama Görüntüsü](https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint%201%20App%20Screenshot.png)
 
 </details>
 
 <details>
   <summary>Sprint 1 - Sprint Board Update Screenshots</summary>
-  
+
   ![Sprint Yol Haritası](https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint%201%20Board%20Update%20Screenshots.jpg)
 
 </details>
 
 <details>
   <summary>Toplantı Görselleri</summary>
-  
+
   ![Toplantı Görselleri](https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint%201%20Toplant%C4%B1%20G%C3%B6rselleri.jpg)
-  
+
   ![Toplantı Görselleri 2](https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/ProjectManagementFiles/Sprint_1/Sprint1_Meeting_ss/meeting-screenshots.jpg)
   
 </details>
@@ -346,7 +345,7 @@ Kadir Efe Yazılı, Ebral Karabulut, Muhammet Berke Ağaya, Ebrar Ağralı, Nurc
   * Firebase veri modellemesindeki önceki kararların gözden geçirilmesi ve iyileştirilmesi faydalı oldu.
 
   * Günlük UI düzenlemesi ve açık tema eklenmesi konusunda iyi bir başlangıç yapıldı.
- 
+
 ---
 
 * **Ne Geliştirilebilir?**
@@ -365,7 +364,7 @@ Kadir Efe Yazılı, Ebral Karabulut, Muhammet Berke Ağaya, Ebrar Ağralı, Nurc
   * Erken ve sürekli ekip katılımı, projenin ilerlemesi için kritik öneme sahiptir.
 
   * UI/UX iyileştirmeleri, kullanıcı deneyimi için sürekli bir çaba gerektirir.
-    
+
 ---
 
 * **Eylem Maddeleri:**
@@ -378,35 +377,40 @@ Kadir Efe Yazılı, Ebral Karabulut, Muhammet Berke Ağaya, Ebrar Ağralı, Nurc
 
 <details>
 
-  
+
   <summary>Sprint 2 - App Screenshots (Dark Mode Integration, Chatbot Avatar Plugins  ) </summary>
-  
+
   ![Uygulama Görüntüsü](https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint%202%20DarkMode%20Entegrasyonu.png)
   ![Chatbot Görüntüsü](https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint%202%20Chatbot.png)
-  ![Prepmate Login Ekran Görüntüsü](https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/ProjectManagementFiles/Sprint_2/Sprint2_App_ss/Ekran%20g%C3%B6r%C3%BCnt%C3%BCs%C3%BC%202025-07-19%20200611.png)
+
   <p align="center">
     <img src="https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/ProjectManagementFiles/Sprint_2/Sprint2_App_ss/screenshots-mobile.png" alt="Mobil Uyumlu Görsel" width="80%" />
   </p>
-  
 
+
+</details>
 
 <details>
-<summary>Sprint 2 - Sprint Board Update Screenshots</summary>
+  <summary>Sprint 2 - Sprint Board Update Screenshots</summary>
+
+  ![Sprint Yol Haritası](https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint%202%20Board%20Update%20Screenshots.png)
 </details>
+
+<details>
   <summary>Sprint 2 - Toplantı Görselleri</summary>
-  
-    
+
+
   <p align="center">
     <img src="https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint%202%20Toplant%C4%B1%20G%C3%B6rselleri.jpg" alt="Toplantı Görseli 1" width="30%" />
   </p>
-  
+
   <p align="center">
     <img src="https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/ProjectManagementFiles/Sprint_2/Sprint2_Meeting_ss/video-call-meeting-screenshot1.jpeg" alt="Video Call SS 1" width="30%" />
     <img src="https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/ProjectManagementFiles/Sprint_2/Sprint2_Meeting_ss/video-call-meeting-screenshot2.jpeg" alt="Video Call SS 2" width="30%" />
     <img src="https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/ProjectManagementFiles/Sprint_2/Sprint2_Meeting_ss/video-call-meeting-screenshot3.jpeg" alt="Video Call SS 3" width="30%" />
   </p>
 
-  
+
 </details>
 </details>
 
