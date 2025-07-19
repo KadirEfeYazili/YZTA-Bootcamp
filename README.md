@@ -21,6 +21,7 @@ Shining Stars✨
 ## Uygulama İsmi
 ![Uygulama Görüntüsü](ProjectManagementFiles/General_Documents/Github_Pages_Images/PrepMate.jpeg)
 
+## ⭐ **PrepMate:** *Akıllı Hazırlık, Parlayan Gelecek*
 
 <summary><h2>Uygulama Açıklaması</h2></summary>
 PrepMate, YDS ve YÖKDİL gibi önemli akademik İngilizce sınavlarına hazırlanan kullanıcıların tüm ihtiyaçlarını karşılayacak şekilde tasarlanmış kapsamlı ve yapay zekâ destekli bir çalışma arkadaşıdır.
