@@ -90,7 +90,7 @@ With its minimalist and user-friendly interface, PrepMate offers a seamless expe
 # Sprint Yol Haritalarımız
 
 <details>
-  <summary><h3>İlk Sprint</h3></summary>
+  <summary><h2>İlk Sprint</h2></summary>
 
 ### Kullanılan Teknolojiler
 - **Frontend:** React.js, Tailwind CSS, React Markdown
@@ -233,7 +233,7 @@ Birinci sprintte, fikir oturması, tasarımların yapılması ve API ekleme plan
 </details>
 
 <details>
-  <summary><h3>İkinci Sprint</h3></summary>
+  <summary><h2>İkinci Sprint</h2></summary>
 
 ---
 
@@ -395,7 +395,7 @@ Kadir Efe Yazılı, Ebral Karabulut, Muhammet Berke Ağaya, Ebrar Ağralı, Nurc
 </details>
 
 <details>
-  <summary><h2>Burndown Chart</h2></summary>
+  <summary>Sprint 2 - Burndown Chart</summary>
 
 ![Burndown Chart](https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/ProjectManagementFiles/Sprint_2/Sprint2_Burndown_chart/chart.png)
 
