@@ -382,6 +382,7 @@ Kadir Efe Yazılı, Ebral Karabulut, Muhammet Berke Ağaya, Ebrar Ağralı, Nurc
 
   ![Uygulama Görüntüsü](https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint%202%20DarkMode%20Entegrasyonu.png)
   ![Chatbot Görüntüsü](https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint%202%20Chatbot.png)
+  ![Ekran Görüntüsü](https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/ProjectManagementFiles/Sprint_2/Sprint2_App_ss/Ekran%20g%C3%B6r%C3%BCnt%C3%BCs%C3%BC%202025-07-19%20200611.png)
 
   <p align="center">
     <img src="https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/ProjectManagementFiles/Sprint_2/Sprint2_App_ss/screenshots-mobile.png" alt="Mobil Uyumlu Görsel" width="80%" />
