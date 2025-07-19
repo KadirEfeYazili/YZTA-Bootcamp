@@ -236,6 +236,14 @@ Birinci sprintte, fikir oturması, tasarımların yapılması ve API ekleme plan
   <summary><h3>İkinci Sprint</h3></summary>
 
 ---
+<details>
+  <summary><h2>Burndown Chart</h2></summary>
+
+![Burndown Chart](https://github.com/olgnbrn/planova/raw/main/Project_Management_Files/Sprint_2/Sprint2_Burndown_chart/chart.png)
+
+</details>
+---  
+
 ## Kullanılan Teknolojiler
 
 * **Frontend:** React.js, Tailwind CSS, React Markdown
