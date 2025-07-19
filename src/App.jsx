@@ -516,9 +516,9 @@ const App = () => {
           onClick={toggleSidebar}
         >
           <img
-            src="/images/PrepmateLogo.png" // logo eklendi
+            src="https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/public/images/PrepmateLogo.png" // logo eklendi
             alt="PrepMate Logo"
-            className="w-8 h-8 object-contain transition-transform hover:scale-105 duration-200"
+            className="w-13 h-8 object-contain transition-transform hover:scale-105 duration-200"
           />
         </div>
 
