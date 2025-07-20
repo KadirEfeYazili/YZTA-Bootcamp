@@ -80,7 +80,6 @@ With its minimalist and user-friendly interface, PrepMate offers a seamless expe
 
   ![Persona]https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Persona_Turkce.pdf "PrepMate Kullanıcı Personaları")
 </details>
----
 
 <details>
   <summary><h2>Lean Canvas</h2></summary>
