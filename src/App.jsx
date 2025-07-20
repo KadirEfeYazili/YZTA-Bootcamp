@@ -1,3 +1,4 @@
+// App.jsx
 import React, { useState, useEffect } from 'react';
 import {
   getAuth,
@@ -8,10 +9,11 @@ import {
   onAuthStateChanged,
   signOut as firebaseSignOut, // Alias signOut to avoid conflict with local signOut function
   fetchSignInMethodsForEmail, // E-posta adresinin varlığını kontrol etmek için
-  signInAnonymously // Anonim giriş için eklendi
+  signInAnonymously, // Anonim giriş için eklendi
+  sendPasswordResetEmail // Import sendPasswordResetEmail
 } from 'firebase/auth';
 import { doc, setDoc, onSnapshot, updateDoc, arrayUnion, arrayRemove, serverTimestamp } from 'firebase/firestore';
-import { GraduationCap, LayoutDashboard, Component, BookOpen, BrainCircuit, Map, Loader2, XCircle, Chrome, Sun, Moon } from 'lucide-react';
+import { GraduationCap, LayoutDashboard, Component, BookOpen, BrainCircuit, Map, Loader2, XCircle, Chrome, Sun, Moon, User } from 'lucide-react'; // Added User icon
 
 // Firebase yapılandırma ve başlatma
 import { auth, db, firebaseConfig } from './config/firebase';
@@ -24,6 +26,7 @@ import MindMapper from './components/MindMapper';
 import AIChat from './components/AIChat';
 import NavItem from './components/NavItem';
 import QuizComponent from './components/QuizComponent';
+import ProfilePage from './components/ProfilePage'; // ProfilePage bileşeni import edildi
 
 // FastAPI backend'inizin temel URL'si
 const API_BASE_URL = 'http://127.0.0.1:8000';
@@ -40,8 +43,9 @@ const App = () => {
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
   const [age, setAge] = useState('');
-  const [authMode, setAuthMode] = useState('initial'); // 'initial', 'signup'
+  const [authMode, setAuthMode] = useState('initial'); // 'initial', 'signup', 'forgotPassword'
 
+  const [userProfile, setUserProfile] = useState(null); // Kullanıcı profil bilgileri için yeni state
   const [statusMessage, setStatusMessage] = useState(''); // Kullanıcıya gösterilecek durum/hata mesajları
 
   // Uygulama İçeriği State'leri
@@ -54,6 +58,11 @@ const App = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true); // Sidebar durumu
   const [darkMode, setDarkMode] = useState(true); // Dark Mode
+
+  // New state for user's full name and email for profile page
+  const [userName, setUserName] = useState('');
+  const [userEmail, setUserEmail] = useState('');
+  const [userAge, setUserAge] = useState(null);
 
   // __initial_auth_token tanımı dışarıdan geliyorsa kontrol et
   // Bu değişkenin çalışma ortamında tanımlı olup olmadığını kontrol ederiz.
@@ -74,30 +83,26 @@ const App = () => {
   useEffect(() => {
     console.log("Auth durumu dinleyicisi başlatılıyor...");
     const initFirebase = async () => {
-      // Not: Anonim giriş veya custom token ile giriş burada zorunlu değilse kaldırılabilir.
-      // onAuthStateChanged dinleyicisi, mevcut oturumu otomatik olarak algılar.
-      // Eğer uygulamanızda başlangıçta mutlaka bir giriş olmalıysa (anonim bile olsa) aşağıdaki blok kullanılabilir:
-      /*
-      if (!auth.currentUser) { // Henüz bir kullanıcı oturumu yoksa
-        try {
-          if (initialAuthToken) {
-            // await signInWithCustomToken(auth, initialAuthToken);
-            console.log("Custom token ile giriş denendi (henüz uygulanmadı).");
-          } else {
-            await signInAnonymously(auth);
-            console.log("Anonim olarak giriş yapıldı.");
-          }
-        } catch (signInError) {
-          console.error("Başlangıçta giriş hatası:", signInError);
-        }
-      }
-      */
-
-      const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
+      const unsubscribeAuth = onAuthStateChanged(auth, async (user) => { // Added async here
         setCurrentUser(user);
         if (user) {
           setUserId(user.uid);
           console.log("Kullanıcı oturum açtı:", user.uid, user.email);
+          setUserEmail(user.email); // Set user email
+
+          // Fetch user profile from FastAPI
+          try {
+            const idToken = await user.getIdToken();
+            const profile = await callApi('/users/me/', 'GET', idToken);
+            setUserName(`${profile.name} ${profile.surname}`); // Set full name
+            setUserAge(profile.age); // Set user age
+            console.log("Kullanıcı profil bilgileri alındı:", profile);
+          } catch (error) {
+            console.error("Kullanıcı profil bilgileri alınırken hata:", error);
+            setUserName(user.email); // Fallback to email if name is not found
+            setUserAge(null);
+          }
+
         } else {
           setUserId(null); // Kullanıcı yoksa UID'yi temizle
           setAuthMode('initial'); // Kullanıcı çıkış yaparsa başlangıç görünümüne dön
@@ -106,6 +111,9 @@ const App = () => {
           setName('');
           setSurname('');
           setAge('');
+          setUserName(''); // Clear user name on sign out
+          setUserEmail(''); // Clear user email on sign out
+          setUserAge(null); // Clear user age on sign out
           console.log("Kullanıcı oturumu kapandı.");
         }
         setIsAuthReady(true); // Kimlik doğrulama durumu kontrol edildi
@@ -115,6 +123,43 @@ const App = () => {
     };
     initFirebase();
   }, []); // Bağımlılıklar boş bırakıldı, böylece sadece bir kez çalışır
+
+  // Kullanıcı profilini çekmek için useEffect
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      if (!currentUser || !userId) {
+        setUserProfile(null);
+        return;
+      }
+
+      try {
+        const idToken = await currentUser.getIdToken();
+        const response = await fetch(`${API_BASE_URL}/users/me/`, {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${idToken}`,
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.detail || 'Profil bilgileri çekilirken hata oluştu.');
+        }
+
+        const data = await response.json();
+        setUserProfile(data);
+        console.log("Kullanıcı profil bilgileri App.jsx içinde çekildi:", data);
+
+      } catch (err) {
+        console.error("Profil bilgileri çekilirken hata:", err);
+        setStatusMessage("Profil yüklenirken hata oluştu: " + err.message);
+        setUserProfile(null);
+      }
+    };
+
+    fetchUserProfile();
+  }, [currentUser, userId, API_BASE_URL, setStatusMessage]); // Bağımlılıkları güncelledik
 
   // Kullanıcı ilerlemesini Firestore'dan dinle
   useEffect(() => {
@@ -320,6 +365,10 @@ const App = () => {
       });
       console.log("FastAPI profil oluşturma başarılı.");
 
+      setUserName(`${name} ${surname}`); // Set userName after successful signup
+      setUserEmail(email); // Set userEmail after successful signup
+      setUserAge(parsedAge); // Set userAge after successful signup
+
       setStatusMessage('Kayıt başarılı! Hoş geldiniz, ' + name + ' ' + surname + '.');
       // Formu temizle
       setEmail('');
@@ -437,6 +486,10 @@ const App = () => {
         setStatusMessage('Google ile ilk girişiniz. Profiliniz oluşturuldu!');
         console.log("Google ile yeni kullanıcı kaydoldu ve profili oluşturuldu:", user.uid);
 
+        setUserName(`${googleName} ${googleSurname}`); // Set userName for new Google user
+        setUserEmail(user.email); // Set userEmail for new Google user
+        setUserAge(parsedAge); // Set userAge for new Google user
+
       } else {
         setStatusMessage('Google ile giriş başarılı!');
         console.log("Google ile mevcut kullanıcı giriş yaptı:", user.uid);
@@ -447,6 +500,35 @@ const App = () => {
       let errorMessage = 'Google ile giriş hatası oluştu.';
       if (error.code === 'auth/popup-closed-by-user') {
         errorMessage = 'Giriş penceresi kapatıldı.';
+      } else if (error.message) {
+        errorMessage = error.message;
+      }
+      setStatusMessage(errorMessage);
+    }
+  };
+
+  // --- Şifre Sıfırlama İşlemi ---
+  const handleForgotPassword = async () => {
+    setStatusMessage('Şifre sıfırlama bağlantısı gönderiliyor...');
+    console.log("Şifremi Unuttum butonu tıklandı. E-posta:", email);
+    try {
+      if (!email) {
+        setStatusMessage('Lütfen e-posta adresinizi girin.');
+        console.warn("Şifre sıfırlama için e-posta boş.");
+        return;
+      }
+
+      await sendPasswordResetEmail(auth, email);
+      setStatusMessage('Şifre sıfırlama bağlantısı e-posta adresinize gönderildi. Lütfen gelen kutunuzu kontrol edin.');
+      setEmail(''); // E-posta alanını temizle
+      console.log("Şifre sıfırlama e-postası başarıyla gönderildi.");
+    } catch (error) {
+      console.error("Şifre Sıfırlama Hatası:", error);
+      let errorMessage = 'Şifre sıfırlama hatası oluştu.';
+      if (error.code === 'auth/user-not-found') {
+        errorMessage = 'Bu e-posta adresine sahip bir kullanıcı bulunamadı.';
+      } else if (error.code === 'auth/invalid-email') {
+        errorMessage = 'Geçersiz e-posta adresi biçimi.';
       } else if (error.message) {
         errorMessage = error.message;
       }
@@ -485,6 +567,15 @@ const App = () => {
       case 'reading': return <ReadingPractice userProgress={userProgress} saveProgress={saveProgressToFirestore} />;
       case 'mindmap': return <MindMapper saveProgress={saveProgressToFirestore} />;
       case 'quiz': return <QuizComponent />;
+      case 'profile':
+        return (
+          <ProfilePage
+            userName={userProfile?.username || currentUser?.displayName || "Misafir Kullanıcı"} // userProfile'dan username'i al, yoksa currentUser'dan displayName'i kullan
+            userEmail={userProfile?.email || currentUser?.email || "Bilgi Yok"} // userProfile'dan email'i al, yoksa currentUser'dan email'i kullan
+            userAge={userProfile?.age} // userProfile'dan age'i al
+          />
+        );
+      case 'chat': return <AIChat currentUser={currentUser} userId={userId} />; // Eğer AIChat bileşeniniz varsa
       default: return <Dashboard userProgress={userProgress} handleRemoveLearnedWord={handleRemoveLearnedWord} />;
     }
   };
@@ -502,25 +593,25 @@ const App = () => {
 
   return (
     <div className={`${darkMode ? 'dark' : ''} flex h-screen bg-violet-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-sans`}>
-  {currentUser ? (
-    // Kullanıcı giriş yapmışsa ana uygulama arayüzü
-    <>
-      <aside
-        className={`bg-white/80 dark:bg-slate-800 backdrop-blur-lg p-4 flex flex-col border-r border-violet-100 dark:border-slate-700 transition-width duration-300 ease-in-out`}
-        style={{
-          width: isSidebarOpen ? '16rem' : '6rem', // Açıkken geniş, kapalıyken dar
-        }}
-      >
-        <div
-          className={`flex items-center mb-8 px-2 cursor-pointer justify-center`}
-          onClick={toggleSidebar}
-        >
-          <img
-            src="https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/public/images/PrepmateLogo.png" // logo eklendi
-            alt="PrepMate Logo"
-            className="w-13 h-8 object-contain transition-transform hover:scale-105 duration-200"
-          />
-        </div>
+      {currentUser ? (
+        // Kullanıcı giriş yapmışsa ana uygulama arayüzü
+        <>
+          <aside
+            className={`bg-white/80 dark:bg-slate-800 backdrop-blur-lg p-4 flex flex-col border-r border-violet-100 dark:border-slate-700 transition-width duration-300 ease-in-out`}
+            style={{
+              width: isSidebarOpen ? '16rem' : '6rem', // Açıkken geniş, kapalıyken dar
+            }}
+          >
+            <div
+              className={`flex items-center mb-8 px-2 cursor-pointer justify-center`}
+              onClick={toggleSidebar}
+            >
+              <img
+                src="https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/public/images/PrepmateLogo.png" // logo eklendi
+                alt="PrepMate Logo"
+                className="w-13 h-8 object-contain transition-transform hover:scale-105 duration-200"
+              />
+            </div>
 
             <button
               onClick={toggleDarkMode}
@@ -547,6 +638,9 @@ const App = () => {
             )}
             */}
             <nav className="flex flex-col space-y-2">
+              {/* New NavItem for Profile */}
+              <NavItem tabName="profile" icon={<User className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Profilim</NavItem>
+
               <NavItem tabName="dashboard" icon={<LayoutDashboard className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>İlerleme Paneli</NavItem>
               <NavItem tabName="word" icon={<Component className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Kelime Karşılaştırma</NavItem>
               <NavItem tabName="reading" icon={<BookOpen className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Okuma Alıştırması</NavItem>
@@ -601,6 +695,12 @@ const App = () => {
               Prepmate'e hoş geldin
             </h2>
 
+            {statusMessage && (
+              <div className="mb-4 p-3 text-sm rounded-lg bg-blue-100 text-blue-700 dark:bg-blue-800 dark:text-blue-200">
+                {statusMessage}
+              </div>
+            )}
+
             {authMode === 'initial' && (
               <>
                 <input
@@ -622,6 +722,12 @@ const App = () => {
                   className="w-full py-3 px-4 bg-gray-900 hover:bg-gray-700 text-white font-semibold rounded-full shadow-md transition duration-300 ease-in-out transform hover:scale-105"
                 >
                   Giriş Yap
+                </button>
+                <button
+                  onClick={() => { setAuthMode('forgotPassword'); setStatusMessage(''); setEmail(''); }}
+                  className="mt-2 text-sm text-blue-600 hover:text-blue-800 focus:outline-none"
+                >
+                  Şifremi unuttum?
                 </button>
                 <p className="mt-6 text-gray-600">
                   Hesabın yok mu?{' '}
@@ -691,19 +797,41 @@ const App = () => {
                   Kaydol
                 </button>
                 <button
-                  onClick={() => { setAuthMode('initial'); setPassword(''); }}
+                  onClick={() => { setAuthMode('initial'); setPassword(''); setStatusMessage(''); }}
                   className="mt-4 text-sm text-blue-600 hover:text-blue-800 focus:outline-none"
                 >
                   Geri dön
                 </button>
               </>
             )}
+
+            {authMode === 'forgotPassword' && (
+              <>
+                <h2 className="text-2xl font-semibold text-gray-800 mb-6">Şifremi Sıfırla</h2>
+                <input
+                  type="email"
+                  placeholder="E-posta adresinizi girin"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full p-3 mb-4 rounded-full border border-blue-300 bg-white text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                />
+                <button
+                  onClick={handleForgotPassword}
+                  className="w-full py-3 px-4 bg-gray-900 hover:bg-gray-700 text-white font-semibold rounded-full shadow-md transition duration-300 ease-in-out transform hover:scale-105"
+                >
+                  Şifre Sıfırlama Bağlantısı Gönder
+                </button>
+                <button
+                  onClick={() => { setAuthMode('initial'); setStatusMessage(''); setEmail(''); }}
+                  className="mt-4 text-sm text-blue-600 hover:text-blue-800 focus:outline-none"
+                >
+                  Geri Dön
+                </button>
+              </>
+            )}
           </div>
         </div>
       )}
-
-      
-      
     </div>
   );
 };
