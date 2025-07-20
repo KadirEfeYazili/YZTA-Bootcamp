@@ -73,7 +73,7 @@ With its minimalist and user-friendly interface, PrepMate offers a seamless expe
 - Üniversite öğrencileri
 - YDS/YÖKDİL adayları
 - İngilizce öğrenmek isteyen herkes
-[Kullanıcı Personaları](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Persona_Turkce.pdf "PrepMate Kullanıcı Personaları")
+[<summary><h2>Lean Canvas</h2></summary>](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Persona_Turkce.pdf "PrepMate Kullanıcı Personaları")
 ---
 
 <details>
