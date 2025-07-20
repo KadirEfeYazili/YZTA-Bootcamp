@@ -70,9 +70,9 @@ With its minimalist and user-friendly interface, PrepMate offers a seamless expe
 </details>
 
 ## Hedef Kitle
-•Üniversite öğrencileri
-•YDS/YÖKDİL adayları
-•İngilizce öğrenmek isteyen herkes
+- Üniversite öğrencileri
+- YDS/YÖKDİL adayları
+- İngilizce öğrenmek isteyen herkes
 
 ---
 
