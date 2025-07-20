@@ -74,8 +74,7 @@ With its minimalist and user-friendly interface, PrepMate offers a seamless expe
 - YDS/YÖKDİL adayları
 - İngilizce öğrenmek isteyen herkes
 
-
-[persona](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Bootcamp%20AI-9%20(1).pdf "PrepMate Kullanıcı Personaları")
+[persona](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Persona_Turkce.pdf "PrepMate Kullanıcı Personaları")
 ---
 
 <details>
