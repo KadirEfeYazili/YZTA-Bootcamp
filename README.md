@@ -76,9 +76,9 @@ With its minimalist and user-friendly interface, PrepMate offers a seamless expe
 <details>
   <summary><h3>Kullanıcı Personaları</h3></summary>
 
-[Personalar](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Persona_Turkce(1).pdf "PrepMate Kullanıcı Personaları")
+[Türkçe Personalar](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Persona_Turkce(1).pdf "PrepMate Kullanıcı Personaları")
 
-[Personas](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Persona_English.pdf "PrepMate Kullanıcı Personaları")
+[English Personas](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Persona_English.pdf "PrepMate Kullanıcı Personaları")
 </details>
 
 <details>
