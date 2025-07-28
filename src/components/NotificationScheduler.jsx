@@ -1,4 +1,3 @@
-// src/components/NotificationScheduler.jsx
 import React, { useState, useEffect } from 'react';
 import { getFirestore, doc, setDoc, getDoc } from 'firebase/firestore';
 import { BellRing, Save, CalendarPlus, XCircle, Loader2 } from 'lucide-react';
@@ -12,13 +11,18 @@ const NotificationScheduler = ({ userId, db, firebaseAppId }) => {
     return `${year}-${month}-${day}`;
   };
 
+  // Initialize with today's date and default time
   const [selectedDate, setSelectedDate] = useState(() => getTodayDateString());
   const [notificationTime, setNotificationTime] = useState('09:00');
   const [statusMessage, setStatusMessage] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [showNotificationPopup, setShowNotificationPopup] = useState(false);
 
+  // This ref should be stable or re-created carefully if userId/db can change
   const notificationDocRef = userId && db ? doc(db, `artifacts/${firebaseAppId}/users/${userId}/settings/notifications`) : null;
+
+  // Use a separate state to track if initial data has been loaded
+  const [initialDataLoaded, setInitialDataLoaded] = useState(false);
 
   useEffect(() => {
     const fetchNotificationSettings = async () => {
@@ -34,12 +38,13 @@ const NotificationScheduler = ({ userId, db, firebaseAppId }) => {
           const data = docSnap.data();
           console.log("Firestore verisi:", data);
 
-          if (data.date) {
+          // Only set if data exists and hasn't been loaded before
+          if (data.date && !initialDataLoaded) {
             setSelectedDate(data.date);
             console.log("Firestore'dan gelen tarih:", data.date);
           }
 
-          if (data.time) {
+          if (data.time && !initialDataLoaded) {
             setNotificationTime(data.time);
             console.log("Firestore'dan gelen saat:", data.time);
           }
@@ -51,11 +56,15 @@ const NotificationScheduler = ({ userId, db, firebaseAppId }) => {
         setStatusMessage("Bildirim ayarları yüklenirken hata oluştu.");
       } finally {
         setIsLoading(false);
+        setInitialDataLoaded(true); // Mark data as loaded
       }
     };
 
-    fetchNotificationSettings();
-  }, [notificationDocRef]);
+    // Only run this effect once on mount or when notificationDocRef changes
+    if (!initialDataLoaded) { // Prevent re-fetching after initial load
+      fetchNotificationSettings();
+    }
+  }, [notificationDocRef, initialDataLoaded]); // Add initialDataLoaded to dependencies
 
   const handleSaveNotificationTime = async () => {
     if (!notificationDocRef) {
@@ -94,7 +103,9 @@ const NotificationScheduler = ({ userId, db, firebaseAppId }) => {
         now.getMinutes() === minute
       ) {
         const lastNotificationTimestamp = localStorage.getItem('lastNotificationTimestamp');
-        const currentTimestamp = `${year}-${month}-${day} ${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
+        // Ensure consistent format for timestamp comparison
+        const currentTimestamp = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')} ${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
+
 
         if (lastNotificationTimestamp !== currentTimestamp) {
           setShowNotificationPopup(true);
@@ -118,12 +129,14 @@ const NotificationScheduler = ({ userId, db, firebaseAppId }) => {
     const [year, month, day] = selectedDate.split('-').map(Number);
     const [hour, minute] = notificationTime.split(':').map(Number);
 
+    // Using template literals correctly for string concatenation
     const dtStart = `${year}${String(month).padStart(2, '0')}${String(day).padStart(2, '0')}T${String(hour).padStart(2, '0')}${String(minute).padStart(2, '0')}00`;
     const dtEnd = `${year}${String(month).padStart(2, '0')}${String(day).padStart(2, '0')}T${String(hour + 1).padStart(2, '0')}${String(minute).padStart(2, '0')}00`;
 
     const uid = `prepmate-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
     const dtStamp = new Date().toISOString().replace(/[-:]|\.\d{3}/g, '');
 
+    // Corrected template literal for ICS content
     const icsContent = `BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//PrepMate//EN
