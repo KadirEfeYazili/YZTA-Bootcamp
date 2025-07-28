@@ -1,25 +1,21 @@
+// components/Dashboard.jsx
 import React, { useEffect } from 'react';
 import { Lightbulb, BarChart2, BrainCircuit, GraduationCap, Activity, Clock, BookOpen, XCircle } from 'lucide-react';
 
 // Yardımcı fonksiyon: Yeterlilik seviyesini hesapla
-// Bu fonksiyon artık doğrudan Dashboard.jsx içinde tanımlıdır.
 const calculateProficiencyLevel = (progress) => {
-    // Gelen progress nesnesinin ve reading özelliğinin varlığını kontrol et
     if (!progress || !progress.reading) {
         console.warn("calculateProficiencyLevel: 'progress' veya 'progress.reading' tanımsız. Varsayılan olarak 0 döndürülüyor.");
-        return 0; // Eğer progress veya reading tanımsızsa 0 döndür
+        return 0;
     }
 
     const { correct, total } = progress.reading;
-
-    // correct ve total değerlerinin sayı olduğundan emin ol ve eğer undefined/null ise 0 olarak al
     const safeCorrect = typeof correct === 'number' ? correct : 0;
     const safeTotal = typeof total === 'number' ? total : 0;
 
     if (safeTotal === 0) {
         return 0;
     }
-    // Yüzdeyi hesaplarken sadece okuma verilerini kullanıyoruz.
     return (safeCorrect / safeTotal) * 100;
 };
 
@@ -39,7 +35,6 @@ const Dashboard = ({ userProgress, handleRemoveLearnedWord }) => {
     }, [userProgress]); // userProgress değiştiğinde bu effect'i tekrar çalıştır
 
     // userProgress'in undefined olmaması için varsayılan değerler sağlayın
-    // Bu, prop'un tamamen boş gelmesi durumunda bile bileşenin çökmesini engeller.
     const safeUserProgress = userProgress || {
         reading: { correct: 0, total: 0 },
         grammar: { correct: 0, total: 0 },
@@ -48,19 +43,19 @@ const Dashboard = ({ userProgress, handleRemoveLearnedWord }) => {
         chatHistory: []
     };
 
-    // calculateProficiencyLevel'a safeUserProgress gönder
     const proficiencyLevel = calculateProficiencyLevel(safeUserProgress);
-    console.log("Hesaplanan Uzmanlık Seviyesi:", proficiencyLevel);
 
-    // Reading, grammar, learnedWords ve activities verilerine güvenli erişim için
-    // safeUserProgress'ten desctructuring yapıyoruz.
     const { reading, grammar, learnedWords, activities } = safeUserProgress;
 
-    // Her bir değerin de varsayılan olarak doğru olduğundan emin olalım
     const currentReading = reading || { correct: 0, total: 0 };
     const currentGrammar = grammar || { correct: 0, total: 0 };
     const currentActivities = activities || [];
     const currentLearnedWords = learnedWords || [];
+
+    // Learned Words dizisi değiştiğinde konsola log yazdır
+    useEffect(() => {
+        console.log("Dashboard: currentLearnedWords güncellendi:", currentLearnedWords);
+    }, [currentLearnedWords]);
 
 
     return (
