@@ -13,7 +13,7 @@ import {
   sendPasswordResetEmail // Import sendPasswordResetEmail
 } from 'firebase/auth';
 import { doc, setDoc, onSnapshot, updateDoc, arrayUnion, arrayRemove, serverTimestamp } from 'firebase/firestore';
-import { GraduationCap, LayoutDashboard, Component, BookOpen, BrainCircuit, Map, Loader2, XCircle, Chrome, Sun, Moon, User } from 'lucide-react'; // Added User icon
+import { GraduationCap, LayoutDashboard, Component, BookOpen, BrainCircuit, Map, Loader2, XCircle, Chrome, Sun, Moon, User, BellRing, BookText } from 'lucide-react'; // NotebookText yerine BookText ikonu eklendi
 
 // Firebase yapılandırma ve başlatma
 import { auth, db, firebaseConfig } from './config/firebase';
@@ -26,7 +26,10 @@ import MindMapper from './components/MindMapper';
 import AIChat from './components/AIChat';
 import NavItem from './components/NavItem';
 import QuizComponent from './components/QuizComponent';
-import ProfilePage from './components/ProfilePage'; // ProfilePage bileşeni import edildi
+import ProfilePage from './components/ProfilePage';
+import NotificationScheduler from './components/NotificationScheduler';
+import WordCardDisplay from './components/WordCardDisplay'; // Yeni bileşen import edildi
+import Notebook from './components/Notebook'; // Yeni bileşen import edildi
 
 // FastAPI backend'inizin temel URL'si
 const API_BASE_URL = 'http://127.0.0.1:8000';
@@ -575,6 +578,12 @@ const App = () => {
             userAge={userProfile?.age} // userProfile'dan age'i al
           />
         );
+      case 'notifications': // Yeni bildirimler sekmesi
+        return <NotificationScheduler userId={userId} db={db} firebaseAppId={firebaseConfig.appId} />;
+      case 'word-cards': // Yeni Kelime Kartları sekmesi
+        return <WordCardDisplay userId={userId} db={db} firebaseAppId={firebaseConfig.appId} saveProgress={saveProgressToFirestore} />;
+      case 'notebook': // Yeni Not Defteri sekmesi
+        return <Notebook userId={userId} db={db} firebaseAppId={firebaseConfig.appId} />;
       case 'chat': return <AIChat currentUser={currentUser} userId={userId} />; // Eğer AIChat bileşeniniz varsa
       default: return <Dashboard userProgress={userProgress} handleRemoveLearnedWord={handleRemoveLearnedWord} />;
     }
@@ -646,6 +655,11 @@ const App = () => {
               <NavItem tabName="reading" icon={<BookOpen className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Okuma Alıştırması</NavItem>
               <NavItem tabName="mindmap" icon={<Map className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Akıl Haritası</NavItem>
               <NavItem tabName="quiz" icon={<GraduationCap className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Quiz</NavItem>
+              <NavItem tabName="notifications" icon={<BellRing className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Günlük Bildirimler</NavItem>
+              {/* Yeni Kelime Kartları NavItem'ı */}
+              <NavItem tabName="word-cards" icon={<BookOpen className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Kelime Kartları</NavItem>
+              {/* Yeni Not Defteri NavItem'ı */}
+              <NavItem tabName="notebook" icon={<BookText className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Not Defteri</NavItem> {/* NotebookText yerine BookText kullanıldı */}
               {/* Çıkış Yap butonu NavItem olarak eklendi */}
               <button
                 onClick={handleSignOut}
@@ -745,7 +759,7 @@ const App = () => {
                 </div>
                 <button
                   onClick={handleGoogleLogin}
-                  className="w-full py-3 px-4 bg-white border border-gray-300 text-gray-700 font-semibold rounded-full shadow-sm flex items-center justify-center gap-3 transition duration-300 ease-in-out transform hover:scale-105"
+                  className="w-full py-3 px-4 bg-white border border-gray-300 text-gray-700 font-semibold rounded-full shadow-sm flex items-center justify-center gap-3 transition duration-300 ease-in-out transform hover:scale-110 focus:outline-none ring-4 ring-white/30"
                 >
                   <Chrome size={24} className="text-gray-700" /> Google ile devam et
                 </button>
