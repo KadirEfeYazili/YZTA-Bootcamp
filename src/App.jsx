@@ -588,15 +588,18 @@ if (!isAuthReady) {
 return (
   // Bu kısım, kullanıcı oturum açtığında veya açmadığında ana uygulama ekranıdır.
   // Burada da yıldızlı arka planı etkinleştiriyoruz.
-  <div className={`starry-background ${darkMode ? 'dark' : ''} flex h-screen text-slate-800 dark:text-slate-100 font-sans`}>
-    {currentUser ? (
-      <>
-        <aside
-          className={`bg-white/80 dark:bg-slate-800 backdrop-blur-lg p-4 flex flex-col border-r border-violet-100 dark:border-slate-700 transition-all duration-300 ease-in-out`}
-          style={{
-            width: isSidebarOpen ? '16rem' : '6rem',
-          }}
-        >
+  <div className={`starry-background bg-black`}>
+    
+    {/* Mevcut ana div'iniz, artık yıldızlı arka planın içinde */}
+    <div className={`flex h-screen text-slate-800 dark:text-slate-100 font-sans`}>
+      {currentUser ? (
+        <>
+          <aside
+            className={`bg-white/80 dark:bg-slate-800 backdrop-blur-lg p-4 flex flex-col border-r border-violet-100 dark:border-slate-700 transition-all duration-300 ease-in-out`}
+            style={{
+              width: isSidebarOpen ? '16rem' : '6rem',
+            }}
+          >
           {/* ...aside içeriği... */}
           <div
             className={`flex items-center mb-8 px-2 cursor-pointer justify-center`}
