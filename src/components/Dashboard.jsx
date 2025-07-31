@@ -1,6 +1,6 @@
 // components/Dashboard.jsx
 import React, { useEffect } from 'react';
-import { Lightbulb, BarChart2, BrainCircuit, GraduationCap, Activity, Clock, BookOpen, XCircle } from 'lucide-react';
+import { Lightbulb, BarChart2, BrainCircuit, GraduationCap, Activity, Clock, BookOpen, XCircle, Map } from 'lucide-react'; // Added Map
 
 import WordCardDisplay from './WordCardDisplay';
 import QuizComponent from './QuizComponent';
