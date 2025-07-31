@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import {
   Lightbulb,
   BarChart2,
@@ -9,10 +9,6 @@ import {
   BookOpen,
   XCircle,
 } from 'lucide-react';
-
-import WordCardDisplay from './WordCardDisplay'; 
-import QuizComponent from './QuizComponent';
-import MindMapper from './MindMapper';
 
 // Yardımcı fonksiyon: Yeterlilik seviyesini hesapla
 const calculateProficiencyLevel = (progress) => {
@@ -34,10 +30,6 @@ const calculateProficiencyLevel = (progress) => {
 };
 
 const Dashboard = ({ userProgress, handleRemoveLearnedWord }) => {
-  const [showWordCard, setShowWordCard] = useState(false);
-  const [showQuiz, setShowQuiz] = useState(false);
-  const [showMindMap, setShowMindMap] = useState(false);
-
   useEffect(() => {
     console.log('Dashboard Bileşeni yüklendi.');
     console.log('Dashboard useEffect: userProgress', userProgress);
@@ -69,6 +61,11 @@ const Dashboard = ({ userProgress, handleRemoveLearnedWord }) => {
     console.log('Dashboard: currentLearnedWords güncellendi:', currentLearnedWords);
   }, [currentLearnedWords]);
 
+  // İstatistik kartları için veri hesaplama
+  const readingPercentage = calculateProficiencyLevel(safeUserProgress);
+  const totalWords = currentLearnedWords.length;
+  const totalActivities = currentActivities.length;
+
   return (
     <div className="p-8 animate-fade-in">
       <h2 className="text-3xl font-bold text-slate-800 dark:text-white mb-8 flex items-center">
@@ -90,48 +87,64 @@ const Dashboard = ({ userProgress, handleRemoveLearnedWord }) => {
         İlerleme Paneli
       </h2>
 
-      {/* Yeni Butonlar */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-        <button
-          onClick={() => setShowWordCard(!showWordCard)}
-          className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition"
-        >
-          {showWordCard ? "Word Card'ı Gizle" : "Word Card'ı Göster"}
-        </button>
-        <button
-          onClick={() => setShowQuiz(!showQuiz)}
-          className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition"
-        >
-          {showQuiz ? "Quiz'i Gizle" : "Quiz'i Başlat"}
-        </button>
-        <button
-          onClick={() => setShowMindMap(!showMindMap)}
-          className="bg-purple-500 text-white py-2 px-4 rounded hover:bg-purple-600 transition"
-        >
-          {showMindMap ? "Gizle" : "Akıl Haritası Oluştur"}
-        </button>
+      {/* İstatistik Kartları */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        {/* Okuma Başarısı */}
+        <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg border border-violet-100 dark:border-slate-700">
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="text-lg font-semibold text-slate-700 dark:text-white mb-2">
+                Okuma Başarısı
+              </h3>
+              <p className="text-3xl font-bold text-violet-600">
+                {readingPercentage.toFixed(1)}%
+              </p>
+              <p className="text-sm text-slate-500 dark:text-slate-400">
+                {currentReading.correct}/{currentReading.total} doğru
+              </p>
+            </div>
+            <BarChart2 className="text-violet-500" size={48} />
+          </div>
+        </div>
+
+        {/* Öğrenilen Kelimeler */}
+        <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg border border-violet-100 dark:border-slate-700">
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="text-lg font-semibold text-slate-700 dark:text-white mb-2">
+                Öğrenilen Kelimeler
+              </h3>
+              <p className="text-3xl font-bold text-amber-600">
+                {totalWords}
+              </p>
+              <p className="text-sm text-slate-500 dark:text-slate-400">
+                kelime öğrenildi
+              </p>
+            </div>
+            <GraduationCap className="text-amber-500" size={48} />
+          </div>
+        </div>
+
+        {/* Toplam Etkinlik */}
+        <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg border border-violet-100 dark:border-slate-700">
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="text-lg font-semibold text-slate-700 dark:text-white mb-2">
+                Toplam Etkinlik
+              </h3>
+              <p className="text-3xl font-bold text-rose-600">
+                {totalActivities}
+              </p>
+              <p className="text-sm text-slate-500 dark:text-slate-400">
+                aktivite tamamlandı
+              </p>
+            </div>
+            <Activity className="text-rose-500" size={48} />
+          </div>
+        </div>
       </div>
 
-      {/* Dinamik Gösterim */}
-      <div className="space-y-6 mb-8">
-        {showWordCard && (
-          <div className="p-4 bg-white dark:bg-slate-800 rounded-xl shadow border">
-            <WordCardDisplay />
-          </div>
-        )}
-        {showQuiz && (
-          <div className="p-4 bg-white dark:bg-slate-800 rounded-xl shadow border">
-            <QuizComponent />
-          </div>
-        )}
-        {showMindMap && (
-          <div className="p-4 bg-white dark:bg-slate-800 rounded-xl shadow border">
-            <MindMapper />
-          </div>
-        )}
-      </div>
-
-      {/* Learned Words */}
+      {/* Öğrenilen Kelimeler */}
       <div className="mb-8">
         <h3 className="text-2xl font-semibold text-slate-700 dark:text-white mb-4 flex items-center">
           <Lightbulb className="mr-2 text-amber-500" size={24} />
@@ -161,7 +174,7 @@ const Dashboard = ({ userProgress, handleRemoveLearnedWord }) => {
         )}
       </div>
 
-      {/* Recent Activities */}
+      {/* Son Etkinlikler */}
       <div className="mb-8">
         <h3 className="text-2xl font-semibold text-slate-700 dark:text-white mb-4 flex items-center">
           <Activity className="mr-2 text-rose-500" size={24} />
@@ -185,6 +198,7 @@ const Dashboard = ({ userProgress, handleRemoveLearnedWord }) => {
                     : 0;
                   return timestampB - timestampA;
                 })
+                .slice(0, 10) // Son 10 etkinliği göster
                 .map((activity, index) => (
                   <li key={index} className="flex items-center">
                     <Clock className="inline mr-3 text-slate-400" size={16} />
@@ -210,10 +224,15 @@ const Dashboard = ({ userProgress, handleRemoveLearnedWord }) => {
               </li>
             )}
           </ul>
+          {currentActivities.length > 10 && (
+            <p className="text-sm text-slate-400 mt-4 text-center">
+              ... ve {currentActivities.length - 10} etkinlik daha
+            </p>
+          )}
         </div>
       </div>
 
-      {/* Words to Review */}
+      {/* Gözden Geçirilecek Kelimeler */}
       <div>
         <h3 className="text-2xl font-semibold text-slate-700 dark:text-white mb-4 flex items-center">
           <BookOpen className="mr-2 text-sky-500" size={24} />
