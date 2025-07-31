@@ -5,12 +5,12 @@
 @layer base {
   body {
     /* Tailwind'in varsayılan stillerini geçersiz kılmak için */
-    @apply bg-black; 
+    @apply bg-black text-gray-200;
   }
 }
 
 .starry-background {
-  @apply relative w-full h-screen overflow-hidden;
+  @apply relative w-full h-screen;
   
   /* Sarı yıldızlar için box-shadow efekti */
   box-shadow: 
