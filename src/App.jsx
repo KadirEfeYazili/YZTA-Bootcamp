@@ -9,7 +9,7 @@ import {
   signInWithPopup,
   onAuthStateChanged,
   signOut as firebaseSignOut,
-  fetchSignInMethodsForEmail,
+  fetchSignInMethodsForEmail,  
   signInAnonymously,
   sendPasswordResetEmail,
 } from 'firebase/auth';
@@ -74,6 +74,25 @@ const App = () => {
   const [userProfile, setUserProfile] = useState(null);
   const [statusMessage, setStatusMessage] = useState('');
 
+  // Uygulama İçeriği State'leri
+  const [userProgress, setUserProgress] = useState({
+    reading: { correct: 0, total: 0 },
+    learnedWords: [],
+    activities: []
+  });
+  const [activeTab, setActiveTab] = useState('dashboard');
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true); // Sidebar durumu
+  const [darkMode, setDarkMode] = useState(true); // Dark Mode
+
+  // Profil sayfası için kullanıcı bilgileri
+  const [userName, setUserName] = useState('');
+  const [userEmail, setUserEmail] = useState('');
+  const [userAge, setUserAge] = useState(null);
+
+  const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+  // Kullanıcıyı dinle
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
