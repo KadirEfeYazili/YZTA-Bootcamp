@@ -476,7 +476,7 @@ const App = () => {
             age: null,
             email: `anon-${user.uid}@example.com` // Firebase anonim e-posta sağlamaz
           });
-          console.log("Anonim kullanıcının profili başarıyla oluşturuldu.");
+          console.log("Anonim kullanıcısının profili başarıyla oluşturuldu.");
         } else {
           throw error;
         }
@@ -717,42 +717,9 @@ const App = () => {
                   Dashboard
                 </button>
               </li>
-              {/* Kelime Kartları butonu */}
-              <li>
-                <button
-                  onClick={() => setActiveTab('wordcard')} // activeTab'ı 'wordcard' olarak ayarlar
-                  className={`w-full flex items-center p-3 rounded-lg transition-colors duration-200 ${
-                    activeTab === 'wordcard' ? 'bg-violet-700 text-white shadow-lg' : 'text-slate-300 hover:bg-slate-700 hover:text-white'
-                  }`}
-                >
-                  <Component className="mr-3" size={20} />
-                  Kelime Kartları
-                </button>
-              </li>
-              {/* Quiz butonu */}
-              <li>
-                <button
-                  onClick={() => setActiveTab('quiz')} // activeTab'ı 'quiz' olarak ayarlar
-                  className={`w-full flex items-center p-3 rounded-lg transition-colors duration-200 ${
-                    activeTab === 'quiz' ? 'bg-violet-700 text-white shadow-lg' : 'text-slate-300 hover:bg-slate-700 hover:text-white'
-                  }`}
-                >
-                  <GraduationCap className="mr-3" size={20} />
-                  Quiz
-                </button>
-              </li>
-              {/* Akıl Haritası butonu */}
-              <li>
-                <button
-                  onClick={() => setActiveTab('mindmapper')} // activeTab'ı 'mindmapper' olarak ayarlar
-                  className={`w-full flex items-center p-3 rounded-lg transition-colors duration-200 ${
-                    activeTab === 'mindmapper' ? 'bg-violet-700 text-white shadow-lg' : 'text-slate-300 hover:bg-slate-700 hover:text-white'
-                  }`}
-                >
-                  <Map className="mr-3" size={20} />
-                  Akıl Haritası
-                </button>
-              </li>
+              {/* Kelime Kartları, Quiz ve Akıl Haritası butonları buradan kaldırıldı. */}
+              {/* Artık bu bileşenlere Dashboard üzerinden erişilecek. */}
+
               {/* Okuma Pratiği butonu */}
               <li>
                 <button
