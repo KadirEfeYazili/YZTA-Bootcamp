@@ -15,7 +15,7 @@ import { doc, setDoc, onSnapshot, updateDoc, arrayUnion, arrayRemove, serverTime
 import { GraduationCap, LayoutDashboard, Component, BookOpen, BrainCircuit, Map, Loader2, XCircle, Chrome, Sun, Moon, User, BellRing, BookText } from 'lucide-react';
 
 // Firebase yapılandırma ve başlatma
-// Yollar güncellendi: './config/firebase.js' olarak değiştirildi
+// Yollar güncellendi: '.js' uzantısı eklendi
 import { auth, db, firebaseConfig } from './config/firebase.js';
 
 // Ana uygulama bileşenleri
@@ -24,10 +24,9 @@ import Dashboard from './components/Dashboard.jsx';
 import WordCard from './components/WordCard.jsx';
 import QuizComponent from './components/QuizComponent.jsx';
 import MindMapper from './components/MindMapper.jsx';
-import WordComparer from './components/WordComparer.jsx'; // Eğer WordCard yerine kullanılıyorsa
+import WordComparer from './components/WordComparer.jsx';
 import ReadingPractice from './components/ReadingPractice.jsx';
 import AIChat from './components/AIChat.jsx';
-// import NavItem from './components/NavItem'; // Sidebar inline olduğu için bu muhtemelen kullanılmıyor
 import ProfilePage from './components/ProfilePage.jsx';
 import NotificationScheduler from './components/NotificationScheduler.jsx';
 import Notebook from './components/Notebook.jsx';
@@ -61,7 +60,7 @@ const App = () => {
   // Ana içeriği kontrol eden state: Varsayılan olarak 'dashboard' gösterilir
   const [activeTab, setActiveTab] = useState('dashboard');
   const [isChatOpen, setIsChatOpen] = useState(false);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true); // Bu state şu an kullanılmıyor ama kodda bırakıldı
   const [darkMode, setDarkMode] = useState(true);
 
   // New state for user's full name and email for profile page
