@@ -1,41 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  GoogleAuthProvider,
-  signInWithPopup,
-  onAuthStateChanged,
-  signOut as firebaseSignOut,
-  fetchSignInMethodsForEmail,
-  signInAnonymously,
-  sendPasswordResetEmail,
+    getAuth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    GoogleAuthProvider,
+    signInWithPopup,
+    onAuthStateChanged,
+    signOut as firebaseSignOut,
+    fetchSignInMethodsForEmail,
+    signInAnonymously,
+    sendPasswordResetEmail,
 } from 'firebase/auth';
 import {
-  doc,
-  setDoc,
-  onSnapshot,
-  updateDoc,
-  arrayUnion,
-  arrayRemove,
-  serverTimestamp,
+    doc,
+    setDoc,
+    onSnapshot,
+    updateDoc,
+    arrayUnion,
+    arrayRemove,
+    serverTimestamp,
 } from 'firebase/firestore';
 import {
-  GraduationCap,
-  LayoutDashboard,
-  Component,
-  BookOpen,
-  BrainCircuit,
-  Map,
-  Loader2,
-  XCircle,
-  Chrome,
-  Sun,
-  Moon,
-  User,
-  BellRing,
-  BookText,
+    GraduationCap,
+    LayoutDashboard,
+    Component,
+    BookOpen,
+    BrainCircuit,
+    Map,
+    Loader2,
+    XCircle,
+    Chrome,
+    Sun,
+    Moon,
+    User,
+    BellRing,
+    BookText,
 } from 'lucide-react';
 
 import { auth, db, firebaseConfig } from './config/firebase';
@@ -57,60 +57,98 @@ import MindMapper from './components/MindMapper';
 const API_BASE_URL = 'http://127.0.0.1:8000';
 
 const App = () => {
-  // Authentication ve Kullanıcı Durumu
-  const [currentUser, setCurrentUser] = useState(null);
-  const [userId, setUserId] = useState(null);
-  const [isAuthReady, setIsAuthReady] = useState(false);
+    // Authentication ve Kullanıcı Durumu
+    const [currentUser, setCurrentUser] = useState(null);
+    const [userId, setUserId] = useState(null);
+    const [isAuthReady, setIsAuthReady] = useState(false);
 
-  // Giriş/Kayıt Akışı State'leri
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
-  const [surname, setSurname] = useState('');
-  const [age, setAge] = useState('');
-  const [authMode, setAuthMode] = useState('initial');
+    // Giriş/Kayıt Akışı State'leri
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [name, setName] = useState('');
+    const [surname, setSurname] = useState('');
+    const [age, setAge] = useState('');
+    const [authMode, setAuthMode] = useState('initial');
 
-  const [userProfile, setUserProfile] = useState(null);
-  const [statusMessage, setStatusMessage] = useState('');
+    const [userProfile, setUserProfile] = useState(null);
+    const [statusMessage, setStatusMessage] = useState('');
 
-  // Uygulama İçeriği State'leri - This block was duplicated
-  const [userProgress, setUserProgress] = useState({
-    reading: { correct: 0, total: 0 },
-    learnedWords: [],
-    activities: []
-  });
-  const [activeTab, setActiveTab] = useState('dashboard');
-  const [isChatOpen, setIsChatOpen] = useState(false);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true); // Sidebar durumu
-  const [darkMode, setDarkMode] = useState(true); // Dark Mode
-
-  // Profil sayfası için kullanıcı bilgileri - This block was duplicated
-  const [userName, setUserName] = useState('');
-  const [userEmail, setUserEmail] = useState('');
-  const [userAge, setUserAge] = useState(null);
-
-  const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null; // This line was duplicated
-
-  // Kullanıcıyı dinle
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user);
-      setUserId(user ? user.uid : null);
-      setIsAuthReady(true);
+    // Uygulama İçeriği State'leri
+    const [userProgress, setUserProgress] = useState({
+        reading: { correct: 0, total: 0 },
+        learnedWords: [],
+        activities: []
     });
-    return () => unsubscribe();
-  }, []);
+    const [activeTab, setActiveTab] = useState('dashboard');
+    const [isChatOpen, setIsChatOpen] = useState(false);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(true); // Sidebar durumu
+    const [darkMode, setDarkMode] = useState(true); // Dark Mode
 
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Dashboard userProgress={userProfile} />} />
-        <Route path="/wordcard" element={<WordCardDisplay />} />
-        <Route path="/quiz" element={<QuizComponent />} />
-        <Route path="/mindmap" element={<MindMapper />} />
-      </Routes>
-    </BrowserRouter>
-  );
+    // Profil sayfası için kullanıcı bilgileri
+    const [userName, setUserName] = useState('');
+    const [userEmail, setUserEmail] = useState('');
+    const [userAge, setUserAge] = useState(null);
+
+    const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+    // Kullanıcıyı dinle - Kimlik doğrulama durumu değişikliğini dinler
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            setCurrentUser(user);
+            setUserId(user ? user.uid : null);
+            setIsAuthReady(true);
+        });
+        return () => unsubscribe();
+    }, []);
+
+    // Kullanıcı profili ve ilerlemesini Firebase'den çeker
+    useEffect(() => {
+        if (currentUser && userId && isAuthReady) {
+            const userDocRef = doc(db, 'users', userId);
+            const unsubscribe = onSnapshot(userDocRef, (docSnap) => {
+                if (docSnap.exists()) {
+                    setUserProfile(docSnap.data());
+                    // Profil sayfası için kullanıcı bilgilerini ayarla
+                    setUserName(docSnap.data().name || '');
+                    setUserEmail(docSnap.data().email || currentUser.email || '');
+                    setUserAge(docSnap.data().age || null);
+                    setUserProgress(docSnap.data().progress || { reading: { correct: 0, total: 0 }, learnedWords: [], activities: [] });
+                } else {
+                    console.log("Kullanıcı profili belgesi bulunamadı!");
+                    // Kullanıcı belgesi yoksa (örneğin yeni kullanıcı), varsayılan bir profil oluştur
+                    setDoc(userDocRef, {
+                        email: currentUser.email,
+                        name: name || '', // Kayıt sırasında girilen isim state'i
+                        surname: surname || '', // Kayıt sırasında girilen soyisim state'i
+                        age: age || null, // Kayıt sırasında girilen yaş state'i
+                        progress: { reading: { correct: 0, total: 0 }, learnedWords: [], activities: [] },
+                        createdAt: serverTimestamp(),
+                    }, { merge: true }).then(() => {
+                        console.log("Varsayılan kullanıcı profili oluşturuldu.");
+                    }).catch(error => {
+                        console.error("Varsayılan kullanıcı profili oluşturulurken hata:", error);
+                    });
+                }
+            }, (error) => {
+                console.error("Kullanıcı profili alınırken hata:", error);
+                setStatusMessage('Profil bilgileri alınırken hata oluştu.');
+            });
+            return () => unsubscribe();
+        }
+    }, [currentUser, userId, isAuthReady, name, surname, age]); // name, surname, age bağımlılık olarak eklendi
+
+
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<Dashboard userProgress={userProfile} />} />
+                <Route path="/wordcard" element={<WordCardDisplay />} />
+                <Route path="/quiz" element={<QuizComponent />} />
+                <Route path="/mindmap" element={<MindMapper />} />
+                {/* Diğer rotalarınızı buraya ekleyebilirsiniz */}
+            </Routes>
+        </BrowserRouter>
+    );
 };
   // Dark Mode useEffect - DOM'u güncellemek için
   useEffect(() => {
