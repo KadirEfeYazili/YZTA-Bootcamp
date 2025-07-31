@@ -22,13 +22,10 @@ import { auth, db, firebaseConfig } from './config/firebase';
 import Dashboard from './components/Dashboard';
 import WordComparer from './components/WordComparer';
 import ReadingPractice from './components/ReadingPractice';
-import MindMapper from './components/MindMapper';
 import AIChat from './components/AIChat';
 import NavItem from './components/NavItem';
-import QuizComponent from './components/QuizComponent';
 import ProfilePage from './components/ProfilePage';
 import NotificationScheduler from './components/NotificationScheduler';
-import WordCardDisplay from './components/WordCardDisplay'; // Yeni bileşen import edildi
 import Notebook from './components/Notebook'; // Yeni bileşen import edildi
 
 // FastAPI backend'inizin temel URL'si
@@ -653,11 +650,7 @@ const App = () => {
               <NavItem tabName="dashboard" icon={<LayoutDashboard className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>İlerleme Paneli</NavItem>
               <NavItem tabName="word" icon={<Component className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Kelime Karşılaştırma</NavItem>
               <NavItem tabName="reading" icon={<BookOpen className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Okuma Alıştırması</NavItem>
-              <NavItem tabName="mindmap" icon={<Map className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Akıl Haritası</NavItem>
-              <NavItem tabName="quiz" icon={<GraduationCap className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Quiz</NavItem>
               <NavItem tabName="notifications" icon={<BellRing className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Günlük Bildirimler</NavItem>
-              {/* Yeni Kelime Kartları NavItem'ı */}
-              <NavItem tabName="word-cards" icon={<BookOpen className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Kelime Kartları</NavItem>
               {/* Yeni Not Defteri NavItem'ı */}
               <NavItem tabName="notebook" icon={<BookText className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Not Defteri</NavItem> {/* NotebookText yerine BookText kullanıldı */}
               {/* Çıkış Yap butonu NavItem olarak eklendi */}
