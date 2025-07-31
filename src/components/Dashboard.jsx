@@ -1,12 +1,15 @@
 import React, { useEffect } from 'react';
 import { Lightbulb, BarChart2, BrainCircuit, GraduationCap, Activity, Clock, BookOpen, XCircle, Map, Component } from 'lucide-react';
 
-// İlgili componentleri import ediyoruz
-import WordCard from './components/WordCard';
-import QuizComponent from './components/QuizComponent';
-import MindMapper from './components/MindMapper';
+// WordCard, QuizComponent, MindMapper BURADA ARTIK IMPORT EDİLMEYECEK.
+// Onlar App.jsx'te merkezi olarak render edilecek.
+// Bu nedenle aşağıdaki import satırları kaldırıldı veya kaldırılmalıdır:
+// import WordCard from './WordCard';
+// import QuizComponent from './QuizComponent';
+// import MindMapper from './MindMapper';
 
-// Yardımcı fonksiyon: Yeterlilik seviyesini hesapla
+
+// Yardımcı fonksiyon: Yeterlilik seviyesini hesapla (değişiklik yok)
 const calculateProficiencyLevel = (progress) => {
     if (!progress || !progress.reading) {
         console.warn("calculateProficiencyLevel: 'progress' veya 'progress.reading' tanımsız. Varsayılan olarak 0 döndürülüyor.");
@@ -23,9 +26,9 @@ const calculateProficiencyLevel = (progress) => {
     return (safeCorrect / safeTotal) * 100;
 };
 
-// selectedComponent ve onSelectComponent prop'larını ekliyoruz
-const Dashboard = ({ userProgress, handleRemoveLearnedWord, selectedComponent, onSelectComponent }) => {
-    // userProgress prop'unun içeriğini konsola yazdır
+// onSelectComponent prop'unu alıyoruz (bu App.jsx'teki setActiveTab olacak)
+const Dashboard = ({ userProgress, handleRemoveLearnedWord, onSelectComponent }) => {
+    // userProgress prop'unun içeriğini konsola yazdır (değişiklik yok)
     useEffect(() => {
         console.log("Dashboard Bileşeni yüklendi.");
         console.log("Dashboard useEffect: userProgress", userProgress);
@@ -37,15 +40,15 @@ const Dashboard = ({ userProgress, handleRemoveLearnedWord, selectedComponent, o
         } else {
             console.log("Dashboard useEffect: userProgress tanımsız veya boş.");
         }
-    }, [userProgress]); // userProgress değiştiğinde bu effect'i tekrar çalıştır
+    }, [userProgress]);
 
-    // userProgress'in undefined olmaması için varsayılan değerler sağlar
+    // userProgress'in undefined olmaması için varsayılan değerler sağlayın (değişiklik yok)
     const safeUserProgress = userProgress || {
         reading: { correct: 0, total: 0 },
-        grammar: { correct: 0, total: 0 },
+        grammar: { correct: 0, total: 0 }, // Assuming grammar might also be part of progress
         learnedWords: [],
         activities: [],
-        chatHistory: []
+        chatHistory: [] // Assuming chatHistory might also be part of progress
     };
 
     const { reading, grammar, learnedWords, activities } = safeUserProgress;
@@ -55,124 +58,14 @@ const Dashboard = ({ userProgress, handleRemoveLearnedWord, selectedComponent, o
     const currentActivities = activities || [];
     const currentLearnedWords = learnedWords || [];
 
-    // Learned Words dizisi değiştiğinde konsola log yazdır
+    // Learned Words dizisi değiştiğinde konsola log yazdır (değişiklik yok)
     useEffect(() => {
         console.log("Dashboard: currentLearnedWords güncellendi:", currentLearnedWords);
     }, [currentLearnedWords]);
 
-    // Hangi component'in gösterileceğini belirleyen render fonksiyonu
-    const renderActiveComponent = () => {
-        switch (selectedComponent) {
-            case 'wordcard':
-                return <WordCard />; // WordCard componentini render et
-            case 'quiz':
-                return <QuizComponent />; // QuizComponentini render et
-            case 'mindmapper':
-                return <MindMapper />; // MindMapper componentini render et
-            case 'dashboard': // Default olarak ana dashboard içeriği
-            default:
-                return (
-                    <>
-                        {/* General Progress Summary */}
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                            {/* Akıl Haritası Kartı */}
-                            <div
-                                className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg flex items-center space-x-4 border border-violet-100 dark:border-slate-700 transition-all hover:shadow-xl cursor-pointer"
-                                onClick={() => onSelectComponent('mindmapper')} // Tıklama olayını ekliyoruz
-                            >
-                                <Map className="text-purple-500" size={32} />
-                                <div>
-                                    <p className="text-slate-500 dark:text-slate-400">Akıl Haritası Oluşturucu</p>
-                                    <p className="text-2xl font-semibold text-slate-800 dark:text-white">Hazır</p>
-                                </div>
-                            </div>
-                            {/* Kelime Kartları Kartı */}
-                            <div
-                                className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg flex items-center space-x-4 border border-violet-100 dark:border-slate-700 transition-all hover:shadow-xl cursor-pointer"
-                                onClick={() => onSelectComponent('wordcard')} // Tıklama olayını ekliyoruz
-                            >
-                                <Component className="text-violet-500" size={32} />
-                                <div>
-                                    <p className="text-slate-500 dark:text-slate-400">Kelime Kartları</p>
-                                    <p className="text-2xl font-semibold text-slate-800 dark:text-white">{currentLearnedWords.length} Kelime</p>
-                                </div>
-                            </div>
-                            {/* Quiz Kartı */}
-                            <div
-                                className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg flex items-center space-x-4 border border-violet-100 dark:border-slate-700 transition-all hover:shadow-xl cursor-pointer"
-                                onClick={() => onSelectComponent('quiz')} // Tıklama olayını ekliyoruz
-                            >
-                                <GraduationCap className="text-fuchsia-500" size={32} />
-                                <div>
-                                    <p className="text-slate-500 dark:text-slate-400">Quiz</p>
-                                    <p className="text-2xl font-semibold text-slate-800 dark:text-white">Hazır</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Learned Words */}
-                        <div className="mb-8">
-                            <h3 className="text-2xl font-semibold text-slate-700 dark:text-white mb-4 flex items-center">
-                                <Lightbulb className="mr-2 text-amber-500" size={24} />
-                                Öğrenilen Kelimeler ({currentLearnedWords.length})
-                            </h3>
-                            {currentLearnedWords.length > 0 ? (
-                                <div className="flex flex-wrap gap-3">
-                                    {currentLearnedWords.map((word, index) => (
-                                        <span key={index} className="bg-violet-100 dark:bg-slate-700 text-violet-800 dark:text-white px-4 py-2 rounded-full text-sm font-medium flex items-center shadow-sm">
-                                            {word}
-                                            <button onClick={() => handleRemoveLearnedWord(word)} className="ml-3 text-violet-400 hover:text-red-500 focus:outline-none transition-colors">
-                                                <XCircle size={16} />
-                                            </button>
-                                        </span>
-                                    ))}
-                                </div>
-                            ) : (
-                                <p className="text-slate-500 dark:text-slate-400">Henüz öğrenilen kelimeniz yok. Kelimeleri "Öğrenildi" olarak işaretleyerek buraya ekleyebilirsiniz.</p>
-                            )}
-                        </div>
-
-                        {/* Recent Activities */}
-                        <div className="mb-8">
-                            <h3 className="text-2xl font-semibold text-slate-700 dark:text-white mb-4 flex items-center">
-                                <Activity className="mr-2 text-rose-500" size={24} />
-                                Son Etkinlikler
-                            </h3>
-                            <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg border border-violet-100 dark:border-slate-700">
-                                <ul className="space-y-2 text-slate-600 dark:text-slate-300">
-                                    {currentActivities.length > 0 ? (
-                                        // Firestore Timestamp objelerini JavaScript Date objelerine çevirerek sırala
-                                        currentActivities.slice().sort((a, b) => {
-                                            const timestampA = a.timestamp?.toDate ? a.timestamp.toDate().getTime() : (a.timestamp instanceof Date ? a.timestamp.getTime() : 0);
-                                            const timestampB = b.timestamp?.toDate ? b.timestamp.toDate().getTime() : (b.timestamp instanceof Date ? b.timestamp.getTime() : 0);
-                                            return timestampB - timestampA; // En yeni en üstte
-                                        }).map((activity, index) => (
-                                            <li key={index} className="flex items-center">
-                                                <Clock className="inline mr-3 text-slate-400" size={16} />
-                                                {activity.text} - {activity.timestamp ? new Date(activity.timestamp.toDate ? activity.timestamp.toDate() : activity.timestamp).toLocaleString('tr-TR', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : 'Zaman Damgası Yok'}
-                                            </li>
-                                        ))
-                                    ) : (
-                                        <li className="text-slate-400 flex items-center"><Clock className="inline mr-3 text-slate-400" size={16} /> Henüz bir etkinlik yok.</li>
-                                    )}
-                                </ul>
-                            </div>
-                        </div>
-
-                        {/* Words to Review */}
-                        <div>
-                            <h3 className="text-2xl font-semibold text-slate-700 dark:text-white mb-4 flex items-center">
-                                <BookOpen className="mr-2 text-sky-500" size={24} />
-                                Gözden Geçirilecek Kelimeler
-                            </h3>
-                            <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg border border-violet-100 dark:border-slate-700">
-                                <p className="text-slate-500 dark:text-slate-400">Gözden geçirmeniz gereken kelimeler yakında burada listelenecek.</p>
-                            </div>
-                        </div>
-                    </>
-                );
-        }
-    };
+    // Dashboard'da artık renderActiveComponent fonksiyonu yok,
+    // çünkü bu bileşenleri App.jsx render edecek.
+    // Dashboard sadece kendi içeriğini ve tıklanabilir kartları gösterecek.
 
     return (
         <div className="p-8 animate-fade-in">
@@ -185,8 +78,101 @@ const Dashboard = ({ userProgress, handleRemoveLearnedWord, selectedComponent, o
                 İlerleme Paneli
             </h2>
 
-            {/* Bu kısımda seçilen component'i render ediyoruz */}
-            {renderActiveComponent()}
+            {/* General Progress Summary - Şimdi App.jsx'teki activeTab'ı değiştirmek için onClick kullanıyoruz */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                {/* Akıl Haritası Kartı */}
+                <div
+                    className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg flex items-center space-x-4 border border-violet-100 dark:border-slate-700 transition-all hover:shadow-xl cursor-pointer"
+                    onClick={() => onSelectComponent('mindmapper')} // App.jsx'e MindMapper'ı göstermesini söyler
+                >
+                    <Map className="text-purple-500" size={32} />
+                    <div>
+                        <p className="text-slate-500 dark:text-slate-400">Akıl Haritası Oluşturucu</p>
+                        <p className="text-2xl font-semibold text-slate-800 dark:text-white">Hazır</p>
+                    </div>
+                </div>
+                {/* Kelime Kartları Kartı */}
+                <div
+                    className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg flex items-center space-x-4 border border-violet-100 dark:border-slate-700 transition-all hover:shadow-xl cursor-pointer"
+                    onClick={() => onSelectComponent('wordcard')} // App.jsx'e WordCard'ı göstermesini söyler
+                >
+                    <Component className="text-violet-500" size={32} />
+                    <div>
+                        <p className="text-slate-500 dark:text-slate-400">Kelime Kartları</p>
+                        <p className="text-2xl font-semibold text-slate-800 dark:text-white">{currentLearnedWords.length} Kelime</p>
+                    </div>
+                </div>
+                {/* Quiz Kartı */}
+                <div
+                    className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg flex items-center space-x-4 border border-violet-100 dark:border-slate-700 transition-all hover:shadow-xl cursor-pointer"
+                    onClick={() => onSelectComponent('quiz')} // App.jsx'e QuizComponent'i göstermesini söyler
+                >
+                    <GraduationCap className="text-fuchsia-500" size={32} />
+                    <div>
+                        <p className="text-slate-500 dark:text-slate-400">Quiz</p>
+                        <p className="text-2xl font-semibold text-slate-800 dark:text-white">Hazır</p>
+                    </div>
+                </div>
+            </div>
+
+            {/* Learned Words (değişiklik yok) */}
+            <div className="mb-8">
+                <h3 className="text-2xl font-semibold text-slate-700 dark:text-white mb-4 flex items-center">
+                    <Lightbulb className="mr-2 text-amber-500" size={24} />
+                    Öğrenilen Kelimeler ({currentLearnedWords.length})
+                </h3>
+                {currentLearnedWords.length > 0 ? (
+                    <div className="flex flex-wrap gap-3">
+                        {currentLearnedWords.map((word, index) => (
+                            <span key={index} className="bg-violet-100 dark:bg-slate-700 text-violet-800 dark:text-white px-4 py-2 rounded-full text-sm font-medium flex items-center shadow-sm">
+                                {word}
+                                <button onClick={() => handleRemoveLearnedWord(word)} className="ml-3 text-violet-400 hover:text-red-500 focus:outline-none transition-colors">
+                                    <XCircle size={16} />
+                                </button>
+                            </span>
+                        ))}
+                    </div>
+                ) : (
+                    <p className="text-slate-500 dark:text-slate-400">Henüz öğrenilen kelimeniz yok. Kelimeleri "Öğrenildi" olarak işaretleyerek buraya ekleyebilirsiniz.</p>
+                )}
+            </div>
+
+            {/* Recent Activities (değişiklik yok) */}
+            <div className="mb-8">
+                <h3 className="text-2xl font-semibold text-slate-700 dark:text-white mb-4 flex items-center">
+                    <Activity className="mr-2 text-rose-500" size={24} />
+                    Son Etkinlikler
+                </h3>
+                <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg border border-violet-100 dark:border-slate-700">
+                    <ul className="space-y-2 text-slate-600 dark:text-slate-300">
+                        {currentActivities.length > 0 ? (
+                            currentActivities.slice().sort((a, b) => {
+                                const timestampA = a.timestamp?.toDate ? a.timestamp.toDate().getTime() : (a.timestamp instanceof Date ? a.timestamp.getTime() : 0);
+                                const timestampB = b.timestamp?.toDate ? b.timestamp.toDate().getTime() : (b.timestamp instanceof Date ? b.timestamp.getTime() : 0);
+                                return timestampB - timestampA;
+                            }).map((activity, index) => (
+                                <li key={index} className="flex items-center">
+                                    <Clock className="inline mr-3 text-slate-400" size={16} />
+                                    {activity.text} - {activity.timestamp ? new Date(activity.timestamp.toDate ? activity.timestamp.toDate() : activity.timestamp).toLocaleString('tr-TR', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : 'Zaman Damgası Yok'}
+                                </li>
+                            ))
+                        ) : (
+                            <li className="text-slate-400 flex items-center"><Clock className="inline mr-3 text-slate-400" size={16} /> Henüz bir etkinlik yok.</li>
+                        )}
+                    </ul>
+                </div>
+            </div>
+
+            {/* Words to Review (değişiklik yok) */}
+            <div>
+                <h3 className="text-2xl font-semibold text-slate-700 dark:text-white mb-4 flex items-center">
+                    <BookOpen className="mr-2 text-sky-500" size={24} />
+                    Gözden Geçirilecek Kelimeler
+                </h3>
+                <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg border border-violet-100 dark:border-slate-700">
+                    <p className="text-slate-500 dark:text-slate-400">Gözden geçirmeniz gereken kelimeler yakında burada listelenecek.</p>
+                </div>
+            </div>
         </div>
     );
 };
