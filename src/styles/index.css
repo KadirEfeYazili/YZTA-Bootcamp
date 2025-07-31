@@ -2,13 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  body {
-    /* Tailwind'in varsayılan stillerini geçersiz kılmak için */
-    @apply;
-  }
-}
-
 .starry-background {
   @apply relative w-full h-screen;
   
