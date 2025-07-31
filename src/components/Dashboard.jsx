@@ -10,8 +10,8 @@ import {
   XCircle,
 } from 'lucide-react';
 
-import WordCard from './components/WordCardDisplay';
-import QuizComponents from './components/QuizComponents';
+import WordCardDisplay from './components/WordCardDisplay'; 
+import QuizComponent from './components/QuizComponent';
 import MindMapper from './components/MindMapper';
 
 // Yardımcı fonksiyon: Yeterlilik seviyesini hesapla
@@ -116,12 +116,12 @@ const Dashboard = ({ userProgress, handleRemoveLearnedWord }) => {
       <div className="space-y-6 mb-8">
         {showWordCard && (
           <div className="p-4 bg-white dark:bg-slate-800 rounded-xl shadow border">
-            <WordCard />
+            <WordCardDisplay />
           </div>
         )}
         {showQuiz && (
           <div className="p-4 bg-white dark:bg-slate-800 rounded-xl shadow border">
-            <QuizComponents />
+            <QuizComponent />
           </div>
         )}
         {showMindMap && (
