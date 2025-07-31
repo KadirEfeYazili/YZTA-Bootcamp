@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Lightbulb,
   BarChart2,
@@ -8,6 +8,8 @@ import {
   Clock,
   BookOpen,
   XCircle,
+  Component,
+  Map,
 } from 'lucide-react';
 
 // Yardımcı fonksiyon: Yeterlilik seviyesini hesapla
@@ -29,7 +31,20 @@ const calculateProficiencyLevel = (progress) => {
   return (safeCorrect / safeTotal) * 100;
 };
 
-const Dashboard = ({ userProgress, handleRemoveLearnedWord }) => {
+const Dashboard = ({ 
+  userProgress, 
+  handleRemoveLearnedWord, 
+  WordCardDisplay, 
+  QuizComponent, 
+  MindMapper,
+  saveProgress,
+  userId,
+  db,
+  firebaseAppId 
+}) => {
+  const [showWordCard, setShowWordCard] = useState(false);
+  const [showQuiz, setShowQuiz] = useState(false);
+  const [showMindMap, setShowMindMap] = useState(false);
   useEffect(() => {
     console.log('Dashboard Bileşeni yüklendi.');
     console.log('Dashboard useEffect: userProgress', userProgress);
@@ -87,6 +102,66 @@ const Dashboard = ({ userProgress, handleRemoveLearnedWord }) => {
         İlerleme Paneli
       </h2>
 
+      {/* Ek Özellikler - Dashboard'a özel butonlar */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <button
+          onClick={() => setShowWordCard(!showWordCard)}
+          className="bg-blue-500 hover:bg-blue-600 text-white py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2 shadow-lg"
+        >
+          <Component size={20} />
+          <span>{showWordCard ? "Kelime Kartlarını Gizle" : "Kelime Kartlarını Göster"}</span>
+        </button>
+        <button
+          onClick={() => setShowQuiz(!showQuiz)}
+          className="bg-green-500 hover:bg-green-600 text-white py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2 shadow-lg"
+        >
+          <BrainCircuit size={20} />
+          <span>{showQuiz ? "Quiz'i Gizle" : "Quiz'i Başlat"}</span>
+        </button>
+        <button
+          onClick={() => setShowMindMap(!showMindMap)}
+          className="bg-purple-500 hover:bg-purple-600 text-white py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2 shadow-lg"
+        >
+          <Map size={20} />
+          <span>{showMindMap ? "Akıl Haritasını Gizle" : "Akıl Haritası Oluştur"}</span>
+        </button>
+      </div>
+
+      {/* Dinamik Bileşen Gösterimi */}
+      <div className="space-y-6 mb-8">
+        {showWordCard && WordCardDisplay && (
+          <div className="p-6 bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-violet-100 dark:border-slate-700">
+            <h3 className="text-xl font-semibold text-slate-700 dark:text-white mb-4 flex items-center">
+              <Component className="mr-2 text-blue-500" size={24} />
+              Kelime Kartları
+            </h3>
+            <WordCardDisplay 
+              userId={userId} 
+              db={db} 
+              firebaseAppId={firebaseAppId} 
+              saveProgress={saveProgress} 
+            />
+          </div>
+        )}
+        {showQuiz && QuizComponent && (
+          <div className="p-6 bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-violet-100 dark:border-slate-700">
+            <h3 className="text-xl font-semibold text-slate-700 dark:text-white mb-4 flex items-center">
+              <BrainCircuit className="mr-2 text-green-500" size={24} />
+              Quiz
+            </h3>
+            <QuizComponent />
+          </div>
+        )}
+        {showMindMap && MindMapper && (
+          <div className="p-6 bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-violet-100 dark:border-slate-700">
+            <h3 className="text-xl font-semibold text-slate-700 dark:text-white mb-4 flex items-center">
+              <Map className="mr-2 text-purple-500" size={24} />
+              Akıl Haritası
+            </h3>
+            <MindMapper saveProgress={saveProgress} />
+          </div>
+        )}
+      </div>
       {/* İstatistik Kartları */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         {/* Okuma Başarısı */}
