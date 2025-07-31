@@ -30,6 +30,7 @@ import {
   BellRing, 
   BookText 
 } from 'lucide-react';
+import './styles/index.css'; 
 
 // Firebase yapılandırma ve başlatma
 import { auth, db, firebaseConfig } from './config/firebase';
@@ -583,7 +584,7 @@ const App = () => {
   }
 
   return (
-    <div className={`${darkMode ? 'dark' : ''} flex h-screen bg-violet-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-sans`}>
+    <div className={`starry-background ${darkMode ? 'dark' : ''} flex h-screen text-slate-800 dark:text-slate-100 font-sans`}> 
       {currentUser ? (
         <>
           <aside
