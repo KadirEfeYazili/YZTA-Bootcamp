@@ -30,7 +30,6 @@ import {
   BellRing, 
   BookText 
 } from 'lucide-react';
-import './styles/index.css'; 
 
 // Firebase yapılandırma ve başlatma
 import { auth, db, firebaseConfig } from './config/firebase';
@@ -572,21 +571,19 @@ const App = () => {
     }
   };
 
-const toggleSidebar = () => setIsSidebarOpen(prev => !prev);
+  const toggleSidebar = () => setIsSidebarOpen(prev => !prev);
 
-if (!isAuthReady) {
+  if (!isAuthReady) {
+    return (
+      <div className="flex justify-center items-center h-screen bg-gray-900 text-gray-100">
+        <Loader2 className="animate-spin text-indigo-500" size={48} />
+        <p className="ml-3 text-lg">Yükleniyor...</p>
+      </div>
+    );
+  }
+
   return (
-    <div className={`starry-background flex justify-center items-center h-screen bg-gray-900 text-gray-100`}>
-      <Loader2 className="animate-spin text-indigo-500" size={48} />
-      <p className="ml-3 text-lg">Yükleniyor...</p>
-    </div>
-  );
-}
-
-return (
-  <div className={`starry-background bg-black`}>
-    
-    <div className={`flex h-screen text-slate-800 dark:text-slate-100 font-sans`}>
+    <div className={`${darkMode ? 'dark' : ''} flex h-screen bg-violet-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-sans`}>
       {currentUser ? (
         <>
           <aside
@@ -595,7 +592,6 @@ return (
               width: isSidebarOpen ? '16rem' : '6rem',
             }}
           >
-            {/* Bu kısım, aside etiketinin içeriği */}
             <div
               className={`flex items-center mb-8 px-2 cursor-pointer justify-center`}
               onClick={toggleSidebar}
@@ -684,11 +680,13 @@ return (
             <h2 className="text-3xl font-normal text-gray-800 mb-8">
               Prepmate'e hoş geldin
             </h2>
+
             {statusMessage && (
               <div className="mb-4 p-3 text-sm rounded-lg bg-blue-100 text-blue-700 dark:bg-blue-800 dark:text-blue-200">
                 {statusMessage}
               </div>
             )}
+
             {authMode === 'initial' && (
               <>
                 <input
@@ -739,6 +737,7 @@ return (
                 </button>
               </>
             )}
+
             {authMode === 'signup' && (
               <>
                 <input
@@ -791,6 +790,7 @@ return (
                 </button>
               </>
             )}
+
             {authMode === 'forgotPassword' && (
               <>
                 <h2 className="text-2xl font-semibold text-gray-800 mb-6">Şifremi Sıfırla</h2>
@@ -819,9 +819,7 @@ return (
         </div>
       )}
     </div>
-  </div>
-);
-
+  );
 };
 
 export default App;
