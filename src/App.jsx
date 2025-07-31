@@ -13,8 +13,31 @@ import {
   signInAnonymously,
   sendPasswordResetEmail,
 } from 'firebase/auth';
-import { doc, setDoc, onSnapshot, updateDoc, arrayUnion, arrayRemove, serverTimestamp } from 'firebase/firestore';
-import { GraduationCap, LayoutDashboard, Component, BookOpen, BrainCircuit, Map, Loader2, XCircle, Chrome, Sun, Moon, User, BellRing, BookText } from 'lucide-react';
+import {
+  doc,
+  setDoc,
+  onSnapshot,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
+  serverTimestamp,
+} from 'firebase/firestore';
+import {
+  GraduationCap,
+  LayoutDashboard,
+  Component,
+  BookOpen,
+  BrainCircuit,
+  Map,
+  Loader2,
+  XCircle,
+  Chrome,
+  Sun,
+  Moon,
+  User,
+  BellRing,
+  BookText,
+} from 'lucide-react';
 
 import { auth, db, firebaseConfig } from './config/firebase';
 
@@ -36,8 +59,8 @@ const API_BASE_URL = 'http://127.0.0.1:8000';
 
 const App = () => {
   // Authentication ve Kullanıcı Durumu
-  const [currentUser, setCurrentUser] = useState(null); 
-  const [userId, setUserId] = useState(null); 
+  const [currentUser, setCurrentUser] = useState(null);
+  const [userId, setUserId] = useState(null);
   const [isAuthReady, setIsAuthReady] = useState(false);
 
   // Giriş/Kayıt Akışı State'leri
@@ -46,12 +69,11 @@ const App = () => {
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
   const [age, setAge] = useState('');
-  const [authMode, setAuthMode] = useState('initial'); // 'initial', 'signup', 'forgotPassword'
+  const [authMode, setAuthMode] = useState('initial');
 
   const [userProfile, setUserProfile] = useState(null);
   const [statusMessage, setStatusMessage] = useState('');
 
-  // Firebase Auth dinleyicisi, kullanıcı durumunu güncelle
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
@@ -61,8 +83,6 @@ const App = () => {
     return () => unsubscribe();
   }, []);
 
-  // Burada auth işlemleri, kullanıcı profil güncelleme, API çağrıları vb. işlemler olacak
-
   return (
     <BrowserRouter>
       <Routes>
@@ -70,7 +90,6 @@ const App = () => {
         <Route path="/wordcard" element={<WordCardDisplay />} />
         <Route path="/quiz" element={<QuizComponent />} />
         <Route path="/mindmap" element={<MindMapper />} />
-        {/* Diğer sayfalar route olarak eklenebilir */}
       </Routes>
     </BrowserRouter>
   );
