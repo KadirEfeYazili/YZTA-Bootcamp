@@ -10,7 +10,7 @@ import {
   XCircle,
 } from 'lucide-react';
 
-import WordCard from './components/WordCard';
+import WordCard from './components/WordCardDisplay';
 import QuizComponents from './components/QuizComponents';
 import MindMapper from './components/MindMapper';
 
