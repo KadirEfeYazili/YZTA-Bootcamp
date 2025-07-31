@@ -1,4 +1,3 @@
-// App.jsx
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import {
@@ -9,7 +8,7 @@ import {
   signInWithPopup,
   onAuthStateChanged,
   signOut as firebaseSignOut,
-  fetchSignInMethodsForEmail,  
+  fetchSignInMethodsForEmail,
   signInAnonymously,
   sendPasswordResetEmail,
 } from 'firebase/auth';
@@ -74,7 +73,7 @@ const App = () => {
   const [userProfile, setUserProfile] = useState(null);
   const [statusMessage, setStatusMessage] = useState('');
 
-  // Uygulama İçeriği State'leri
+  // Uygulama İçeriği State'leri - This block was duplicated
   const [userProgress, setUserProgress] = useState({
     reading: { correct: 0, total: 0 },
     learnedWords: [],
@@ -85,12 +84,12 @@ const App = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true); // Sidebar durumu
   const [darkMode, setDarkMode] = useState(true); // Dark Mode
 
-  // Profil sayfası için kullanıcı bilgileri
+  // Profil sayfası için kullanıcı bilgileri - This block was duplicated
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userAge, setUserAge] = useState(null);
 
-  const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+  const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null; // This line was duplicated
 
   // Kullanıcıyı dinle
   useEffect(() => {
@@ -113,28 +112,6 @@ const App = () => {
     </BrowserRouter>
   );
 };
-
-  // Uygulama İçeriği State'leri
-  const [userProgress, setUserProgress] = useState({
-    reading: { correct: 0, total: 0 },
-    learnedWords: [],
-    activities: []
-  });
-  const [activeTab, setActiveTab] = useState('dashboard');
-  const [isChatOpen, setIsChatOpen] = useState(false);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true); // Sidebar durumu
-  const [darkMode, setDarkMode] = useState(true); // Dark Mode
-
-  // New state for user's full name and email for profile page
-  const [userName, setUserName] = useState('');
-  const [userEmail, setUserEmail] = useState('');
-  const [userAge, setUserAge] = useState(null);
-
-  // __initial_auth_token tanımı dışarıdan geliyorsa kontrol et
-  // Bu değişkenin çalışma ortamında tanımlı olup olmadığını kontrol ederiz.
-  const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
-
-
   // Dark Mode useEffect - DOM'u güncellemek için
   useEffect(() => {
     console.log("Dark mode useEffect çalıştı. darkMode:", darkMode);
