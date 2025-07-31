@@ -644,7 +644,7 @@ return (
                 <XCircle className="mr-3" size={18} /> {isSidebarOpen && <span>Çıkış Yap</span>}
               </button>
             </nav>
-          </aside> {/*kapanış etiketi doğru yerde olmalı */}
+          </aside>
 
           <main className="flex-1 overflow-y-auto bg-violet-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100">
             {renderAppContent()}
@@ -684,13 +684,11 @@ return (
             <h2 className="text-3xl font-normal text-gray-800 mb-8">
               Prepmate'e hoş geldin
             </h2>
-
             {statusMessage && (
               <div className="mb-4 p-3 text-sm rounded-lg bg-blue-100 text-blue-700 dark:bg-blue-800 dark:text-blue-200">
                 {statusMessage}
               </div>
             )}
-
             {authMode === 'initial' && (
               <>
                 <input
@@ -741,7 +739,6 @@ return (
                 </button>
               </>
             )}
-
             {authMode === 'signup' && (
               <>
                 <input
@@ -794,7 +791,6 @@ return (
                 </button>
               </>
             )}
-
             {authMode === 'forgotPassword' && (
               <>
                 <h2 className="text-2xl font-semibold text-gray-800 mb-6">Şifremi Sıfırla</h2>
@@ -823,7 +819,7 @@ return (
         </div>
       )}
     </div>
-  );
-};
+  </div>
+);
 
 export default App;
