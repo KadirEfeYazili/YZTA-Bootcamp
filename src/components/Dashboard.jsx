@@ -1,15 +1,8 @@
+// components/Dashboard.jsx
 import React, { useEffect } from 'react';
-import { Lightbulb, BarChart2, BrainCircuit, GraduationCap, Activity, Clock, BookOpen, XCircle, Map, Component } from 'lucide-react';
+import { Lightbulb, BarChart2, BrainCircuit, GraduationCap, Activity, Clock, BookOpen, XCircle } from 'lucide-react';
 
-// WordCard, QuizComponent, MindMapper BURADA ARTIK IMPORT EDİLMEYECEK.
-// Onlar App.jsx'te merkezi olarak render edilecek.
-// Bu nedenle aşağıdaki import satırları kaldırıldı veya kaldırılmalıdır:
-// import WordCard from './WordCard';
-// import QuizComponent from './QuizComponent';
-// import MindMapper from './MindMapper';
-
-
-// Yardımcı fonksiyon: Yeterlilik seviyesini hesapla (değişiklik yok)
+// Yardımcı fonksiyon: Yeterlilik seviyesini hesapla
 const calculateProficiencyLevel = (progress) => {
     if (!progress || !progress.reading) {
         console.warn("calculateProficiencyLevel: 'progress' veya 'progress.reading' tanımsız. Varsayılan olarak 0 döndürülüyor.");
@@ -26,9 +19,8 @@ const calculateProficiencyLevel = (progress) => {
     return (safeCorrect / safeTotal) * 100;
 };
 
-// onSelectComponent prop'unu alıyoruz (bu App.jsx'teki setActiveTab olacak)
-const Dashboard = ({ userProgress, handleRemoveLearnedWord, onSelectComponent }) => {
-    // userProgress prop'unun içeriğini konsola yazdır (değişiklik yok)
+const Dashboard = ({ userProgress, handleRemoveLearnedWord }) => {
+    // userProgress prop'unun içeriğini konsola yazdır
     useEffect(() => {
         console.log("Dashboard Bileşeni yüklendi.");
         console.log("Dashboard useEffect: userProgress", userProgress);
@@ -40,16 +32,18 @@ const Dashboard = ({ userProgress, handleRemoveLearnedWord, onSelectComponent })
         } else {
             console.log("Dashboard useEffect: userProgress tanımsız veya boş.");
         }
-    }, [userProgress]);
+    }, [userProgress]); // userProgress değiştiğinde bu effect'i tekrar çalıştır
 
-    // userProgress'in undefined olmaması için varsayılan değerler sağlayın (değişiklik yok)
+    // userProgress'in undefined olmaması için varsayılan değerler sağlayın
     const safeUserProgress = userProgress || {
         reading: { correct: 0, total: 0 },
-        grammar: { correct: 0, total: 0 }, // Assuming grammar might also be part of progress
+        grammar: { correct: 0, total: 0 },
         learnedWords: [],
         activities: [],
-        chatHistory: [] // Assuming chatHistory might also be part of progress
+        chatHistory: []
     };
+
+    const proficiencyLevel = calculateProficiencyLevel(safeUserProgress);
 
     const { reading, grammar, learnedWords, activities } = safeUserProgress;
 
@@ -58,14 +52,11 @@ const Dashboard = ({ userProgress, handleRemoveLearnedWord, onSelectComponent })
     const currentActivities = activities || [];
     const currentLearnedWords = learnedWords || [];
 
-    // Learned Words dizisi değiştiğinde konsola log yazdır (değişiklik yok)
+    // Learned Words dizisi değiştiğinde konsola log yazdır
     useEffect(() => {
         console.log("Dashboard: currentLearnedWords güncellendi:", currentLearnedWords);
     }, [currentLearnedWords]);
 
-    // Dashboard'da artık renderActiveComponent fonksiyonu yok,
-    // çünkü bu bileşenleri App.jsx render edecek.
-    // Dashboard sadece kendi içeriğini ve tıklanabilir kartları gösterecek.
 
     return (
         <div className="p-8 animate-fade-in">
@@ -78,44 +69,32 @@ const Dashboard = ({ userProgress, handleRemoveLearnedWord, onSelectComponent })
                 İlerleme Paneli
             </h2>
 
-            {/* General Progress Summary - Şimdi App.jsx'teki activeTab'ı değiştirmek için onClick kullanıyoruz */}
+            {/* General Progress Summary */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                {/* Akıl Haritası Kartı */}
-                <div
-                    className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg flex items-center space-x-4 border border-violet-100 dark:border-slate-700 transition-all hover:shadow-xl cursor-pointer"
-                    onClick={() => onSelectComponent('mindmapper')} // App.jsx'e MindMapper'ı göstermesini söyler
-                >
-                    <Map className="text-purple-500" size={32} />
+                <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg flex items-center space-x-4 border border-violet-100 dark:border-slate-700 transition-all hover:shadow-xl">
+                    <BookOpen className="text-purple-500" size={32} />
                     <div>
-                        <p className="text-slate-500 dark:text-slate-400">Akıl Haritası Oluşturucu</p>
-                        <p className="text-2xl font-semibold text-slate-800 dark:text-white">Hazır</p>
+                        <p className="text-slate-500 dark:text-slate-400">Okuduğunu Anlama</p>
+                        <p className="text-2xl font-semibold text-slate-800 dark:text-white">{currentReading.correct} / {currentReading.total} Doğru</p>
                     </div>
                 </div>
-                {/* Kelime Kartları Kartı */}
-                <div
-                    className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg flex items-center space-x-4 border border-violet-100 dark:border-slate-700 transition-all hover:shadow-xl cursor-pointer"
-                    onClick={() => onSelectComponent('wordcard')} // App.jsx'e WordCard'ı göstermesini söyler
-                >
-                    <Component className="text-violet-500" size={32} />
+                <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg flex items-center space-x-4 border border-violet-100 dark:border-slate-700 transition-all hover:shadow-xl">
+                    <BrainCircuit className="text-violet-500" size={32} />
                     <div>
-                        <p className="text-slate-500 dark:text-slate-400">Kelime Kartları</p>
-                        <p className="text-2xl font-semibold text-slate-800 dark:text-white">{currentLearnedWords.length} Kelime</p>
+                        <p className="text-slate-500 dark:text-slate-400">Dilbilgisi</p>
+                        <p className="text-2xl font-semibold text-slate-800 dark:text-white">{currentGrammar.correct} / {currentGrammar.total} Doğru</p>
                     </div>
                 </div>
-                {/* Quiz Kartı */}
-                <div
-                    className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg flex items-center space-x-4 border border-violet-100 dark:border-slate-700 transition-all hover:shadow-xl cursor-pointer"
-                    onClick={() => onSelectComponent('quiz')} // App.jsx'e QuizComponent'i göstermesini söyler
-                >
+                <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg flex items-center space-x-4 border border-violet-100 dark:border-slate-700 transition-all hover:shadow-xl">
                     <GraduationCap className="text-fuchsia-500" size={32} />
                     <div>
-                        <p className="text-slate-500 dark:text-slate-400">Quiz</p>
-                        <p className="text-2xl font-semibold text-slate-800 dark:text-white">Hazır</p>
+                        <p className="text-slate-500 dark:text-slate-400">Genel Uzmanlık Seviyesi</p>
+                        <p className="text-2xl font-semibold text-slate-800 dark:text-white">{proficiencyLevel.toFixed(1)}%</p> {/* Yüzde olarak göster */}
                     </div>
                 </div>
             </div>
 
-            {/* Learned Words (değişiklik yok) */}
+            {/* Learned Words */}
             <div className="mb-8">
                 <h3 className="text-2xl font-semibold text-slate-700 dark:text-white mb-4 flex items-center">
                     <Lightbulb className="mr-2 text-amber-500" size={24} />
@@ -137,7 +116,7 @@ const Dashboard = ({ userProgress, handleRemoveLearnedWord, onSelectComponent })
                 )}
             </div>
 
-            {/* Recent Activities (değişiklik yok) */}
+            {/* Recent Activities */}
             <div className="mb-8">
                 <h3 className="text-2xl font-semibold text-slate-700 dark:text-white mb-4 flex items-center">
                     <Activity className="mr-2 text-rose-500" size={24} />
@@ -146,10 +125,11 @@ const Dashboard = ({ userProgress, handleRemoveLearnedWord, onSelectComponent })
                 <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg border border-violet-100 dark:border-slate-700">
                     <ul className="space-y-2 text-slate-600 dark:text-slate-300">
                         {currentActivities.length > 0 ? (
+                            // Firestore Timestamp objelerini JavaScript Date objelerine çevirerek sırala
                             currentActivities.slice().sort((a, b) => {
                                 const timestampA = a.timestamp?.toDate ? a.timestamp.toDate().getTime() : (a.timestamp instanceof Date ? a.timestamp.getTime() : 0);
                                 const timestampB = b.timestamp?.toDate ? b.timestamp.toDate().getTime() : (b.timestamp instanceof Date ? b.timestamp.getTime() : 0);
-                                return timestampB - timestampA;
+                                return timestampB - timestampA; // En yeni en üstte
                             }).map((activity, index) => (
                                 <li key={index} className="flex items-center">
                                     <Clock className="inline mr-3 text-slate-400" size={16} />
@@ -163,7 +143,7 @@ const Dashboard = ({ userProgress, handleRemoveLearnedWord, onSelectComponent })
                 </div>
             </div>
 
-            {/* Words to Review (değişiklik yok) */}
+            {/* Words to Review */}
             <div>
                 <h3 className="text-2xl font-semibold text-slate-700 dark:text-white mb-4 flex items-center">
                     <BookOpen className="mr-2 text-sky-500" size={24} />
