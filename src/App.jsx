@@ -576,8 +576,6 @@ const toggleSidebar = () => setIsSidebarOpen(prev => !prev);
 
 if (!isAuthReady) {
   return (
-    // Bu kısım, isAuthReady false olduğunda gösterilen yükleme ekranıdır.
-    // Burada yıldızlı arka planı etkinleştiriyoruz.
     <div className={`starry-background flex justify-center items-center h-screen bg-gray-900 text-gray-100`}>
       <Loader2 className="animate-spin text-indigo-500" size={48} />
       <p className="ml-3 text-lg">Yükleniyor...</p>
@@ -586,11 +584,8 @@ if (!isAuthReady) {
 }
 
 return (
-  // Bu kısım, kullanıcı oturum açtığında veya açmadığında ana uygulama ekranıdır.
-  // Burada da yıldızlı arka planı etkinleştiriyoruz.
   <div className={`starry-background bg-black`}>
     
-    {/* Mevcut ana div'iniz, artık yıldızlı arka planın içinde */}
     <div className={`flex h-screen text-slate-800 dark:text-slate-100 font-sans`}>
       {currentUser ? (
         <>
@@ -600,89 +595,89 @@ return (
               width: isSidebarOpen ? '16rem' : '6rem',
             }}
           >
-          {/* ...aside içeriği... */}
-          <div
-            className={`flex items-center mb-8 px-2 cursor-pointer justify-center`}
-            onClick={toggleSidebar}
-          >
-            <img
-              src="https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/public/images/PrepmateLogo.png"
-              alt="PrepMate Logo"
-              className="w-13 h-8 object-contain transition-transform hover:scale-105 duration-200"
-            />
-          </div>
-
-          <button
-            onClick={toggleDarkMode}
-            className="mb-4 px-4 py-2 flex items-center space-x-2 bg-violet-500 text-white rounded hover:bg-violet-600 transition duration-200"
-          >
-            {darkMode ? (
-              <>
-                <Sun size={18} />
-                {isSidebarOpen && <span>Açık Moda Geç</span>}
-              </>
-            ) : (
-              <>
-                <Moon size={18} />
-                {isSidebarOpen && <span>Koyu Moda Geç</span>}
-              </>
-            )}
-          </button>
-
-          <nav className="flex flex-col space-y-2">
-            <NavItem tabName="profile" icon={<User className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Profilim</NavItem>
-
-            <NavItem tabName="dashboard" icon={<LayoutDashboard className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>İlerleme Paneli</NavItem>
-            
-            <NavItem tabName="word" icon={<Component className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Kelime Karşılaştırma</NavItem>
-            
-            <NavItem tabName="reading" icon={<BookOpen className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Okuma Alıştırması</NavItem>
-            
-            <NavItem tabName="notifications" icon={<BellRing className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Günlük Bildirimler</NavItem>
-            
-            <NavItem tabName="notebook" icon={<BookText className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Not Defteri</NavItem>
-            
-            <button
-              onClick={handleSignOut}
-              className="flex items-center w-full py-2 px-4 rounded-lg text-red-600 hover:bg-red-100 dark:hover:bg-red-900 transition-colors duration-200"
+            {/* Bu kısım, aside etiketinin içeriği */}
+            <div
+              className={`flex items-center mb-8 px-2 cursor-pointer justify-center`}
+              onClick={toggleSidebar}
             >
-              <XCircle className="mr-3" size={18} /> {isSidebarOpen && <span>Çıkış Yap</span>}
-            </button>
-          </nav>
-        </aside>
-
-        <main className="flex-1 overflow-y-auto bg-violet-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100">
-          {renderAppContent()}
-        </main>
-
-        {/* AI Chat açma butonu */}
-        {!isChatOpen && (
-          <button
-            onClick={() => setIsChatOpen(true)}
-            className="fixed bottom-8 right-8 z-40 bg-sky-500 hover:bg-sky-600 text-white p-4 rounded-full shadow-lg transition-all transform hover:scale-110 focus:outline-none ring-4 ring-white/30"
-          >
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-            </svg>
-          </button>
-        )}
-
-        {/* AI Chat modalı */}
-        {isChatOpen && (
-          <div className="fixed inset-0 bg-slate-900 bg-opacity-50 backdrop-blur-sm flex justify-center items-center z-50">
-            <div className="bg-violet-50 dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-2xl h-[85vh] max-h-[700px] flex flex-col relative">
-              <button
-                onClick={() => setIsChatOpen(false)}
-                className="absolute top-3 right-3 text-slate-400 hover:text-slate-800 dark:hover:text-slate-100 z-10"
-              >
-                <XCircle size={28} />
-              </button>
-              <AIChat saveProgress={saveProgressToFirestore} />
+              <img
+                src="https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/public/images/PrepmateLogo.png"
+                alt="PrepMate Logo"
+                className="w-13 h-8 object-contain transition-transform hover:scale-105 duration-200"
+              />
             </div>
-          </div>
-        )}
-      </>
-    ) : (
+
+            <button
+              onClick={toggleDarkMode}
+              className="mb-4 px-4 py-2 flex items-center space-x-2 bg-violet-500 text-white rounded hover:bg-violet-600 transition duration-200"
+            >
+              {darkMode ? (
+                <>
+                  <Sun size={18} />
+                  {isSidebarOpen && <span>Açık Moda Geç</span>}
+                </>
+              ) : (
+                <>
+                  <Moon size={18} />
+                  {isSidebarOpen && <span>Koyu Moda Geç</span>}
+                </>
+              )}
+            </button>
+
+            <nav className="flex flex-col space-y-2">
+              <NavItem tabName="profile" icon={<User className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Profilim</NavItem>
+
+              <NavItem tabName="dashboard" icon={<LayoutDashboard className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>İlerleme Paneli</NavItem>
+              
+              <NavItem tabName="word" icon={<Component className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Kelime Karşılaştırma</NavItem>
+              
+              <NavItem tabName="reading" icon={<BookOpen className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Okuma Alıştırması</NavItem>
+              
+              <NavItem tabName="notifications" icon={<BellRing className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Günlük Bildirimler</NavItem>
+              
+              <NavItem tabName="notebook" icon={<BookText className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Not Defteri</NavItem>
+              
+              <button
+                onClick={handleSignOut}
+                className="flex items-center w-full py-2 px-4 rounded-lg text-red-600 hover:bg-red-100 dark:hover:bg-red-900 transition-colors duration-200"
+              >
+                <XCircle className="mr-3" size={18} /> {isSidebarOpen && <span>Çıkış Yap</span>}
+              </button>
+            </nav>
+          </aside> {/*kapanış etiketi doğru yerde olmalı */}
+
+          <main className="flex-1 overflow-y-auto bg-violet-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100">
+            {renderAppContent()}
+          </main>
+
+          {/* AI Chat açma butonu */}
+          {!isChatOpen && (
+            <button
+              onClick={() => setIsChatOpen(true)}
+              className="fixed bottom-8 right-8 z-40 bg-sky-500 hover:bg-sky-600 text-white p-4 rounded-full shadow-lg transition-all transform hover:scale-110 focus:outline-none ring-4 ring-white/30"
+            >
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+              </svg>
+            </button>
+          )}
+
+          {/* AI Chat modalı */}
+          {isChatOpen && (
+            <div className="fixed inset-0 bg-slate-900 bg-opacity-50 backdrop-blur-sm flex justify-center items-center z-50">
+              <div className="bg-violet-50 dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-2xl h-[85vh] max-h-[700px] flex flex-col relative">
+                <button
+                  onClick={() => setIsChatOpen(false)}
+                  className="absolute top-3 right-3 text-slate-400 hover:text-slate-800 dark:hover:text-slate-100 z-10"
+                >
+                  <XCircle size={28} />
+                </button>
+                <AIChat saveProgress={saveProgressToFirestore} />
+              </div>
+            </div>
+          )}
+        </>
+      ) : (
         // Kullanıcı giriş yapmamışsa giriş/kayıt arayüzü
         <div className="min-h-screen flex items-center justify-center bg-white text-gray-800 p-4 w-full">
           <div className="bg-white p-8 rounded-xl shadow-none w-full max-w-md text-center">
