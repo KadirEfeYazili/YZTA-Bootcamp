@@ -526,15 +526,22 @@ const App = () => {
   const renderAppContent = () => {
     switch (activeTab) {
       case 'dashboard': 
-        return <Dashboard userProgress={userProgress} handleRemoveLearnedWord={handleRemoveLearnedWord} />;
+        return <Dashboard 
+          userProgress={userProgress} 
+          handleRemoveLearnedWord={handleRemoveLearnedWord}
+          // Dashboard'a bu bileşenleri prop olarak geçiyoruz
+          WordCardDisplay={WordCardDisplay}
+          QuizComponent={QuizComponent}
+          MindMapper={MindMapper}
+          saveProgress={saveProgressToFirestore}
+          userId={userId}
+          db={db}
+          firebaseAppId={firebaseConfig.appId}
+        />;
       case 'word': 
         return <WordComparer userProgress={userProgress} saveProgress={saveProgressToFirestore} db={db} userId={userId} firebaseAppId={firebaseConfig.appId} />;
       case 'reading': 
         return <ReadingPractice userProgress={userProgress} saveProgress={saveProgressToFirestore} />;
-      case 'mindmap': 
-        return <MindMapper saveProgress={saveProgressToFirestore} />;
-      case 'quiz': 
-        return <QuizComponent />;
       case 'profile':
         return (
           <ProfilePage
@@ -545,14 +552,22 @@ const App = () => {
         );
       case 'notifications': 
         return <NotificationScheduler userId={userId} db={db} firebaseAppId={firebaseConfig.appId} />;
-      case 'word-cards': 
-        return <WordCardDisplay userId={userId} db={db} firebaseAppId={firebaseConfig.appId} saveProgress={saveProgressToFirestore} />;
       case 'notebook': 
         return <Notebook userId={userId} db={db} firebaseAppId={firebaseConfig.appId} />;
       case 'chat': 
         return <AIChat currentUser={currentUser} userId={userId} />;
       default: 
-        return <Dashboard userProgress={userProgress} handleRemoveLearnedWord={handleRemoveLearnedWord} />;
+        return <Dashboard 
+          userProgress={userProgress} 
+          handleRemoveLearnedWord={handleRemoveLearnedWord}
+          WordCardDisplay={WordCardDisplay}
+          QuizComponent={QuizComponent}
+          MindMapper={MindMapper}
+          saveProgress={saveProgressToFirestore}
+          userId={userId}
+          db={db}
+          firebaseAppId={firebaseConfig.appId}
+        />;
     }
   };
 
@@ -613,12 +628,6 @@ const App = () => {
               <NavItem tabName="word" icon={<Component className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Kelime Karşılaştırma</NavItem>
               
               <NavItem tabName="reading" icon={<BookOpen className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Okuma Alıştırması</NavItem>
-              
-              <NavItem tabName="word-cards" icon={<Component className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Kelime Kartları</NavItem>
-              
-              <NavItem tabName="quiz" icon={<BrainCircuit className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Quiz</NavItem>
-              
-              <NavItem tabName="mindmap" icon={<Map className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Akıl Haritası</NavItem>
               
               <NavItem tabName="notifications" icon={<BellRing className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Günlük Bildirimler</NavItem>
               
