@@ -10,9 +10,9 @@ import {
   XCircle,
 } from 'lucide-react';
 
-import WordCardDisplay from './components/WordCardDisplay'; 
-import QuizComponent from './components/QuizComponent';
-import MindMapper from './components/MindMapper';
+import WordCardDisplay from './WordCardDisplay'; 
+import QuizComponent from './QuizComponent';
+import MindMapper from './MindMapper';
 
 // Yardımcı fonksiyon: Yeterlilik seviyesini hesapla
 const calculateProficiencyLevel = (progress) => {
