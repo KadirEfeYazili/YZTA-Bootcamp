@@ -108,7 +108,7 @@ const Dashboard = ({ userProgress, handleRemoveLearnedWord }) => {
           onClick={() => setShowMindMap(!showMindMap)}
           className="bg-purple-500 text-white py-2 px-4 rounded hover:bg-purple-600 transition"
         >
-          {showMindMap ? "Mind Map'i Gizle" : "Mind Map'i Göster"}
+          {showMindMap ? "Gizle" : "Akıl Haritası Oluştur"}
         </button>
       </div>
 
