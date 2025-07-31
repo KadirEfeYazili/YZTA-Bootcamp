@@ -22,13 +22,10 @@ import { auth, db, firebaseConfig } from './config/firebase';
 import Dashboard from './components/Dashboard';
 import WordComparer from './components/WordComparer';
 import ReadingPractice from './components/ReadingPractice';
-import MindMapper from ;
 import AIChat from './components/AIChat';
 import NavItem from './components/NavItem';
-import QuizComponent from ;
 import ProfilePage from './components/ProfilePage';
 import NotificationScheduler from './components/NotificationScheduler';
-import WordCardDisplay from ; // Yeni bileşen import edildi
 import Notebook from './components/Notebook'; // Yeni bileşen import edildi
 
 // FastAPI backend'inizin temel URL'si
