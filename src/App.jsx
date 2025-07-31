@@ -8,13 +8,28 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   onAuthStateChanged,
-  signOut as firebaseSignOut, // Alias signOut to avoid conflict with local signOut function
-  fetchSignInMethodsForEmail, // E-posta adresinin varlığını kontrol etmek için
-  signInAnonymously, // Anonim giriş için eklendi
-  sendPasswordResetEmail // Import sendPasswordResetEmail
+  signOut as firebaseSignOut,
+  fetchSignInMethodsForEmail,
+  signInAnonymously,
+  sendPasswordResetEmail
 } from 'firebase/auth';
 import { doc, setDoc, onSnapshot, updateDoc, arrayUnion, arrayRemove, serverTimestamp } from 'firebase/firestore';
-import { GraduationCap, LayoutDashboard, Component, BookOpen, BrainCircuit, Map, Loader2, XCircle, Chrome, Sun, Moon, User, BellRing, BookText } from 'lucide-react'; // NotebookText yerine BookText ikonu eklendi
+import { 
+  GraduationCap, 
+  LayoutDashboard, 
+  Component, 
+  BookOpen, 
+  BrainCircuit, 
+  Map, 
+  Loader2, 
+  XCircle, 
+  Chrome, 
+  Sun, 
+  Moon, 
+  User, 
+  BellRing, 
+  BookText 
+} from 'lucide-react';
 
 // Firebase yapılandırma ve başlatma
 import { auth, db, firebaseConfig } from './config/firebase';
@@ -27,27 +42,32 @@ import AIChat from './components/AIChat';
 import NavItem from './components/NavItem';
 import ProfilePage from './components/ProfilePage';
 import NotificationScheduler from './components/NotificationScheduler';
-import Notebook from './components/Notebook'; // Yeni bileşen import edildi
+import Notebook from './components/Notebook';
+
+// Eksik bileşenler için gerçek importlar - bunları components klasöründen import edebilirsiniz
+import MindMapper from './components/MindMapper';
+import QuizComponent from './components/QuizComponent';
+import WordCardDisplay from './components/WordCardDisplay';
 
 // FastAPI backend'inizin temel URL'si
 const API_BASE_URL = 'http://127.0.0.1:8000';
 
 const App = () => {
   // Authentication ve Kullanıcı Durumu
-  const [currentUser, setCurrentUser] = useState(null); // Firebase Auth'tan gelen kullanıcı objesi
-  const [userId, setUserId] = useState(null); // Kullanıcının UID'si
-  const [isAuthReady, setIsAuthReady] = useState(false); // Firebase Auth'un başlangıç kontrolünü bitirip bitirmediği
+  const [currentUser, setCurrentUser] = useState(null);
+  const [userId, setUserId] = useState(null);
+  const [isAuthReady, setIsAuthReady] = useState(false);
 
   // Giriş/Kayıt Akışı State'leri
-  const [email, setEmail] = useState(''); // Ortak e-posta alanı
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
   const [age, setAge] = useState('');
-  const [authMode, setAuthMode] = useState('initial'); // 'initial', 'signup', 'forgotPassword'
+  const [authMode, setAuthMode] = useState('initial');
 
-  const [userProfile, setUserProfile] = useState(null); // Kullanıcı profil bilgileri için yeni state
-  const [statusMessage, setStatusMessage] = useState(''); // Kullanıcıya gösterilecek durum/hata mesajları
+  const [userProfile, setUserProfile] = useState(null);
+  const [statusMessage, setStatusMessage] = useState('');
 
   // Uygulama İçeriği State'leri
   const [userProgress, setUserProgress] = useState({
@@ -57,20 +77,15 @@ const App = () => {
   });
   const [activeTab, setActiveTab] = useState('dashboard');
   const [isChatOpen, setIsChatOpen] = useState(false);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true); // Sidebar durumu
-  const [darkMode, setDarkMode] = useState(true); // Dark Mode
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [darkMode, setDarkMode] = useState(true);
 
-  // New state for user's full name and email for profile page
+  // Profile page için state'ler
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userAge, setUserAge] = useState(null);
 
-  // __initial_auth_token tanımı dışarıdan geliyorsa kontrol et
-  // Bu değişkenin çalışma ortamında tanımlı olup olmadığını kontrol ederiz.
-  const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
-
-
-  // Dark Mode useEffect - DOM'u güncellemek için
+  // Dark Mode useEffect
   useEffect(() => {
     console.log("Dark mode useEffect çalıştı. darkMode:", darkMode);
     if (darkMode) {
@@ -80,50 +95,47 @@ const App = () => {
     }
   }, [darkMode]);
 
-  // Firebase Authentication durumunu dinle ve kullanıcıyı ayarla
+  // Firebase Authentication durumunu dinle
   useEffect(() => {
     console.log("Auth durumu dinleyicisi başlatılıyor...");
-    const initFirebase = async () => {
-      const unsubscribeAuth = onAuthStateChanged(auth, async (user) => { // Added async here
-        setCurrentUser(user);
-        if (user) {
-          setUserId(user.uid);
-          console.log("Kullanıcı oturum açtı:", user.uid, user.email);
-          setUserEmail(user.email); // Set user email
+    const unsubscribeAuth = onAuthStateChanged(auth, async (user) => {
+      setCurrentUser(user);
+      if (user) {
+        setUserId(user.uid);
+        console.log("Kullanıcı oturum açtı:", user.uid, user.email);
+        setUserEmail(user.email);
 
-          // Fetch user profile from FastAPI
-          try {
-            const idToken = await user.getIdToken();
-            const profile = await callApi('/users/me/', 'GET', idToken);
-            setUserName(`${profile.name} ${profile.surname}`); // Set full name
-            setUserAge(profile.age); // Set user age
-            console.log("Kullanıcı profil bilgileri alındı:", profile);
-          } catch (error) {
-            console.error("Kullanıcı profil bilgileri alınırken hata:", error);
-            setUserName(user.email); // Fallback to email if name is not found
-            setUserAge(null);
-          }
-
-        } else {
-          setUserId(null); // Kullanıcı yoksa UID'yi temizle
-          setAuthMode('initial'); // Kullanıcı çıkış yaparsa başlangıç görünümüne dön
-          setEmail(''); // E-posta alanını temizle
-          setPassword(''); // Şifre alanını temizle
-          setName('');
-          setSurname('');
-          setAge('');
-          setUserName(''); // Clear user name on sign out
-          setUserEmail(''); // Clear user email on sign out
-          setUserAge(null); // Clear user age on sign out
-          console.log("Kullanıcı oturumu kapandı.");
+        // Fetch user profile from FastAPI
+        try {
+          const idToken = await user.getIdToken();
+          const profile = await callApi('/users/me/', 'GET', idToken);
+          setUserName(`${profile.name} ${profile.surname}`);
+          setUserAge(profile.age);
+          console.log("Kullanıcı profil bilgileri alındı:", profile);
+        } catch (error) {
+          console.error("Kullanıcı profil bilgileri alınırken hata:", error);
+          setUserName(user.email);
+          setUserAge(null);
         }
-        setIsAuthReady(true); // Kimlik doğrulama durumu kontrol edildi
-        console.log("isAuthReady true olarak ayarlandı.");
-      });
-      return () => unsubscribeAuth();
-    };
-    initFirebase();
-  }, []); // Bağımlılıklar boş bırakıldı, böylece sadece bir kez çalışır
+      } else {
+        setUserId(null);
+        setAuthMode('initial');
+        setEmail('');
+        setPassword('');
+        setName('');
+        setSurname('');
+        setAge('');
+        setUserName('');
+        setUserEmail('');
+        setUserAge(null);
+        console.log("Kullanıcı oturumu kapandı.");
+      }
+      setIsAuthReady(true);
+      console.log("isAuthReady true olarak ayarlandı.");
+    });
+
+    return () => unsubscribeAuth();
+  }, []);
 
   // Kullanıcı profilini çekmek için useEffect
   useEffect(() => {
@@ -160,18 +172,16 @@ const App = () => {
     };
 
     fetchUserProfile();
-  }, [currentUser, userId, API_BASE_URL, setStatusMessage]); // Bağımlılıkları güncelledik
+  }, [currentUser, userId]);
 
   // Kullanıcı ilerlemesini Firestore'dan dinle
   useEffect(() => {
     console.log("Firestore dinleyicisi useEffect çalıştı. Durum: db:", !!db, "userId:", !!userId, "isAuthReady:", isAuthReady);
-    // db, userId ve isAuthReady hazır olduğunda dinlemeye başla
     if (!db || !userId || !isAuthReady) {
       console.log("Firestore dinleyicisi başlatılamadı: db, userId veya isAuthReady hazır değil.");
       return;
     }
 
-    // Firestore yolunu Firebase Config'ten gelen appId ile oluştur
     const userProgressDocRef = doc(db, `artifacts/${firebaseConfig.appId}/users/${userId}/progress/userProgress`);
     console.log("Firestore belge yolu:", userProgressDocRef.path);
 
@@ -180,34 +190,28 @@ const App = () => {
         const data = docSnap.data();
         console.log("Firestore'dan kullanıcı ilerlemesi alındı:", data);
 
-        // Firestore Timestamp objelerini JavaScript Date objelerine dönüştür
         const activities = data.activities?.map(activity => ({
           ...activity,
-          timestamp: activity.timestamp?.toDate?.() || new Date() // toDate() yoksa yeni Date
+          timestamp: activity.timestamp?.toDate?.() || new Date()
         })) || [];
 
-        // Eksik alanlar için varsayılan değerler sağlayarak userProgress'i güvenle ayarla
         setUserProgress({
-          reading: data.reading || { correct: 0, total: 0 }, // 'reading' yoksa varsayılanı kullan
-          learnedWords: data.learnedWords || [], // 'learnedWords' yoksa boş dizi kullan
+          reading: data.reading || { correct: 0, total: 0 },
+          learnedWords: data.learnedWords || [],
           activities: activities
         });
 
       } else {
         console.log("Kullanıcı ilerleme belgesi Firestore'da bulunamadı. Yeni belge oluşturuluyor...");
-        // Belge yoksa, başlangıç verilerini ayarla
-        setDoc(userProgressDocRef, {
+        const initialProgress = {
           reading: { correct: 0, total: 0 },
           learnedWords: [],
           activities: []
-        }).then(() => {
+        };
+        
+        setDoc(userProgressDocRef, initialProgress).then(() => {
           console.log("Başlangıç ilerlemesi başarıyla ayarlandı.");
-          // Yeni belge oluşturulduğunda state'i de güncellemeyi unutmayın
-          setUserProgress({ // Bu satır onSnapshot sonrası tetiklenen render için önemli
-            reading: { correct: 0, total: 0 },
-            learnedWords: [],
-            activities: []
-          });
+          setUserProgress(initialProgress);
         }).catch(e => console.error("Başlangıç ilerlemesi ayarlanırken hata:", e));
       }
     }, (error) => {
@@ -216,40 +220,10 @@ const App = () => {
     });
 
     return () => {
-      unsubscribeSnapshot(); // Cleanup function
+      unsubscribeSnapshot();
       console.log("Firestore dinleyicisi temizlendi.");
     };
-  }, [db, userId, isAuthReady, firebaseConfig.appId]); // Bağımlılıklar güncellendi
-
-  // Firestore Auth'un başlatıldığından emin olmak için test useEffect
-  useEffect(() => {
-    const testEmail = "berkeiou@outlook.com"; // Test etmek istediğiniz bir e-posta
-    const testSignInMethods = async () => {
-      // auth objesinin tanımlı olduğundan emin olun
-      if (!auth) {
-        console.warn(">> TEST: Auth objesi henüz tanımlı değil. Firebase başlatılmamış olabilir.");
-        return;
-      }
-      try {
-        console.log(`>> TEST: "${testEmail}" için giriş yöntemleri kontrol ediliyor...`);
-        const methods = await fetchSignInMethodsForEmail(auth, testEmail);
-        console.log(`>> TEST: "${testEmail}" için giriş yöntemleri yanıtı:`, methods);
-        if (methods && methods.length > 0) {
-          console.log(`>> TEST: "${testEmail}" Firebase Auth'ta KAYITLI.`);
-        } else {
-          console.log(`>> TEST: "${testEmail}" Firebase Auth'ta KAYITLI DEĞİL.`);
-        }
-      } catch (err) {
-        console.error(`>> TEST: "${testEmail}" kontrol edilirken hata:`, err);
-      }
-    };
-    // isAuthReady true olduğunda testi çalıştır
-    if (isAuthReady) {
-      testSignInMethods();
-    } else {
-      console.log(">> TEST: isAuthReady henüz true değil, test bekletiliyor.");
-    }
-  }, [isAuthReady]); // isAuthReady değiştiğinde tekrar çalıştır
+  }, [db, userId, isAuthReady, firebaseConfig.appId]);
 
   // Firestore'a ilerleme kaydetme fonksiyonu
   const saveProgressToFirestore = async (newProgress) => {
@@ -266,7 +240,6 @@ const App = () => {
     } catch (error) {
       if (error.code === 'not-found') {
         console.warn("İlerleme belgesi bulunamadı, yeni belge oluşturuluyor...");
-        // Belge yoksa oluştur (merge: true ile mevcut alanları koru)
         await setDoc(userProgressDocRef, newProgress, { merge: true });
         console.log("Yeni ilerleme belgesi oluşturuldu ve kaydedildi.");
       } else {
@@ -326,7 +299,7 @@ const App = () => {
     }
   };
 
-  // --- E-posta/Şifre ile Kayıt İşlemi ---
+  // E-posta/Şifre ile Kayıt İşlemi
   const handleSignup = async () => {
     setStatusMessage('Kaydolunuyor...');
     console.log("Kaydol butonu tıklandı. Bilgiler:", { name, surname, age, email });
@@ -349,14 +322,12 @@ const App = () => {
       }
 
       console.log("Firebase Auth ile kullanıcı oluşturuluyor...");
-      // 1. Firebase Authentication ile kullanıcı oluştur
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
       console.log("Firebase kullanıcısı oluşturuldu:", user.uid, user.email);
-      const idToken = await user.getIdToken(); // Firebase ID Token'ı al
+      const idToken = await user.getIdToken();
       console.log("Firebase ID Token alındı.");
 
-      // 2. FastAPI backend'e ek profil bilgilerini gönder
       console.log("FastAPI backend'e profil bilgileri gönderiliyor...");
       await callApi('/users/initialize_profile/', 'POST', idToken, {
         name: name,
@@ -366,12 +337,11 @@ const App = () => {
       });
       console.log("FastAPI profil oluşturma başarılı.");
 
-      setUserName(`${name} ${surname}`); // Set userName after successful signup
-      setUserEmail(email); // Set userEmail after successful signup
-      setUserAge(parsedAge); // Set userAge after successful signup
+      setUserName(`${name} ${surname}`);
+      setUserEmail(email);
+      setUserAge(parsedAge);
 
       setStatusMessage('Kayıt başarılı! Hoş geldiniz, ' + name + ' ' + surname + '.');
-      // Formu temizle
       setEmail('');
       setPassword('');
       setName('');
@@ -393,7 +363,7 @@ const App = () => {
     }
   };
 
-  // --- E-posta/Şifre ile Giriş İşlemi (Initial moddan direkt deneme) ---
+  // E-posta/Şifre ile Giriş İşlemi
   const handleLoginAttemptFromInitial = async () => {
     setStatusMessage('Giriş yapılıyor...');
     console.log("Giriş Yap butonu tıklandı (initial mode). E-posta:", email);
@@ -407,7 +377,6 @@ const App = () => {
       console.log("Firebase Auth ile giriş yapılıyor...");
       await signInWithEmailAndPassword(auth, email, password);
       setStatusMessage('Giriş başarılı!');
-      // Formu temizle (optional, as the state will change and component re-renders)
       setEmail('');
       setPassword('');
       console.log("Giriş işlemi başarılı, form temizlendi.");
@@ -426,7 +395,7 @@ const App = () => {
     }
   };
 
-  // --- Google ile Giriş İşlemi ---
+  // Google ile Giriş İşlemi
   const handleGoogleLogin = async () => {
     setStatusMessage('Google ile giriş yapılıyor...');
     console.log("Google ile giriş butonu tıklandı.");
@@ -436,10 +405,9 @@ const App = () => {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
       console.log("Google ile kullanıcı giriş yaptı:", user.uid, user.email);
-      const idToken = await user.getIdToken(); // Firebase ID Token'ı al
+      const idToken = await user.getIdToken();
       console.log("Firebase ID Token alındı.");
 
-      // 1. Kullanıcının profilinin Firestore'da olup olmadığını kontrol et
       let profileExists = false;
       console.log("FastAPI'den kullanıcı profili kontrol ediliyor...");
       try {
@@ -447,49 +415,44 @@ const App = () => {
         profileExists = true;
         console.log("FastAPI'de profil bulundu.");
       } catch (error) {
-        // 404 Not Found hatası alırsak, profil yok demektir.
         if (error.message.includes("404")) {
           profileExists = false;
           console.log("FastAPI'de profil bulunamadı (404).");
         } else {
           console.error("FastAPI profil kontrolünde başka bir hata:", error);
-          throw error; // Başka bir API hatası varsa fırlat
+          throw error;
         }
       }
 
       if (!profileExists) {
-        // Kullanıcı ilk kez Google ile giriş yapıyor, ek bilgileri al
         const googleName = user.displayName ? user.displayName.split(' ')[0] : '';
         const googleSurname = user.displayName ? user.displayName.split(' ').slice(1).join(' ') : '';
 
         console.log("Yeni Google kullanıcısı. Yaş isteniyor...");
-        // Yaş bilgisini kullanıcıdan iste (Google bunu sağlamaz)
         let ageInput = prompt("Google ile ilk girişiniz. Lütfen yaşınızı girin:");
         let parsedAge = parseInt(ageInput);
         console.log("Girilen yaş:", ageInput, "Parsed yaş:", parsedAge);
 
         if (isNaN(parsedAge) || parsedAge <= 0 || parsedAge > 120) {
           setStatusMessage('Geçerli bir yaş girilmedi. Profil oluşturulamadı. Lütfen tekrar deneyin.');
-          // Profil oluşturulmazsa Firebase Auth oturumunu da kapat
           await firebaseSignOut(auth);
           console.warn("Geçersiz yaş girildiği için Google oturumu kapatıldı.");
           return;
         }
 
-        // FastAPI backend'e ek profil bilgilerini gönder
         console.log("FastAPI backend'e yeni profil bilgileri gönderiliyor...");
         await callApi('/users/initialize_profile/', 'POST', idToken, {
           name: googleName,
           surname: googleSurname,
           age: parsedAge,
-          email: user.email // Google'dan gelen e-posta
+          email: user.email
         });
         setStatusMessage('Google ile ilk girişiniz. Profiliniz oluşturuldu!');
         console.log("Google ile yeni kullanıcı kaydoldu ve profili oluşturuldu:", user.uid);
 
-        setUserName(`${googleName} ${googleSurname}`); // Set userName for new Google user
-        setUserEmail(user.email); // Set userEmail for new Google user
-        setUserAge(parsedAge); // Set userAge for new Google user
+        setUserName(`${googleName} ${googleSurname}`);
+        setUserEmail(user.email);
+        setUserAge(parsedAge);
 
       } else {
         setStatusMessage('Google ile giriş başarılı!');
@@ -508,7 +471,7 @@ const App = () => {
     }
   };
 
-  // --- Şifre Sıfırlama İşlemi ---
+  // Şifre Sıfırlama İşlemi
   const handleForgotPassword = async () => {
     setStatusMessage('Şifre sıfırlama bağlantısı gönderiliyor...');
     console.log("Şifremi Unuttum butonu tıklandı. E-posta:", email);
@@ -521,7 +484,7 @@ const App = () => {
 
       await sendPasswordResetEmail(auth, email);
       setStatusMessage('Şifre sıfırlama bağlantısı e-posta adresinize gönderildi. Lütfen gelen kutunuzu kontrol edin.');
-      setEmail(''); // E-posta alanını temizle
+      setEmail('');
       console.log("Şifre sıfırlama e-postası başarıyla gönderildi.");
     } catch (error) {
       console.error("Şifre Sıfırlama Hatası:", error);
@@ -537,7 +500,7 @@ const App = () => {
     }
   };
 
-  // --- Çıkış Yapma İşlemi ---
+  // Çıkış Yapma İşlemi
   const handleSignOut = async () => {
     setStatusMessage('Çıkış yapılıyor...');
     console.log("Çıkış yap butonu tıklandı.");
@@ -556,34 +519,40 @@ const App = () => {
     setDarkMode(prevMode => {
       const newMode = !prevMode;
       console.log("Dark mode toggled. Previous:", prevMode, "New:", newMode);
-      return newMode; // Sadece state'i güncelle
+      return newMode;
     });
   };
 
-  // Kullanıcı giriş yapmışsa ana içeriği, yapmamışsa giriş/kayıt formlarını render et
   const renderAppContent = () => {
     switch (activeTab) {
-      case 'dashboard': return <Dashboard userProgress={userProgress} handleRemoveLearnedWord={handleRemoveLearnedWord} />;
-      case 'word': return <WordComparer userProgress={userProgress} saveProgress={saveProgressToFirestore} db={db} userId={userId} firebaseAppId={firebaseConfig.appId} />;
-      case 'reading': return <ReadingPractice userProgress={userProgress} saveProgress={saveProgressToFirestore} />;
-      case 'mindmap': return <MindMapper saveProgress={saveProgressToFirestore} />;
-      case 'quiz': return <QuizComponent />;
+      case 'dashboard': 
+        return <Dashboard userProgress={userProgress} handleRemoveLearnedWord={handleRemoveLearnedWord} />;
+      case 'word': 
+        return <WordComparer userProgress={userProgress} saveProgress={saveProgressToFirestore} db={db} userId={userId} firebaseAppId={firebaseConfig.appId} />;
+      case 'reading': 
+        return <ReadingPractice userProgress={userProgress} saveProgress={saveProgressToFirestore} />;
+      case 'mindmap': 
+        return <MindMapper saveProgress={saveProgressToFirestore} />;
+      case 'quiz': 
+        return <QuizComponent />;
       case 'profile':
         return (
           <ProfilePage
-            userName={userProfile?.username || currentUser?.displayName || "Misafir Kullanıcı"} // userProfile'dan username'i al, yoksa currentUser'dan displayName'i kullan
-            userEmail={userProfile?.email || currentUser?.email || "Bilgi Yok"} // userProfile'dan email'i al, yoksa currentUser'dan email'i kullan
-            userAge={userProfile?.age} // userProfile'dan age'i al
+            userName={userProfile?.username || currentUser?.displayName || "Misafir Kullanıcı"}
+            userEmail={userProfile?.email || currentUser?.email || "Bilgi Yok"}
+            userAge={userProfile?.age}
           />
         );
-      case 'notifications': // Yeni bildirimler sekmesi
+      case 'notifications': 
         return <NotificationScheduler userId={userId} db={db} firebaseAppId={firebaseConfig.appId} />;
-      case 'word-cards': // Yeni Kelime Kartları sekmesi
+      case 'word-cards': 
         return <WordCardDisplay userId={userId} db={db} firebaseAppId={firebaseConfig.appId} saveProgress={saveProgressToFirestore} />;
-      case 'notebook': // Yeni Not Defteri sekmesi
+      case 'notebook': 
         return <Notebook userId={userId} db={db} firebaseAppId={firebaseConfig.appId} />;
-      case 'chat': return <AIChat currentUser={currentUser} userId={userId} />; // Eğer AIChat bileşeniniz varsa
-      default: return <Dashboard userProgress={userProgress} handleRemoveLearnedWord={handleRemoveLearnedWord} />;
+      case 'chat': 
+        return <AIChat currentUser={currentUser} userId={userId} />;
+      default: 
+        return <Dashboard userProgress={userProgress} handleRemoveLearnedWord={handleRemoveLearnedWord} />;
     }
   };
 
@@ -601,12 +570,11 @@ const App = () => {
   return (
     <div className={`${darkMode ? 'dark' : ''} flex h-screen bg-violet-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-sans`}>
       {currentUser ? (
-        // Kullanıcı giriş yapmışsa ana uygulama arayüzü
         <>
           <aside
-            className={`bg-white/80 dark:bg-slate-800 backdrop-blur-lg p-4 flex flex-col border-r border-violet-100 dark:border-slate-700 transition-width duration-300 ease-in-out`}
+            className={`bg-white/80 dark:bg-slate-800 backdrop-blur-lg p-4 flex flex-col border-r border-violet-100 dark:border-slate-700 transition-all duration-300 ease-in-out`}
             style={{
-              width: isSidebarOpen ? '16rem' : '6rem', // Açıkken geniş, kapalıyken dar
+              width: isSidebarOpen ? '16rem' : '6rem',
             }}
           >
             <div
@@ -614,7 +582,7 @@ const App = () => {
               onClick={toggleSidebar}
             >
               <img
-                src="https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/public/images/PrepmateLogo.png" // logo eklendi
+                src="https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/public/images/PrepmateLogo.png"
                 alt="PrepMate Logo"
                 className="w-13 h-8 object-contain transition-transform hover:scale-105 duration-200"
               />
@@ -637,24 +605,25 @@ const App = () => {
               )}
             </button>
 
-            {/* Kullanıcı ID'sini gizledik (geliştirme sırasında yorum satırı olarak kalabilir)
-            {userId && isSidebarOpen && ( // Sadece sidebar açıkken göster
-              <div className="mb-4 text-xs text-slate-500 dark:text-slate-300 px-2">
-                Kullanıcı ID: <span className="font-mono break-all">{userId}</span>
-              </div>
-            )}
-            */}
             <nav className="flex flex-col space-y-2">
-              {/* New NavItem for Profile */}
               <NavItem tabName="profile" icon={<User className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Profilim</NavItem>
 
               <NavItem tabName="dashboard" icon={<LayoutDashboard className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>İlerleme Paneli</NavItem>
+              
               <NavItem tabName="word" icon={<Component className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Kelime Karşılaştırma</NavItem>
+              
               <NavItem tabName="reading" icon={<BookOpen className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Okuma Alıştırması</NavItem>
+              
+              <NavItem tabName="word-cards" icon={<Component className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Kelime Kartları</NavItem>
+              
+              <NavItem tabName="quiz" icon={<BrainCircuit className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Quiz</NavItem>
+              
+              <NavItem tabName="mindmap" icon={<Map className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Akıl Haritası</NavItem>
+              
               <NavItem tabName="notifications" icon={<BellRing className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Günlük Bildirimler</NavItem>
-              {/* Yeni Not Defteri NavItem'ı */}
-              <NavItem tabName="notebook" icon={<BookText className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Not Defteri</NavItem> {/* NotebookText yerine BookText kullanıldı */}
-              {/* Çıkış Yap butonu NavItem olarak eklendi */}
+              
+              <NavItem tabName="notebook" icon={<BookText className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Not Defteri</NavItem>
+              
               <button
                 onClick={handleSignOut}
                 className="flex items-center w-full py-2 px-4 rounded-lg text-red-600 hover:bg-red-100 dark:hover:bg-red-900 transition-colors duration-200"
