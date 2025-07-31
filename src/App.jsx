@@ -1,43 +1,21 @@
+// App.jsx
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import {
-    getAuth,
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    GoogleAuthProvider,
-    signInWithPopup,
-    onAuthStateChanged,
-    signOut as firebaseSignOut,
-    fetchSignInMethodsForEmail,
-    signInAnonymously,
-    sendPasswordResetEmail,
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  onAuthStateChanged,
+  signOut as firebaseSignOut, // Alias signOut to avoid conflict with local signOut function
+  fetchSignInMethodsForEmail, // E-posta adresinin varlığını kontrol etmek için
+  signInAnonymously, // Anonim giriş için eklendi
+  sendPasswordResetEmail // Import sendPasswordResetEmail
 } from 'firebase/auth';
-import {
-    doc,
-    setDoc,
-    onSnapshot,
-    updateDoc,
-    arrayUnion,
-    arrayRemove,
-    serverTimestamp,
-} from 'firebase/firestore';
-import {
-    GraduationCap,
-    LayoutDashboard,
-    Component,
-    BookOpen,
-    BrainCircuit,
-    Map,
-    Loader2,
-    XCircle,
-    Chrome,
-    Sun,
-    Moon,
-    User,
-    BellRing,
-    BookText,
-} from 'lucide-react';
+import { doc, setDoc, onSnapshot, updateDoc, arrayUnion, arrayRemove, serverTimestamp } from 'firebase/firestore';
+import { GraduationCap, LayoutDashboard, Component, BookOpen, BrainCircuit, Map, Loader2, XCircle, Chrome, Sun, Moon, User, BellRing, BookText } from 'lucide-react'; // NotebookText yerine BookText ikonu eklendi
 
+// Firebase yapılandırma ve başlatma
 import { auth, db, firebaseConfig } from './config/firebase';
 
 // Ana uygulama bileşenleri
@@ -48,108 +26,49 @@ import AIChat from './components/AIChat';
 import NavItem from './components/NavItem';
 import ProfilePage from './components/ProfilePage';
 import NotificationScheduler from './components/NotificationScheduler';
-import Notebook from './components/Notebook';
-import WordCardDisplay from './components/WordCardDisplay';
-import QuizComponent from './components/QuizComponent';
-import MindMapper from './components/MindMapper';
+import Notebook from './components/Notebook'; // Yeni bileşen import edildi
 
 // FastAPI backend'inizin temel URL'si
 const API_BASE_URL = 'http://127.0.0.1:8000';
 
 const App = () => {
-    // Authentication ve Kullanıcı Durumu
-    const [currentUser, setCurrentUser] = useState(null);
-    const [userId, setUserId] = useState(null);
-    const [isAuthReady, setIsAuthReady] = useState(false);
+  // Authentication ve Kullanıcı Durumu
+  const [currentUser, setCurrentUser] = useState(null); // Firebase Auth'tan gelen kullanıcı objesi
+  const [userId, setUserId] = useState(null); // Kullanıcının UID'si
+  const [isAuthReady, setIsAuthReady] = useState(false); // Firebase Auth'un başlangıç kontrolünü bitirip bitirmediği
 
-    // Giriş/Kayıt Akışı State'leri
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [name, setName] = useState('');
-    const [surname, setSurname] = useState('');
-    const [age, setAge] = useState('');
-    const [authMode, setAuthMode] = useState('initial');
+  // Giriş/Kayıt Akışı State'leri
+  const [email, setEmail] = useState(''); // Ortak e-posta alanı
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+  const [surname, setSurname] = useState('');
+  const [age, setAge] = useState('');
+  const [authMode, setAuthMode] = useState('initial'); // 'initial', 'signup', 'forgotPassword'
 
-    const [userProfile, setUserProfile] = useState(null);
-    const [statusMessage, setStatusMessage] = useState('');
+  const [userProfile, setUserProfile] = useState(null); // Kullanıcı profil bilgileri için yeni state
+  const [statusMessage, setStatusMessage] = useState(''); // Kullanıcıya gösterilecek durum/hata mesajları
 
-    // Uygulama İçeriği State'leri
-    const [userProgress, setUserProgress] = useState({
-        reading: { correct: 0, total: 0 },
-        learnedWords: [],
-        activities: []
-    });
-    const [activeTab, setActiveTab] = useState('dashboard');
-    const [isChatOpen, setIsChatOpen] = useState(false);
-    const [isSidebarOpen, setIsSidebarOpen] = useState(true); // Sidebar durumu
-    const [darkMode, setDarkMode] = useState(true); // Dark Mode
+  // Uygulama İçeriği State'leri
+  const [userProgress, setUserProgress] = useState({
+    reading: { correct: 0, total: 0 },
+    learnedWords: [],
+    activities: []
+  });
+  const [activeTab, setActiveTab] = useState('dashboard');
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true); // Sidebar durumu
+  const [darkMode, setDarkMode] = useState(true); // Dark Mode
 
-    // Profil sayfası için kullanıcı bilgileri
-    const [userName, setUserName] = useState('');
-    const [userEmail, setUserEmail] = useState('');
-    const [userAge, setUserAge] = useState(null);
+  // New state for user's full name and email for profile page
+  const [userName, setUserName] = useState('');
+  const [userEmail, setUserEmail] = useState('');
+  const [userAge, setUserAge] = useState(null);
 
-    const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
-
-    // Kullanıcıyı dinle - Kimlik doğrulama durumu değişikliğini dinler
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            setCurrentUser(user);
-            setUserId(user ? user.uid : null);
-            setIsAuthReady(true);
-        });
-        return () => unsubscribe();
-    }, []);
-
-    // Kullanıcı profili ve ilerlemesini Firebase'den çeker
-    useEffect(() => {
-        if (currentUser && userId && isAuthReady) {
-            const userDocRef = doc(db, 'users', userId);
-            const unsubscribe = onSnapshot(userDocRef, (docSnap) => {
-                if (docSnap.exists()) {
-                    setUserProfile(docSnap.data());
-                    // Profil sayfası için kullanıcı bilgilerini ayarla
-                    setUserName(docSnap.data().name || '');
-                    setUserEmail(docSnap.data().email || currentUser.email || '');
-                    setUserAge(docSnap.data().age || null);
-                    setUserProgress(docSnap.data().progress || { reading: { correct: 0, total: 0 }, learnedWords: [], activities: [] });
-                } else {
-                    console.log("Kullanıcı profili belgesi bulunamadı!");
-                    // Kullanıcı belgesi yoksa (örneğin yeni kullanıcı), varsayılan bir profil oluştur
-                    setDoc(userDocRef, {
-                        email: currentUser.email,
-                        name: name || '', // Kayıt sırasında girilen isim state'i
-                        surname: surname || '', // Kayıt sırasında girilen soyisim state'i
-                        age: age || null, // Kayıt sırasında girilen yaş state'i
-                        progress: { reading: { correct: 0, total: 0 }, learnedWords: [], activities: [] },
-                        createdAt: serverTimestamp(),
-                    }, { merge: true }).then(() => {
-                        console.log("Varsayılan kullanıcı profili oluşturuldu.");
-                    }).catch(error => {
-                        console.error("Varsayılan kullanıcı profili oluşturulurken hata:", error);
-                    });
-                }
-            }, (error) => {
-                console.error("Kullanıcı profili alınırken hata:", error);
-                setStatusMessage('Profil bilgileri alınırken hata oluştu.');
-            });
-            return () => unsubscribe();
-        }
-    }, [currentUser, userId, isAuthReady, name, surname, age]); // name, surname, age bağımlılık olarak eklendi
+  // __initial_auth_token tanımı dışarıdan geliyorsa kontrol et
+  // Bu değişkenin çalışma ortamında tanımlı olup olmadığını kontrol ederiz.
+  const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
 
 
-    return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<Dashboard userProgress={userProfile} />} />
-                <Route path="/wordcard" element={<WordCardDisplay />} />
-                <Route path="/quiz" element={<QuizComponent />} />
-                <Route path="/mindmap" element={<MindMapper />} />
-                {/* Diğer rotalarınızı buraya ekleyebilirsiniz */}
-            </Routes>
-        </BrowserRouter>
-    );
-};
   // Dark Mode useEffect - DOM'u güncellemek için
   useEffect(() => {
     console.log("Dark mode useEffect çalıştı. darkMode:", darkMode);
