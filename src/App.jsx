@@ -648,7 +648,7 @@ return (
           </nav>
         </aside>
 
-        <main className="flex-1 overflow-y-auto bg-violet-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100">
+        <main className="flex-1 overflow-y-auto text-slate-800 dark:text-slate-100">
           {renderAppContent()}
         </main>
 
