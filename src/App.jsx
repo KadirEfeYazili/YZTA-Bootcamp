@@ -1,5 +1,6 @@
 // App.jsx
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -27,6 +28,22 @@ import NavItem from './components/NavItem';
 import ProfilePage from './components/ProfilePage';
 import NotificationScheduler from './components/NotificationScheduler';
 import Notebook from './components/Notebook'; // Yeni bileşen import edildi
+import WordCardDisplay from './components/WordCardDisplay';
+import QuizComponent from './components/QuizComponent';
+import MindMapper from './components/MindMapper';
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/wordcard" element={<WordCardDisplay />} />
+        <Route path="/quiz" element={<QuizComponent />} />
+        <Route path="/mindmap" element={<MindMapper />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
 
 // FastAPI backend'inizin temel URL'si
 const API_BASE_URL = 'http://127.0.0.1:8000';
