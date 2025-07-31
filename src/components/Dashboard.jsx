@@ -1,19 +1,54 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import {
   Lightbulb,
+  BarChart2,
+  BrainCircuit,
+  GraduationCap,
   Activity,
   Clock,
   BookOpen,
   XCircle,
 } from 'lucide-react';
 
+import WordCardDisplay from './WordCardDisplay'; 
+import QuizComponent from './QuizComponent';
+import MindMapper from './MindMapper';
+
+// Yardımcı fonksiyon: Yeterlilik seviyesini hesapla
+const calculateProficiencyLevel = (progress) => {
+  if (!progress || !progress.reading) {
+    console.warn(
+      "calculateProficiencyLevel: 'progress' veya 'progress.reading' tanımsız. Varsayılan olarak 0 döndürülüyor."
+    );
+    return 0;
+  }
+
+  const { correct, total } = progress.reading;
+  const safeCorrect = typeof correct === 'number' ? correct : 0;
+  const safeTotal = typeof total === 'number' ? total : 0;
+
+  if (safeTotal === 0) {
+    return 0;
+  }
+  return (safeCorrect / safeTotal) * 100;
+};
+
 const Dashboard = ({ userProgress, handleRemoveLearnedWord }) => {
-  const navigate = useNavigate();
+  const [showWordCard, setShowWordCard] = useState(false);
+  const [showQuiz, setShowQuiz] = useState(false);
+  const [showMindMap, setShowMindMap] = useState(false);
 
   useEffect(() => {
     console.log('Dashboard Bileşeni yüklendi.');
     console.log('Dashboard useEffect: userProgress', userProgress);
+    if (userProgress) {
+      console.log('Dashboard useEffect: userProgress.reading', userProgress.reading);
+      console.log('Dashboard useEffect: userProgress.grammar', userProgress.grammar);
+      console.log('Dashboard useEffect: userProgress.learnedWords', userProgress.learnedWords);
+      console.log('Dashboard useEffect: userProgress.activities', userProgress.activities);
+    } else {
+      console.log('Dashboard useEffect: userProgress tanımsız veya boş.');
+    }
   }, [userProgress]);
 
   const safeUserProgress = userProgress || {
@@ -29,6 +64,10 @@ const Dashboard = ({ userProgress, handleRemoveLearnedWord }) => {
   const currentGrammar = grammar || { correct: 0, total: 0 };
   const currentActivities = activities || [];
   const currentLearnedWords = learnedWords || [];
+
+  useEffect(() => {
+    console.log('Dashboard: currentLearnedWords güncellendi:', currentLearnedWords);
+  }, [currentLearnedWords]);
 
   return (
     <div className="p-8 animate-fade-in">
@@ -51,29 +90,48 @@ const Dashboard = ({ userProgress, handleRemoveLearnedWord }) => {
         İlerleme Paneli
       </h2>
 
-      {/* Butonlar ile sayfa yönlendirme */}
+      {/* Yeni Butonlar */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
         <button
-          onClick={() => navigate('/wordcard')}
+          onClick={() => setShowWordCard(!showWordCard)}
           className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition"
         >
-          Word Card'ı Göster
+          {showWordCard ? "Word Card'ı Gizle" : "Word Card'ı Göster"}
         </button>
         <button
-          onClick={() => navigate('/quiz')}
+          onClick={() => setShowQuiz(!showQuiz)}
           className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition"
         >
-          Quiz'i Başlat
+          {showQuiz ? "Quiz'i Gizle" : "Quiz'i Başlat"}
         </button>
         <button
-          onClick={() => navigate('/mindmap')}
+          onClick={() => setShowMindMap(!showMindMap)}
           className="bg-purple-500 text-white py-2 px-4 rounded hover:bg-purple-600 transition"
         >
-          Mind Map'i Göster
+          {showMindMap ? "Mind Map'i Gizle" : "Mind Map'i Göster"}
         </button>
       </div>
 
-      {/* Öğrenilen Kelimeler */}
+      {/* Dinamik Gösterim */}
+      <div className="space-y-6 mb-8">
+        {showWordCard && (
+          <div className="p-4 bg-white dark:bg-slate-800 rounded-xl shadow border">
+            <WordCardDisplay />
+          </div>
+        )}
+        {showQuiz && (
+          <div className="p-4 bg-white dark:bg-slate-800 rounded-xl shadow border">
+            <QuizComponent />
+          </div>
+        )}
+        {showMindMap && (
+          <div className="p-4 bg-white dark:bg-slate-800 rounded-xl shadow border">
+            <MindMapper />
+          </div>
+        )}
+      </div>
+
+      {/* Learned Words */}
       <div className="mb-8">
         <h3 className="text-2xl font-semibold text-slate-700 dark:text-white mb-4 flex items-center">
           <Lightbulb className="mr-2 text-amber-500" size={24} />
@@ -103,7 +161,7 @@ const Dashboard = ({ userProgress, handleRemoveLearnedWord }) => {
         )}
       </div>
 
-      {/* Son Etkinlikler */}
+      {/* Recent Activities */}
       <div className="mb-8">
         <h3 className="text-2xl font-semibold text-slate-700 dark:text-white mb-4 flex items-center">
           <Activity className="mr-2 text-rose-500" size={24} />
@@ -155,7 +213,7 @@ const Dashboard = ({ userProgress, handleRemoveLearnedWord }) => {
         </div>
       </div>
 
-      {/* Gözden Geçirilecek Kelimeler */}
+      {/* Words to Review */}
       <div>
         <h3 className="text-2xl font-semibold text-slate-700 dark:text-white mb-4 flex items-center">
           <BookOpen className="mr-2 text-sky-500" size={24} />
