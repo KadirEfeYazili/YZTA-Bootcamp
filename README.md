@@ -30,7 +30,7 @@ Uygulama, kelime öğrenme, okuma ve dilbilgisi alıştırmaları, kişisel iler
 
 Minimalist ve kullanıcı dostu arayüzü, mobil ve masaüstü cihazlarda sorunsuz bir deneyim sunar. PrepMate, akademik hedeflerinize ulaşmanız için size rehberlik eden, motive eden ve yol gösteren en güvenilir yardımcınızdır.
 
-Sıkça Sorulan Sorular:[SSS](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/SSS_Turkce.pdf "PrepMate Kullanıcı Personaları")
+Sıkça Sorulan Sorular: [SSS](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/SSS_Turkce.pdf "PrepMate Kullanıcı Personaları")
 <details>
   <summary><h4>English explanation</h4></summary>
 PrepMate is a comprehensive and AI-powered study companion designed to meet all the needs of users preparing for important academic English exams such as YDS and YÖKDİL.
@@ -39,7 +39,7 @@ The app facilitates the learning process with many features including vocabulary
 
 With its minimalist and user-friendly interface, PrepMate offers a seamless experience on both mobile and desktop devices. PrepMate is your most reliable assistant, guiding, motivating, and supporting you to achieve your academic goals.
 
-Frequently Asked Questions:[FAQ](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/FAQ_English.pdf "PrepMate Kullanıcı Personaları")
+Frequently Asked Questions: [FAQ](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/FAQ_English.pdf "PrepMate Kullanıcı Personaları")
 </details>
 
 ---
