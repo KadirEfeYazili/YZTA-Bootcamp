@@ -80,9 +80,9 @@ Frequently Asked Questions: [FAQ](https://github.com/KadirEfeYazili/YZTA-Bootcam
 <details>
   <summary><h3>Kullanıcı Personaları</h3></summary>
 
--[Türkçe Personalar](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Persona_Turkce(1).pdf "PrepMate Kullanıcı Personaları")
+- [Türkçe Personalar](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Persona_Turkce(1).pdf "PrepMate Kullanıcı Personaları")
 
--[English Personalities](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Persona_English.pdf "PrepMate Kullanıcı Personaları")
+- [English Personalities](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Persona_English.pdf "PrepMate Kullanıcı Personaları")
 </details>
 
 <details>
