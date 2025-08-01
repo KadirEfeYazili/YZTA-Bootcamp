@@ -81,6 +81,36 @@ class WordInteractionResponse(WordInteractionBase):
 
 # --- API Uç Noktaları ---
 
+# Health check endpoint - Render için gerekli
+@app.get("/health")
+async def health_check():
+    """
+    Render.com health check endpoint. API'nin sağlıklı olup olmadığını kontrol eder.
+    """
+    try:
+        # Firestore bağlantısını da kontrol et
+        if db is not None:
+            # Basit bir Firestore okuma işlemi yaparak bağlantıyı test et
+            # Bu, gerçek bir koleksiyon sorgusu yapmadan sadece bağlantıyı test eder
+            db.collection('_health_check').limit(1).get()
+            return {
+                "status": "healthy",
+                "message": "API ve Firestore bağlantısı çalışıyor",
+                "database": "connected"
+            }
+        else:
+            return {
+                "status": "degraded",
+                "message": "API çalışıyor ancak Firestore bağlantısı yok",
+                "database": "disconnected"
+            }
+    except Exception as e:
+        return {
+            "status": "unhealthy",
+            "message": f"Health check başarısız: {str(e)}",
+            "database": "error"
+        }
+
 # Ana sayfa (Merhaba Dünya) uç noktası
 @app.get("/")
 async def read_root():
@@ -203,4 +233,3 @@ async def get_user_word_interactions(user_id: str):
         return interactions
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Kullanıcı kelime etkileşimleri getirilirken hata: {e}")
-
