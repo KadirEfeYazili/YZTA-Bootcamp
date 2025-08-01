@@ -336,17 +336,21 @@ const App = () => {
     }
   };
 
-  const handleRemoveLearnedWord = async (wordToRemove) => {
-    console.log(`"${wordToRemove}" kelimesi öğrenilenlerden kaldırılıyor.`);
-    await saveProgressToFirestore({
-      learnedWords: arrayRemove(wordToRemove),
-      activities: arrayUnion({
-        text: `"${wordToRemove}" kelimesini öğrenilenlerden çıkardınız.`,
-        timestamp: serverTimestamp()
-      })
-    });
-    console.log(`"${wordToRemove}" kelimesi kaldırma işlemi tamamlandı.`);
-  };
+  // src/App.jsx
+
+const handleRemoveLearnedWord = async (wordToRemove) => {
+  console.log(`"${wordToRemove}" kelimesi öğrenilenlerden kaldırılıyor.`);
+  await saveProgressToFirestore({
+    learnedWords: arrayRemove(wordToRemove),
+    activities: arrayUnion({
+      text: `"${wordToRemove}" kelimesini öğrenilenlerden çıkardınız.`,
+      // FIX: Use the client's current time instead of serverTimestamp()
+      timestamp: new Date() 
+    })
+  });
+  console.log(`"${wordToRemove}" kelimesi kaldırma işlemi tamamlandı.`);
+};
+
 
   const callApi = async (endpoint, method, token = null, body = null) => {
     console.log(`API çağrısı: ${method} ${API_BASE_URL}${endpoint}`);
