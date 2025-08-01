@@ -209,7 +209,7 @@ const App = () => {
     try {
       const idToken = await currentUser.getIdToken();
       console.log("🔄 Profil güncelleme isteği gönderiliyor:", updatedProfile);
-      const response = await callApi('/users/me/', 'PUT', idToken, updatedProfile);
+      const response = await callApi('/users/me', 'PUT', idToken, updatedProfile);
       console.log("📥 Backend'den gelen güncelleme yanıtı:", response);
 
       setUserProfile(prev => ({ ...prev, ...response }));
@@ -572,7 +572,7 @@ const App = () => {
         console.log("Google ile mevcut kullanıcı giriş yaptı:", user.uid);
 
         try {
-          const profile = await callApi('/users/me/', 'GET', idToken);
+          const profile = await callApi('/users/me', 'GET', idToken);
           setUserProfile(profile);
           setUserName(`${profile.name} ${profile.surname}`);
           setUserEmail(profile.email);
