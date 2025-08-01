@@ -22,8 +22,6 @@ const QuizComponent = () => {
 
   // useEffect: Bileşen ilk yüklendiğinde verileri çekmek için kullanılır.
   useEffect(() => {
-    // DÜZELTME: Fetch yolu düzeltildi. 'public' klasöründeki dosyalara direkt '/' ile erişilir.
-    // Dosya adını da 'quizzes.json' olarak varsaydım.
     fetch('/quizzes.json')
       .then((res) => {
         if (!res.ok) {
@@ -34,7 +32,6 @@ const QuizComponent = () => {
       .then((data) => {
         setAllQuestions(data);
         
-        // Soruları kategorilere göre grupla
         const categoryGroups = data.reduce((acc, question) => {
           const categoryName = question.category;
           if (!acc[categoryName]) {
@@ -44,9 +41,8 @@ const QuizComponent = () => {
           return acc;
         }, {});
 
-        // Kategorileri arayüz için hazırla
         const categoryList = Object.keys(categoryGroups).map((categoryName, index) => ({
-          id: categoryName.replace(/\s+/g, '-').toLowerCase(), // Benzersiz bir ID oluştur
+          id: categoryName.replace(/\s+/g, '-').toLowerCase(),
           name: categoryName,
           questions: categoryGroups[categoryName],
           questionCount: categoryGroups[categoryName].length,
@@ -56,13 +52,13 @@ const QuizComponent = () => {
         }));
 
         setCategories(categoryList);
-        setStatus('ready'); // Durumu 'hazır' olarak ayarla
+        setStatus('ready');
       })
       .catch((err) => {
         console.error('Veri çekme hatası:', err);
-        setStatus('error'); // Hata durumunu ayarla
+        setStatus('error');
       });
-  }, []); // Boş dependency array, bu effect'in sadece bir kere çalışmasını sağlar.
+  }, []);
 
   // Kategori seçildiğinde quiz'i başlatan fonksiyon
   const handleCategorySelect = (category) => {
@@ -76,14 +72,14 @@ const QuizComponent = () => {
 
   // Bir cevap seçildiğinde çalışır
   const handleAnswerSelect = (option) => {
-    if (isAnswered) return; // Zaten cevaplandıysa işlem yapma
+    if (isAnswered) return;
 
     setSelectedAnswer(option);
     setIsAnswered(true);
 
     const currentQuestion = selectedCategory.questions[currentQuestionIndex];
     if (option === currentQuestion.answer) {
-      setScore((prev) => prev + 1); // Doğru cevap ise skoru artır
+      setScore((prev) => prev + 1);
     }
   };
 
@@ -92,19 +88,14 @@ const QuizComponent = () => {
     const isLastQuestion = currentQuestionIndex === selectedCategory.questions.length - 1;
 
     if (isLastQuestion) {
-      // Quiz tamamlandı
       const categoryId = selectedCategory.id;
-      
-      // En yüksek skoru güncelle
       const existingScore = categoryScores[categoryId] || 0;
       if (score > existingScore) {
           setCategoryScores(prev => ({ ...prev, [categoryId]: score }));
       }
-      
       setCompletedCategories(prev => ({...prev, [categoryId]: true}));
       setCurrentView('results');
     } else {
-      // Sonraki soruya geç
       setIsAnswered(false);
       setSelectedAnswer(null);
       setCurrentQuestionIndex((prev) => prev + 1);
@@ -134,7 +125,6 @@ const QuizComponent = () => {
 
   // --- RENDER KISMI ---
 
-  // Yüklenme ekranı
   if (status === 'loading') {
     return (
       <div className="min-h-screen bg-gradient-to-br from-violet-50 to-blue-50 dark:from-slate-900 dark:to-slate-800 flex items-center justify-center text-center">
@@ -146,7 +136,6 @@ const QuizComponent = () => {
     );
   }
 
-  // Hata ekranı
   if (status === 'error') {
     return (
       <div className="min-h-screen bg-gradient-to-br from-red-50 to-orange-50 dark:from-slate-900 dark:to-slate-800 flex items-center justify-center text-center p-4">
@@ -154,14 +143,13 @@ const QuizComponent = () => {
             <AlertTriangle className="w-12 h-12 text-red-500 mx-auto mb-4" />
             <h1 className="text-2xl font-bold text-slate-800 dark:text-white mb-2">Bir Hata Oluştu</h1>
             <p className="text-slate-600 dark:text-slate-300">
-                Quiz verileri yüklenemedi. Lütfen `public` klasöründe `quizzes.json` dosyasının olduğundan emin olun ve internet bağlantınızı kontrol edin.
+                Quiz verileri yüklenemedi. Lütfen `public` klasöründe `quizzes.json` dosyasının olduğundan emin olun.
             </p>
         </div>
       </div>
     );
   }
 
-  // Kategori seçim ekranı
   if (currentView === 'categories') {
     return (
       <div className="min-h-screen bg-gradient-to-br from-violet-50 to-blue-50 dark:from-slate-900 dark:to-slate-800 p-4 sm:p-6">
@@ -218,7 +206,6 @@ const QuizComponent = () => {
     );
   }
 
-  // Quiz sonuç ekranı
   if (currentView === 'results') {
     const totalQuestions = selectedCategory.questions.length;
     const percentage = totalQuestions > 0 ? Math.round((score / totalQuestions) * 100) : 0;
@@ -314,8 +301,10 @@ const QuizComponent = () => {
             </button>
           ))}
         </div>
+
+        {/* Sadece cevap verildiyse Sonraki Soru butonu gösterilir */}
         {isAnswered && (
-          <div className="text-center">
+          <div className="text-center mt-6 animate-fade-in">
             <button
               onClick={handleNextQuestion}
               className="bg-slate-800 hover:bg-slate-900 dark:bg-violet-600 dark:hover:bg-violet-700 text-white font-bold py-3 px-8 rounded-lg transition-all shadow-lg hover:shadow-xl"
