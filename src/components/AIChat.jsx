@@ -20,7 +20,7 @@ const AIChat = ({ saveProgress }) => {
 
         try {
             const payload = { contents: [{ role: 'user', parts: [{ text: userPrompt }] }] };
-            const apiKey = ""; // Bu anahtarın güvenli bir şekilde yönetildiği varsayılıyor
+            const apiKey = "AIzaSyCSuzlRr7AmF59CsaNC9S5Asa-U9Rpx7Mo"; // Bu anahtarın güvenli bir şekilde yönetildiği varsayılıyor
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
             const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
             if (!response.ok) throw new Error(`API Hatası: ${response.status}`);
