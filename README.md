@@ -439,9 +439,6 @@ Kadir Efe Yazılı, Ebral Karabulut, Muhammet Berke Ağaya, Ebrar Ağralı, Nurc
   <summary><h2>Üçüncü Sprint</h2></summary>
 </details>
  ---
- **Sprint 3 **
-
----
 
 ### ✨ Kullanılan Teknolojiler
 
@@ -594,6 +591,8 @@ Projede 3 sprint boyunca hem teknik hem organizasyonel yönden yüksek düzeyde 
 
 🎯 Proje başarılı bir şekilde tamamlandı ve dağıtıma hazır seviyeye getirildi.
 
+</details>
+</details>
 
  ---
 Proje yönetim sürecimizi Trello üzerinden takip ediyoruz:  
