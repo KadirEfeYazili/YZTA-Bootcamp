@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { CheckCircle, XCircle, ArrowLeft, BookOpen, Trophy, Star, AlertTriangle } from 'lucide-react';
 
-// Bu App bileşenini ana dosyanızda (örn: App.js) kullanabilirsiniz.
-// export default function App() {
-//   return <QuizComponent />;
-// }
 
 const QuizComponent = () => {
   // STATE Değişkenleri: Uygulamanın durumunu yönetir.
