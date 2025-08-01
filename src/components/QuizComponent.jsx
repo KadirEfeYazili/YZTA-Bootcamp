@@ -1,57 +1,70 @@
 import React, { useEffect, useState } from 'react';
-import { CheckCircle, XCircle, ArrowLeft, BookOpen, Trophy, Star, Lock } from 'lucide-react';
+import { CheckCircle, XCircle, ArrowLeft, BookOpen, Trophy, Star, AlertTriangle } from 'lucide-react';
+
+// Bu App bileşenini ana dosyanızda (örn: App.js) kullanabilirsiniz.
+// export default function App() {
+//   return <QuizComponent />;
+// }
 
 const QuizComponent = () => {
+  // STATE Değişkenleri: Uygulamanın durumunu yönetir.
   const [allQuestions, setAllQuestions] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [status, setStatus] = useState('loading');
+  const [status, setStatus] = useState('loading'); // 'loading', 'ready', 'error'
   const [currentView, setCurrentView] = useState('categories'); // 'categories', 'quiz', 'results'
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [isAnswered, setIsAnswered] = useState(false);
   const [score, setScore] = useState(0);
-  const [completedCategories, setCompletedCategories] = useState([]);
+  const [completedCategories, setCompletedCategories] = useState({});
   const [categoryScores, setCategoryScores] = useState({});
 
+  // useEffect: Bileşen ilk yüklendiğinde verileri çekmek için kullanılır.
   useEffect(() => {
-    // JSON dosyasından veri çek
-    fetch('public/quizzion.json')
+    // DÜZELTME: Fetch yolu düzeltildi. 'public' klasöründeki dosyalara direkt '/' ile erişilir.
+    // Dosya adını da 'quizzes.json' olarak varsaydım.
+    fetch('/quizzes.json')
       .then((res) => {
-        if (!res.ok) throw new Error('Veri yüklenemedi');
+        if (!res.ok) {
+          throw new Error(`Veri yüklenemedi, sunucu hatası: ${res.status}`);
+        }
         return res.json();
       })
       .then((data) => {
         setAllQuestions(data);
         
-        // Kategorileri grupla
+        // Soruları kategorilere göre grupla
         const categoryGroups = data.reduce((acc, question) => {
-          if (!acc[question.category]) {
-            acc[question.category] = [];
+          const categoryName = question.category;
+          if (!acc[categoryName]) {
+            acc[categoryName] = [];
           }
-          acc[question.category].push(question);
+          acc[categoryName].push(question);
           return acc;
         }, {});
 
+        // Kategorileri arayüz için hazırla
         const categoryList = Object.keys(categoryGroups).map((categoryName, index) => ({
-          id: index + 1,
+          id: categoryName.replace(/\s+/g, '-').toLowerCase(), // Benzersiz bir ID oluştur
           name: categoryName,
           questions: categoryGroups[categoryName],
           questionCount: categoryGroups[categoryName].length,
-          difficulty: index % 3 === 0 ? 'Kolay' : index % 3 === 1 ? 'Orta' : 'Zor',
+          difficulty: ['Kolay', 'Orta', 'Zor'][index % 3],
           color: ['bg-green-500', 'bg-blue-500', 'bg-purple-500', 'bg-orange-500'][index % 4],
-          icon: [BookOpen, Trophy, Star, Lock][index % 4]
+          icon: [BookOpen, Trophy, Star, AlertTriangle][index % 4]
         }));
 
         setCategories(categoryList);
-        setStatus('ready');
+        setStatus('ready'); // Durumu 'hazır' olarak ayarla
       })
       .catch((err) => {
         console.error('Veri çekme hatası:', err);
-        setStatus('error');
+        setStatus('error'); // Hata durumunu ayarla
       });
-  }, []);
+  }, []); // Boş dependency array, bu effect'in sadece bir kere çalışmasını sağlar.
 
+  // Kategori seçildiğinde quiz'i başlatan fonksiyon
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
     setCurrentQuestionIndex(0);
@@ -61,51 +74,56 @@ const QuizComponent = () => {
     setCurrentView('quiz');
   };
 
+  // Bir cevap seçildiğinde çalışır
   const handleAnswerSelect = (option) => {
-    if (isAnswered) return;
+    if (isAnswered) return; // Zaten cevaplandıysa işlem yapma
+
     setSelectedAnswer(option);
     setIsAnswered(true);
 
     const currentQuestion = selectedCategory.questions[currentQuestionIndex];
     if (option === currentQuestion.answer) {
-      setScore((prev) => prev + 1);
+      setScore((prev) => prev + 1); // Doğru cevap ise skoru artır
     }
   };
 
+  // Sonraki soruya geçme veya quiz'i bitirme fonksiyonu
   const handleNextQuestion = () => {
-    if (currentQuestionIndex < selectedCategory.questions.length - 1) {
+    const isLastQuestion = currentQuestionIndex === selectedCategory.questions.length - 1;
+
+    if (isLastQuestion) {
+      // Quiz tamamlandı
+      const categoryId = selectedCategory.id;
+      
+      // En yüksek skoru güncelle
+      const existingScore = categoryScores[categoryId] || 0;
+      if (score > existingScore) {
+          setCategoryScores(prev => ({ ...prev, [categoryId]: score }));
+      }
+      
+      setCompletedCategories(prev => ({...prev, [categoryId]: true}));
+      setCurrentView('results');
+    } else {
+      // Sonraki soruya geç
       setIsAnswered(false);
       setSelectedAnswer(null);
       setCurrentQuestionIndex((prev) => prev + 1);
-    } else {
-      // Quiz tamamlandı
-      const categoryId = selectedCategory.id;
-      const finalScore = score + (selectedAnswer === selectedCategory.questions[currentQuestionIndex].answer ? 1 : 0);
-      
-      setCompletedCategories(prev => [...new Set([...prev, categoryId])]);
-      setCategoryScores(prev => ({
-        ...prev,
-        [categoryId]: finalScore
-      }));
-      
-      setCurrentView('results');
     }
   };
 
+  // Kategoriler ekranına geri dönme
   const handleBackToCategories = () => {
     setCurrentView('categories');
     setSelectedCategory(null);
-    setCurrentQuestionIndex(0);
-    setSelectedAnswer(null);
-    setIsAnswered(false);
-    setScore(0);
   };
 
+  // Cevap butonlarının class'larını belirleyen yardımcı fonksiyon
   const getButtonClass = (option) => {
     if (!isAnswered) {
       return "bg-white dark:bg-slate-800 hover:bg-violet-100 dark:hover:bg-slate-700 border-slate-300 dark:border-slate-600 hover:border-violet-400";
     }
-    if (option === selectedCategory.questions[currentQuestionIndex].answer) {
+    const currentQuestion = selectedCategory.questions[currentQuestionIndex];
+    if (option === currentQuestion.answer) {
       return "bg-green-100 dark:bg-green-900/50 border-green-500 text-green-800 dark:text-white";
     }
     if (option === selectedAnswer) {
@@ -114,20 +132,30 @@ const QuizComponent = () => {
     return "bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-600 opacity-60 cursor-not-allowed";
   };
 
-  const getCategoryProgress = (categoryId) => {
-    return categoryScores[categoryId] || 0;
-  };
+  // --- RENDER KISMI ---
 
-  const getCategoryMaxScore = (category) => {
-    return category.questions.length;
-  };
-
+  // Yüklenme ekranı
   if (status === 'loading') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-violet-50 to-blue-50 dark:from-slate-900 dark:to-slate-800 flex items-center justify-center">
-        <div className="text-center">
+      <div className="min-h-screen bg-gradient-to-br from-violet-50 to-blue-50 dark:from-slate-900 dark:to-slate-800 flex items-center justify-center text-center">
+        <div>
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-violet-600 mx-auto mb-4"></div>
           <p className="text-slate-600 dark:text-slate-300">Quiz yükleniyor...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Hata ekranı
+  if (status === 'error') {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-red-50 to-orange-50 dark:from-slate-900 dark:to-slate-800 flex items-center justify-center text-center p-4">
+        <div className="bg-white dark:bg-slate-800 p-8 rounded-xl shadow-lg">
+            <AlertTriangle className="w-12 h-12 text-red-500 mx-auto mb-4" />
+            <h1 className="text-2xl font-bold text-slate-800 dark:text-white mb-2">Bir Hata Oluştu</h1>
+            <p className="text-slate-600 dark:text-slate-300">
+                Quiz verileri yüklenemedi. Lütfen `public` klasöründe `quizzes.json` dosyasının olduğundan emin olun ve internet bağlantınızı kontrol edin.
+            </p>
         </div>
       </div>
     );
@@ -136,19 +164,18 @@ const QuizComponent = () => {
   // Kategori seçim ekranı
   if (currentView === 'categories') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-violet-50 to-blue-50 dark:from-slate-900 dark:to-slate-800 p-4">
+      <div className="min-h-screen bg-gradient-to-br from-violet-50 to-blue-50 dark:from-slate-900 dark:to-slate-800 p-4 sm:p-6">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
             <h1 className="text-4xl font-bold text-slate-800 dark:text-white mb-2">Quiz Kategorileri</h1>
             <p className="text-slate-600 dark:text-slate-300">Öğrenmek istediğiniz konuyu seçin</p>
           </div>
-
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {categories.map((category) => {
               const IconComponent = category.icon;
-              const isCompleted = completedCategories.includes(category.id);
-              const progress = getCategoryProgress(category.id);
-              const maxScore = getCategoryMaxScore(category);
+              const isCompleted = completedCategories[category.id];
+              const maxScore = category.questionCount;
+              const userScore = categoryScores[category.id] || 0;
               
               return (
                 <div
@@ -160,11 +187,8 @@ const QuizComponent = () => {
                     <div className={`${category.color} p-3 rounded-lg group-hover:scale-110 transition-transform`}>
                       <IconComponent className="w-6 h-6 text-white" />
                     </div>
-                    {isCompleted && (
-                      <CheckCircle className="w-6 h-6 text-green-500" />
-                    )}
+                    {isCompleted && <CheckCircle className="w-6 h-6 text-green-500" />}
                   </div>
-
                   <h3 className="text-xl font-bold text-slate-800 dark:text-white mb-2">{category.name}</h3>
                   <p className="text-slate-600 dark:text-slate-300 text-sm mb-4">{category.questionCount} soru • {category.difficulty}</p>
                   
@@ -172,17 +196,16 @@ const QuizComponent = () => {
                     <div className="mb-4">
                       <div className="flex justify-between text-sm text-slate-600 dark:text-slate-300 mb-1">
                         <span>En yüksek skor</span>
-                        <span>{progress}/{maxScore}</span>
+                        <span>{userScore}/{maxScore}</span>
                       </div>
                       <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
                         <div 
                           className="bg-green-500 h-2 rounded-full transition-all duration-500" 
-                          style={{ width: `${(progress / maxScore) * 100}%` }}
+                          style={{ width: `${(userScore / maxScore) * 100}%` }}
                         ></div>
                       </div>
                     </div>
                   )}
-
                   <button className="w-full bg-slate-800 dark:bg-violet-600 text-white py-2 px-4 rounded-lg hover:bg-slate-900 dark:hover:bg-violet-700 transition-colors">
                     {isCompleted ? 'Tekrar Çöz' : 'Başla'}
                   </button>
@@ -197,36 +220,29 @@ const QuizComponent = () => {
 
   // Quiz sonuç ekranı
   if (currentView === 'results') {
-    const finalScore = score + (selectedAnswer === selectedCategory.questions[currentQuestionIndex].answer ? 1 : 0);
-    const percentage = Math.round((finalScore / selectedCategory.questions.length) * 100);
+    const totalQuestions = selectedCategory.questions.length;
+    const percentage = totalQuestions > 0 ? Math.round((score / totalQuestions) * 100) : 0;
     
     return (
       <div className="min-h-screen bg-gradient-to-br from-violet-50 to-blue-50 dark:from-slate-900 dark:to-slate-800 flex items-center justify-center p-4">
-        <div className="text-center p-8 animate-fade-in max-w-md mx-auto bg-white dark:bg-slate-800 rounded-xl shadow-lg">
+        <div className="text-center p-8 max-w-md mx-auto bg-white dark:bg-slate-800 rounded-xl shadow-lg">
           <div className="mb-6">
             {percentage >= 80 ? (
               <Trophy className="w-16 h-16 text-yellow-500 mx-auto mb-4" />
-            ) : percentage >= 60 ? (
+            ) : percentage >= 50 ? (
               <Star className="w-16 h-16 text-blue-500 mx-auto mb-4" />
             ) : (
               <BookOpen className="w-16 h-16 text-slate-500 mx-auto mb-4" />
             )}
           </div>
-          
-          <h2 className="text-3xl font-bold text-slate-800 dark:text-white mb-2">
-            {selectedCategory.name}
-          </h2>
+          <h2 className="text-3xl font-bold text-slate-800 dark:text-white mb-2">{selectedCategory.name}</h2>
           <p className="text-lg text-slate-600 dark:text-slate-300 mb-4">Tamamlandı!</p>
-          
           <div className="mb-6">
             <p className="text-6xl font-bold my-4 text-violet-600 dark:text-violet-400">
-              {finalScore} / {selectedCategory.questions.length}
+              {score} / {totalQuestions}
             </p>
-            <p className="text-lg text-slate-600 dark:text-slate-300">
-              %{percentage} başarı
-            </p>
+            <p className="text-lg text-slate-600 dark:text-slate-300">%{percentage} başarı</p>
           </div>
-
           <div className="space-y-3">
             <button 
               onClick={() => handleCategorySelect(selectedCategory)}
@@ -253,7 +269,6 @@ const QuizComponent = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-violet-50 to-blue-50 dark:from-slate-900 dark:to-slate-800">
       <div className="p-4 sm:p-6 md:p-8 max-w-3xl mx-auto">
-        {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <button
             onClick={handleBackToCategories}
@@ -264,15 +279,13 @@ const QuizComponent = () => {
           </button>
           <h1 className="text-lg font-semibold text-slate-800 dark:text-white">{selectedCategory.name}</h1>
         </div>
-
-        {/* Progress */}
         <div className="mb-6">
           <div className="flex justify-between items-center mb-2">
             <p className="text-sm font-semibold text-violet-700 dark:text-violet-300">
               Soru {currentQuestionIndex + 1} / {selectedCategory.questions.length}
             </p>
             <p className="text-sm font-semibold text-slate-600 dark:text-slate-400">
-              Skor: {score}/{selectedCategory.questions.length}
+              Skor: {score}
             </p>
           </div>
           <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-3">
@@ -282,15 +295,11 @@ const QuizComponent = () => {
             ></div>
           </div>
         </div>
-
-        {/* Question */}
         <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700 mb-6">
           <h2 className="text-xl md:text-2xl font-medium text-slate-800 dark:text-white leading-relaxed">
             {currentQuestion.question}
           </h2>
         </div>
-
-        {/* Options */}
         <div className="space-y-3 mb-6">
           {currentQuestion.options.map((option, index) => (
             <button
@@ -305,10 +314,8 @@ const QuizComponent = () => {
             </button>
           ))}
         </div>
-
-        {/* Next Button */}
         {isAnswered && (
-          <div className="text-center animate-fade-in">
+          <div className="text-center">
             <button
               onClick={handleNextQuestion}
               className="bg-slate-800 hover:bg-slate-900 dark:bg-violet-600 dark:hover:bg-violet-700 text-white font-bold py-3 px-8 rounded-lg transition-all shadow-lg hover:shadow-xl"
