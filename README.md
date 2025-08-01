@@ -38,6 +38,8 @@ PrepMate is a comprehensive and AI-powered study companion designed to meet all 
 The app facilitates the learning process with many features including vocabulary learning, reading and grammar exercises, personal progress tracking, and mind mapping. Users can review daily vocabulary, take tests, and monitor their progress in detail. Additionally, the AI-powered chat module allows users to practice English and enrich their learning experience.
 
 With its minimalist and user-friendly interface, PrepMate offers a seamless experience on both mobile and desktop devices. PrepMate is your most reliable assistant, guiding, motivating, and supporting you to achieve your academic goals.
+
+Frequently Asked Questions:[FAQ](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/FAQ_English.pdf "PrepMate Kullanıcı Personaları")
 </details>
 
 ---
