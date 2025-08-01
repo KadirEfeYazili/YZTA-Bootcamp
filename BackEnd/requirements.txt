@@ -64,3 +64,6 @@ wcwidth==0.2.13
 gunicorn==21.2.0
 uvicorn[standard]==0.30.6
 fastapi==0.115.5
+pydantic==2.5.0
+firebase-admin==6.4.0
+python-multipart==0.0.6
