@@ -438,6 +438,162 @@ Kadir Efe Yazılı, Ebral Karabulut, Muhammet Berke Ağaya, Ebrar Ağralı, Nurc
 <details>
   <summary><h2>Üçüncü Sprint</h2></summary>
 </details>
+ ---
+ **Sprint 3 **
+
+---
+
+### ✨ Kullanılan Teknolojiler
+
+* **Frontend:** React.js, Tailwind CSS, React Markdown
+* **API:** Google Gemini API
+* **Backend & Hosting:** Firebase, Firestore, Firebase API Key
+* **Versiyon Kontrol & Deploy:** GitHub, GitHub Pages, GitHub Actions
+
+### 📚 Sprint 3 Hedefleri
+
+* Uygulamanın tam anlamıyla yayına hazır hale getirilmesi
+* Tüm temel modül ve işlevlerin stabil çalışacak şekilde tamamlanması
+* Proje sunumu, dökümantasyon, prototip yayını ve test süreçlerinin yürütülmesi
+
+### 🔢 Görev (Task) Tablosu
+
+| Görev (Task)                                                   | Tahmini Süre (Gün) | Puan (Story Point) | Sorumlu          | Durum      |
+| -------------------------------------------------------------- | ------------------ | ------------------ | ---------------- | ---------- |
+| T3.1: Notbook entegrasyonunu tamamlama                         | 1                  | 3                  | Developer        | Tamamlandı |
+| T3.2: Uygulama tasarımına renk teması ekleme                   | 1                  | 3                  | UI/UX Tasarımcı  | Tamamlandı |
+| T3.3: Örnek kullanıcılarla test ve geri bildirim alma          | 2                  | 5                  | QA Ekibi         | Tamamlandı |
+| T3.4: Tüm modüllerin işlevsel testlerini yapma                 | 2                  | 5                  | QA Ekibi         | Tamamlandı |
+| T3.5: GitHub üzerinde proje dökümantasyonu oluşturma           | 1                  | 3                  | Developer        | Tamamlandı |
+| T3.6: Kelime kartı ve öğrenme modülünü geliştirme              | 2                  | 5                  | Frontend Ekibi   | Tamamlandı |
+| T3.7: UI/UX düzenlemeleri ve detaylı revizyonlar               | 2                  | 5                  | UI/UX Tasarımcı  | Tamamlandı |
+| T3.8: Kullanıcıdan gelen soruları etiketleyerek filtreleme     | 1                  | 3                  | Backend Ekibi    | Tamamlandı |
+| T3.9: Gelişmiş kullanıcı geri bildirim formu hazırlama         | 1                  | 3                  | Frontend Ekibi   | Tamamlandı |
+| T3.10: Demo sunumu ve tanıtım videosu çekimi (2 dk)            | 1.5                | 3                  | Proje Yöneticisi | Tamamlandı |
+| T3.11: .apk veya canlı bağlantı üzerinden uygulama paylaşımı   | 1                  | 2                  | Developer        | Tamamlandı |
+| T3.12: Hatalı cevaplara yeniden deneme önerisi entegrasyonu    | 1                  | 3                  | Backend Ekibi    | Tamamlandı |
+| T3.13: Prompt örnekleri PDF dökümantasyonu                     | 0.5                | 2                  | Developer        | Tamamlandı |
+| T3.14: API dökümantasyonu oluşturma                            | 0.5                | 2                  | Backend Ekibi    | Tamamlandı |
+| T3.15: UI/UX Canva tasarımı güncelleme                         | 1                  | 3                  | UI/UX Tasarımcı  | Tamamlandı |
+| T3.16: Lean Canvas güncellemesi                                | 1                  | 2                  | Proje Yöneticisi | Tamamlandı |
+| T3.17: SSS (Sıkça Sorulan Sorular) bölümü oluşturma            | 0.5                | 1                  | Frontend Ekibi   | Tamamlandı |
+| T3.18: Sprint Review ve Retrospective toplantılarını düzenleme | 1                  | 2                  | Scrum Master     | Tamamlandı |
+
+### ✅ Sprint Notları
+
+* Uygulamanın yayın öncesi son testleri yapıldı
+* Tüm modül entegrasyonları sorunsuz bir şekilde tamamlandı
+* GitHub Pages üzerinden deploy başarıyla yapıldı
+* Demo sunumu ve tanıtım içerikleri oluşturuldu
+* Ekip içi retrospektif ile sprint değerlendirmesi yapıldı
+
+### 🌟 Sprint 3 Tamamlanması Beklenen Puan:
+
+**450 Puan**
+
+---
+
+### 🔄 Sprint Gözden Geçirilmesi:
+
+* Tüm modüllerin fonksiyonel şekilde tamamlanması sağlandı
+* Tasarım detayları ve son UX incelemeleri tamamlandı
+* Yayın ve sunum çalışmaları başarıyla yürütüldü
+* Kullanıcı testlerinden pozitif geri bildirimler alındı
+
+### 💬 Sprint Retrospektifi:
+
+**Ne İyi Gitti?**
+
+* Ekip tam zamanlı ve organize çalıştı
+* Yayın süreci başarıyla yürütüldü
+* Test döngüleri net ve verimliydi
+
+**Ne Geliştirilebilir?**
+
+* Test çeşitliliği artırılabilir
+* Daha fazla cihaz üzerinde test uygulanabilir
+
+**Öğrenilen Dersler:**
+
+* Detaylı dökümantasyon sprint sonu için kritik
+* Erken yayın testleri hataları azaltıyor
+
+**Eylem Maddeleri:**
+
+* Son sunum dosyası PDF'e çevrilecek
+* Kullanıcı test raporları dökümante edilecek
+
+### 📸 Sprint 3 - Ekran Görselleri
+
+* Dark Mode / Light Mode uyumluluğu
+* Kullanıcı profili ve planlayıcı modül ekranları
+* Sınav/Test bileşenleri ekranları
+* Gelişmiş Chatbot ekranları
+* Demo video çıktıları
+
+### 📊 Sprint 3 - Burndown Chart
+
+* Gün başı vs. tamamlanan task'lar grafiği eklenecek
+
+### 📆 Sprint 3 - Board & Toplantı Görselleri
+
+* Trello üzerinden tamamlanan kartlar ekran kaydı
+* Sprint Review ve Demo sunumu toplantı ekran görünütüleri
+
+  
+ Genel İlerleme ve Hedef Gerçekleşme  
+| Sprint   | Hedef Puan | Tamamlanan Puan | Başarı Oranı | Not                                     |
+| -------- | ---------- | --------------- | ------------ | --------------------------------------- |
+| Sprint 1 | 350        | 350             | %100         | Planlama ve temel kurulum               |
+| Sprint 2 | 400        | 400             | %100         | Modül geliştirme ve UI odaklı           |
+| Sprint 3 | 450        | 450             | %100         | Test, iyileştirme, yayın ve entegrasyon |
+
+Yorum:
+Tüm sprintlerde hedeflenen puanlar başarıyla tamamlandı, bu da projenin planlanan zaman ve kapsam çerçevesinde yüksek başarıyla yürütüldü. 
+Her sprint, öncekine göre daha fazla iş yükü taşımasına rağmen, takım uyumu ve süreç yönetimi sayesinde bu yük başarıyla taşınmış.
+
+Ekip Performansı ve Katılım
+Kod Katılımı: Tüm ekip üyeleri kodlama sürecine aktif biçimde katıldı. Özellikle Sprint 2 ve 3'te modül geliştirme ve hata düzeltme konusunda yoğun katkılar sağlandı.
+
+Tasarım Katkısı: UI/UX tasarımcılarının sprint boyunca sürekli destek sunması, ürünün kullanıcı deneyimi açısından tutarlı ve kaliteli olmasını sağladı.
+
+Scrum Süreçleri: Günlük Scrum toplantıları, Trello panosunun düzenli güncellenmesi ve sprint değerlendirme toplantıları ekip içi iletişimi ve ilerlemeyi güçlendirdi.
+
+ Teknoloji ve Entegrasyonlar
+OpenAI Gemini API, Firebase, React.js, GitHub Actions gibi teknolojiler projede başarıyla entegre edildi.
+
+Sürekli dağıtım ve test işlemleri GitHub Actions ile otomatize edilerek, entegrasyon süreçleri hatasız ilerledi.
+
+Frontend, backend ve tasarım modülleri arasında güçlü bir senkronizasyon sağlandı.
+
+📈 İyileşen Alanlar
+UI/UX tutarlılığı: Her sprintte görünüm ve kullanıcı deneyimi daha stabil hale getirildi.
+
+Modülerlik: Özellikle Sprint 3’te modüller birbirinden bağımsız hale getirilerek sürdürülebilirlik sağlandı.
+
+Test Mekanizmaları: Son sprintte testler ve hata yakalama mekanizmaları büyük ölçüde tamamlandı.
+
+⚠️ Geliştirilebilir Noktalar
+Erken geri bildirim mekanizmaları Sprint 2 ve 3 boyunca sınırlı kaldı. Kullanıcı testlerinin ilk sprintten itibaren başlaması daha faydalı olurdu.
+
+API entegrasyon planlaması daha detaylı yapılabilir; bazı API gecikmeleri sprint planlarını zorladı.
+
+Veri izleme ve analiz modülü, temel düzeyde yapıldı. İleri seviyede kullanıcı davranışı analizi sonraki versiyonlar için planlanmalı.
+
+🧠 Öğrenilen Dersler
+Sprint planlarının gerçekçi olması, motivasyonu ve iş takibini olumlu etkiledi.
+
+Tüm ekip üyelerinin sürekli katılımı, bilgi paylaşımını ve çözüm hızını artırdı.
+
+UI/UX düzenlemelerinin sürekli yapılması, kullanıcı memnuniyetine doğrudan yansıdı.
+
+Karmaşık entegrasyonlara zaman ayırmak, uzun vadeli başarıyı garantiliyor.
+
+📦 Genel Değerlendirme
+Projede 3 sprint boyunca hem teknik hem organizasyonel yönden yüksek düzeyde bir disiplin sağlandı. Hedeflere sadık kalındı, ekip iletişimi güçlüydü ve her sprint öğrenerek daha verimli hale geldi.
+
+🎯 Proje başarılı bir şekilde tamamlandı ve dağıtıma hazır seviyeye getirildi.
+
 
  ---
 Proje yönetim sürecimizi Trello üzerinden takip ediyoruz:  
