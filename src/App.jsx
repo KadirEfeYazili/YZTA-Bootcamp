@@ -1,6 +1,7 @@
-// App.jsx
+// src/App.jsx
+
 import React, { useState, useEffect } from 'react';
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom'; // App12.jsx'ten eklendi
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -14,51 +15,47 @@ import {
   sendPasswordResetEmail
 } from 'firebase/auth';
 import { doc, setDoc, onSnapshot, updateDoc, arrayUnion, arrayRemove, serverTimestamp } from 'firebase/firestore';
-import { 
-  GraduationCap, 
-  LayoutDashboard, 
-  Component, 
-  BookOpen, 
-  BrainCircuit, 
-  Map, 
-  Loader2, 
-  XCircle, 
-  Chrome, 
-  Sun, 
-  Moon, 
-  User, 
-  BellRing, 
-  BookText 
-} from 'lucide-react';
+import { GraduationCap, LayoutDashboard, Component, BookOpen, BrainCircuit, Map, Loader2, XCircle, Chrome, Sun, Moon, User, BellRing, BookText } from 'lucide-react';
 
 // Firebase yapılandırma ve başlatma
 import { auth, db, firebaseConfig } from './config/firebase';
 
-// Ana uygulama bileşenleri
+// Ana uygulama bileşenleri (orijinal halleriyle)
 import Dashboard from './components/Dashboard';
 import WordComparer from './components/WordComparer';
 import ReadingPractice from './components/ReadingPractice';
+import MindMapper from './components/MindMapper';
 import AIChat from './components/AIChat';
 import NavItem from './components/NavItem';
+import QuizComponent from './components/QuizComponent';
 import ProfilePage from './components/ProfilePage';
 import NotificationScheduler from './components/NotificationScheduler';
+import WordCardDisplay from './components/WordCardDisplay';
 import Notebook from './components/Notebook';
 
-// Eksik bileşenler için gerçek importlar - bunları components klasöründen import edebilirsiniz
-import MindMapper from './components/MindMapper';
-import QuizComponent from './components/QuizComponent';
-import WordCardDisplay from './components/WordCardDisplay';
-
 // FastAPI backend'inizin temel URL'si
-const API_BASE_URL = 'http://127.0.0.1:8000';
+const API_BASE_URL = 'https://yzta-bootcamp.onrender.com';
+
+
+const PROFILE_PIC_NAMES = [
+  "https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/main/public/images/profile_pics/default_profile.png",
+  "https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/main/public/images/profile_pics/Gemini_1.png",
+  "https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/main/public/images/profile_pics/Gemini_2.png",
+  "https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/main/public/images/profile_pics/Gemini_3.png",
+  "https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/main/public/images/profile_pics/Gemini_4.png",
+  "https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/main/public/images/profile_pics/Gemini_5.png",
+  "https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/main/public/images/profile_pics/Gemini_6.png",
+  "https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/main/public/images/profile_pics/Gemini_7.png",
+  "https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/main/public/images/profile_pics/Gemini_8.png"
+];
+
+console.log("🎨 PROFILE_PIC_NAMES dizisi:", PROFILE_PIC_NAMES);
 
 const App = () => {
-  // Authentication ve Kullanıcı Durumu
   const [currentUser, setCurrentUser] = useState(null);
   const [userId, setUserId] = useState(null);
   const [isAuthReady, setIsAuthReady] = useState(false);
 
-  // Giriş/Kayıt Akışı State'leri
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
@@ -69,7 +66,6 @@ const App = () => {
   const [userProfile, setUserProfile] = useState(null);
   const [statusMessage, setStatusMessage] = useState('');
 
-  // Uygulama İçeriği State'leri
   const [userProgress, setUserProgress] = useState({
     reading: { correct: 0, total: 0 },
     learnedWords: [],
@@ -80,12 +76,54 @@ const App = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [darkMode, setDarkMode] = useState(true);
 
-  // Profile page için state'ler
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userAge, setUserAge] = useState(null);
+  const [userProfilePicture, setUserProfilePicture] = useState(PROFILE_PIC_NAMES[0]);
 
-  // Dark Mode useEffect
+  const [showProfilePicModal, setShowProfilePicModal] = useState(false);
+  const [selectedProfilePic, setSelectedProfilePic] = useState('');
+  const [profilePicLoadStatus, setProfilePicLoadStatus] = useState({});
+
+  const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+  // Profil resimlerinin yüklenme durumunu test eden fonksiyon
+  const testProfilePictures = async () => {
+    console.log("🔍 Profil resimlerini test ediliyor...");
+    const loadStatus = {};
+    
+    for (const imageName of PROFILE_PIC_NAMES) {
+      try {
+        const imageUrl = imageName;
+        console.log(`📸 Test ediliyor: ${imageUrl}`);
+        
+        const img = new Image();
+        const loadPromise = new Promise((resolve, reject) => {
+          img.onload = () => {
+            console.log(`✅ Başarılı: ${imageName} yüklendi`);
+            resolve(true);
+          };
+          img.onerror = () => {
+            console.error(`❌ Hata: ${imageName} yüklenemedi`);
+            reject(false);
+          };
+        });
+        
+        img.src = imageUrl;
+        const result = await loadPromise.catch(() => false);
+        loadStatus[imageName] = result;
+        
+      } catch (error) {
+        console.error(`💥 ${imageName} test edilirken hata:`, error);
+        loadStatus[imageName] = false;
+      }
+    }
+    
+    console.log("📊 Profil resmi yükleme durumu:", loadStatus);
+    setProfilePicLoadStatus(loadStatus);
+    return loadStatus;
+  };
+
   useEffect(() => {
     console.log("Dark mode useEffect çalıştı. darkMode:", darkMode);
     if (darkMode) {
@@ -95,86 +133,107 @@ const App = () => {
     }
   }, [darkMode]);
 
-  // Firebase Authentication durumunu dinle
   useEffect(() => {
     console.log("Auth durumu dinleyicisi başlatılıyor...");
-    const unsubscribeAuth = onAuthStateChanged(auth, async (user) => {
-      setCurrentUser(user);
-      if (user) {
-        setUserId(user.uid);
-        console.log("Kullanıcı oturum açtı:", user.uid, user.email);
-        setUserEmail(user.email);
+    const initFirebase = async () => {
+      const unsubscribeAuth = onAuthStateChanged(auth, async (user) => {
+        setCurrentUser(user);
+        if (user) {
+          setUserId(user.uid);
+          console.log("Kullanıcı oturum açtı:", user.uid, user.email);
+          setUserEmail(user.email);
 
-        // Fetch user profile from FastAPI
-        try {
-          const idToken = await user.getIdToken();
-          const profile = await callApi('/users/me/', 'GET', idToken);
-          setUserName(`${profile.name} ${profile.surname}`);
-          setUserAge(profile.age);
-          console.log("Kullanıcı profil bilgileri alındı:", profile);
-        } catch (error) {
-          console.error("Kullanıcı profil bilgileri alınırken hata:", error);
-          setUserName(user.email);
+          try {
+            const idToken = await user.getIdToken();
+            const profile = await callApi('/users/me/', 'GET', idToken);
+            setUserName(`${profile.name} ${profile.surname}`);
+            setUserAge(profile.age);
+            setUserProfile(profile);
+            const profilePicUrl = profile.profile_picture_url || PROFILE_PIC_NAMES[0];
+            setUserProfilePicture(profilePicUrl);
+            console.log("👤 Kullanıcı profil bilgileri alındı:", profile);
+            console.log("🖼️ Backend'den gelen profil resmi URL'si:", profile.profile_picture_url);
+            console.log("🖼️ Kullanılacak profil resmi URL'si:", profilePicUrl);
+          } catch (error) {
+            console.error("Kullanıcı profil bilgileri alınırken hata:", error);
+            setUserName(user.email);
+            setUserAge(null);
+            setUserProfile(null);
+            setUserProfilePicture(PROFILE_PIC_NAMES[0]);
+          }
+
+        } else {
+          setUserId(null);
+          setAuthMode('initial');
+          setEmail('');
+          setPassword('');
+          setName('');
+          setSurname('');
+          setAge('');
+          setUserName('');
+          setUserEmail('');
           setUserAge(null);
+          setUserProfile(null);
+          setUserProfilePicture(PROFILE_PIC_NAMES[0]);
+          console.log("Kullanıcı oturumu kapandı.");
         }
-      } else {
-        setUserId(null);
-        setAuthMode('initial');
-        setEmail('');
-        setPassword('');
-        setName('');
-        setSurname('');
-        setAge('');
-        setUserName('');
-        setUserEmail('');
-        setUserAge(null);
-        console.log("Kullanıcı oturumu kapandı.");
-      }
-      setIsAuthReady(true);
-      console.log("isAuthReady true olarak ayarlandı.");
-    });
-
-    return () => unsubscribeAuth();
+        setIsAuthReady(true);
+        console.log("isAuthReady true olarak ayarlandı.");
+      });
+      return () => unsubscribeAuth();
+    };
+    initFirebase();
   }, []);
 
-  // Kullanıcı profilini çekmek için useEffect
+  // Profil resimlerini test et (uygulama yüklendiğinde)
   useEffect(() => {
-    const fetchUserProfile = async () => {
-      if (!currentUser || !userId) {
-        setUserProfile(null);
-        return;
+    if (isAuthReady) {
+      console.log("🚀 Uygulama hazır, profil resimleri test ediliyor...");
+      testProfilePictures();
+    }
+  }, [isAuthReady]);
+
+  // Modal açıldığında profil resimlerini tekrar test et
+  useEffect(() => {
+    if (showProfilePicModal) {
+      console.log("🎭 Profil resmi modalı açıldı, resimler test ediliyor...");
+      testProfilePictures();
+    }
+  }, [showProfilePicModal]);
+
+  const updateUserProfile = async (updatedProfile) => {
+    if (!userId || !currentUser) {
+      setStatusMessage("Profil güncellenemedi: Kullanıcı oturumu açık değil.");
+      return;
+    }
+    try {
+      const idToken = await currentUser.getIdToken();
+      console.log("🔄 Profil güncelleme isteği gönderiliyor:", updatedProfile);
+      const response = await callApi('/users/me/', 'PUT', idToken, updatedProfile);
+      console.log("📥 Backend'den gelen güncelleme yanıtı:", response);
+
+      setUserProfile(prev => ({ ...prev, ...response }));
+
+      setUserName(`${response.name} ${response.surname}`);
+      setUserEmail(response.email);
+      setUserAge(response.age);
+      
+      // Profil resmi URL'sini güncelle
+      if (response.profile_picture_url) {
+        setUserProfilePicture(response.profile_picture_url);
+        console.log("🖼️ Profil resmi güncellendi:", response.profile_picture_url);
+      } else {
+        console.log("⚠️ Backend'den profil resmi URL'si gelmedi, mevcut URL korunuyor:", userProfilePicture);
       }
 
-      try {
-        const idToken = await currentUser.getIdToken();
-        const response = await fetch(`${API_BASE_URL}/users/me/`, {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${idToken}`,
-            'Content-Type': 'application/json',
-          },
-        });
+      setStatusMessage("Profil başarıyla güncellendi!");
+      console.log("✅ Profil başarıyla güncellendi:", response);
+    } catch (error) {
+      console.error("❌ Profil güncellenemedi:", error);
+      setStatusMessage("Profil güncellenirken bir hata oluştu: " + error.message);
+    }
+  };
 
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.detail || 'Profil bilgileri çekilirken hata oluştu.');
-        }
-
-        const data = await response.json();
-        setUserProfile(data);
-        console.log("Kullanıcı profil bilgileri App.jsx içinde çekildi:", data);
-
-      } catch (err) {
-        console.error("Profil bilgileri çekilirken hata:", err);
-        setStatusMessage("Profil yüklenirken hata oluştu: " + err.message);
-        setUserProfile(null);
-      }
-    };
-
-    fetchUserProfile();
-  }, [currentUser, userId]);
-
-  // Kullanıcı ilerlemesini Firestore'dan dinle
   useEffect(() => {
     console.log("Firestore dinleyicisi useEffect çalıştı. Durum: db:", !!db, "userId:", !!userId, "isAuthReady:", isAuthReady);
     if (!db || !userId || !isAuthReady) {
@@ -203,15 +262,17 @@ const App = () => {
 
       } else {
         console.log("Kullanıcı ilerleme belgesi Firestore'da bulunamadı. Yeni belge oluşturuluyor...");
-        const initialProgress = {
+        setDoc(userProgressDocRef, {
           reading: { correct: 0, total: 0 },
           learnedWords: [],
           activities: []
-        };
-        
-        setDoc(userProgressDocRef, initialProgress).then(() => {
+        }).then(() => {
           console.log("Başlangıç ilerlemesi başarıyla ayarlandı.");
-          setUserProgress(initialProgress);
+          setUserProgress({
+            reading: { correct: 0, total: 0 },
+            learnedWords: [],
+            activities: []
+          });
         }).catch(e => console.error("Başlangıç ilerlemesi ayarlanırken hata:", e));
       }
     }, (error) => {
@@ -225,7 +286,33 @@ const App = () => {
     };
   }, [db, userId, isAuthReady, firebaseConfig.appId]);
 
-  // Firestore'a ilerleme kaydetme fonksiyonu
+  useEffect(() => {
+    const testEmail = "berkeiou@outlook.com";
+    const testSignInMethods = async () => {
+      if (!auth) {
+        console.warn(">> TEST: Auth objesi henüz tanımlı değil. Firebase başlatılmamış olabilir.");
+        return;
+      }
+      try {
+        console.log(`>> TEST: "${testEmail}" için giriş yöntemleri kontrol ediliyor...`);
+        const methods = await fetchSignInMethodsForEmail(auth, testEmail);
+        console.log(`>> TEST: "${testEmail}" için giriş yöntemleri yanıtı:`, methods);
+        if (methods && methods.length > 0) {
+          console.log(`>> TEST: "${testEmail}" Firebase Auth'ta KAYITLI.`);
+        } else {
+          console.log(`>> TEST: "${testEmail}" Firebase Auth'ta KAYITLI DEĞİL.`);
+        }
+      } catch (err) {
+        console.error(`>> TEST: "${testEmail}" kontrol edilirken hata:`, err);
+      }
+    };
+    if (isAuthReady) {
+      testSignInMethods();
+    } else {
+      console.log(">> TEST: isAuthReady henüz true değil, test bekletiliyor.");
+    }
+  }, [isAuthReady]);
+
   const saveProgressToFirestore = async (newProgress) => {
     console.log("Firestore'a ilerleme kaydetme çağrıldı. Yeni ilerleme:", newProgress);
     if (!db || !userId) {
@@ -249,7 +336,6 @@ const App = () => {
     }
   };
 
-  // Öğrenilen kelimeyi kaldırma
   const handleRemoveLearnedWord = async (wordToRemove) => {
     console.log(`"${wordToRemove}" kelimesi öğrenilenlerden kaldırılıyor.`);
     await saveProgressToFirestore({
@@ -262,7 +348,6 @@ const App = () => {
     console.log(`"${wordToRemove}" kelimesi kaldırma işlemi tamamlandı.`);
   };
 
-  // FastAPI API çağrısı yardımcı fonksiyonu
   const callApi = async (endpoint, method, token = null, body = null) => {
     console.log(`API çağrısı: ${method} ${API_BASE_URL}${endpoint}`);
     const headers = {
@@ -284,22 +369,34 @@ const App = () => {
 
     try {
       const response = await fetch(`${API_BASE_URL}${endpoint}`, config);
+
+      if (!response.ok) {
+        let errorData;
+        try {
+          errorData = await response.json();
+        } catch (jsonError) {
+          console.error("API yanıtı JSON olarak ayrıştırılamadı:", jsonError);
+          throw new Error(`API hatası: ${response.status} ${response.statusText || ''}. Sunucudan JSON olmayan yanıt.`);
+        }
+        console.error("API yanıtı OK değil:", response.status, errorData.detail);
+        throw new Error(errorData.detail || `API hatası: ${response.status}`);
+      }
+
       const data = await response.json();
       console.log("API yanıtı:", data);
 
-      if (!response.ok) {
-        console.error("API yanıtı OK değil:", response.status, data.detail);
-        throw new Error(data.detail || `API hatası: ${response.status}`);
-      }
       console.log("API çağrısı başarılı.");
       return data;
     } catch (error) {
       console.error("API Çağrısı Hatası:", error);
-      throw error;
+      if (error instanceof TypeError && error.message === 'Failed to fetch') {
+        throw new Error("Ağ hatası: Sunucuya ulaşılamadı. Backend'in çalışıp çalışmadığını ve adresin doğru olup olmadığını kontrol edin.");
+      } else {
+        throw error;
+      }
     }
   };
 
-  // E-posta/Şifre ile Kayıt İşlemi
   const handleSignup = async () => {
     setStatusMessage('Kaydolunuyor...');
     console.log("Kaydol butonu tıklandı. Bilgiler:", { name, surname, age, email });
@@ -340,6 +437,15 @@ const App = () => {
       setUserName(`${name} ${surname}`);
       setUserEmail(email);
       setUserAge(parsedAge);
+      setUserProfile({
+        name: name,
+        surname: surname,
+        age: parsedAge,
+        email: email,
+        gender: 'Belirtilmemiş'
+      });
+      setUserProfilePicture('/images/profile_pics/default_profile.png');
+
 
       setStatusMessage('Kayıt başarılı! Hoş geldiniz, ' + name + ' ' + surname + '.');
       setEmail('');
@@ -363,7 +469,6 @@ const App = () => {
     }
   };
 
-  // E-posta/Şifre ile Giriş İşlemi
   const handleLoginAttemptFromInitial = async () => {
     setStatusMessage('Giriş yapılıyor...');
     console.log("Giriş Yap butonu tıklandı (initial mode). E-posta:", email);
@@ -395,7 +500,6 @@ const App = () => {
     }
   };
 
-  // Google ile Giriş İşlemi
   const handleGoogleLogin = async () => {
     setStatusMessage('Google ile giriş yapılıyor...');
     console.log("Google ile giriş butonu tıklandı.");
@@ -450,13 +554,34 @@ const App = () => {
         setStatusMessage('Google ile ilk girişiniz. Profiliniz oluşturuldu!');
         console.log("Google ile yeni kullanıcı kaydoldu ve profili oluşturuldu:", user.uid);
 
+        setUserProfile({
+          name: googleName,
+          surname: googleSurname,
+          age: parsedAge,
+          email: user.email,
+          gender: 'Belirtilmemiş'
+        });
+
         setUserName(`${googleName} ${googleSurname}`);
-        setUserEmail(user.email);
+        setUserEmail(user.email.toString());
         setUserAge(parsedAge);
+        setUserProfilePicture('/images/profile_pics/default_profile.png');
 
       } else {
         setStatusMessage('Google ile giriş başarılı!');
         console.log("Google ile mevcut kullanıcı giriş yaptı:", user.uid);
+
+        try {
+          const profile = await callApi('/users/me/', 'GET', idToken);
+          setUserProfile(profile);
+          setUserName(`${profile.name} ${profile.surname}`);
+          setUserEmail(profile.email);
+          setUserAge(profile.age);
+          setUserProfilePicture(profile.profile_picture_url || '/images/profile_pics/default_profile.png');
+          console.log("Mevcut Google kullanıcısının profil bilgileri yenilendi:", profile);
+        } catch (error) {
+          console.error("Google kullanıcısının profil bilgileri alınırken hata:", error);
+        }
       }
 
     } catch (error) {
@@ -471,7 +596,6 @@ const App = () => {
     }
   };
 
-  // Şifre Sıfırlama İşlemi
   const handleForgotPassword = async () => {
     setStatusMessage('Şifre sıfırlama bağlantısı gönderiliyor...');
     console.log("Şifremi Unuttum butonu tıklandı. E-posta:", email);
@@ -500,7 +624,6 @@ const App = () => {
     }
   };
 
-  // Çıkış Yapma İşlemi
   const handleSignOut = async () => {
     setStatusMessage('Çıkış yapılıyor...');
     console.log("Çıkış yap butonu tıklandı.");
@@ -514,7 +637,6 @@ const App = () => {
     }
   };
 
-  // Dark Mode Toggle
   const toggleDarkMode = () => {
     setDarkMode(prevMode => {
       const newMode = !prevMode;
@@ -523,13 +645,40 @@ const App = () => {
     });
   };
 
+  const handleProfilePicSelect = (imageName) => {
+    console.log("🖼️ Profil resmi seçildi:", imageName);
+    setSelectedProfilePic(imageName);
+  };
+
+  const handleSaveProfilePic = async () => {
+    if (!selectedProfilePic) {
+      setStatusMessage("Lütfen bir resim seçin.");
+      console.warn("⚠️ Resim seçilmeden kaydetme denendi");
+      return;
+    }
+    const newProfilePicUrl = selectedProfilePic; // Doğrudan GitHub URL'sini kullan
+    console.log("💾 Yeni profil resmi kaydediliyor:", newProfilePicUrl);
+
+    try {
+      await updateUserProfile({ profile_picture_url: newProfilePicUrl });
+      setUserProfilePicture(newProfilePicUrl);
+      setStatusMessage("Profil resmi başarıyla güncellendi!");
+      setShowProfilePicModal(false);
+      console.log("✅ Profil resmi başarıyla güncellendi:", newProfilePicUrl);
+    } catch (error) {
+      console.error("❌ Profil resmi güncellenirken hata:", error);
+      setStatusMessage("Profil resmi güncellenirken bir hata oluştu: " + error.message);
+    }
+  };
+
+
   const renderAppContent = () => {
     switch (activeTab) {
       case 'dashboard': 
+        // App12.jsx'ten gelen fark: Dashboard'a ek proplar eklendi
         return <Dashboard 
           userProgress={userProgress} 
           handleRemoveLearnedWord={handleRemoveLearnedWord}
-          // Dashboard'a bu bileşenleri prop olarak geçiyoruz
           WordCardDisplay={WordCardDisplay}
           QuizComponent={QuizComponent}
           MindMapper={MindMapper}
@@ -538,25 +687,35 @@ const App = () => {
           db={db}
           firebaseAppId={firebaseConfig.appId}
         />;
-      case 'word': 
-        return <WordComparer userProgress={userProgress} saveProgress={saveProgressToFirestore} db={db} userId={userId} firebaseAppId={firebaseConfig.appId} />;
-      case 'reading': 
-        return <ReadingPractice userProgress={userProgress} saveProgress={saveProgressToFirestore} />;
+      case 'word': return <WordComparer userProgress={userProgress} saveProgress={saveProgressToFirestore} db={db} userId={userId} firebaseAppId={firebaseConfig.appId} />;
+      case 'reading': return <ReadingPractice userProgress={userProgress} saveProgress={saveProgressToFirestore} />;
+      case 'mindmap': return <MindMapper saveProgress={saveProgressToFirestore} />;
+      case 'quiz': return <QuizComponent />;
       case 'profile':
         return (
           <ProfilePage
-            userName={userProfile?.username || currentUser?.displayName || "Misafir Kullanıcı"}
+            userName={userProfile?.name && userProfile?.surname ? `${userProfile.name} ${userProfile.surname}` : currentUser?.displayName || "Misafir Kullanıcı"}
             userEmail={userProfile?.email || currentUser?.email || "Bilgi Yok"}
             userAge={userProfile?.age}
+            userGender={userProfile?.gender || 'Belirtilmemiş'}
+            userProfilePicture={userProfilePicture}
+            onSave={updateUserProfile}
+            onOpenProfilePicModal={() => {
+              setShowProfilePicModal(true);
+              // Mevcut seçili resmi moda'a aktar
+              setSelectedProfilePic(userProfilePicture.split('/').pop());
+            }}
           />
         );
-      case 'notifications': 
+      case 'notifications':
         return <NotificationScheduler userId={userId} db={db} firebaseAppId={firebaseConfig.appId} />;
-      case 'notebook': 
-        return <Notebook userId={userId} db={db} firebaseAppId={firebaseConfig.appId} />;
-      case 'chat': 
-        return <AIChat currentUser={currentUser} userId={userId} />;
+      case 'word-cards':
+        return <WordCardDisplay userId={userId} db={db} firebaseAppId={firebaseConfig.appId} saveProgress={saveProgressToFirestore} />;
+      case 'notebook':
+        return <Notebook userId={userId} db={db} firebaseConfig={firebaseConfig} />;
+      case 'chat': return <AIChat currentUser={currentUser} userId={userId} />;
       default: 
+        // App12.jsx'ten gelen fark: Dashboard'a ek proplar eklendi
         return <Dashboard 
           userProgress={userProgress} 
           handleRemoveLearnedWord={handleRemoveLearnedWord}
@@ -587,7 +746,7 @@ const App = () => {
       {currentUser ? (
         <>
           <aside
-            className={`bg-white/80 dark:bg-slate-800 backdrop-blur-lg p-4 flex flex-col border-r border-violet-100 dark:border-slate-700 transition-all duration-300 ease-in-out`}
+            className={`bg-white/80 dark:bg-slate-800 backdrop-blur-lg p-4 flex flex-col border-r border-violet-100 dark:border-slate-700 transition-width duration-300 ease-in-out`}
             style={{
               width: isSidebarOpen ? '16rem' : '6rem',
             }}
@@ -624,15 +783,13 @@ const App = () => {
               <NavItem tabName="profile" icon={<User className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Profilim</NavItem>
 
               <NavItem tabName="dashboard" icon={<LayoutDashboard className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>İlerleme Paneli</NavItem>
-              
               <NavItem tabName="word" icon={<Component className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Kelime Karşılaştırma</NavItem>
-              
               <NavItem tabName="reading" icon={<BookOpen className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Okuma Alıştırması</NavItem>
-              
+              <NavItem tabName="mindmap" icon={<Map className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Akıl Haritası</NavItem>
+              <NavItem tabName="quiz" icon={<GraduationCap className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Quiz</NavItem>
               <NavItem tabName="notifications" icon={<BellRing className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Günlük Bildirimler</NavItem>
-              
+              <NavItem tabName="word-cards" icon={<BookOpen className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Kelime Kartları</NavItem>
               <NavItem tabName="notebook" icon={<BookText className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Not Defteri</NavItem>
-              
               <button
                 onClick={handleSignOut}
                 className="flex items-center w-full py-2 px-4 rounded-lg text-red-600 hover:bg-red-100 dark:hover:bg-red-900 transition-colors duration-200"
@@ -643,10 +800,14 @@ const App = () => {
           </aside>
 
           <main className="flex-1 overflow-y-auto bg-violet-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100">
+            {statusMessage && (
+              <div className="mb-4 p-3 bg-blue-100 text-blue-800 rounded-lg text-center">
+                {statusMessage}
+              </div>
+            )}
             {renderAppContent()}
           </main>
 
-          {/* AI Chat açma butonu */}
           {!isChatOpen && (
             <button
               onClick={() => setIsChatOpen(true)}
@@ -658,7 +819,6 @@ const App = () => {
             </button>
           )}
 
-          {/* AI Chat modalı */}
           {isChatOpen && (
             <div className="fixed inset-0 bg-slate-900 bg-opacity-50 backdrop-blur-sm flex justify-center items-center z-50">
               <div className="bg-violet-50 dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-2xl h-[85vh] max-h-[700px] flex flex-col relative">
@@ -672,9 +832,61 @@ const App = () => {
               </div>
             </div>
           )}
+
+          {/* Profil Resmi Seçim Modalı */}
+          {showProfilePicModal && (
+            <div className="fixed inset-0 bg-slate-900 bg-opacity-75 backdrop-blur-sm flex justify-center items-center z-50">
+              <div className="bg-white dark:bg-slate-800 rounded-lg shadow-xl p-6 w-full max-w-lg relative">
+                <button
+                  onClick={() => setShowProfilePicModal(false)}
+                  className="absolute top-3 right-3 text-slate-400 hover:text-slate-600 dark:hover:text-slate-100"
+                >
+                  <XCircle size={24} />
+                </button>
+                <h3 className="text-xl font-semibold mb-4 text-center">Profil Resmi Seç</h3>
+                <p className="text-sm text-slate-600 dark:text-slate-300 mb-6 text-center">
+                  Profil resminizi değiştirmek için aşağıdaki resimlerden birini seçin.
+                </p>
+                <div className="grid grid-cols-3 gap-4 max-h-80 overflow-y-auto pr-2">
+                  {PROFILE_PIC_NAMES.map((imageName) => (
+                    <div
+                      key={imageName}
+                      className={`relative w-24 h-24 rounded-full overflow-hidden border-2 cursor-pointer transition-all duration-200 ease-in-out
+                        ${selectedProfilePic === imageName ? 'border-violet-500 ring-4 ring-violet-300' : 'border-transparent hover:border-violet-400'}`}
+                      onClick={() => handleProfilePicSelect(imageName)}
+                    >
+                      <img
+                        src={imageName} // Doğrudan GitHub raw URL'sini kullan
+                        alt={imageName.split('/').pop().replace('.png', '').replace(/_/g, ' ')} // Alt metni daha açıklayıcı hale getirdik
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          // Resim yüklenirken hata olursa varsayılan ikonu gösterebilirsiniz
+                          e.target.onerror = null; // Sonsuz döngüyü önler
+                          e.target.src = PROFILE_PIC_NAMES[0]; // İlk resim (default) kullan
+                          console.error(`❌ Resim yüklenemedi: ${imageName}`);
+                        }}
+                      />
+                      {selectedProfilePic === imageName && (
+                        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-20">
+                          <svg className="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+                <button
+                  onClick={handleSaveProfilePic}
+                  className="w-full mt-6 py-3 px-4 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-full shadow-md transition duration-200 ease-in-out"
+                >
+                  Seçimi Onayla
+                </button>
+              </div>
+            </div>
+          )}
         </>
       ) : (
-        // Kullanıcı giriş yapmamışsa giriş/kayıt arayüzü
         <div className="min-h-screen flex items-center justify-center bg-white text-gray-800 p-4 w-full">
           <div className="bg-white p-8 rounded-xl shadow-none w-full max-w-md text-center">
             <h2 className="text-3xl font-normal text-gray-800 mb-8">
