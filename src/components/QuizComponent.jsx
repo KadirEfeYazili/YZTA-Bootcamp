@@ -16,7 +16,7 @@ const QuizComponent = () => {
 
   useEffect(() => {
     // JSON dosyasından veri çek
-    fetch('/quizzion.json')
+    fetch('public/quizzion.json')
       .then((res) => {
         if (!res.ok) throw new Error('Veri yüklenemedi');
         return res.json();
