@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: YZTA-Bootcamp # Kendi hizmet adınız
+    env: python
+    plan: free
+    rootDir: BackEnd/ # main.py dosyanızın bulunduğu dizin
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn --bind 0.0.0.0:$PORT --workers 1 --worker-class uvicorn.workers.UvicornWorker main:app
+    pythonVersion: 3.9.18 # Buradan Python sürümünü belirtin (mediapipe ile uyumlu bir sürüm)
