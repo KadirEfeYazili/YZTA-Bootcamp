@@ -369,14 +369,14 @@ async def delete_user_profile(user_id: str):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Silme hatası: {e}")
 
-@app.get("/users/me/", response_model=UserProfileResponse)
+@app.get("/users/me", response_model=UserProfileResponse)
 async def get_current_user_profile(credentials: HTTPAuthorizationCredentials = Depends(auth_scheme)):
     token = credentials.credentials
     user_info = verify_token(token)
     user_id = user_info['uid']
     return await get_user_profile(user_id)
 
-@app.put("/users/me/", response_model=UserProfileResponse)
+@app.put("/users/me", response_model=UserProfileResponse)
 async def update_current_user_profile(
     profile_update: UserProfileUpdate,
     credentials: HTTPAuthorizationCredentials = Depends(auth_scheme)
