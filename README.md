@@ -437,9 +437,6 @@ Kadir Efe Yazılı, Ebral Karabulut, Muhammet Berke Ağaya, Ebrar Ağralı, Nurc
 
 <details>
   <summary><h2>Üçüncü Sprint</h2></summary>
-</details>
- ---
-
 ### ✨ Kullanılan Teknolojiler
 
 * **Frontend:** React.js, Tailwind CSS, React Markdown
@@ -590,6 +587,14 @@ Karmaşık entegrasyonlara zaman ayırmak, uzun vadeli başarıyı garantiliyor.
 Projede 3 sprint boyunca hem teknik hem organizasyonel yönden yüksek düzeyde bir disiplin sağlandı. Hedeflere sadık kalındı, ekip iletişimi güçlüydü ve her sprint öğrenerek daha verimli hale geldi.
 
 🎯 Proje başarılı bir şekilde tamamlandı ve dağıtıma hazır seviyeye getirildi.
+
+## Sprint Gözden Geçirme Katılımcıları:
+
+**Kadir Efe Yazılı**, **Ebral Karabulut**, **Muhammet Berke Ağaya**, **Ebrar Ağralı**, **Nurcan Düzkaya**
+
+
+</details>
+ ---
 
 </details>
 </details>
