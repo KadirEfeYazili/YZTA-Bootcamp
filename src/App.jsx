@@ -226,7 +226,7 @@ const App = () => {
         console.log("⚠️ Backend'den profil resmi URL'si gelmedi, mevcut URL korunuyor:", userProfilePicture);
       }
 
-      setStatusMessage("Profil başarıyla güncellendi!");
+      //setStatusMessage("Profil başarıyla güncellendi!");
       console.log("✅ Profil başarıyla güncellendi:", response);
     } catch (error) {
       console.error("❌ Profil güncellenemedi:", error);
