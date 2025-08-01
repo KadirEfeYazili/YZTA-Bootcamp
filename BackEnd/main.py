@@ -355,6 +355,7 @@ async def update_user_profile(user_id: str, profile_update: UserProfileUpdate):
 
 @app.delete("/users/{user_id}")
 async def delete_user_profile(user_id: str):
+    print(f">>> update_user_profile fonksiyonu user_id: {user_id} ile çalıştırıldı.")
     if db is None:
         raise HTTPException(status_code=500, detail="Firestore bağlantısı yok.")
     try:
@@ -381,9 +382,11 @@ async def update_current_user_profile(
     profile_update: UserProfileUpdate,
     credentials: HTTPAuthorizationCredentials = Depends(auth_scheme)
 ):
+    print(">>> /users/me (PUT) endpoint'ine istek geldi.")
     token = credentials.credentials
     user_info = verify_token(token)
     user_id = user_info['uid']
+    print(f">>> İstek, user_id: {user_id} için update_user_profile fonksiyonuna yönlendiriliyor.")
     return await update_user_profile(user_id, profile_update)
 
 @app.post("/word-interactions/", response_model=WordInteractionResponse)
