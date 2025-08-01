@@ -1,427 +1,181 @@
-# main.py (güncel tam sürüm - düzeltilmiş)
-
-from fastapi import FastAPI, HTTPException, Depends
+from fastapi import FastAPI, HTTPException, Depends, Request
+from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from pydantic import BaseModel
 import firebase_admin
 from firebase_admin import credentials, firestore, auth as firebase_auth
 import os
-from typing import Optional, List
+from typing import Optional
 from datetime import datetime
 
-app = FastAPI(
-    title="Ebral API - Kullanıcı Profili ve Kelime Etkileşim API'si",
-    description="Kullanıcı profillerini ve kelime etkileşim geçmişini yönetmek için API."
-)
-origins = [
-    "http://localhost",
-    "http://localhost:3000",
-    # Gerekirse başka adresleri de buraya ekleyebilirsiniz
-]
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # Geliştirme için açık, production'da sınırla
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-# Firebase başlatma
+# --- Firebase Başlatma ---
 try:
-    service_account_path = os.path.join(os.path.dirname(__file__), 'serviceAccountKey.json')
+    # Render.com'un ortam değişkenlerinden veya yerel dosyadan anahtarı bul
+    service_account_path = os.environ.get('GOOGLE_APPLICATION_CREDENTIALS', 'serviceAccountKey.json')
+    if not os.path.exists(service_account_path):
+        local_path = 'serviceAccountKey.json'
+        if os.path.exists(local_path):
+            service_account_path = local_path
+    
     cred = credentials.Certificate(service_account_path)
     firebase_admin.initialize_app(cred)
     db = firestore.client()
-    print("Firebase Admin SDK başarıyla başlatıldı ve Firestore'a bağlanıldı.")
+    print("✅ Firebase Admin SDK başarıyla başlatıldı.")
 except Exception as e:
-    print(f"Firebase başlatılırken hata: {e}")
+    print(f"❌ FATAL HATA: Firebase başlatılamadı, uygulama düzgün çalışmayabilir: {e}")
     db = None
 
-# --- Modeller ---
-class UserProfileBase(BaseModel):
-    username: str
-    email: str
-    avatar_url: Optional[str] = None
-    bio: Optional[str] = None
+app = FastAPI(title="PrepMate API")
 
-class UserProfileCreate(UserProfileBase):
-    pass
+# --- Genel Hata Yakalayıcı (Uygulamanın çökmesini engeller) ---
+@app.exception_handler(Exception)
+async def general_exception_handler(request: Request, exc: Exception):
+    error_message = f"Beklenmedik sunucu hatası: {type(exc).__name__} -> {exc}"
+    print(f"❌ {error_message} | İstek: {request.method} {request.url}")
+    return JSONResponse(
+        status_code=500,
+        content={"detail": "Sunucuda beklenmedik bir hata oluştu."},
+    )
 
+# --- CORS Middleware ---
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Production için "https://kadirefeyazili.github.io" olarak değiştirilebilir
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+ )
+
+# --- Pydantic Modelleri ---
 class UserProfileUpdate(BaseModel):
-    username: Optional[str] = None
-    email: Optional[str] = None
-    avatar_url: Optional[str] = None
-    bio: Optional[str] = None
-    # Frontend'den gelen ek alanlar
     name: Optional[str] = None
     surname: Optional[str] = None
     age: Optional[int] = None
-    gender: Optional[str] = None
     profile_picture_url: Optional[str] = None
+    gender: Optional[str] = None
+    # Frontend'den gelen diğer tüm olası alanlar
 
 class UserProfileInitialize(BaseModel):
     name: str
     surname: str
     email: str
     age: int
-    gender: Optional[str] = "Belirtilmemiş"
-    profile_picture_url: Optional[str] = None
 
-class UserProfileResponse(UserProfileBase):
+class UserProfileResponse(BaseModel):
     id: str
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
-    # Frontend'in beklediği ek alanlar
     name: Optional[str] = None
     surname: Optional[str] = None
     age: Optional[int] = None
-    gender: Optional[str] = None
     profile_picture_url: Optional[str] = None
-
+    email: Optional[str] = None
+    gender: Optional[str] = None
+    
     class Config:
+        # Datetime objelerini JSON formatına çevirir
         json_encoders = {datetime: lambda dt: dt.isoformat()}
         arbitrary_types_allowed = True
 
-class WordInteractionBase(BaseModel):
-    user_id: str
-    word: str
-    interaction_type: str
-    details: Optional[dict] = None
-
-class WordInteractionCreate(WordInteractionBase):
-    pass
-
-class WordInteractionResponse(WordInteractionBase):
-    id: str
-    timestamp: Optional[datetime] = None
-
-    class Config:
-        json_encoders = {datetime: lambda dt: dt.isoformat()}
-        arbitrary_types_allowed = True
-
-# --- Yardımcılar ---
+# --- Yardımcı Fonksiyonlar ---
 auth_scheme = HTTPBearer()
 
-def verify_token(token: str):
+def verify_token(token: str) -> dict:
+    """Firebase ID token'ını doğrular ve kullanıcı bilgilerini döndürür."""
     try:
-        decoded_token = firebase_auth.verify_id_token(token)
-        return decoded_token
-    except Exception:
-        raise HTTPException(status_code=401, detail="Geçersiz veya süresi dolmuş token")
+        return firebase_auth.verify_id_token(token)
+    except Exception as e:
+        print(f"!!! Token doğrulama hatası: {e}")
+        raise HTTPException(status_code=401, detail=f"Geçersiz veya süresi dolmuş token: {e}")
 
-def convert_firestore_data_to_user_profile(doc_data: dict) -> dict:
-    """
-    Firestore'dan gelen veriyi UserProfile modeline uygun hale getirir
-    """
-    # name ve surname'den username oluştur
-    if 'name' in doc_data and 'surname' in doc_data:
-        username = f"{doc_data.get('name', '')} {doc_data.get('surname', '')}".strip()
-        doc_data['username'] = username
-    elif 'name' in doc_data:
-        doc_data['username'] = doc_data['name']
-    
-    # Eğer username yoksa default değer ata
-    if 'username' not in doc_data or not doc_data['username']:
-        doc_data['username'] = "Unknown User"
-    
-    # Email kontrolü
-    if 'email' not in doc_data or doc_data['email'] is None:
-        doc_data['email'] = ""
-    
-    # profile_picture_url'yi avatar_url'ye map et
-    if 'profile_picture_url' in doc_data:
-        doc_data['avatar_url'] = doc_data.get('profile_picture_url')
-    
-    # Firestore timestamp'lerini datetime'a çevir
-    for field in ['created_at', 'updated_at']:
-        if field in doc_data and doc_data[field] is not None:
-            if hasattr(doc_data[field], '_to_datetime'):
-                doc_data[field] = doc_data[field]._to_datetime()
-    
-    return doc_data
+# --- API ENDPOINT'LERİ ---
 
-def convert_user_profile_update_to_firestore(update_data: dict) -> dict:
-    """
-    UserProfile update verisini Firestore'a uygun hale getirir
-    """
-    firestore_data = update_data.copy()
-    
-    # Frontend'den gelen name ve surname'i ayrı ayrı sakla
-    # username varsa onu name ve surname'e böl
-    if 'username' in firestore_data:
-        username = firestore_data.pop('username')
-        if username and ' ' in username:
-            parts = username.split(' ', 1)
-            firestore_data['name'] = parts[0]
-            firestore_data['surname'] = parts[1] if len(parts) > 1 else ''
-        else:
-            firestore_data['name'] = username or ''
-            firestore_data['surname'] = ''
-    
-    # profile_picture_url'yi Firestore'da da sakla
-    if 'profile_picture_url' in firestore_data:
-        # Hem profile_picture_url hem de avatar_url'yi sakla
-        firestore_data['avatar_url'] = firestore_data['profile_picture_url']
-    
-    # avatar_url varsa profile_picture_url'ye de map et
-    if 'avatar_url' in firestore_data:
-        firestore_data['profile_picture_url'] = firestore_data['avatar_url']
-    
-    return firestore_data
-
-# --- API ---
-@app.get("/health")
+@app.get("/health", tags=["System"])
 async def health_check():
-    try:
-        if db is not None:
-            db.collection('_health_check').limit(1).get()
-            return {"status": "healthy", "message": "API ve Firestore bağlantısı çalışıyor", "database": "connected"}
-        else:
-            return {"status": "degraded", "message": "API çalışıyor ancak Firestore bağlantısı yok", "database": "disconnected"}
-    except Exception as e:
-        return {"status": "unhealthy", "message": f"Health check başarısız: {str(e)}", "database": "error"}
-
-@app.get("/")
-async def read_root():
-    return {"message": "Merhaba Dünya! Ebral API çalışıyor."}
-
-@app.post("/users/initialize_profile/", response_model=UserProfileResponse)
-async def initialize_user_profile(
-    profile_data: dict,
-    credentials: HTTPAuthorizationCredentials = Depends(auth_scheme)
-):
-    """
-    Yeni kullanıcı için profil oluşturur (Google/Email signup için)
-    """
+    """API'nin ve veritabanı bağlantısının durumunu kontrol eder."""
     if db is None:
-        raise HTTPException(status_code=500, detail="Firestore bağlantısı kurulamadı.")
-    
-    token = credentials.credentials
-    user_info = verify_token(token)
-    user_id = user_info['uid']
-    
-    try:
-        # Profil verilerini hazırla
-        data = {
-            'name': profile_data.get('name', ''),
-            'surname': profile_data.get('surname', ''),
-            'email': profile_data.get('email', ''),
-            'age': profile_data.get('age'),
-            'gender': profile_data.get('gender', 'Belirtilmemiş'),
-            'profile_picture_url': profile_data.get('profile_picture_url'),
-            'created_at': firestore.SERVER_TIMESTAMP,
-            'updated_at': firestore.SERVER_TIMESTAMP
-        }
-        
-        # Kullanıcı ID'si ile profil oluştur
-        doc_ref = db.collection('user_profiles').document(user_id)
-        doc_ref.set(data)
-        
-        # Oluşturulan profili al ve dönüştür
-        created_doc = doc_ref.get()
-        user_data = convert_firestore_data_to_user_profile(created_doc.to_dict())
-        
-        return {"id": created_doc.id, **user_data}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Profil oluşturulurken hata: {e}")
+        raise HTTPException(status_code=503, detail="API çalışıyor ancak Firestore bağlantısı yok.")
+    return {"status": "healthy", "message": "API ve Firestore bağlantısı çalışıyor."}
 
-@app.post("/users/initialize_profile/", response_model=UserProfileResponse)
+@app.post("/users/initialize_profile", response_model=UserProfileResponse, status_code=201, tags=["Users"])
 async def initialize_user_profile(
     profile_data: UserProfileInitialize,
     credentials: HTTPAuthorizationCredentials = Depends(auth_scheme)
 ):
-    """
-    Yeni kullanıcı için profil oluşturur (Google/Email signup için)
-    """
-    if db is None:
-        raise HTTPException(status_code=500, detail="Firestore bağlantısı kurulamadı.")
-    
+    """Yeni bir kullanıcı için Firestore'da profil belgesi oluşturur."""
+    print(">>> /users/initialize_profile (POST) endpoint'ine istek geldi.")
     token = credentials.credentials
     user_info = verify_token(token)
     user_id = user_info['uid']
     
-    try:
-        # Profil verilerini hazırla
-        data = profile_data.dict()
-        data['created_at'] = firestore.SERVER_TIMESTAMP
-        data['updated_at'] = firestore.SERVER_TIMESTAMP
-        
-        # Kullanıcı ID'si ile profil oluştur
-        doc_ref = db.collection('user_profiles').document(user_id)
-        doc_ref.set(data)
-        
-        # Oluşturulan profili al ve dönüştür
-        created_doc = doc_ref.get()
-        user_data = convert_firestore_data_to_user_profile(created_doc.to_dict())
-        
-        # Frontend'in beklediği tüm alanları dahil et
-        response_data = {
-            "id": created_doc.id,
-            **user_data
-        }
-        
-        return response_data
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Profil oluşturulurken hata: {e}")
+    if db is None: raise HTTPException(status_code=503, detail="Firestore bağlantısı yok.")
+    
+    doc_ref = db.collection('user_profiles').document(user_id)
+    if doc_ref.get().exists:
+        print(f"!!! Kullanıcı zaten mevcut, profil oluşturma atlanıyor: {user_id}")
+        raise HTTPException(status_code=409, detail="Bu kullanıcı için zaten bir profil mevcut.")
 
-@app.post("/users/", response_model=UserProfileResponse)
-async def create_user_profile(profile: UserProfileCreate):
-    if db is None:
-        raise HTTPException(status_code=500, detail="Firestore bağlantısı kurulamadı.")
-    try:
-        data = profile.dict()
-        # username'i name olarak sakla (basit durumlar için)
-        if 'username' in data:
-            if ' ' in data['username']:
-                parts = data['username'].split(' ', 1)
-                data['name'] = parts[0]
-                data['surname'] = parts[1]
-            else:
-                data['name'] = data['username']
-                data['surname'] = ''
-            data.pop('username')
-        
-        data['created_at'] = firestore.SERVER_TIMESTAMP
-        data['updated_at'] = firestore.SERVER_TIMESTAMP
-        
-        doc_ref = db.collection('user_profiles').add(data)
-        created_doc = doc_ref[1].get()
-        
-        # Veriyi uygun formata dönüştür
-        user_data = convert_firestore_data_to_user_profile(created_doc.to_dict())
-        return {"id": created_doc.id, **user_data}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Profil oluşturulurken hata: {e}")
+    new_profile_data = profile_data.dict()
+    new_profile_data['created_at'] = firestore.SERVER_TIMESTAMP
+    new_profile_data['updated_at'] = firestore.SERVER_TIMESTAMP
+    
+    doc_ref.set(new_profile_data)
+    print(f"✅ Yeni profil başarıyla oluşturuldu: {user_id}")
+    
+    created_doc = doc_ref.get()
+    return {"id": created_doc.id, **created_doc.to_dict()}
 
-@app.get("/users/{user_id}", response_model=UserProfileResponse)
-async def get_user_profile(user_id: str):
-    """
-    Belirli bir kullanıcı profilini ID'sine göre getirir.
-    """
-    if db is None:
-        raise HTTPException(status_code=500, detail="Firestore bağlantısı kurulamadı.")
-    try:
-        doc = db.collection('user_profiles').document(user_id).get()
-        if doc.exists:
-            user_data = convert_firestore_data_to_user_profile(doc.to_dict())
-            
-            # Frontend'in beklediği tüm alanları dahil et
-            response_data = {
-                "id": doc.id,
-                **user_data
-            }
-            
-            return response_data
-        raise HTTPException(status_code=404, detail="Kullanıcı profili bulunamadı.")
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Kullanıcı profili getirilirken hata: {e}")
-
-@app.put("/users/{user_id}", response_model=UserProfileResponse)
-async def update_user_profile(user_id: str, profile_update: UserProfileUpdate):
-    if db is None:
-        raise HTTPException(status_code=500, detail="Firestore bağlantısı yok.")
-    try:
-        doc_ref = db.collection('user_profiles').document(user_id)
-        
-        # Önce dökümanın var olup olmadığını kontrol et
-        if not doc_ref.get().exists:
-            raise HTTPException(status_code=404, detail="Kullanıcı profili bulunamadı.")
-        
-        # Update verisini Firestore formatına çevir
-        update_data = convert_user_profile_update_to_firestore(
-            profile_update.dict(exclude_unset=True)
-        )
-        update_data['updated_at'] = firestore.SERVER_TIMESTAMP
-        
-        # Güncelleme işlemi
-        doc_ref.update(update_data)
-        
-        # Güncellenmiş veriyi al ve dönüştür
-        updated_doc = doc_ref.get()
-        user_data = convert_firestore_data_to_user_profile(updated_doc.to_dict())
-        
-        # Frontend'in beklediği tüm alanları dahil et
-        response_data = {
-            "id": updated_doc.id,
-            **user_data
-        }
-        
-        return response_data
-    except HTTPException:
-        raise
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Profil güncellenirken hata: {e}")
-
-@app.delete("/users/{user_id}")
-async def delete_user_profile(user_id: str):
-    print(f">>> update_user_profile fonksiyonu user_id: {user_id} ile çalıştırıldı.")
-    if db is None:
-        raise HTTPException(status_code=500, detail="Firestore bağlantısı yok.")
-    try:
-        doc_ref = db.collection('user_profiles').document(user_id)
-        if not doc_ref.get().exists:
-            raise HTTPException(status_code=404, detail="Kullanıcı profili bulunamadı.")
-        
-        doc_ref.delete()
-        return {"status": "success", "message": "Profil silindi."}
-    except HTTPException:
-        raise
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Silme hatası: {e}")
-
-@app.get("/users/me", response_model=UserProfileResponse)
+@app.get("/users/me", response_model=UserProfileResponse, tags=["Users"])
 async def get_current_user_profile(credentials: HTTPAuthorizationCredentials = Depends(auth_scheme)):
+    """Mevcut giriş yapmış kullanıcının profilini getirir."""
+    print(">>> /users/me (GET) endpoint'ine istek geldi.")
     token = credentials.credentials
     user_info = verify_token(token)
     user_id = user_info['uid']
-    return await get_user_profile(user_id)
+    
+    if db is None: raise HTTPException(status_code=503, detail="Firestore bağlantısı yok.")
+    
+    doc_ref = db.collection('user_profiles').document(user_id)
+    doc = doc_ref.get()
+    
+    if not doc.exists:
+        print(f"!!! /users/me (GET) için kullanıcı profili bulunamadı: {user_id}")
+        raise HTTPException(status_code=404, detail="Kullanıcı profili bulunamadı.")
+        
+    print(f"✅ Profil başarıyla bulundu ve döndürülüyor: {user_id}")
+    return {"id": doc.id, **doc.to_dict()}
 
-@app.put("/users/me", response_model=UserProfileResponse)
+@app.put("/users/me", response_model=UserProfileResponse, tags=["Users"])
 async def update_current_user_profile(
     profile_update: UserProfileUpdate,
     credentials: HTTPAuthorizationCredentials = Depends(auth_scheme)
 ):
+    """Mevcut kullanıcının profilini günceller veya yoksa oluşturur (upsert)."""
     print(">>> /users/me (PUT) endpoint'ine istek geldi.")
     token = credentials.credentials
     user_info = verify_token(token)
     user_id = user_info['uid']
-    print(f">>> İstek, user_id: {user_id} için update_user_profile fonksiyonuna yönlendiriliyor.")
-    return await update_user_profile(user_id, profile_update)
+    
+    if db is None: raise HTTPException(status_code=503, detail="Firestore bağlantısı yok.")
+    
+    doc_ref = db.collection('user_profiles').document(user_id)
+    
+    # Frontend'den gelen ve None olmayan alanları içeren bir dict oluştur
+    update_data = profile_update.dict(exclude_unset=True)
+    update_data['updated_at'] = firestore.SERVER_TIMESTAMP
+    
+    if doc_ref.get().exists:
+        print(f"-> Profil bulundu, güncelleniyor: {user_id}")
+        doc_ref.update(update_data)
+    else:
+        print(f"-> Profil bulunamadı, YENİ PROFİL OLUŞTURULUYOR: {user_id}")
+        update_data['created_at'] = firestore.SERVER_TIMESTAMP
+        # Yeni oluşturulan profil için email gibi temel bilgileri token'dan al
+        update_data['email'] = user_info.get('email')
+        doc_ref.set(update_data)
 
-@app.post("/word-interactions/", response_model=WordInteractionResponse)
-async def create_word_interaction(interaction: WordInteractionCreate):
-    if db is None:
-        raise HTTPException(status_code=500, detail="Firestore bağlantısı yok.")
-    try:
-        data = interaction.dict()
-        data['timestamp'] = firestore.SERVER_TIMESTAMP
-        doc_ref = db.collection('word_interactions').add(data)
-        created_doc = doc_ref[1].get()
-        
-        # Timestamp'i dönüştür
-        interaction_data = created_doc.to_dict()
-        if 'timestamp' in interaction_data and interaction_data['timestamp'] is not None:
-            if hasattr(interaction_data['timestamp'], '_to_datetime'):
-                interaction_data['timestamp'] = interaction_data['timestamp']._to_datetime()
-        
-        return {"id": created_doc.id, **interaction_data}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Etkileşim oluşturulurken hata: {e}")
+    updated_doc = doc_ref.get()
+    print(f"✅ Profil işlemi (güncelleme/oluşturma) başarıyla tamamlandı: {user_id}")
+    return {"id": updated_doc.id, **updated_doc.to_dict()}
 
-@app.get("/word-interactions/user/{user_id}", response_model=List[WordInteractionResponse])
-async def get_user_word_interactions(user_id: str):
-    if db is None:
-        raise HTTPException(status_code=500, detail="Firestore bağlantısı yok.")
-    try:
-        docs = db.collection('word_interactions').where('user_id', '==', user_id).stream()
-        interactions = []
-        for doc in docs:
-            data = doc.to_dict()
-            if 'timestamp' in data and data['timestamp'] is not None:
-                if hasattr(data['timestamp'], '_to_datetime'):
-                    data['timestamp'] = data['timestamp']._to_datetime()
-            interactions.append(WordInteractionResponse(id=doc.id, **data))
-        return interactions
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Etkileşimler alınırken hata: {e}")
