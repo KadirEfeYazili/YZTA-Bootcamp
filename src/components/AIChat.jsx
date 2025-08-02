@@ -17,7 +17,7 @@ const TypingDots = () => {
         {[0, 1, 2].map(i => (
           <span
             key={i}
-            className={`w-2 h-2 rounded-full bg-sky-500 dark:bg-sky-300 animate-bounce`}
+            className="w-2 h-2 rounded-full bg-sky-500 dark:bg-sky-300 animate-bounce"
             style={{ animationDelay: `${i * 0.2}s` }}
           ></span>
         ))}
@@ -40,16 +40,37 @@ const AIChat = ({ saveProgress }) => {
     'Motivasyon için öneriler'
   ];
 
+  // ✅ Sayfa yüklendiğinde localStorage’dan geçmiş mesajları al
+  useEffect(() => {
+    const storedHistory = localStorage.getItem('chatHistory');
+    if (storedHistory) {
+      try {
+        setChatHistory(JSON.parse(storedHistory));
+      } catch (e) {
+        console.error("Geçmiş sohbet verileri okunamadı:", e);
+      }
+    }
+  }, []);
+
+  const updateLocalStorage = (updatedHistory) => {
+    localStorage.setItem('chatHistory', JSON.stringify(updatedHistory));
+  };
+
   const sendMessage = async (messageText) => {
     const userPrompt = messageText.trim();
     if (!userPrompt) return;
 
-    const newChatHistory = [...chatHistory, { role: 'user', text: userPrompt, timestamp: new Date() }];
+    const userMessage = { role: 'user', text: userPrompt, timestamp: new Date() };
+    const newChatHistory = [...chatHistory, userMessage];
     setChatHistory(newChatHistory);
+    updateLocalStorage(newChatHistory);
     setPrompt('');
     setError('');
     setIsLoading(true);
     setIsTypingEffect(true);
+
+    // ✅ Günlük log kaydı
+    console.log(`[${new Date().toLocaleString()}] Kullanıcı mesajı: "${userPrompt}"`);
 
     try {
       const payload = { contents: [{ role: 'user', parts: [{ text: userPrompt }] }] };
@@ -67,17 +88,26 @@ const AIChat = ({ saveProgress }) => {
       const result = await response.json();
       const aiResponse = result.candidates?.[0]?.content?.parts?.[0]?.text || 'Üzgünüm, bir yanıt oluşturulamadı.';
 
-      setChatHistory(prev => [...prev, { role: 'ai', text: aiResponse, timestamp: new Date() }]);
+      const aiMessage = { role: 'ai', text: aiResponse, timestamp: new Date() };
+      const updatedHistory = [...newChatHistory, aiMessage];
+      setChatHistory(updatedHistory);
+      updateLocalStorage(updatedHistory);
 
-      const newActivityObject = {
+      console.log(`[${new Date().toLocaleString()}] AI yanıtı: "${aiResponse.slice(0, 100)}${aiResponse.length > 100 ? '...' : ''}"`);
+
+      await saveProgress({
         text: `AI Asistanına bir soru sordunuz: "${userPrompt.substring(0, 50)}${userPrompt.length > 50 ? '...' : ''}"`,
         timestamp: serverTimestamp()
-      };
-      await saveProgress(newActivityObject);
+      });
 
     } catch (err) {
+      const errorMessage = `Hata: ${err.message}`;
+      const errorEntry = { role: 'ai', text: errorMessage, timestamp: new Date() };
+      const updatedHistory = [...chatHistory, userMessage, errorEntry];
+      setChatHistory(updatedHistory);
+      updateLocalStorage(updatedHistory);
       setError(`Bir hata oluştu: ${err.message}`);
-      setChatHistory(prev => [...prev, { role: 'ai', text: `Hata: ${err.message}`, timestamp: new Date() }]);
+      console.error(`[${new Date().toLocaleString()}] Hata oluştu:`, err.message);
     } finally {
       setIsLoading(false);
       setIsTypingEffect(false);
@@ -103,9 +133,7 @@ const AIChat = ({ saveProgress }) => {
         {chatHistory.slice().reverse().map((message, index) => (
           <div
             key={index}
-            className={`mb-4 flex items-end gap-3 ${
-              message.role === 'user' ? 'justify-end' : 'justify-start'
-            }`}
+            className={`mb-4 flex items-end gap-3 ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
           >
             {message.role === 'ai' && (
               <img
@@ -132,7 +160,7 @@ const AIChat = ({ saveProgress }) => {
         {isTypingEffect && (
           <div className="mb-4 flex items-end gap-3 justify-start">
             <img
-              src="/images/avatar.png"
+              src="https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/public/images/avatar.png"
               alt="AI avatar"
               className="w-10 h-10 rounded-full flex-shrink-0 object-cover"
             />
