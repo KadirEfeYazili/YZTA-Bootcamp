@@ -42,7 +42,6 @@ const AIChat = ({ saveProgress }) => {
     'Motivasyon için öneriler'
   ];
 
-  // localStorage'dan geçmişi yükle
   useEffect(() => {
     const storedHistory = localStorage.getItem('chatHistory');
     if (storedHistory) {
@@ -54,7 +53,6 @@ const AIChat = ({ saveProgress }) => {
     }
   }, []);
 
-  // Her yeni mesajda scrollu en alta kaydır
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [chatHistory, isTypingEffect]);
@@ -123,7 +121,6 @@ const AIChat = ({ saveProgress }) => {
   const handleSendMessage = () => sendMessage(prompt);
   const handleQuickCommandClick = (cmd) => sendMessage(cmd);
 
-  // Sohbet temizleme fonksiyonu
   const clearChat = () => {
     setChatHistory([]);
     localStorage.removeItem('chatHistory');
@@ -134,21 +131,21 @@ const AIChat = ({ saveProgress }) => {
 
   return (
     <div className="p-6 animate-fade-in flex flex-col h-full">
-      <h2 className="text-2xl font-bold text-slate-800 dark:text-white mb-4 flex items-center">
-        <svg className="mr-3 text-sky-600 dark:text-sky-400" width="28" height="28" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-          <path d="M13 8H7"></path>
-          <path d="M17 12H7"></path>
-        </svg>
-        PrepMate Sohbet Asistanı
-      </h2>
+      {/* Başlık ve küçük temizle butonu aynı satırda */}
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-2xl font-bold text-slate-800 dark:text-white flex items-center">
+          <svg className="mr-3 text-sky-600 dark:text-sky-400" width="28" height="28" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            <path d="M13 8H7"></path>
+            <path d="M17 12H7"></path>
+          </svg>
+          PrepMate Sohbet Asistanı
+        </h2>
 
-      {/* Sohbeti Temizle Butonu */}
-      <div className="flex justify-end mb-2">
         <button
           onClick={clearChat}
-          className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg shadow-sm transition"
+          className="bg-red-500 hover:bg-red-600 text-white text-sm px-3 py-1.5 rounded-lg shadow-sm transition"
           type="button"
         >
           Sohbeti Temizle
