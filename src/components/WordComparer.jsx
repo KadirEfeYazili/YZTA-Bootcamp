@@ -110,7 +110,7 @@ const WordComparer = ({ userProgress, saveProgress }) => {
                     <line x1="16" y1="17" x2="8" y2="17"></line>
                     <polyline points="10 9 9 9 8 9"></polyline>
                 </svg>
-                Kelime Karşılaştırma
+                Anlam Karşılaştırma
             </h2>
 
             <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg border border-violet-100 dark:border-slate-700 mb-8">
@@ -170,3 +170,4 @@ const WordComparer = ({ userProgress, saveProgress }) => {
 };
 
 export default WordComparer;
+
