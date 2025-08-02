@@ -77,9 +77,8 @@ const QuizComponent = () => {
         const categoryId = selectedCategory.id;
         const existingScore = categoryScores[categoryId] || 0;
         
-        // DÜZELTME: Son sorunun puanını `score` state'ine ekleyerek final skoru hesapla
-        const currentQuestion = selectedCategory.questions[currentQuestionIndex];
-        const finalScore = (selectedAnswer === currentQuestion.answer) ? score + 1 : score;
+        const currentQuestion = selectedCategory.questions[currentQuestionIndex];
+        const finalScore = (selectedAnswer === currentQuestion.answer) ? score + 1 : score;
         
         if (finalScore > existingScore) {
             setCategoryScores(prev => ({ ...prev, [categoryId]: finalScore }));
@@ -161,7 +160,7 @@ const QuizComponent = () => {
                     <div className="flex items-center justify-between mb-4">
                       <div className={`${category.color} p-3 rounded-lg group-hover:scale-110 transition-transform`}>
                         <IconComponent className="w-6 h-6 text-white" />
-                    </div>
+                      </div>
                       {isCompleted && <CheckCircle className="w-6 h-6 text-green-500" />}
                     </div>
                     <h3 className="text-xl font-bold text-slate-800 dark:text-white mb-2">{category.name}</h3>
@@ -178,8 +177,8 @@ const QuizComponent = () => {
                             className="bg-green-500 h-2 rounded-full transition-all duration-500" 
                             style={{ width: `${(userScore / maxScore) * 100}%` }}
                           ></div>
-                        </div>
                       </div>
+                    </div>
                     )}
                     <button className="w-full bg-slate-800 dark:bg-violet-600 text-white py-2 px-4 rounded-lg hover:bg-slate-900 dark:hover:bg-violet-700 transition-colors">
                       {isCompleted ? 'Tekrar Çöz' : 'Başla'}
@@ -187,7 +186,7 @@ const QuizComponent = () => {
                   </div>
                 );
               })}
-            </div>
+          </div>
           </div>
         </div>
       );
