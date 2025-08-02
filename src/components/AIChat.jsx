@@ -11,14 +11,18 @@ const formatTime = (date) => {
 
 const TypingDots = () => {
   return (
-    <span className="flex items-center gap-1">
-      Yanıt yazıyor
-      <span className="flex space-x-1">
-        <span className="w-1 h-1 bg-slate-600 dark:bg-slate-300 rounded-full animate-bounce [animation-delay:.0s]"></span>
-        <span className="w-1 h-1 bg-slate-600 dark:bg-slate-300 rounded-full animate-bounce [animation-delay:.2s]"></span>
-        <span className="w-1 h-1 bg-slate-600 dark:bg-slate-300 rounded-full animate-bounce [animation-delay:.4s]"></span>
+    <div className="flex items-center space-x-1">
+      <span className="text-sm text-gray-700 dark:text-gray-200">Yanıt yazıyor</span>
+      <span className="flex space-x-1 mt-[2px]">
+        {[0, 1, 2].map(i => (
+          <span
+            key={i}
+            className={`w-2 h-2 rounded-full bg-sky-500 dark:bg-sky-300 animate-bounce`}
+            style={{ animationDelay: `${i * 0.2}s` }}
+          ></span>
+        ))}
       </span>
-    </span>
+    </div>
   );
 };
 
@@ -36,9 +40,10 @@ const AIChat = ({ saveProgress }) => {
     'Motivasyon için öneriler'
   ];
 
-  const handleSendMessage = async () => {
-    if (!prompt.trim()) return;
-    const userPrompt = prompt.trim();
+  const sendMessage = async (messageText) => {
+    const userPrompt = messageText.trim();
+    if (!userPrompt) return;
+
     const newChatHistory = [...chatHistory, { role: 'user', text: userPrompt, timestamp: new Date() }];
     setChatHistory(newChatHistory);
     setPrompt('');
@@ -57,9 +62,7 @@ const AIChat = ({ saveProgress }) => {
         body: JSON.stringify(payload)
       });
 
-      if (!response.ok) {
-        throw new Error(`API Hatası: Sunucu ${response.status} koduyla yanıt verdi.`);
-      }
+      if (!response.ok) throw new Error(`API Hatası: Sunucu ${response.status} koduyla yanıt verdi.`);
 
       const result = await response.json();
       const aiResponse = result.candidates?.[0]?.content?.parts?.[0]?.text || 'Üzgünüm, bir yanıt oluşturulamadı.';
@@ -81,44 +84,20 @@ const AIChat = ({ saveProgress }) => {
     }
   };
 
-  const handleQuickCommandClick = (cmd) => {
-    setPrompt(cmd);
-  };
+  const handleSendMessage = () => sendMessage(prompt);
+  const handleQuickCommandClick = (cmd) => sendMessage(cmd);
 
   return (
     <div className="p-6 animate-fade-in flex flex-col h-full">
       <h2 className="text-2xl font-bold text-slate-800 dark:text-white mb-4 flex items-center">
-        <svg
-          className="mr-3 text-sky-600 dark:text-sky-400"
-          width="28"
-          height="28"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
+        <svg className="mr-3 text-sky-600 dark:text-sky-400" width="28" height="28" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
           <path d="M13 8H7"></path>
           <path d="M17 12H7"></path>
         </svg>
         PrepMate Sohbet Asistanı
       </h2>
-
-      <div className="overflow-x-auto mb-4">
-        <div className="flex gap-2 w-max min-w-full">
-          {quickCommands.map((cmd, i) => (
-            <button
-              key={i}
-              onClick={() => handleQuickCommandClick(cmd)}
-              className="whitespace-nowrap bg-violet-200 dark:bg-violet-700 text-violet-900 dark:text-violet-200 rounded-full px-4 py-1 text-sm hover:bg-violet-300 dark:hover:bg-violet-600 transition"
-            >
-              {cmd}
-            </button>
-          ))}
-        </div>
-      </div>
 
       <div className="flex-1 bg-white dark:bg-slate-800 border border-violet-200 dark:border-violet-700 rounded-xl shadow-inner p-4 mb-4 overflow-y-auto flex flex-col-reverse custom-scrollbar">
         {chatHistory.slice().reverse().map((message, index) => (
@@ -168,6 +147,20 @@ const AIChat = ({ saveProgress }) => {
             {error}
           </div>
         )}
+      </div>
+
+      <div className="overflow-x-auto mb-3 mt-1">
+        <div className="flex gap-2 w-max min-w-full">
+          {quickCommands.map((cmd, i) => (
+            <button
+              key={i}
+              onClick={() => handleQuickCommandClick(cmd)}
+              className="whitespace-nowrap bg-violet-200 dark:bg-violet-700 text-violet-900 dark:text-violet-200 rounded-full px-4 py-1 text-sm hover:bg-violet-300 dark:hover:bg-violet-600 transition"
+            >
+              {cmd}
+            </button>
+          ))}
+        </div>
       </div>
 
       <div className="flex gap-2">
