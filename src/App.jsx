@@ -814,9 +814,11 @@ const handleRemoveLearnedWord = async (wordToRemove) => {
               onClick={() => setIsChatOpen(true)}
               className="fixed bottom-8 right-8 z-40 bg-sky-500 hover:bg-sky-600 text-white p-4 rounded-full shadow-lg transition-all transform hover:scale-110 focus:outline-none ring-4 ring-white/30"
             >
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-              </svg>
+              <img
+                src="/images/avatar.png"
+                alt="Sohbet Aç"
+                className="w-8 h-8"
+              />
             </button>
           )}
 
