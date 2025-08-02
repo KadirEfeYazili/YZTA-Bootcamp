@@ -31,16 +31,16 @@ const calculateProficiencyLevel = (progress) => {
   return (safeCorrect / safeTotal) * 100;
 };
 
-const Dashboard = ({ 
-  userProgress, 
-  handleRemoveLearnedWord, 
-  WordCardDisplay, 
-  QuizComponent, 
+const Dashboard = ({ 
+  userProgress, 
+  handleRemoveLearnedWord, 
+  WordCardDisplay, 
+  QuizComponent, 
   MindMapper,
   saveProgress,
   userId,
   db,
-  firebaseAppId 
+  firebaseAppId 
 }) => {
   const [showWordCard, setShowWordCard] = useState(false);
   const [showQuiz, setShowQuiz] = useState(false);
@@ -78,6 +78,20 @@ const Dashboard = ({
   const readingPercentage = calculateProficiencyLevel(safeUserProgress);
   const totalWords = currentLearnedWords.length;
   const totalActivities = currentActivities.length;
+  
+  // Gözden geçirilecek kelimeleri filtrele
+  const wordsToReview = currentLearnedWords.filter(wordObj => {
+    // Kelime nesnesinde bir `lastReviewed` tarihi yoksa, gözden geçirilmesi gerekir.
+    if (!wordObj.lastReviewed) {
+      return true;
+    }
+    // `lastReviewed` bir Firebase Timestamp veya Date nesnesi olabilir
+    const lastReviewedDate = wordObj.lastReviewed.toDate ? wordObj.lastReviewed.toDate() : new Date(wordObj.lastReviewed);
+    const threeDaysAgo = new Date();
+    threeDaysAgo.setDate(threeDaysAgo.getDate() - 3); // 3 gün öncesini hesapla
+    
+    return lastReviewedDate < threeDaysAgo;
+  });
 
   return (
     <div className="p-8 animate-fade-in">
@@ -226,14 +240,14 @@ const Dashboard = ({
         </h3>
         {currentLearnedWords.length > 0 ? (
           <div className="flex flex-wrap gap-3">
-            {currentLearnedWords.map((word, index) => (
+            {currentLearnedWords.map((wordObj, index) => (
               <span
                 key={index}
                 className="bg-violet-100 dark:bg-slate-700 text-violet-800 dark:text-white px-4 py-2 rounded-full text-sm font-medium flex items-center shadow-sm"
               >
-                {word}
+                {wordObj.word}
                 <button
-                  onClick={() => handleRemoveLearnedWord(word)}
+                  onClick={() => handleRemoveLearnedWord(wordObj.word)}
                   className="ml-3 text-violet-400 hover:text-red-500 focus:outline-none transition-colors"
                 >
                   <XCircle size={16} />
@@ -310,12 +324,28 @@ const Dashboard = ({
       <div>
         <h3 className="text-2xl font-semibold text-slate-700 dark:text-white mb-4 flex items-center">
           <BookOpen className="mr-2 text-sky-500" size={24} />
-          Gözden Geçirilecek Kelimeler
+          Gözden Geçirilecek Kelimeler ({wordsToReview.length})
         </h3>
         <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg border border-violet-100 dark:border-slate-700">
-          <p className="text-slate-500 dark:text-slate-400">
-            Gözden geçirmeniz gereken kelimeler yakında burada listelenecek.
-          </p>
+          {wordsToReview.length > 0 ? (
+            <ul className="space-y-2 text-slate-600 dark:text-slate-300">
+              {wordsToReview.map((wordObj, index) => (
+                <li key={index} className="flex items-center justify-between bg-violet-50 dark:bg-slate-700 p-3 rounded-lg shadow-sm">
+                  <span className="font-medium text-violet-800 dark:text-violet-200">{wordObj.word}</span>
+                  <button
+                    onClick={() => console.log('Gözden Geçir:', wordObj.word)} 
+                    className="text-sm text-white bg-violet-600 hover:bg-violet-700 px-4 py-1 rounded-full transition-colors duration-200"
+                  >
+                    Gözden Geçir
+                  </button>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="text-slate-500 dark:text-slate-400">
+              Gözden geçirmeniz gereken bir kelime yok.
+            </p>
+          )}
         </div>
       </div>
     </div>
@@ -323,4 +353,3 @@ const Dashboard = ({
 };
 
 export default Dashboard;
-
