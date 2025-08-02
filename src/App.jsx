@@ -76,7 +76,6 @@ const App = () => {
   const [showBubble, setShowBubble] = useState(false);
   const handleButtonClick = () => {
     setShowBubble(true);
-    setTimeout(() => setShowBubble(false), 3000);
     setIsChatOpen(true);
   };
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -831,8 +830,8 @@ const handleRemoveLearnedWord = async (wordToRemove) => {
                  </button>
 
                  {showBubble && (
-                   <div className="absolute bottom-full mb-2 right-0 w-48 p-3 bg-white dark:bg-slate-800 rounded-lg shadow-lg text-sm text-gray-900 dark:text-gray-200">
-                     Sormak istediğiniz bir şey var mı?
+                   <div className=""absolute right-0 w-56 p-4 bg-white dark:bg-sky-600 rounded-lg shadow-lg text-base text-gray-900 dark:text-white" style={{ bottom: 'calc(100% + 16px)' }}>
+                     PrepChatBot'a sormak istediğiniz bir şey var mı?
                    </div>
                  )}
                </div>
@@ -1059,6 +1058,7 @@ const handleRemoveLearnedWord = async (wordToRemove) => {
 };
 
 export default App;
+
 
 
 
