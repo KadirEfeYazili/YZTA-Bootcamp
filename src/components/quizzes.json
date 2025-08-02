@@ -2,281 +2,1401 @@
   {
     "id": 1,
     "category": "Vocabulary",
-    "question": "The most powerful ---- to parachuting is fear, but one should also take its high cost into account, as a total outfit for parachuting can be extremely expensive.",
+    "question": "The rapid spread of misinformation on social media platforms has become a significant ---- to informed public discourse.",
     "options": [
-      "resemblance",
-      "adjustment",
-      "deterrent",
-      "submission",
-      "adherence"
+      "obstacle",
+      "enhancement",
+      "incentive",
+      "alignment",
+      "promotion"
     ],
-    "answer": "deterrent",
-    "explanationPrompt": "Explain why 'deterrent' is correct. It means something that discourages or prevents someone from doing something, which fits the context of fear preventing people from parachuting."
+    "answer": "obstacle",
+    "explanationPrompt": "Explain that 'obstacle' means something that hinders or prevents progress, fitting the context of misinformation impeding informed public discourse."
   },
   {
     "id": 2,
     "category": "Vocabulary",
-    "question": "Since the mid-20th century, plastic pollution has increased ----, and resulting pollution has become a global environmental issue.",
+    "question": "To address climate change, governments must ---- policies that promote renewable energy and reduce carbon emissions.",
     "options": [
-      "exponentially",
-      "conveniently",
-      "alternatively",
-      "precisely",
-      "fruitfully"
+      "neglect",
+      "implement",
+      "postpone",
+      "undermine",
+      "restrict"
     ],
-    "answer": "exponentially",
-    "explanationPrompt": "Explain that 'exponentially' means increasing at a rapidly accelerating rate, which accurately describes how plastic pollution has grown since the mid-20th century."
+    "answer": "implement",
+    "explanationPrompt": "Explain that 'implement' means to put into action, which is appropriate for enacting policies to combat climate change."
   },
   {
     "id": 3,
-    "category": "Grammar",
-    "question": "A seminal study ---- that people who ---- less than seven hours a night are at increased risk of mortality.",
+    "category": "Vocabulary",
+    "question": "The scientist’s discovery was so ---- that it reshaped the entire field of genetic research.",
     "options": [
-      "revealed / will sleep",
-      "has revealed / sleep",
-      "reveals / will be sleeping",
-      "will reveal / have slept",
-      "had revealed / had been sleeping"
+      "trivial",
+      "controversial",
+      "profound",
+      "temporary",
+      "ambiguous"
     ],
-    "answer": "has revealed / sleep",
-    "explanationPrompt": "Explain that 'has revealed' (present perfect) shows a completed action with present relevance, and 'sleep' (simple present) describes a habitual action."
+    "answer": "profound",
+    "explanationPrompt": "Explain that 'profound' means having a deep or significant impact, suitable for describing a discovery that reshaped a field."
   },
   {
     "id": 4,
-    "category": "Grammar",
-    "question": "Ideally, the end of the Cold War between the United States and the Soviet Union ---- a substantial lessening of security concerns in the world; however, in practice, the focus ---- to terrorism and subnational groups.",
+    "category": "Vocabulary",
+    "question": "Urban planners are working to ---- the negative effects of overpopulation in densely populated cities.",
     "options": [
-      "might have signified / will have moved",
-      "would have signified / used to move",
-      "must have signified / had moved",
-      "could have signified / had been moving",
-      "should have signified / moved"
+      "exacerbate",
+      "mitigate",
+      "accelerate",
+      "overlook",
+      "intensify"
     ],
-    "answer": "should have signified / moved",
-    "explanationPrompt": "Explain that 'should have signified' expresses what was expected to happen but didn't, and 'moved' (simple past) describes what actually happened instead."
+    "answer": "mitigate",
+    "explanationPrompt": "Explain that 'mitigate' means to reduce or alleviate, fitting the context of addressing negative effects of overpopulation."
   },
   {
     "id": 5,
     "category": "Grammar",
-    "question": "The recent discovery of a toe made of wood and leather ---- to the mummified body of an Egyptian noblewoman in Cairo, approximately 3,000 years old, ---- that artificial limbs are nothing new.",
+    "question": "Recent research ---- that a balanced diet ---- the risk of chronic illnesses significantly.",
     "options": [
-      "attached / proves",
-      "being attached / had proven",
-      "attach / has proven",
-      "attaching / proved",
-      "to be attached / used to prove"
+      "has shown / reduces",
+      "showed / will reduce",
+      "shows / reduced",
+      "had shown / has reduced",
+      "is showing / is reducing"
     ],
-    "answer": "attached / proves",
-    "explanationPrompt": "Explain that 'attached' (past participle) acts as an adjective describing the toe, and 'proves' (simple present) states a current fact based on the discovery."
+    "answer": "has shown / reduces",
+    "explanationPrompt": "Explain that 'has shown' (present perfect) indicates a completed study with ongoing relevance, and 'reduces' (simple present) states a general fact."
   },
   {
     "id": 6,
-    "category": "Prepositions",
-    "question": "Anorexia nervosa is a severe eating disorder, usually involving excessive weight loss ---- self-starvation, most often found ---- teenage girls.",
+    "category": "Grammar",
+    "question": "If the company ---- more in employee training last year, it ---- more efficient operations today.",
     "options": [
-      "at / with",
-      "from / of",
-      "for / between",
-      "by / on",
-      "through / among"
+      "invested / will have",
+      "had invested / would have",
+      "has invested / has",
+      "would invest / had",
+      "was investing / could have"
     ],
-    "answer": "through / among",
-    "explanationPrompt": "Explain that 'through' indicates the method/means by which weight loss occurs, and 'among' shows the group where the disorder is most commonly found."
+    "answer": "had invested / would have",
+    "explanationPrompt": "Explain that 'had invested' (past perfect) is used for a hypothetical past action, and 'would have' (conditional perfect) describes the resulting hypothetical present outcome."
   },
   {
     "id": 7,
-    "category": "Conjunctions",
-    "question": "---- certain types of fungi have been used throughout history for a variety of beneficial purposes, others have been found to contain dangerous toxins that are poisonous to humans.",
+    "category": "Grammar",
+    "question": "The ancient artifact, ---- in a remote cave, ---- evidence of early human creativity.",
     "options": [
-      "Once",
-      "Although",
-      "Since",
-      "Provided that",
-      "Only when"
+      "discovered / provides",
+      "discovering / provided",
+      "to discover / has provided",
+      "being discovered / proves",
+      "discover / is providing"
     ],
-    "answer": "Although",
-    "explanationPrompt": "Explain that 'Although' introduces a contrast between beneficial fungi and toxic fungi, showing the opposition between the two clauses."
+    "answer": "discovered / provides",
+    "explanationPrompt": "Explain that 'discovered' (past participle) acts as an adjective describing the artifact, and 'provides' (simple present) states a current fact based on the discovery."
   },
   {
     "id": 8,
-    "category": "Conjunctions",
-    "question": "---- such an intimate connection existed between agricultural intensification and the appearance of cities, it is not surprising that the earliest evidence for cities comes from regions with ancient agricultural traditions.",
+    "category": "Grammar",
+    "question": "By the time the project ----, the team ---- all necessary resources to complete it.",
     "options": [
-      "Because",
-      "As if",
-      "Before",
-      "Although",
-      "While"
+      "is approved / will have gathered",
+      "was approved / had gathered",
+      "has been approved / gathers",
+      "will be approved / gathered",
+      "had been approved / will gather"
     ],
-    "answer": "Because",
-    "explanationPrompt": "Explain that 'Because' shows the cause-and-effect relationship: the connection between agriculture and cities explains why early cities appeared in agricultural regions."
+    "answer": "was approved / had gathered",
+    "explanationPrompt": "Explain that 'was approved' (simple past) sets the timeline, and 'had gathered' (past perfect) indicates an action completed before that point."
   },
   {
     "id": 9,
-    "category": "Grammar",
-    "question": "The conventional view of dinosaur origins holds that they were endowed with ---- superior speed, agility, metabolism and intelligence ---- as soon as they debuted they quickly spread across the globe.",
+    "category": "Prepositions",
+    "question": "The success of the conservation program depends ---- the cooperation ---- local communities.",
     "options": [
-      "either / or",
-      "both / and",
-      "the more / the more",
-      "whether / or",
-      "such / that"
+      "on / of",
+      "for / with",
+      "at / among",
+      "by / between",
+      "to / from"
     ],
-    "answer": "such / that",
-    "explanationPrompt": "Explain that 'such...that' construction shows result or consequence - dinosaurs had such superior qualities that they spread quickly around the world."
+    "answer": "on / of",
+    "explanationPrompt": "Explain that 'depends on' is the correct preposition for reliance, and 'of' indicates possession or association with local communities."
   },
   {
     "id": 10,
     "category": "Prepositions",
-    "question": "Books continue to be a major medium for communicating scholarly works in the field of history, ---- many other social sciences, where journal articles are far more important.",
+    "question": "Many species are at risk ---- extinction due to habitat destruction ---- human activities.",
     "options": [
-      "with the help of",
-      "in contrast to",
-      "due to",
-      "such as",
-      "on the basis of"
+      "of / from",
+      "for / by",
+      "with / through",
+      "to / with",
+      "at / for"
     ],
-    "answer": "in contrast to",
-    "explanationPrompt": "Explain that 'in contrast to' shows the difference between history (where books are important) and other social sciences (where journal articles are more important)."
+    "answer": "of / from",
+    "explanationPrompt": "Explain that 'at risk of' is the correct phrase for indicating danger, and 'from' shows the cause of the threat, i.e., human activities."
   },
   {
     "id": 11,
-    "category": "Reading Comprehension",
-    "question": "Unless they regard the material they are taught as worth learning, ----.",
+    "category": "Conjunctions",
+    "question": "---- renewable energy sources are becoming more affordable, fossil fuels still dominate global energy production.",
     "options": [
-      "classrooms are rather intricate microcosms where students spend a great deal of their life",
-      "time pressure under which most teachers work prevents them from meeting their students' needs",
-      "students will not be motivated to take part in classroom activities and interact with each other",
-      "subjects related to students' everyday experiences stimulate their interest",
-      "making learning process more enjoyable encourages further student involvement"
+      "Since",
+      "Although",
+      "Unless",
+      "Because",
+      "Once"
     ],
-    "answer": "students will not be motivated to take part in classroom activities and interact with each other",
-    "explanationPrompt": "Explain that this option logically completes the conditional sentence - if students don't find material worth learning, then they won't be motivated to participate."
+    "answer": "Although",
+    "explanationPrompt": "Explain that 'Although' introduces a contrast between the affordability of renewable energy and the continued dominance of fossil fuels."
   },
   {
     "id": 12,
-    "category": "Reading Comprehension",
-    "question": "While chronic stress can bring on significant mental health issues along with other problems, ----.",
+    "category": "Conjunctions",
+    "question": "---- governments take immediate action to reduce emissions, the effects of climate change will become irreversible.",
     "options": [
-      "stress can be prevented from becoming a problem by following a healthy diet",
-      "employees should be trained in stress management before they experience problems",
-      "work-related stress often leads to depression or anxiety",
-      "short-term stress, such as working to meet an imminent deadline, can be beneficial",
-      "stress may trigger headaches, digestive disorders and cardiovascular disease"
+      "If",
+      "Unless",
+      "While",
+      "As long as",
+      "Provided that"
     ],
-    "answer": "short-term stress, such as working to meet an imminent deadline, can be beneficial",
-    "explanationPrompt": "Explain that 'While' introduces a contrast - while chronic stress is harmful, short-term stress can actually be beneficial, creating a balanced perspective."
+    "answer": "Unless",
+    "explanationPrompt": "Explain that 'Unless' indicates a condition that must be met to avoid a negative outcome, fitting the context of needing action to prevent irreversible climate change."
   },
   {
     "id": 13,
-    "category": "Translation",
-    "question": "One of the difficulties of studying African literature is that for much of the history of Africa, the societies were non-literate and thus relied on oral traditions to pass their stories to the coming generations.",
+    "category": "Reading Comprehension",
+    "question": "Without proper infrastructure, ----.",
     "options": [
-      "Afrika edebiyatını incelemenin zorluklarından biri, Afrika tarihinin büyük bir bölümünde toplumların okuryazar olmamalarından dolayı hikâyelerini gelecek nesillere sözlü gelenek yoluyla aktarmayı tercih etmeleridir.",
-      "Afrika tarihinin büyük bir bölümünde toplumların okuryazar olmamaları sebebiyle hikâyelerini gelecek nesillere aktarmak için sözlü geleneklere bağlı kalması, Afrika edebiyatını incelemenin zorluklarından birini oluşturmaktadır.",
-      "Afrika edebiyatını incelerken karşılaşılan zorluklardan biri, Afrika tarihinin büyük bir bölümüne bakıldığında toplumların okuryazar olmamaları ve hikâyelerini gelecek nesillere sözlü geleneklere bağlı kalarak aktarmalarıdır.",
-      "Afrika edebiyatını incelemenin zorluklarından biri, Afrika tarihinin büyük bir bölümünde toplumların okuryazar olmamaları ve dolayısıyla hikâyelerini gelecek nesillere aktarmak için sözlü geleneklere bağlı kalmalarıdır.",
-      "Afrika tarihinin büyük bir bölümünde toplumlar okuryazar olmadıklarından hikâyelerini gelecek nesillere aktarmak için sözlü geleneklere bağlıydılar ve bu durum Afrika edebiyatını incelemenin zorluklarından birini oluşturmaktadır."
+      "urban areas can still thrive economically",
+      "cities struggle to provide essential services like water and electricity",
+      "rural communities benefit from increased tourism",
+      "governments can focus on industrial development",
+      "public transportation systems operate efficiently"
     ],
-    "answer": "Afrika edebiyatını incelemenin zorluklarından biri, Afrika tarihinin büyük bir bölümünde toplumların okuryazar olmamaları ve dolayısıyla hikâyelerini gelecek nesillere aktarmak için sözlü geleneklere bağlı kalmalarıdır.",
-    "explanationPrompt": "Explain that this option best captures the structure and meaning of the original English sentence, maintaining the cause-and-effect relationship with 'dolayısıyla' (thus)."
+    "answer": "cities struggle to provide essential services like water and electricity",
+    "explanationPrompt": "Explain that this option logically completes the conditional sentence, as lack of infrastructure directly impacts cities’ ability to provide essential services."
   },
   {
     "id": 14,
-    "category": "Translation",
-    "question": "Being overweight after turning 60 may increase the risk of Alzheimer's disease, but by losing weight, people may be able to hinder ageing of their brains and reduce the likelihood of memory problems later on.",
+    "category": "Reading Comprehension",
+    "question": "While overfishing has depleted marine ecosystems, ----.",
     "options": [
-      "Aşırı kilolu olmak, 60 yaşına gelindiğinde Alzheimer hastalığı riskini artırabilmektedir fakat kilo veren insanlar beyinlerinin yaşlanmasını engelleyerek sonrasında yaşanacak olan hafıza problemleri olasılığını azaltabilirler.",
-      "60 yaşından sonra aşırı kilolu olmak, Alzheimer hastalığı riskini artırabilir ancak kilo vererek beyinlerinin yaşlanmasının önüne geçebilen insanlar sonrasında yaşanacak olan hafıza problemleri olasılığını azaltabilirler.",
-      "60 yaşına geldikten sonra aşırı kilolu olanlar, Alzheimer hastalığı riskini artırabilmektedir fakat insanlar kilo vererek beynin yaşlanmasının önüne geçtiğinde sonrasında yaşanacak olan hafıza problemleri olasılığını azaltabilirler.",
-      "60 yaşına geldikten sonra aşırı kilolu olmak, Alzheimer hastalığı riskini artırabilir ancak insanlar kilo vererek beyinlerinin yaşlanmasının önüne geçebilir ve sonrasında hafıza problemleri yaşama olasılığını azaltabilirler.",
-      "60 yaş sonrası kilolu olmak, Alzheimer hastalığı riskini artırsa da insanlar beyinlerinin yaşlanmasını engellemek ve sonrasında hafıza problemleri yaşama olasılığını azaltmak için kilo verebilirler."
+      "coastal communities rely heavily on fishing for their livelihood",
+      "new technologies have made fishing more sustainable",
+      "marine biodiversity has increased in some regions",
+      "sustainable fishing practices can help restore fish populations",
+      "governments have banned all fishing activities"
     ],
-    "answer": "60 yaşına geldikten sonra aşırı kilolu olmak, Alzheimer hastalığı riskini artırabilir ancak insanlar kilo vererek beyinlerinin yaşlanmasının önüne geçebilir ve sonrasında hafıza problemleri yaşama olasılığını azaltabilirler.",
-    "explanationPrompt": "Explain that this option accurately translates 'after turning 60' as '60 yaşına geldikten sonra' and maintains the parallel structure of the original sentence with proper Turkish grammar."
+    "answer": "sustainable fishing practices can help restore fish populations",
+    "explanationPrompt": "Explain that 'While' introduces a contrast between the problem of overfishing and the potential solution of sustainable practices."
   },
   {
     "id": 15,
-    "category": "Paragraph Completion",
-    "question": "Sleep is a period of intense neurological activity, especially when we have dreams. ---- Many researchers think that dreams could be an unintended consequence of these and other underlying neurological processes.",
+    "category": "Translation",
+    "question": "The development of artificial intelligence has revolutionized industries, but it also raises ethical concerns about privacy and job displacement.",
     "options": [
-      "One of its main functions may be to allow the brain to consolidate and organise our memories.",
-      "Deciphering nocturnal symbols may be enjoyable, but in reality, it is much more complicated than it seems.",
-      "Scientific theories are more sceptical than dream dictionaries about how much dreams actually reveal.",
-      "Dreaming has recently been seen as something that opens a window to the working of the mind.",
-      "Dream interpretations seem relevant to our lives because they apply equally well to almost everybody."
+      "Yapay zekanın gelişimi endüstrileri devrimleştirdi, ancak gizlilik ve iş kaybı konusunda etik kaygılar da doğuruyor.",
+      "Yapay zekanın ilerlemesi, endüstrilerde devrim yarattı fakat gizlilik ve işten çıkarmalarla ilgili etik sorunlar da ortaya çıkardı.",
+      "Yapay zekanın gelişimi, endüstrileri dönüştürdü ama aynı zamanda gizlilik ve iş kaybı üzerine etik tartışmalara yol açtı.",
+      "Yapay zekanın ilerlemesi endüstrileri değiştirdi, ancak bu, gizlilik ve işten çıkarmalarla ilgili etik problemler de yarattı.",
+      "Yapay zeka gelişimi endüstrilerde yenilikler getirdi, fakat gizlilik ve iş kaybı konusunda etik endişelere de sebep oldu."
     ],
-    "answer": "One of its main functions may be to allow the brain to consolidate and organise our memories.",
-    "explanationPrompt": "Explain that this option logically connects sleep's neurological activity with memory consolidation, providing a scientific explanation that leads naturally to the discussion of dreams as byproducts."
+    "answer": "Yapay zekanın gelişimi endüstrileri devrimleştirdi, ancak gizlilik ve iş kaybı konusunda etik kaygılar da doğuruyor.",
+    "explanationPrompt": "Explain that this option accurately translates 'revolutionized' as 'devrimleştirdi' and maintains the original sentence’s structure with 'ancak' for the contrast."
   },
   {
     "id": 16,
-    "category": "Sentence Rephrasing",
-    "question": "Although it is incorrect to characterise adolescence as a time of inevitable family conflict, early adolescence is a period of significant change in family relationships.",
+    "category": "Translation",
+    "question": "Küresel ısınma, tarım verimliliğini tehdit ediyor ve bu da dünya çapında gıda güvenliği sorunlarına yol açıyor.",
     "options": [
-      "Early adolescence is a period of serious change in family relationships, so it may be wrongly considered as a time when frequent disagreements arise in the family.",
-      "Early adolescence refers to a period of substantial change in family relationships; however, it would be wrong to characterise adolescence as a time when unavoidable family disputes occur.",
-      "As adolescence is a time when inescapable family arguments break out, early adolescence is mistakenly believed to result in critical change in family relationships.",
-      "Whereas early adolescence is regarded as a period during which family relationships undergo remarkable change, adolescence is incorrectly considered as a time when family disputes become more intense.",
-      "Even though early adolescence is incorrectly characterised as a period of dramatic change in family relationships, adolescence is generally seen as a time when unavoidable family arguments occur frequently."
+      "Global warming threatens agricultural productivity, leading to food security issues worldwide.",
+      "Global warming is endangering agriculture, causing problems with global food security.",
+      "Climate change affects farming output, resulting in worldwide food safety concerns.",
+      "Global warming poses a threat to agricultural yields, contributing to global food security challenges.",
+      "Rising temperatures harm agriculture, which leads to food security issues across the globe."
     ],
-    "answer": "Early adolescence refers to a period of substantial change in family relationships; however, it would be wrong to characterise adolescence as a time when unavoidable family disputes occur.",
-    "explanationPrompt": "Explain that this option correctly maintains the contrast between acknowledging real changes in early adolescence while rejecting the characterization of adolescence as inevitably conflictual."
+    "answer": "Global warming threatens agricultural productivity, leading to food security issues worldwide.",
+    "explanationPrompt": "Explain that this option precisely translates 'tehdit ediyor' as 'threatens' and 'gıda güvenliği' as 'food security,' maintaining the original meaning and structure."
   },
   {
     "id": 17,
+    "category": "Paragraph Completion",
+    "question": "Urbanization has led to significant economic growth in many regions. ---- However, it has also caused challenges such as housing shortages and traffic congestion.",
+    "options": [
+      "Cities have become hubs for innovation and commerce.",
+      "Rural areas are experiencing population decline.",
+      "Public transportation systems need improvement.",
+      "Governments are investing in sustainable energy.",
+      "Air pollution has decreased in urban centers."
+    ],
+    "answer": "Cities have become hubs for innovation and commerce.",
+    "explanationPrompt": "Explain that this option logically connects urbanization’s role in economic growth with the subsequent challenges, providing a coherent transition."
+  },
+  {
+    "id": 18,
+    "category": "Sentence Rephrasing",
+    "question": "Although technological advancements have improved healthcare, they have also increased the cost of medical services.",
+    "options": [
+      "Technological progress has enhanced healthcare but has also raised the cost of medical services.",
+      "Despite improvements in healthcare due to technology, medical service costs have decreased.",
+      "Technology has advanced healthcare, yet it has reduced the affordability of medical services.",
+      "While technology has improved healthcare, it has also made medical services less accessible.",
+      "Healthcare has benefited from technology, but medical costs have remained stable."
+    ],
+    "answer": "Technological progress has enhanced healthcare but has also raised the cost of medical services.",
+    "explanationPrompt": "Explain that this option accurately rephrases the original, using 'enhanced' for 'improved' and maintaining the contrast with 'but.'"
+  },
+  {
+    "id": 19,
     "category": "Irrelevant Sentence",
-    "question": "Which sentence is irrelevant in the following passage? (I) Children, adolescents and adults sometimes fear the challenge of sustained, formal speaking before large groups. (II) Teachers can help reduce unrealistic fears by pointing out how common they are among people. (III) Students need to know how speakers differ from one another and how particular circumstances call for different forms of speech. (IV) Thus, students can practice speaking in front of their peers who face the same situation. (V) Practising oral presentation in these ways can lessen students' anxieties while helping them learn the subject matter.",
+    "question": "Which sentence is irrelevant in the following passage? (I) Renewable energy sources are critical for reducing carbon emissions. (II) Solar and wind power are increasingly cost-competitive. (III) Many countries rely on coal for electricity generation. (IV) Innovations in battery storage are improving energy efficiency. (V) Electric vehicles are gaining popularity due to lower emissions.",
     "options": [
       "I",
-      "II", 
+      "II",
       "III",
       "IV",
       "V"
     ],
     "answer": "III",
-    "explanationPrompt": "Explain that sentence III about different types of speakers and speech forms is irrelevant to the main topic of reducing fear and anxiety about public speaking through practice."
-  },
-  {
-    "id": 18,
-    "category": "Vocabulary",
-    "question": "The most basic path to computer literacy is to ---- competence in using computers to perform personal or vocational tasks.",
-    "options": [
-      "exclude",
-      "relieve", 
-      "deteriorate",
-      "restrict",
-      "attain"
-    ],
-    "answer": "attain",
-    "explanationPrompt": "Explain that 'attain' means to achieve or reach a goal, which fits the context of gaining computer competence as a path to literacy."
-  },
-  {
-    "id": 19,
-    "category": "Phrasal Verbs",
-    "question": "Making videos should be a lot of fun, but it can also be a bit of a minefield, as lots of people ---- problems and lose momentum before they even get started.",
-    "options": [
-      "hand over",
-      "look for",
-      "turn down", 
-      "give up",
-      "run into"
-    ],
-    "answer": "run into",
-    "explanationPrompt": "Explain that 'run into' means to encounter or experience problems unexpectedly, which fits the context of people facing difficulties when making videos."
+    "explanationPrompt": "Explain that sentence III about coal reliance is irrelevant to the focus on renewable energy and its benefits."
   },
   {
     "id": 20,
-    "category": "Grammar",
-    "question": "I wish I ---- harder for the exam. I might have passed.",
+    "category": "Phrasal Verbs",
+    "question": "The project was delayed because the team ---- unexpected technical issues during development.",
     "options": [
-      "studied",
-      "had studied",
-      "would study", 
-      "have studied",
-      "will study"
+      "ran into",
+      "gave up",
+      "looked after",
+      "turned down",
+      "brought up"
     ],
-    "answer": "had studied",
-    "explanationPrompt": "Explain that 'had studied' is correct for expressing regret about a past action. 'I wish + past perfect' is used for past unreal situations."
+    "answer": "ran into",
+    "explanationPrompt": "Explain that 'ran into' means to encounter unexpectedly, fitting the context of facing unforeseen technical problems."
+  },
+  {
+    "id": 21,
+    "category": "Vocabulary",
+    "question": "The government’s decision to ignore the economic data was widely criticized as ---- by analysts.",
+    "options": [
+      "prudent",
+      "reckless",
+      "beneficial",
+      "neutral",
+      "strategic"
+    ],
+    "answer": "reckless",
+    "explanationPrompt": "Explain that 'reckless' means careless or irresponsible, suitable for describing a criticized decision to ignore data."
+  },
+  {
+    "id": 22,
+    "category": "Vocabulary",
+    "question": "Efforts to preserve endangered species are often ---- by insufficient funding and lack of public awareness.",
+    "options": [
+      "facilitated",
+      "hindered",
+      "accelerated",
+      "supported",
+      "amplified"
+    ],
+    "answer": "hindered",
+    "explanationPrompt": "Explain that 'hindered' means obstructed or delayed, fitting the context of challenges to conservation efforts."
+  },
+  {
+    "id": 23,
+    "category": "Vocabulary",
+    "question": "The new policy aims to ---- equal opportunities for all employees, regardless of their background.",
+    "options": [
+      "undermine",
+      "restrict",
+      "promote",
+      "neglect",
+      "complicate"
+    ],
+    "answer": "promote",
+    "explanationPrompt": "Explain that 'promote' means to encourage or advance, aligning with the goal of ensuring equal opportunities."
+  },
+  {
+    "id": 24,
+    "category": "Vocabulary",
+    "question": "The documentary provided a ---- account of the environmental impact of industrialization.",
+    "options": [
+      "biased",
+      "superficial",
+      "comprehensive",
+      "irrelevant",
+      "ambiguous"
+    ],
+    "answer": "comprehensive",
+    "explanationPrompt": "Explain that 'comprehensive' means thorough and complete, fitting a detailed account of environmental impact."
+  },
+  {
+    "id": 25,
+    "category": "Grammar",
+    "question": "If the experiment ---- successful, it ---- a breakthrough in cancer treatment.",
+    "options": [
+      "is / could represent",
+      "was / will represent",
+      "has been / represents",
+      "will be / represented",
+      "had been / has represented"
+    ],
+    "answer": "is / could represent",
+    "explanationPrompt": "Explain that 'is' (simple present) indicates a hypothetical current situation, and 'could represent' (conditional) shows a potential outcome."
+  },
+  {
+    "id": 26,
+    "category": "Grammar",
+    "question": "The technology, ---- rapidly over the past decade, ---- now integral to modern communication systems.",
+    "options": [
+      "evolving / is",
+      "evolved / was",
+      "having evolved / has been",
+      "to evolve / will be",
+      "being evolved / becomes"
+    ],
+    "answer": "evolving / is",
+    "explanationPrompt": "Explain that 'evolving' (present participle) describes ongoing development, and 'is' (simple present) states a current fact."
+  },
+  {
+    "id": 27,
+    "category": "Grammar",
+    "question": "By the end of this year, the company ---- its new product line, which ---- significant market interest.",
+    "options": [
+      "will launch / generates",
+      "has launched / generated",
+      "will have launched / has generated",
+      "launched / is generating",
+      "had launched / was generating"
+    ],
+    "answer": "will have launched / has generated",
+    "explanationPrompt": "Explain that 'will have launched' (future perfect) indicates a completed action by a future point, and 'has generated' (present perfect) shows ongoing interest."
+  },
+  {
+    "id": 28,
+    "category": "Grammar",
+    "question": "I wish I ---- the opportunity to study abroad last year; it ---- my perspective significantly.",
+    "options": [
+      "took / will broaden",
+      "had taken / would have broadened",
+      "have taken / broadens",
+      "would take / had broadened",
+      "was taking / could broaden"
+    ],
+    "answer": "had taken / would have broadened",
+    "explanationPrompt": "Explain that 'had taken' (past perfect) expresses regret for a missed past opportunity, and 'would have broadened' describes the hypothetical result."
+  },
+  {
+    "id": 29,
+    "category": "Prepositions",
+    "question": "The rise in renewable energy adoption is largely driven ---- technological advancements ---- the energy sector.",
+    "options": [
+      "by / in",
+      "for / with",
+      "to / among",
+      "at / between",
+      "with / from"
+    ],
+    "answer": "by / in",
+    "explanationPrompt": "Explain that 'driven by' indicates the cause of the rise, and 'in' specifies the sector where advancements occur."
+  },
+  {
+    "id": 30,
+    "category": "Prepositions",
+    "question": "The policy was developed ---- consultation ---- experts in environmental science.",
+    "options": [
+      "with / of",
+      "for / with",
+      "by / among",
+      "in / with",
+      "to / from"
+    ],
+    "answer": "in / with",
+    "explanationPrompt": "Explain that 'in consultation' is the correct phrase for collaborative development, and 'with' indicates the group involved."
+  },
+  {
+    "id": 31,
+    "category": "Conjunctions",
+    "question": "---- deforestation continues at the current rate, many tropical forests will disappear within decades.",
+    "options": [
+      "Unless",
+      "Although",
+      "Since",
+      "Because",
+      "Once"
+    ],
+    "answer": "Unless",
+    "explanationPrompt": "Explain that 'Unless' indicates a condition that must change to avoid a negative outcome, fitting the context of preventing forest loss."
+  },
+  {
+    "id": 32,
+    "category": "Conjunctions",
+    "question": "---- technology has advanced communication, it has also created challenges related to data privacy.",
+    "options": [
+      "While",
+      "If",
+      "Unless",
+      "As long as",
+      "Provided that"
+    ],
+    "answer": "While",
+    "explanationPrompt": "Explain that 'While' introduces a contrast between the benefits of technology and the privacy challenges it creates."
+  },
+  {
+    "id": 33,
+    "category": "Reading Comprehension",
+    "question": "If governments fail to address income inequality, ----.",
+    "options": [
+      "economic growth will accelerate rapidly",
+      "social unrest may increase in many regions",
+      "public infrastructure will improve significantly",
+      "educational opportunities will expand",
+      "tax revenues will stabilize"
+    ],
+    "answer": "social unrest may increase in many regions",
+    "explanationPrompt": "Explain that this option logically completes the conditional sentence, as income inequality often leads to social unrest."
+  },
+  {
+    "id": 34,
+    "category": "Reading Comprehension",
+    "question": "Although automation increases productivity, ----.",
+    "options": [
+      "it requires significant investment in infrastructure",
+      "workers need more training to operate new systems",
+      "it can lead to job losses in certain industries",
+      "factories become more environmentally friendly",
+      "production costs remain unchanged"
+    ],
+    "answer": "it can lead to job losses in certain industries",
+    "explanationPrompt": "Explain that 'Although' introduces a contrast between automation’s productivity benefits and its potential to cause job losses."
+  },
+  {
+    "id": 35,
+    "category": "Translation",
+    "question": "The decline in biodiversity is a global concern, as it threatens ecosystems that humans rely on for survival.",
+    "options": [
+      "Biyoçeşitlilikteki azalma küresel bir sorundur, çünkü bu, insanların hayatta kalması için ihtiyaç duyduğu ekosistemleri tehdit eder.",
+      "Biyoçeşitliliğin azalması dünya çapında bir endişedir, zira insanların yaşaması için bağlı olduğu ekosistemleri tehlikeye atar.",
+      "Biyoçeşitlilikteki düşüş küresel bir meseledir, çünkü bu, insanların hayatta kalmak için ihtiyaç duyduğu ekosistemleri etkiler.",
+      "Biyoçeşitliliğin kaybı dünya için bir sorundur, zira bu, insanların yaşam için bağlı olduğu ekosistemleri tehdit eder.",
+      "Biyoçeşitlilikteki azalma küresel bir tehdit oluşturur, çünkü bu, insanların hayatta kalması için gerekli ekosistemleri tehlikeye sokar."
+    ],
+    "answer": "Biyoçeşitlilikteki azalma küresel bir sorundur, çünkü bu, insanların hayatta kalması için ihtiyaç duyduğu ekosistemleri tehdit eder.",
+    "explanationPrompt": "Explain that this option accurately translates 'global concern' as 'küresel bir sorun' and uses 'çünkü' to reflect the causal relationship."
+  },
+  {
+    "id": 36,
+    "category": "Translation",
+    "question": "Eğitim, bireylerin potansiyellerini gerçekleştirmelerine olanak tanır ve toplumların ekonomik kalkınmasına katkıda bulunur.",
+    "options": [
+      "Education enables individuals to realize their potential and contributes to the economic development of societies.",
+      "Education allows people to achieve their goals and supports societal growth economically.",
+      "Education helps individuals fulfill their potential and aids in the financial progress of communities.",
+      "Education provides opportunities for individuals to succeed and promotes economic growth in societies.",
+      "Education empowers people to reach their potential and enhances the economic advancement of nations."
+    ],
+    "answer": "Education enables individuals to realize their potential and contributes to the economic development of societies.",
+    "explanationPrompt": "Explain that this option precisely translates 'gerçekleştirmelerine olanak tanır' as 'enables ... to realize' and 'ekonomik kalkınma' as 'economic development.'"
+  },
+  {
+    "id": 37,
+    "category": "Paragraph Completion",
+    "question": "Social media platforms have transformed how people connect globally. ---- This has led to both opportunities for collaboration and challenges related to misinformation.",
+    "options": [
+      "They allow instant communication across borders.",
+      "Many users prefer traditional communication methods.",
+      "Governments regulate online content strictly.",
+      "Privacy laws have become less relevant.",
+      "Advertising revenues have declined significantly."
+    ],
+    "answer": "They allow instant communication across borders.",
+    "explanationPrompt": "Explain that this option logically connects social media’s role in global connectivity with the opportunities and challenges mentioned."
+  },
+  {
+    "id": 38,
+    "category": "Sentence Rephrasing",
+    "question": "Despite the benefits of renewable energy, its adoption is often limited by high initial costs.",
+    "options": [
+      "Although renewable energy is beneficial, its high initial costs often restrict its adoption.",
+      "Renewable energy has many advantages, but its adoption is hindered by low costs.",
+      "High initial costs limit the use of renewable energy, despite its numerous benefits.",
+      "Renewable energy is widely adopted, even though its initial costs are high.",
+      "The benefits of renewable energy are overshadowed by its affordability."
+    ],
+    "answer": "Although renewable energy is beneficial, its high initial costs often restrict its adoption.",
+    "explanationPrompt": "Explain that this option accurately rephrases the original, maintaining the contrast with 'although' and using 'restrict' for 'limited.'"
+  },
+  {
+    "id": 39,
+    "category": "Irrelevant Sentence",
+    "question": "Which sentence is irrelevant in the following passage? (I) Deforestation is a major cause of climate change. (II) It leads to habitat loss for countless species. (III) Many tropical forests are rich in biodiversity. (IV) Reforestation efforts are being implemented globally. (V) Electric cars are becoming more popular in urban areas.",
+    "options": [
+      "I",
+      "II",
+      "III",
+      "IV",
+      "V"
+    ],
+    "answer": "V",
+    "explanationPrompt": "Explain that sentence V about electric cars is unrelated to the passage’s focus on deforestation and reforestation."
+  },
+  {
+    "id": 40,
+    "category": "Phrasal Verbs",
+    "question": "The company had to ---- several outdated policies to align with modern regulations.",
+    "options": [
+      "phase out",
+      "bring up",
+      "take over",
+      "put off",
+      "carry on"
+    ],
+    "answer": "phase out",
+    "explanationPrompt": "Explain that 'phase out' means to gradually eliminate, fitting the context of removing outdated policies."
+  },
+  {
+    "id": 41,
+    "category": "Vocabulary",
+    "question": "The new regulations aim to ---- the use of single-use plastics in everyday products.",
+    "options": [
+      "encourage",
+      "curtail",
+      "expand",
+      "justify",
+      "monitor"
+    ],
+    "answer": "curtail",
+    "explanationPrompt": "Explain that 'curtail' means to reduce or limit, suitable for describing efforts to decrease plastic use."
+  },
+  {
+    "id": 42,
+    "category": "Vocabulary",
+    "question": "The professor’s lecture was so ---- that it inspired students to explore the topic further.",
+    "options": [
+      "tedious",
+      "engaging",
+      "irrelevant",
+      "complex",
+      "vague"
+    ],
+    "answer": "engaging",
+    "explanationPrompt": "Explain that 'engaging' means captivating or interesting, fitting the context of inspiring students."
+  },
+  {
+    "id": 43,
+    "category": "Vocabulary",
+    "question": "The economic downturn has ---- the government to reconsider its fiscal policies.",
+    "options": [
+      "enabled",
+      "compelled",
+      "discouraged",
+      "permitted",
+      "prevented"
+    ],
+    "answer": "compelled",
+    "explanationPrompt": "Explain that 'compelled' means forced or obligated, fitting the context of the government being pushed to act."
+  },
+  {
+    "id": 44,
+    "category": "Vocabulary",
+    "question": "The charity’s efforts to provide clean water have had a ---- impact on rural communities.",
+    "options": [
+      "negligible",
+      "transformative",
+      "temporary",
+      "adverse",
+      "moderate"
+    ],
+    "answer": "transformative",
+    "explanationPrompt": "Explain that 'transformative' means causing significant change, suitable for describing the charity’s impact."
+  },
+  {
+    "id": 45,
+    "category": "Grammar",
+    "question": "The new software, ---- to improve efficiency, ---- widely adopted by businesses.",
+    "options": [
+      "designed / has been",
+      "designing / is",
+      "to design / was",
+      "being designed / will be",
+      "designed / had been"
+    ],
+    "answer": "designed / has been",
+    "explanationPrompt": "Explain that 'designed' (past participle) describes the software’s purpose, and 'has been' (present perfect) indicates ongoing adoption."
+  },
+  {
+    "id": 46,
+    "category": "Grammar",
+    "question": "Had the team ---- better resources, they ---- the project on time.",
+    "options": [
+      "had / would complete",
+      "has / will complete",
+      "had had / would have completed",
+      "have / could complete",
+      "having / completed"
+    ],
+    "answer": "had had / would have completed",
+    "explanationPrompt": "Explain that 'had had' (past perfect) is used for a hypothetical past situation, and 'would have completed' describes the hypothetical outcome."
+  },
+  {
+    "id": 47,
+    "category": "Grammar",
+    "question": "The conference, ---- next month, ---- experts from around the world.",
+    "options": [
+      "held / will attract",
+      "holding / attracts",
+      "to be held / will attract",
+      "being held / attracted",
+      "hold / has attracted"
+    ],
+    "answer": "to be held / will attract",
+    "explanationPrompt": "Explain that 'to be held' (infinitive) indicates a future event, and 'will attract' (future tense) describes the expected outcome."
+  },
+  {
+    "id": 48,
+    "category": "Grammar",
+    "question": "The scientist ---- that the experiment ---- if conducted under controlled conditions.",
+    "options": [
+      "claimed / succeeds",
+      "has claimed / will succeed",
+      "claims / succeeded",
+      "had claimed / would succeed",
+      "is claiming / has succeeded"
+    ],
+    "answer": "has claimed / will succeed",
+    "explanationPrompt": "Explain that 'has claimed' (present perfect) shows a recent statement with relevance, and 'will succeed' (future) indicates a predicted outcome."
+  },
+  {
+    "id": 49,
+    "category": "Prepositions",
+    "question": "The campaign was launched ---- response ---- growing public demand for change.",
+    "options": [
+      "in / to",
+      "for / with",
+      "by / of",
+      "at / for",
+      "with / from"
+    ],
+    "answer": "in / to",
+    "explanationPrompt": "Explain that 'in response to' is the correct phrase for reacting to a situation, and 'to' connects the response to public demand."
+  },
+  {
+    "id": 50,
+    "category": "Prepositions",
+    "question": "The organization is committed ---- promoting equality ---- all levels of society.",
+    "options": [
+      "to / at",
+      "for / with",
+      "by / among",
+      "in / between",
+      "with / from"
+    ],
+    "answer": "to / at",
+    "explanationPrompt": "Explain that 'committed to' indicates dedication, and 'at all levels' specifies the scope across society."
+  },
+  {
+    "id": 51,
+    "category": "Conjunctions",
+    "question": "---- many people rely on public transportation, its funding remains insufficient in many cities.",
+    "options": [
+      "Although",
+      "Because",
+      "Since",
+      "Unless",
+      "Once"
+    ],
+    "answer": "Although",
+    "explanationPrompt": "Explain that 'Although' introduces a contrast between reliance on public transportation and its insufficient funding."
+  },
+  {
+    "id": 52,
+    "category": "Conjunctions",
+    "question": "---- education is accessible to all, social mobility will remain limited.",
+    "options": [
+      "If",
+      "Unless",
+      "While",
+      "As long as",
+      "Because"
+    ],
+    "answer": "Unless",
+    "explanationPrompt": "Explain that 'Unless' indicates a condition necessary to avoid a negative outcome, fitting the context of needing accessible education for social mobility."
+  },
+  {
+    "id": 53,
+    "category": "Reading Comprehension",
+    "question": "Without adequate training, teachers may ----.",
+    "options": [
+      "improve their teaching methods significantly",
+      "struggle to engage students effectively",
+      "receive higher salaries for their efforts",
+      "implement new curricula with ease",
+      "focus on administrative tasks"
+    ],
+    "answer": "struggle to engage students effectively",
+    "explanationPrompt": "Explain that this option logically completes the sentence, as inadequate training directly impacts teachers’ ability to engage students."
+  },
+  {
+    "id": 54,
+    "category": "Reading Comprehension",
+    "question": "While artificial intelligence offers many benefits, ----.",
+    "options": [
+      "it requires minimal computational resources",
+      "it can replace all human labor",
+      "it raises concerns about job automation",
+      "it has no impact on productivity",
+      "it is universally accessible"
+    ],
+    "answer": "it raises concerns about job automation",
+    "explanationPrompt": "Explain that 'While' introduces a contrast between AI’s benefits and the concern of job automation."
+  },
+  {
+    "id": 55,
+    "category": "Translation",
+    "question": "Climate change is altering weather patterns, which affects agricultural productivity worldwide.",
+    "options": [
+      "İklim değişikliği hava modellerini değiştiriyor, bu da dünya çapında tarımsal verimliliği etkiliyor.",
+      "İklim değişikliği, tarımsal üretimi dünya genelinde değiştiren hava düzenlerini etkiliyor.",
+      "İklim değişikliği, küresel tarım verimliliğini etkileyen hava desenlerini dönüştürüyor.",
+      "İklim değişikliği hava modellerini değiştiriyor ve bu, dünya tarımını etkiliyor.",
+      "İklim değişikliği, tarımsal üretimi küresel olarak etkileyen hava değişikliklerine neden oluyor."
+    ],
+    "answer": "İklim değişikliği hava modellerini değiştiriyor, bu da dünya çapında tarımsal verimliliği etkiliyor.",
+    "explanationPrompt": "Explain that this option accurately translates 'altering' as 'değiştiriyor' and maintains the causal relationship with 'bu da.'"
+  },
+  {
+    "id": 56,
+    "category": "Translation",
+    "question": "Sağlık hizmetlerine erişim, bireylerin yaşam kalitesini artırır ve toplumsal refahı destekler.",
+    "options": [
+      "Access to healthcare improves individuals’ quality of life and supports societal well-being.",
+      "Healthcare access enhances people’s lives and promotes community welfare.",
+      "Access to health services boosts individual well-being and aids social prosperity.",
+      "Healthcare availability improves quality of life and contributes to societal health.",
+      "Access to medical services supports personal health and enhances social welfare."
+    ],
+    "answer": "Access to healthcare improves individuals’ quality of life and supports societal well-being.",
+    "explanationPrompt": "Explain that this option precisely translates 'yaşam kalitesini artırır' as 'improves ... quality of life' and 'toplumsal refahı' as 'societal well-being.'"
+  },
+  {
+    "id": 57,
+    "category": "Paragraph Completion",
+    "question": "Deforestation contributes significantly to greenhouse gas emissions. ---- Efforts to reforest degraded lands are critical to mitigating climate change.",
+    "options": [
+      "It also destroys habitats for countless species.",
+      "Urban development is a major driver of forest loss.",
+      "Many countries rely on timber exports.",
+      "Renewable energy sources are gaining popularity.",
+      "Wildfires are becoming more frequent."
+    ],
+    "answer": "It also destroys habitats for countless species.",
+    "explanationPrompt": "Explain that this option logically connects deforestation’s environmental impact with the need for reforestation to address climate change."
+  },
+  {
+    "id": 58,
+    "category": "Sentence Rephrasing",
+    "question": "Although recycling reduces waste, it requires significant resources to implement effectively.",
+    "options": [
+      "Recycling cuts down on waste, but it demands considerable resources for effective implementation.",
+      "Despite reducing waste, recycling uses minimal resources to function properly.",
+      "Recycling decreases waste, yet it is easy to implement with few resources.",
+      "While recycling helps manage waste, it requires few resources to be effective.",
+      "Recycling reduces waste, but its implementation is cost-free."
+    ],
+    "answer": "Recycling cuts down on waste, but it demands considerable resources for effective implementation.",
+    "explanationPrompt": "Explain that this option accurately rephrases the original, using 'cuts down on' for 'reduces' and maintaining the contrast with 'but.'"
+  },
+  {
+    "id": 59,
+    "category": "Irrelevant Sentence",
+    "question": "Which sentence is irrelevant in the following passage? (I) Online education has expanded access to learning opportunities. (II) It allows students to study at their own pace. (III) Many universities now offer online degrees. (IV) The automotive industry is adopting electric vehicles. (V) Flexible schedules benefit working professionals.",
+    "options": [
+      "I",
+      "II",
+      "III",
+      "IV",
+      "V"
+    ],
+    "answer": "IV",
+    "explanationPrompt": "Explain that sentence IV about the automotive industry is unrelated to the passage’s focus on online education."
+  },
+  {
+    "id": 60,
+    "category": "Phrasal Verbs",
+    "question": "The team decided to ---- the old system and implement a more efficient one.",
+    "options": [
+      "do away with",
+      "look into",
+      "take up",
+      "put up with",
+      "carry out"
+    ],
+    "answer": "do away with",
+    "explanationPrompt": "Explain that 'do away with' means to eliminate or remove, fitting the context of replacing an old system."
+  },
+  {
+    "id": 61,
+    "category": "Vocabulary",
+    "question": "The politician’s decision to ignore scientific evidence was considered ---- by the analysts.",
+    "options": [
+      "prudent",
+      "irrational",
+      "strategic",
+      "beneficial",
+      "neutral"
+    ],
+    "answer": "irrational",
+    "explanationPrompt": "Explain that 'irrational' means lacking reason, fitting the context of ignoring scientific evidence."
+  },
+  {
+    "id": 62,
+    "category": "Vocabulary",
+    "question": "The organization launched a campaign to ---- awareness about mental health issues.",
+    "options": [
+      "suppress",
+      "raise",
+      "diminish",
+      "restrict",
+      "ignore"
+    ],
+    "answer": "raise",
+    "explanationPrompt": "Explain that 'raise' means to increase or promote, suitable for a campaign to increase awareness."
+  },
+  {
+    "id": 63,
+    "category": "Vocabulary",
+    "question": "The discovery of new species in the Pacific Ocean has ---- interest in marine conservation.",
+    "options": [
+      "diminished",
+      "sparked",
+      "suppressed",
+      "limited",
+      "delayed"
+    ],
+    "answer": "sparked",
+    "explanationPrompt": "Explain that 'sparked' means to ignite or stimulate, fitting the context of generating interest in conservation."
+  },
+  {
+    "id": 64,
+    "category": "Vocabulary",
+    "question": "The new policy is expected to ---- economic growth in the region over the next decade.",
+    "options": [
+      "hinder",
+      "stimulate",
+      "restrict",
+      "neglect",
+      "complicate"
+    ],
+    "answer": "stimulate",
+    "explanationPrompt": "Explain that 'stimulate' means to encourage or boost, suitable for promoting economic growth."
+  },
+  {
+    "id": 65,
+    "category": "Grammar",
+    "question": "The research team ---- that the new drug ---- effective in treating the disease.",
+    "options": [
+      "has concluded / is",
+      "concluded / was",
+      "concludes / will be",
+      "had concluded / has been",
+      "is concluding / would be"
+    ],
+    "answer": "has concluded / is",
+    "explanationPrompt": "Explain that 'has concluded' (present perfect) indicates a recent finding, and 'is' (simple present) states a current fact about the drug."
+  },
+  {
+    "id": 66,
+    "category": "Grammar",
+    "question": "If the policy ---- earlier, it ---- significant environmental benefits by now.",
+    "options": [
+      "was implemented / will have",
+      "had been implemented / would have yielded",
+      "has been implemented / yields",
+      "is implemented / had yielded",
+      "would be implemented / could yield"
+    ],
+    "answer": "had been implemented / would have yielded",
+    "explanationPrompt": "Explain that 'had been implemented' (past perfect) refers to a hypothetical past action, and 'would have yielded' describes the hypothetical result."
+  },
+  {
+    "id": 67,
+    "category": "Grammar",
+    "question": "The museum, ---- last year, ---- thousands of visitors annually.",
+    "options": [
+      "opened / attracts",
+      "opening / attracted",
+      "to open / will attract",
+      "being opened / has attracted",
+      "open / is attracting"
+    ],
+    "answer": "opened / attracts",
+    "explanationPrompt": "Explain that 'opened' (past participle) describes the museum’s status, and 'attracts' (simple present) indicates a general fact."
+  },
+  {
+    "id": 68,
+    "category": "Grammar",
+    "question": "I wish I ---- more about the topic before the presentation; I ---- more confident.",
+    "options": [
+      "knew / will feel",
+      "had known / would have felt",
+      "know / feel",
+      "have known / felt",
+      "was knowing / could feel"
+    ],
+    "answer": "had known / would have felt",
+    "explanationPrompt": "Explain that 'had known' (past perfect) expresses regret for a past situation, and 'would have felt' describes the hypothetical outcome."
+  },
+  {
+    "id": 69,
+    "category": "Prepositions",
+    "question": "The success of the project is contingent ---- securing funding ---- international donors.",
+    "options": [
+      "on / from",
+      "for / with",
+      "by / among",
+      "at / between",
+      "with / to"
+    ],
+    "answer": "on / from",
+    "explanationPrompt": "Explain that 'contingent on' indicates dependency, and 'from' specifies the source of funding."
+  },
+  {
+    "id": 70,
+    "category": "Prepositions",
+    "question": "The report focuses ---- the impact ---- urbanization on rural communities.",
+    "options": [
+      "on / of",
+      "for / with",
+      "by / among",
+      "in / between",
+      "to / from"
+    ],
+    "answer": "on / of",
+    "explanationPrompt": "Explain that 'focuses on' indicates the subject of the report, and 'of' connects the impact to urbanization."
+  },
+  {
+    "id": 71,
+    "category": "Conjunctions",
+    "question": "---- clean water is essential for survival, many regions still lack access to it.",
+    "options": [
+      "Since",
+      "Although",
+      "Unless",
+      "Because",
+      "Once"
+    ],
+    "answer": "Although",
+    "explanationPrompt": "Explain that 'Although' introduces a contrast between the importance of clean water and the lack of access in many regions."
+  },
+  {
+    "id": 72,
+    "category": "Conjunctions",
+    "question": "---- technology continues to advance, privacy concerns will likely intensify.",
+    "options": [
+      "If",
+      "Unless",
+      "As",
+      "While",
+      "Provided that"
+    ],
+    "answer": "As",
+    "explanationPrompt": "Explain that 'As' indicates a cause-and-effect relationship, fitting the context of technological advancement leading to privacy concerns."
+  },
+  {
+    "id": 73,
+    "category": "Reading Comprehension",
+    "question": "If renewable energy sources are not adopted widely, ----.",
+    "options": [
+      "fossil fuel consumption will decrease",
+      "global temperatures will continue to rise",
+      "economic growth will accelerate",
+      "urban areas will become more sustainable",
+      "public awareness will improve"
+    ],
+    "answer": "global temperatures will continue to rise",
+    "explanationPrompt": "Explain that this option logically completes the conditional sentence, as lack of renewable energy adoption leads to continued reliance on fossil fuels, causing temperature rises."
+  },
+  {
+    "id": 74,
+    "category": "Reading Comprehension",
+    "question": "While urbanization drives economic development, ----.",
+    "options": [
+      "it can strain infrastructure and resources",
+      "rural areas benefit from increased investment",
+      "public transportation systems improve",
+      "environmental conservation becomes easier",
+      "population growth slows down"
+    ],
+    "answer": "it can strain infrastructure and resources",
+    "explanationPrompt": "Explain that 'While' introduces a contrast between urbanization’s economic benefits and its strain on infrastructure."
+  },
+  {
+    "id": 75,
+    "category": "Translation",
+    "question": "The preservation of historical sites ensures that future generations can learn from the past.",
+    "options": [
+      "Tarihi sitlerin korunması, gelecek nesillerin geçmişten ders almasını sağlar.",
+      "Tarihi alanların korunması, gelecek nesillerin geçmişi öğrenmesini garanti eder.",
+      "Tarihi yerlerin korunması, gelecek nesillerin geçmişten bilgi edinmesini sağlar.",
+      "Tarihi sitlerin korunması, gelecek nesillerin geçmişi anlamasını mümkün kılar.",
+      "Tarihi bölgelerin korunması, gelecek nesillerin geçmişten öğrenmesini temin eder."
+    ],
+    "answer": "Tarihi sitlerin korunması, gelecek nesillerin geçmişten ders almasını sağlar.",
+    "explanationPrompt": "Explain that this option accurately translates 'ensures' as 'sağlar' and 'learn from the past' as 'geçmişten ders almasını.'"
+  },
+  {
+    "id": 76,
+    "category": "Translation",
+    "question": "Yenilenebilir enerji kaynaklarının kullanımı, karbon emisyonlarını azaltır ve çevreyi korur.",
+    "options": [
+      "The use of renewable energy sources reduces carbon emissions and protects the environment.",
+      "Renewable energy use lowers emissions and preserves the environment.",
+      "Using renewable energy sources decreases carbon output and safeguards nature.",
+      "Renewable energy adoption reduces emissions and supports environmental protection.",
+      "The utilization of renewable energy cuts carbon emissions and conserves the environment."
+    ],
+    "answer": "The use of renewable energy sources reduces carbon emissions and protects the environment.",
+    "explanationPrompt": "Explain that this option precisely translates 'karbon emisyonlarını azaltır' as 'reduces carbon emissions' and 'çevreyi korur' as 'protects the environment.'"
+  },
+  {
+    "id": 77,
+    "category": "Paragraph Completion",
+    "question": "Advances in medical technology have improved patient outcomes significantly. ---- However, access to these technologies remains unequal across regions.",
+    "options": [
+      "They enable early diagnosis and effective treatments.",
+      "Hospitals are adopting sustainable energy practices.",
+      "Many doctors prefer traditional treatment methods.",
+      "Pharmaceutical companies face regulatory challenges.",
+      "Healthcare costs have remained stable."
+    ],
+    "answer": "They enable early diagnosis and effective treatments.",
+    "explanationPrompt": "Explain that this option logically connects medical technology’s benefits with the issue of unequal access."
+  },
+  {
+    "id": 78,
+    "category": "Sentence Rephrasing",
+    "question": "Although public transportation reduces traffic congestion, it requires significant government investment.",
+    "options": [
+      "Public transportation alleviates traffic congestion, but it demands substantial government funding.",
+      "Despite reducing traffic, public transportation needs minimal investment.",
+      "Public transportation eases congestion, yet it requires no government support.",
+      "While public transportation reduces traffic, it is cost-free to implement.",
+      "Public transportation decreases congestion, but its benefits are limited."
+    ],
+    "answer": "Public transportation alleviates traffic congestion, but it demands substantial government funding.",
+    "explanationPrompt": "Explain that this option accurately rephrases the original, using 'alleviates' for 'reduces' and maintaining the contrast with 'but.'"
+  },
+  {
+    "id": 79,
+    "category": "Irrelevant Sentence",
+    "question": "Which sentence is irrelevant in the following passage? (I) Climate change is affecting global agriculture. (II) Rising temperatures reduce crop yields. (III) Farmers are adopting drought-resistant crops. (IV) Electric vehicles are reducing urban emissions. (V) Irrigation systems are being upgraded to conserve water.",
+    "options": [
+      "I",
+      "II",
+      "III",
+      "IV",
+      "V"
+    ],
+    "answer": "IV",
+    "explanationPrompt": "Explain that sentence IV about electric vehicles is unrelated to the passage’s focus on climate change and agriculture."
+  },
+  {
+    "id": 80,
+    "category": "Phrasal Verbs",
+    "question": "The manager decided to ---- the meeting due to unforeseen circumstances.",
+    "options": [
+      "call off",
+      "bring up",
+      "take over",
+      "put up with",
+      "carry out"
+    ],
+    "answer": "call off",
+    "explanationPrompt": "Explain that 'call off' means to cancel, fitting the context of postponing a meeting."
+  },
+  {
+    "id": 81,
+    "category": "Vocabulary",
+    "question": "The scientist’s findings were ---- by peers due to their groundbreaking nature.",
+    "options": [
+      "dismissed",
+      "celebrated",
+      "ignored",
+      "criticized",
+      "overlooked"
+    ],
+    "answer": "celebrated",
+    "explanationPrompt": "Explain that 'celebrated' means widely praised, fitting the context of groundbreaking scientific findings."
+  },
+  {
+    "id": 82,
+    "category": "Vocabulary",
+    "question": "The government’s failure to act promptly was seen as a ---- of responsibility.",
+    "options": [
+      "fulfillment",
+      "neglect",
+      "promotion",
+      "enhancement",
+      "justification"
+    ],
+    "answer": "neglect",
+    "explanationPrompt": "Explain that 'neglect' means failure to take proper action, suitable for describing the government’s inaction."
+  },
+  {
+    "id": 83,
+    "category": "Vocabulary",
+    "question": "The new initiative aims to ---- collaboration between universities and industries.",
+    "options": [
+      "discourage",
+      "foster",
+      "restrict",
+      "complicate",
+      "eliminate"
+    ],
+    "answer": "foster",
+    "explanationPrompt": "Explain that 'foster' means to encourage or promote, fitting the context of promoting collaboration."
+  },
+  {
+    "id": 84,
+    "category": "Vocabulary",
+    "question": "The economic recovery was ---- by global supply chain disruptions.",
+    "options": [
+      "accelerated",
+      "hampered",
+      "supported",
+      "simplified",
+      "enhanced"
+    ],
+    "answer": "hampered",
+    "explanationPrompt": "Explain that 'hampered' means hindered or obstructed, suitable for describing disruptions to recovery."
+  },
+  {
+    "id": 85,
+    "category": "Grammar",
+    "question": "The policy, ---- last year, ---- significant controversy among stakeholders.",
+    "options": [
+      "introduced / sparked",
+      "introducing / sparks",
+      "to introduce / has sparked",
+      "being introduced / will spark",
+      "introduce / had sparked"
+    ],
+    "answer": "introduced / sparked",
+    "explanationPrompt": "Explain that 'introduced' (past participle) describes the policy’s status, and 'sparked' (simple past) indicates a past outcome."
+  },
+  {
+    "id": 86,
+    "category": "Grammar",
+    "question": "If the team ---- more time, they ---- a more comprehensive report.",
+    "options": [
+      "has / will produce",
+      "had / would produce",
+      "have / produce",
+      "had had / would have produced",
+      "is having / could produce"
+    ],
+    "answer": "had had / would have produced",
+    "explanationPrompt": "Explain that 'had had' (past perfect) refers to a hypothetical past situation, and 'would have produced' describes the hypothetical result."
+  },
+  {
+    "id": 87,
+    "category": "Grammar",
+    "question": "The technology, ---- widely used, ---- the way businesses operate.",
+    "options": [
+      "being / transforms",
+      "to be / transformed",
+      "which is / has transformed",
+      "that was / is transforming",
+      "used / will transform"
+    ],
+    "answer": "which is / has transformed",
+    "explanationPrompt": "Explain that 'which is' (relative clause) describes the technology, and 'has transformed' (present perfect) indicates a completed action with ongoing impact."
+  },
+  {
+    "id": 88,
+    "category": "Grammar",
+    "question": "I regret ---- the course earlier; it ---- my career significantly.",
+    "options": [
+      "not taking / will advance",
+      "not to take / would advance",
+      "not having taken / would have advanced",
+      "to not take / has advanced",
+      "not taken / could advance"
+    ],
+    "answer": "not having taken / would have advanced",
+    "explanationPrompt": "Explain that 'not having taken' (gerund perfect) expresses regret for a past action, and 'would have advanced' describes the hypothetical outcome."
+  },
+  {
+    "id": 89,
+    "category": "Prepositions",
+    "question": "The research was conducted ---- collaboration ---- international scientists.",
+    "options": [
+      "in / with",
+      "for / among",
+      "by / of",
+      "at / between",
+      "with / from"
+    ],
+    "answer": "in / with",
+    "explanationPrompt": "Explain that 'in collaboration' indicates joint work, and 'with' specifies the group involved."
+  },
+  {
+    "id": 90,
+    "category": "Prepositions",
+    "question": "The decision was based ---- evidence ---- recent studies.",
+    "options": [
+      "on / from",
+      "for / with",
+      "by / among",
+      "in / between",
+      "to / of"
+    ],
+    "answer": "on / from",
+    "explanationPrompt": "Explain that 'based on' indicates the foundation of the decision, and 'from' specifies the source of evidence."
+  },
+  {
+    "id": 91,
+    "category": "Conjunctions",
+    "question": "---- poverty remains a global challenge, many organizations are working to alleviate it.",
+    "options": [
+      "Since",
+      "Although",
+      "Unless",
+      "Because",
+      "Once"
+    ],
+    "answer": "Although",
+    "explanationPrompt": "Explain that 'Although' introduces a contrast between the persistence of poverty and efforts to address it."
+  },
+  {
+    "id": 92,
+    "category": "Conjunctions",
+    "question": "---- renewable energy becomes more affordable, it will replace fossil fuels in many regions.",
+    "options": [
+      "If",
+      "Unless",
+      "As",
+      "While",
+      "Provided that"
+    ],
+    "answer": "As",
+    "explanationPrompt": "Explain that 'As' indicates a cause-and-effect relationship, fitting the context of affordability leading to replacement of fossil fuels."
+  },
+  {
+    "id": 93,
+    "category": "Reading Comprehension",
+    "question": "If public health measures are not enforced, ----.",
+    "options": [
+      "disease outbreaks may become more frequent",
+      "healthcare systems will become more efficient",
+      "vaccination rates will increase significantly",
+      "medical research will advance rapidly",
+      "hospital funding will improve"
+    ],
+    "answer": "disease outbreaks may become more frequent",
+    "explanationPrompt": "Explain that this option logically completes the conditional sentence, as lack of public health measures leads to increased disease outbreaks."
+  },
+  {
+    "id": 94,
+    "category": "Reading Comprehension",
+    "question": "While global trade fosters economic growth, ----.",
+    "options": [
+      "it can exacerbate income inequality",
+      "it reduces production costs universally",
+      "it eliminates cultural differences",
+      "it stabilizes political relations",
+      "it simplifies regulatory frameworks"
+    ],
+    "answer": "it can exacerbate income inequality",
+    "explanationPrompt": "Explain that 'While' introduces a contrast between trade’s economic benefits and its potential to worsen income inequality."
+  },
+  {
+    "id": 95,
+    "category": "Translation",
+    "question": "The rise in sea levels due to climate change endangers coastal communities worldwide.",
+    "options": [
+      "İklim değişikliği nedeniyle deniz seviyelerindeki yükselme, dünya çapındaki kıyı topluluklarını tehlikeye atıyor.",
+      "Deniz seviyelerindeki artış, iklim değişikliği yüzünden küresel kıyı topluluklarını tehdit ediyor.",
+      "İklim değişikliği sonucu deniz seviyesindeki yükselme, dünya kıyı topluluklarını etkiliyor.",
+      "Deniz seviyesindeki artış, iklim değişikliği nedeniyle kıyı topluluklarını dünya genelinde tehlikeye sokuyor.",
+      "İklim değişikliğinden kaynaklanan deniz seviyesi artışı, küresel kıyı topluluklarını riske atıyor."
+    ],
+    "answer": "İklim değişikliği nedeniyle deniz seviyelerindeki yükselme, dünya çapındaki kıyı topluluklarını tehlikeye atıyor.",
+    "explanationPrompt": "Explain that this option accurately translates 'endangers' as 'tehlikeye atıyor' and maintains the causal relationship with 'nedeniyle.'"
+  },
+  {
+    "id": 96,
+    "category": "Translation",
+    "question": "Eğitimde dijital teknolojilerin kullanımı, öğrenme sürecini daha erişilebilir ve etkili hale getiriyor.",
+    "options": [
+      "The use of digital technologies in education makes the learning process more accessible and effective.",
+      "Digital technology in education enhances learning accessibility and efficiency.",
+      "Using digital tools in education improves the accessibility and effectiveness of learning.",
+      "Digital technologies in education make learning more available and productive.",
+      "The application of digital technology in education supports accessible and efficient learning."
+    ],
+    "answer": "The use of digital technologies in education makes the learning process more accessible and effective.",
+    "explanationPrompt": "Explain that this option precisely translates 'erişilebilir ve etkili' as 'accessible and effective' and maintains the original structure."
+  },
+  {
+    "id": 97,
+    "category": "Paragraph Completion",
+    "question": "Electric vehicles are becoming more popular due to their environmental benefits. ---- This trend is encouraging governments to invest in charging infrastructure.",
+    "options": [
+      "They reduce greenhouse gas emissions significantly.",
+      "Fuel prices are increasing globally.",
+      "Public transportation remains more affordable.",
+      "Battery production is becoming less expensive.",
+      "Urban planning focuses on reducing traffic."
+    ],
+    "answer": "They reduce greenhouse gas emissions significantly.",
+    "explanationPrompt": "Explain that this option logically connects the popularity of electric vehicles with their environmental benefits, leading to government investment."
+  },
+  {
+    "id": 98,
+    "category": "Sentence Rephrasing",
+    "question": "Although deforestation contributes to climate change, reforestation efforts can mitigate its effects.",
+    "options": [
+      "Deforestation fuels climate change, but reforestation can reduce its impact.",
+      "While deforestation worsens climate change, reforestation has no effect.",
+      "Deforestation causes climate change, yet reforestation increases emissions.",
+      "Reforestation mitigates climate change, despite deforestation’s contributions.",
+      "Deforestation and reforestation both contribute to climate change."
+    ],
+    "answer": "Deforestation fuels climate change, but reforestation can reduce its impact.",
+    "explanationPrompt": "Explain that this option accurately rephrases the original, using 'fuels' for 'contributes' and maintaining the contrast with 'but.'"
+  },
+  {
+    "id": 99,
+    "category": "Irrelevant Sentence",
+    "question": "Which sentence is irrelevant in the following passage? (I) Telecommuting has become more common due to technological advancements. (II) It allows employees to work from home effectively. (III) Many companies offer flexible work schedules. (IV) The tourism industry is recovering slowly. (V) Remote work reduces commuting time and costs.",
+    "options": [
+      "I",
+      "II",
+      "III",
+      "IV",
+      "V"
+    ],
+    "answer": "IV",
+    "explanationPrompt": "Explain that sentence IV about the tourism industry is unrelated to the passage’s focus on telecommuting and its benefits."
+  },
+  {
+    "id": 100,
+    "category": "Phrasal Verbs",
+    "question": "The organization decided to ---- the outdated software to improve system efficiency.",
+    "options": [
+      "phase out",
+      "bring up",
+      "take over",
+      "put off",
+      "carry on"
+    ],
+    "answer": "phase out",
+    "explanationPrompt": "Explain that 'phase out' means to gradually eliminate, fitting the context of replacing outdated software."
   }
 ]
