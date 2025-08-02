@@ -39,13 +39,3 @@
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: #a5b4fc;
 } 
-
-.background-stars {
-  background-color: #0f172a; /* veya istediğin koyu renk */
-  background-image: radial-gradient(yellow 1px, transparent 1px);
-  background-size: 18px 18px;
-  background-repeat: repeat;
-  background-position: center;
-}
-
-
