@@ -815,8 +815,8 @@ const handleRemoveLearnedWord = async (wordToRemove) => {
               className="fixed bottom-8 right-8 z-40 bg-sky-500 hover:bg-sky-600 text-white p-4 rounded-full shadow-lg transition-all transform hover:scale-110 focus:outline-none ring-4 ring-white/30"
             >
               <img
-                src="/images/avatar.png"
-                alt="Sohbet Aç"
+                src="https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/public/images/avatar.png"
+                alt="Chat Aç"
                 className="w-8 h-8"
               />
             </button>
@@ -1038,3 +1038,4 @@ const handleRemoveLearnedWord = async (wordToRemove) => {
 };
 
 export default App;
+
