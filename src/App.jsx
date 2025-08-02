@@ -823,7 +823,7 @@ const handleRemoveLearnedWord = async (wordToRemove) => {
           )}
 
           {isChatOpen && (
-            <div className="fixed inset-0 bg-slate-900 bg-opacity-50 backdrop-blur-sm flex justify-center items-center z-50">
+            <div className="fixed bottom-24 right-8 z-50 w-[350px] h-[500px] bg-white dark:bg-gray-900 shadow-2xl rounded-xl flex flex-col overflow-hidden border border-gray-300 dark:border-gray-700 transition-all">
               <div className="bg-violet-50 dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-2xl h-[85vh] max-h-[700px] flex flex-col relative">
                 <button
                   onClick={() => setIsChatOpen(false)}
@@ -1038,4 +1038,5 @@ const handleRemoveLearnedWord = async (wordToRemove) => {
 };
 
 export default App;
+
 
