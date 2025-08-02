@@ -15,12 +15,13 @@ import {
   sendPasswordResetEmail
 } from 'firebase/auth';
 import { doc, setDoc, onSnapshot, updateDoc, arrayUnion, arrayRemove, serverTimestamp } from 'firebase/firestore';
-import { GraduationCap, LayoutDashboard, Component, BookOpen, BrainCircuit, Map, Loader2, XCircle, Chrome, Sun, Moon, User, BellRing, BookText } from 'lucide-react';
+import { GraduationCap, LayoutDashboard, Component, BookOpen, BrainCircuit, Map, Loader2, XCircle, Chrome, Sun, Moon, User, BellRing, BookText, Info } from 'lucide-react';
 
 // Firebase yapılandırma ve başlatma
 import { auth, db, firebaseConfig } from './config/firebase';
 
 // Ana uygulama bileşenleri (orijinal halleriyle)
+import AboutPage from './components/AboutPage';
 import Dashboard from './components/Dashboard';
 import WordComparer from './components/WordComparer';
 import ReadingPractice from './components/ReadingPractice';
@@ -683,6 +684,9 @@ const handleRemoveLearnedWord = async (wordToRemove) => {
 
   const renderAppContent = () => {
     switch (activeTab) {
+          
+      case 'about':
+        return <About />;
       case 'dashboard': 
         // App12.jsx'ten gelen fark: Dashboard'a ek proplar eklendi
         return <Dashboard 
@@ -791,6 +795,7 @@ const handleRemoveLearnedWord = async (wordToRemove) => {
             <nav className="flex flex-col space-y-2">
               <NavItem tabName="profile" icon={<User className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Profilim</NavItem>
 
+             <NavItem tabName="about" icon={<Info className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Hakkında</NavItem>
               <NavItem tabName="dashboard" icon={<LayoutDashboard className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>İlerleme Paneli</NavItem>
               <NavItem tabName="word" icon={<Component className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Anlam Karşılaştırma</NavItem>
               <NavItem tabName="reading" icon={<BookOpen className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Okuma Alıştırması</NavItem>
@@ -1065,5 +1070,3 @@ const handleRemoveLearnedWord = async (wordToRemove) => {
 };
 
 export default App;
-
-
