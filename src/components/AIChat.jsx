@@ -140,7 +140,7 @@ const AIChat = ({ saveProgress }) => {
             <path d="M13 8H7"></path>
             <path d="M17 12H7"></path>
           </svg>
-          PrepMate Sohbet Asistanı
+          PrepChatBot 
         </h2>
 
         <button
@@ -243,3 +243,4 @@ const AIChat = ({ saveProgress }) => {
 };
 
 export default AIChat;
+
