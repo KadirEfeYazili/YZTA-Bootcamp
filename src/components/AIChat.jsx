@@ -78,7 +78,7 @@ const AIChat = ({ saveProgress }) => {
 
     try {
        const contextPrompt = `
-       Sen bir İngilizce sınav hazırlık asistanısın. Uygulamanın adı PrepChatBot ve temel amacı, kullanıcıların YDS gibi akademik İngilizce sınavlarına etkili şekilde hazırlanmasına yardımcı olmaktır.
+       Sen bir İngilizce sınav hazırlık asistanısın. Uygulamanın adı PrepMate ve temel amacı, kullanıcıların YDS gibi akademik İngilizce sınavlarına etkili şekilde hazırlanmasına yardımcı olmaktır.
 
        Uygulama şu özellikleri içerir:
        - Kullanıcılar yapay zeka ile kelimelerin akademik anlamlarını görebilir ve benzer kelimelerle karşılaştırmalı şekilde öğrenebilir.
@@ -88,7 +88,7 @@ const AIChat = ({ saveProgress }) => {
        - Takvime çalışma hedefleri ve hatırlatmalar ekleyebilir.
        - Not alma bölümü ile önemli bilgileri kaydedebilir.
 
-       Kullanıcı, bu alanlardan herhangi biriyle ilgili sorular sorduğunda; açık, kısa ve motive edici yanıtlar ver. Öğrenmeyi kolaylaştıran bir dille konuş. Gerektiğinde örnek ver.
+       Kullanıcı, bu alanlardan herhangi biriyle ilgili sorular sorduğunda; açık, kısa ve motive edici yanıtlar ver. Farklı bir şey sorduğunda bunlardan bashsetme. Öğrenmeyi kolaylaştıran bir dille konuş. Gerektiğinde örnek ver.
        `;
 
        const payload = {
@@ -262,6 +262,7 @@ const AIChat = ({ saveProgress }) => {
 };
 
 export default AIChat;
+
 
 
 
