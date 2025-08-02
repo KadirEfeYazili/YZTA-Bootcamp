@@ -82,7 +82,7 @@ const AIChat = ({ saveProgress }) => {
 
        Uygulama şu özellikleri içerir:
        - Kullanıcılar yapay zeka ile kelimelerin akademik anlamlarını görebilir ve benzer kelimelerle karşılaştırmalı şekilde öğrenebilir.
-       - Kelime kartları (flashcards) aracılığıyla kelime ezberleyebilir.
+       - Yapay zeka ile üretilen Kelime kartları (flashcards) aracılığıyla kelime ezberleyebilir.
        - Quiz çözerek öğrendiklerini test edebilir.
        - Yapay zeka destekli Akıl haritası oluşturucu ile konuları zihinsel olarak organize edebilir.
        - Takvime çalışma hedefleri ve hatırlatmalar ekleyebilir.
@@ -262,6 +262,7 @@ const AIChat = ({ saveProgress }) => {
 };
 
 export default AIChat;
+
 
 
 
