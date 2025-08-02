@@ -751,7 +751,7 @@ const handleRemoveLearnedWord = async (wordToRemove) => {
   }
 
   return (
-    <div className={`${darkMode ? 'dark' : ''} flex h-screen background-stars bg-violet-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-sans`}>
+    <div className={`${darkMode ? 'dark' : ''} flex h-screen bg-violet-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-sans`}>
       {currentUser ? (
         <>
           <aside
@@ -805,7 +805,8 @@ const handleRemoveLearnedWord = async (wordToRemove) => {
             </nav>
           </aside>
 
-          <main className="flex-1 overflow-y-auto bg-violet-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100">
+          <main className="relative flex-1 overflow-y-auto bg-violet-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100">
+            <div className="absolute inset-0 z-0 background-stars pointer-events-none" />
             {statusMessage && (
               <div className="mb-4 p-3 bg-blue-100 text-blue-800 rounded-lg text-center">
                 {statusMessage}
@@ -1058,19 +1059,3 @@ const handleRemoveLearnedWord = async (wordToRemove) => {
 };
 
 export default App;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
