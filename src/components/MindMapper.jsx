@@ -16,7 +16,7 @@ const MindMapper = ({ saveProgress, userProgress }) => {
 
     /**
      * Kullanıcının konusuna göre akıl haritası metni oluşturmayı yönetir.
-     * Hiyerarşik bir metin oluşturmak için gemini-2.0-flash modelini kullanır.
+     * Hiyerarşik bir metin oluşturmak için gemini-2.5-flash modelini kullanır.
      */
     const handleGenerateText = async () => {
         if (!topic.trim()) { setError('Lütfen bir konu girin.'); return; }
@@ -71,12 +71,6 @@ const MindMapper = ({ saveProgress, userProgress }) => {
         console.log('userProgress:', userProgress);
         console.log('saveProgress fonksiyonu:', saveProgress);
 
-        // ✅ Kullanıcı birden fazla kelime girerse engelle
-        if (topicToMark.includes(",") || topicToMark.includes(" ")) {
-            setError('Lütfen aynı anda sadece bir kelime girin (boşluk ve virgül kullanmayın).');
-            return;
-        }
-
         if (!topicToMark) {
             setError('Lütfen öğrenildi olarak işaretlemek için bir konu girin.');
             return;
@@ -92,7 +86,7 @@ const MindMapper = ({ saveProgress, userProgress }) => {
             console.log('userProgress undefined, boş obje ile devam ediliyor...');
         }
 
-        // ✅ learnedWords içinde varsa ekleme
+        // learnedWords içinde varsa ekleme
         if (learnedWords.includes(topicToMark)) {
             setError(`"${topicToMark}" konusu zaten öğrenilenler listenizde.`);
             return;
@@ -177,7 +171,6 @@ const MindMapper = ({ saveProgress, userProgress }) => {
                 </div>
             )}
             
-            {/* Öğrenilen Konular bölümü (isteğe bağlı, Dashboard'da zaten var) */}
             {learnedWords.length > 0 && (
                 <div className="mt-6">
                     <h3 className="text-xl font-semibold text-slate-800 mb-4 text-center">Öğrenilen Konular</h3>
@@ -195,4 +188,3 @@ const MindMapper = ({ saveProgress, userProgress }) => {
 };
 
 export default MindMapper;
-
