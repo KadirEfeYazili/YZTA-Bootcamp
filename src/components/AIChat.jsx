@@ -129,8 +129,8 @@ const AIChat = ({ saveProgress }) => {
         PrepMate Sohbet Asistanı
       </h2>
 
-      <div className="flex-1 bg-white dark:bg-slate-800 border border-violet-200 dark:border-violet-700 rounded-xl shadow-inner p-4 mb-4 overflow-y-auto flex flex-col-reverse custom-scrollbar">
-        {chatHistory.slice().reverse().map((message, index) => (
+      <div className=""flex-1 bg-white dark:bg-slate-800 border border-violet-200 dark:border-violet-700 rounded-xl shadow-inner p-4 mb-4 overflow-y-auto flex flex-col custom-scrollbar">
+          {chatHistory.map((message, index) => (
           <div
             key={index}
             className={`mb-4 flex items-end gap-3 ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
@@ -218,3 +218,4 @@ const AIChat = ({ saveProgress }) => {
 };
 
 export default AIChat;
+
