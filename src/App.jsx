@@ -825,7 +825,7 @@ const handleRemoveLearnedWord = async (wordToRemove) => {
            {isChatOpen && (
              <div
                className="fixed top-0 right-4 z-50 bg-violet-50 dark:bg-slate-800 rounded-l-2xl shadow-2xl h-screen flex flex-col"
-               style={{ width: '320px', maxWidth: '25vw', minWidth: '280px' }}
+               style={{ width: '480px', maxWidth: '35vw', minWidth: '320px' }}
              >
                <button
                  onClick={() => setIsChatOpen(false)}
@@ -1041,5 +1041,6 @@ const handleRemoveLearnedWord = async (wordToRemove) => {
 };
 
 export default App;
+
 
 
