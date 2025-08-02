@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Lightbulb,
   BarChart2,
@@ -56,10 +56,9 @@ const Dashboard = ({ 
   // learnedWords'un basit bir kelime dizisi veya kelime nesneleri dizisi olabileceğini kontrol et
   const currentLearnedWords = learnedWords.map(word => {
     if (typeof word === 'string') {
-      // Eğer kelime string ise, onu lastReviewed tarihi olan bir nesneye dönüştür
-      return { word: word, lastReviewed: new Date(0) }; // Çok eski bir tarih ata
+      return { word: word, lastReviewed: new Date(0) };
     }
-    return word; // Zaten nesne ise olduğu gibi döndür
+    return word;
   });
 
   // İstatistik hesaplamaları
@@ -69,9 +68,8 @@ const Dashboard = ({ 
   
   // Gözden geçirilecek kelimeleri filtrele
   const wordsToReview = currentLearnedWords.filter(wordObj => {
-    // wordObj'nin ve lastReviewed'un tanımlı olduğundan emin ol
     if (!wordObj || !wordObj.lastReviewed) {
-      return true; // lastReviewed yoksa gözden geçirilmesi gerekir
+      return true;
     }
     
     let lastReviewedDate;
@@ -82,13 +80,43 @@ const Dashboard = ({ 
     }
 
     const threeDaysAgo = new Date();
-    threeDaysAgo.setDate(threeDaysAgo.getDate() - 3); // 3 gün öncesini hesapla
+    threeDaysAgo.setDate(threeDaysAgo.getDate() - 3);
     
     return lastReviewedDate < threeDaysAgo;
   });
 
+  // Yeni fonksiyon: Bir kelimeyi gözden geçirildi olarak işaretle
+  const handleReviewWord = async (word) => {
+    try {
+      // Öğrenilen kelimeler listesinde ilgili kelimeyi bul
+      const updatedLearnedWords = currentLearnedWords.map(wordObj => {
+        if (wordObj.word === word) {
+          // lastReviewed tarihini şimdiki zamanla güncelle
+          return { ...wordObj, lastReviewed: new Date() };
+        }
+        return wordObj;
+      });
+      
+      // Güncellenmiş listeyi kaydet
+      await saveProgress({
+        ...safeUserProgress,
+        learnedWords: updatedLearnedWords,
+        // Bir etkinlik kaydı ekle
+        activities: [
+          ...safeUserProgress.activities,
+          { text: `"${word}" kelimesi gözden geçirildi.`, timestamp: new Date() },
+        ],
+      });
+      console.log(`"${word}" kelimesi başarıyla gözden geçirildi.`);
+    } catch (error) {
+      console.error("Kelime gözden geçirilirken bir hata oluştu:", error);
+    }
+  };
+
   return (
     <div className="p-8 animate-fade-in">
+      {/* ... (Diğer tüm kodlar aynı kalıyor) ... */}
+      
       <h2 className="text-3xl font-bold text-slate-800 dark:text-white mb-8 flex items-center">
         <svg
           className="mr-3 text-violet-600"
@@ -317,7 +345,7 @@ const Dashboard = ({ 
                 <li key={index} className="flex items-center justify-between bg-violet-50 dark:bg-slate-700 p-3 rounded-lg shadow-sm">
                   <span className="font-medium text-violet-800 dark:text-violet-200">{wordObj.word}</span>
                   <button
-                    onClick={() => console.log('Gözden Geçir:', wordObj.word)} 
+                    onClick={() => handleReviewWord(wordObj.word)}
                     className="text-sm text-white bg-violet-600 hover:bg-violet-700 px-4 py-1 rounded-full transition-colors duration-200"
                   >
                     Gözden Geçir
