@@ -45,12 +45,12 @@ const Dashboard = ({
   const [showWordCard, setShowWordCard] = useState(false);
   const [showQuiz, setShowQuiz] = useState(false);
   const [showMindMap, setShowMindMap] = useState(false);
+  
   useEffect(() => {
     console.log('Dashboard Bileşeni yüklendi.');
     console.log('Dashboard useEffect: userProgress', userProgress);
     if (userProgress) {
       console.log('Dashboard useEffect: userProgress.reading', userProgress.reading);
-      console.log('Dashboard useEffect: userProgress.grammar', userProgress.grammar);
       console.log('Dashboard useEffect: userProgress.learnedWords', userProgress.learnedWords);
       console.log('Dashboard useEffect: userProgress.activities', userProgress.activities);
     } else {
@@ -60,15 +60,13 @@ const Dashboard = ({
 
   const safeUserProgress = userProgress || {
     reading: { correct: 0, total: 0 },
-    grammar: { correct: 0, total: 0 },
     learnedWords: [],
     activities: [],
     chatHistory: [],
   };
 
-  const { reading, grammar, learnedWords, activities } = safeUserProgress;
+  const { reading, learnedWords, activities } = safeUserProgress;
   const currentReading = reading || { correct: 0, total: 0 };
-  const currentGrammar = grammar || { correct: 0, total: 0 };
   const currentActivities = activities || [];
   const currentLearnedWords = learnedWords || [];
 
@@ -76,7 +74,7 @@ const Dashboard = ({
     console.log('Dashboard: currentLearnedWords güncellendi:', currentLearnedWords);
   }, [currentLearnedWords]);
 
-  // İstatistik kartları için veri hesaplama
+  // İstatistik hesaplamaları
   const readingPercentage = calculateProficiencyLevel(safeUserProgress);
   const totalWords = currentLearnedWords.length;
   const totalActivities = currentActivities.length;
@@ -162,7 +160,8 @@ const Dashboard = ({
           </div>
         )}
       </div>
-      {/* İstatistik Kartları */}
+
+      {/* Ana İstatistik Kartları */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         {/* Okuma Başarısı */}
         <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg border border-violet-100 dark:border-slate-700">
@@ -182,6 +181,24 @@ const Dashboard = ({
           </div>
         </div>
 
+        {/* Toplam Etkinlik */}
+        <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg border border-violet-100 dark:border-slate-700">
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="text-lg font-semibold text-slate-700 dark:text-white mb-2">
+                Toplam Etkinlik
+              </h3>
+              <p className="text-3xl font-bold text-sky-600">
+                {totalActivities}
+              </p>
+              <p className="text-sm text-slate-500 dark:text-slate-400">
+                etkinlik tamamlandı
+              </p>
+            </div>
+            <Activity className="text-sky-500" size={48} />
+          </div>
+        </div>
+
         {/* Öğrenilen Kelimeler */}
         <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg border border-violet-100 dark:border-slate-700">
           <div className="flex items-center justify-between">
@@ -197,24 +214,6 @@ const Dashboard = ({
               </p>
             </div>
             <GraduationCap className="text-amber-500" size={48} />
-          </div>
-        </div>
-
-        {/* Toplam Etkinlik */}
-        <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg border border-violet-100 dark:border-slate-700">
-          <div className="flex items-center justify-between">
-            <div>
-              <h3 className="text-lg font-semibold text-slate-700 dark:text-white mb-2">
-                Toplam Etkinlik
-              </h3>
-              <p className="text-3xl font-bold text-rose-600">
-                {totalActivities}
-              </p>
-              <p className="text-sm text-slate-500 dark:text-slate-400">
-                aktivite tamamlandı
-              </p>
-            </div>
-            <Activity className="text-rose-500" size={48} />
           </div>
         </div>
       </div>
@@ -324,3 +323,4 @@ const Dashboard = ({
 };
 
 export default Dashboard;
+
