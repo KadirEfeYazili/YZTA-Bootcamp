@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Send, Loader2 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
-// arrayUnion'a bu dosyada artık gerek yok, çünkü mantık üst bileşene taşındı.
 import { serverTimestamp } from 'firebase/firestore';
 
 const formatTime = (date) => {
@@ -21,7 +20,7 @@ const TypingDots = () => {
   return <span>Yanıt yazıyor{dots}</span>;
 };
 
-const AIChat = ({ saveProgress }) => {
+const AIChat = ({ saveProgress, isVisible }) => {
   const [prompt, setPrompt] = useState('');
   const [chatHistory, setChatHistory] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -47,15 +46,13 @@ const AIChat = ({ saveProgress }) => {
 
     try {
       const payload = { contents: [{ role: 'user', parts: [{ text: userPrompt }] }] };
-      // GÜVENLİK UYARISI: API anahtarını kod içinde açıkça yazmak risklidir.
-      // Bunu bir ortam değişkeni (.env dosyası) ile yönetmeniz önerilir.
-      const apiKey = "AIzaSyCSuzlRr7AmF59CsaNC9S5Asa-U9Rpx7Mo";
+      const apiKey = "AIzaSyCSuzlRr7AmF59CsaNC9S5Asa-U9Rpx7Mo"; 
       const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
       
       const response = await fetch(apiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload )
+        body: JSON.stringify(payload)
       });
 
       if (!response.ok) {
@@ -67,8 +64,6 @@ const AIChat = ({ saveProgress }) => {
       
       setChatHistory(prev => [...prev, { role: 'ai', text: aiResponse, timestamp: new Date() }]);
 
-      // HATA 1 ÇÖZÜMÜ: `saveProgress` çağrısı düzeltildi.
-      // Artık `arrayUnion` sarmalayıcısı olmadan, sadece eklenecek nesneyi gönderiyoruz.
       const newActivityObject = {
         text: `AI Asistanına bir soru sordunuz: "${userPrompt.substring(0, 50)}${userPrompt.length > 50 ? '...' : ''}"`,
         timestamp: serverTimestamp()
@@ -86,10 +81,11 @@ const AIChat = ({ saveProgress }) => {
 
   const handleQuickCommandClick = (cmd) => {
     setPrompt(cmd);
+    handleSendMessage(); // Direkt mesaj gönder
   };
 
   return (
-    <div className="p-6 animate-fade-in flex flex-col h-full">
+    <div className={`p-6 animate-fade-in flex flex-col h-full ${isVisible ? '' : 'hidden'}`}>
       <h2 className="text-2xl font-bold text-slate-800 dark:text-white mb-4 flex items-center">
         <svg
           className="mr-3 text-sky-600 dark:text-sky-400"
@@ -109,19 +105,19 @@ const AIChat = ({ saveProgress }) => {
         PrepMate Sohbet Asistanı
       </h2>
 
-      <div className="mb-4 flex flex-wrap gap-2">
+      <div className="mb-4 flex overflow-x-auto gap-2 pb-2 custom-scrollbar">
         {quickCommands.map((cmd, i) => (
           <button
             key={i}
             onClick={() => handleQuickCommandClick(cmd)}
-            className="bg-violet-200 dark:bg-violet-700 text-violet-900 dark:text-violet-200 rounded-full px-4 py-1 text-sm hover:bg-violet-300 dark:hover:bg-violet-600 transition"
+            className="bg-violet-200 dark:bg-violet-700 text-violet-900 dark:text-violet-200 rounded-full px-4 py-1 text-sm hover:bg-violet-300 dark:hover:bg-violet-600 transition whitespace-nowrap"
           >
             {cmd}
           </button>
         ))}
       </div>
 
-      <div className="flex-1 bg-white dark:bg-slate-800 border border-violet-200 dark:border-violet-700 rounded-xl shadow-inner p-4 mb-4 overflow-y-auto flex flex-col-reverse custom-scrollbar">
+      <div className="flex-1 bg-white dark:bg-slate-800 border border-violet-200 dark:border-violet-700 rounded-xl shadow-inner p-4 mb-4 overflow-y-auto flex flex-col-reverse custom-scrollbar w-full">
         {chatHistory.slice().reverse().map((message, index) => (
           <div
             key={index}
@@ -130,15 +126,14 @@ const AIChat = ({ saveProgress }) => {
             }`}
           >
             {message.role === 'ai' && (
-              // HATA 2 ÇÖZÜMÜ: Resim yolu düzeltildi.
               <img
-                src="https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/public/images/avatar.png"
+                src="/images/avatar.png"
                 alt="AI asistanı avatarı"
                 className="w-10 h-10 rounded-full flex-shrink-0 object-cover"
               />
             )}
             <div
-              className={`inline-block p-3 rounded-lg max-w-[80%] prose ${
+              className={`inline-block p-2 rounded-lg max-w-[85%] prose ${
                 message.role === 'user'
                   ? 'bg-violet-600 text-white rounded-br-none dark:bg-violet-700'
                   : 'bg-violet-100 text-slate-800 rounded-bl-none dark:bg-violet-900 dark:text-violet-300'
@@ -154,20 +149,19 @@ const AIChat = ({ saveProgress }) => {
 
         {isTypingEffect && (
           <div className="mb-4 flex items-end gap-3 justify-start">
-            {/* HATA 2 ÇÖZÜMÜ: Resim yolu düzeltildi. */}
             <img
-              src="/images/avatar.png"
+              src="https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/public/images/avatar.png"
               alt="AI avatar"
               className="w-10 h-10 rounded-full flex-shrink-0 object-cover"
             />
-            <div className="inline-block px-4 py-3 rounded-lg max-w-[80%] bg-violet-100 text-slate-600 dark:bg-violet-900 dark:text-violet-300 select-none">
+            <div className="inline-block px-4 py-2 rounded-lg max-w-[85%] bg-violet-100 text-slate-600 dark:bg-violet-900 dark:text-violet-300 select-none">
               <TypingDots />
             </div>
           </div>
         )}
 
         {error && (
-          <div className="bg-red-100 dark:bg-red-900 border border-red-200 dark:border-red-700 text-red-700 dark:text-red-400 px-4 py-3 rounded-lg my-2">
+          <div className="bg-red-100 dark:bg-red-900 border border-red-200 dark:border-red-700 text-red-700 dark:text-red-400 px-4 py-2 rounded-lg my-2">
             {error}
           </div>
         )}
@@ -200,4 +194,3 @@ const AIChat = ({ saveProgress }) => {
 };
 
 export default AIChat;
-
