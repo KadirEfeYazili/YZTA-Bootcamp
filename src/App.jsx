@@ -910,10 +910,17 @@ const handleRemoveLearnedWord = async (wordToRemove) => {
           )}
         </>
       ) : (
-        <div className="min-h-screen flex items-center justify-center bg-white text-gray-800 p-4 w-full">
-          <div className="bg-white p-8 rounded-xl shadow-none w-full max-w-md text-center">
-            <h2 className="text-3xl font-normal text-gray-800 mb-8">
-              Prepmate'e hoş geldin
+        <div className="min-h-screen flex items-center justify-center bg-violet-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 p-4 w-full">
+          <div className="bg-white/80 dark:bg-slate-800 backdrop-blur-lg p-8 rounded-xl shadow-xl border border-violet-100 dark:border-slate-700 w-full max-w-md text-center">
+            <div className="flex justify-center mb-6">
+              <img
+                src="https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/public/images/PrepmateLogo.png"
+                alt="PrepMate Logo"
+                className="w-56 h-32 object-contain"
+              />
+            </div>
+            <h2 className="text-3xl font-normal text-slate-800 dark:text-slate-100 mb-8">
+               Hoş Geldin
             </h2>
 
             {statusMessage && (
@@ -1058,3 +1065,4 @@ const handleRemoveLearnedWord = async (wordToRemove) => {
 };
 
 export default App;
+
