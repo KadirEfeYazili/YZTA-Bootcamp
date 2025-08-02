@@ -73,6 +73,12 @@ const App = () => {
   });
   const [activeTab, setActiveTab] = useState('dashboard');
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [showBubble, setShowBubble] = useState(false);
+  const handleButtonClick = () => {
+    setShowBubble(true);
+    setTimeout(() => setShowBubble(false), 3000);
+    setIsChatOpen(true);
+  };
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [darkMode, setDarkMode] = useState(true);
 
@@ -810,16 +816,27 @@ const handleRemoveLearnedWord = async (wordToRemove) => {
           </main>
 
            {!isChatOpen && (
-             <button
-               onClick={() => setIsChatOpen(true)}
-               className="fixed bottom-8 right-8 z-40 bg-sky-500 hover:bg-sky-600 text-white p-4 rounded-full shadow-lg transition-all transform hover:scale-110 focus:outline-none ring-4 ring-white/30"
-             >
-               <img
-                 src="https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/public/images/chatavatar.png"
-                 alt="Chat Aç"
-                 className="w-9 h-9 transform scale-125"
-               />
-             </button>
+             <div className="fixed bottom-8 right-8 z-40">
+               <div className="relative inline-block">
+                 <button
+                   onClick={handleButtonClick}
+                   className="bg-sky-500 hover:bg-sky-600 text-white p-4 rounded-full shadow-lg transition-all transform hover:scale-110 focus:outline-none ring-4 ring-white/30"
+                   aria-label="Chat Aç"
+                 >
+                   <img
+                     src="https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/public/images/chatavatar.png"
+                     alt="Chat Aç"
+                     className="w-9 h-9 transform scale-125"
+                   />
+                 </button>
+
+                 {showBubble && (
+                   <div className="absolute bottom-full mb-2 right-0 w-48 p-3 bg-white dark:bg-slate-800 rounded-lg shadow-lg text-sm text-gray-900 dark:text-gray-200">
+                     Sormak istediğiniz bir şey var mı?
+                   </div>
+                 )}
+               </div>
+             </div>
            )}
 
            {isChatOpen && (
@@ -830,6 +847,7 @@ const handleRemoveLearnedWord = async (wordToRemove) => {
                <button
                  onClick={() => setIsChatOpen(false)}
                  className="absolute top-3 left-3 text-slate-400 hover:text-slate-800 dark:hover:text-slate-100 z-10"
+                 aria-label="Chat Kapat"
                >
                  <XCircle size={28} />
                </button>
