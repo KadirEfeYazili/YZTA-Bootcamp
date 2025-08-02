@@ -830,7 +830,7 @@ const handleRemoveLearnedWord = async (wordToRemove) => {
                  </button>
 
                  {showBubble && (
-                   <div className=""absolute right-0 w-56 p-4 bg-white dark:bg-sky-600 rounded-lg shadow-lg text-base text-gray-900 dark:text-white" style={{ bottom: 'calc(100% + 16px)' }}>
+                   <div className="absolute right-0 w-56 p-4 bg-white dark:bg-sky-600 rounded-lg shadow-lg text-base text-gray-900 dark:text-white" style={{ bottom: 'calc(100% + 16px)' }}>
                      PrepChatBot'a sormak istediğiniz bir şey var mı?
                    </div>
                  )}
@@ -1058,6 +1058,7 @@ const handleRemoveLearnedWord = async (wordToRemove) => {
 };
 
 export default App;
+
 
 
 
