@@ -749,120 +749,113 @@ const handleRemoveLearnedWord = async (wordToRemove) => {
       </div>
     );
   }
-  
+
   return (
-    <>
-      <div className="fixed inset-0 z-0 background-stars pointer-events-none" />
-      <div className={`${darkMode ? 'dark' : ''} relative z-10 flex h-screen overflow-hidden bg-violet-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-sans`}>
-        {currentUser ? (
-          <>
-            <aside
-              className={`bg-white/80 dark:bg-slate-800 backdrop-blur-lg p-4 flex flex-col border-r border-violet-100 dark:border-slate-700 transition-width duration-300 ease-in-out`}
-              style={{
-                width: isSidebarOpen ? '16rem' : '6rem',
-              }}
-            >
-              <div
-                className={`flex items-center mb-8 px-2 cursor-pointer justify-center`}
-                onClick={toggleSidebar}
-              >
-                <img
-                  src="https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/public/images/PrepmateLogo.png"
-                  alt="PrepMate Logo"
-                  className="w-13 h-8 object-contain transition-transform hover:scale-105 duration-200"
-                  onError={(e) => { e.target.onerror = null; e.target.src='https://placehold.co/100x32/A855F7/FFFFFF?text=Logo'; }}
-                />
-              </div>
-
-              <button
-                onClick={toggleDarkMode}
-                className="mb-4 px-4 py-2 flex items-center justify-center space-x-2 bg-violet-500 text-white rounded-lg hover:bg-violet-600 transition duration-200"
-              >
-                {darkMode ? (
-                  <>
-                    <Sun size={18} />
-                    {isSidebarOpen && <span>Açık Moda Geç</span>}
-                  </>
-                ) : (
-                  <>
-                    <Moon size={18} />
-                    {isSidebarOpen && <span>Koyu Moda Geç</span>}
-                  </>
-                )}
-              </button>
-
-              <nav className="flex flex-col space-y-2">
-                <NavItem tabName="profile" icon={<User size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Profilim</NavItem>
-                <NavItem tabName="dashboard" icon={<LayoutDashboard size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>İlerleme Paneli</NavItem>
-                <NavItem tabName="word" icon={<Component size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Kelime Karşılaştırma</NavItem>
-                <NavItem tabName="reading" icon={<BookOpen size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Okuma Alıştırması</NavItem>
-                <NavItem tabName="notifications" icon={<BellRing size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Günlük Bildirimler</NavItem>
-                <NavItem tabName="notebook" icon={<BookText size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Not Defteri</NavItem>
-                <button
-                  onClick={handleSignOut}
-                  className="flex items-center w-full py-2 px-4 rounded-lg text-red-600 hover:bg-red-100 dark:hover:bg-red-900 transition-colors duration-200"
-                >
-                  <XCircle className="mr-3" size={18} /> {isSidebarOpen && <span>Çıkış Yap</span>}
-                </button>
-              </nav>
-            </aside>
-
-            <main className="relative flex-1 overflow-y-auto bg-violet-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100">
-              {statusMessage && (
-                <div className="mb-4 p-3 bg-blue-100 text-blue-800 rounded-lg text-center">
-                  {statusMessage}
-                </div>
-              )}
-              {renderAppContent()}
-            </main>
-          </>
-        ) : null}
-
-        {!isChatOpen && (
-          <div className="fixed bottom-8 right-8 z-40">
-            <div className="relative inline-block">
-              <button
-                onClick={handleButtonClick}
-                className="bg-sky-500 hover:bg-sky-600 text-white p-4 rounded-full shadow-lg transition-all transform hover:scale-110 focus:outline-none ring-4 ring-white/30"
-                aria-label="Chat Aç"
-              >
-                <img
-                  src="https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/public/images/chatavatar.png"
-                  alt="Chat Aç"
-                  className="w-9 h-9 transform scale-125"
-                  onError={(e) => { e.target.onerror = null; e.target.src='https://placehold.co/36x36/0EA5E9/FFFFFF?text=Chat'; }}
-                />
-              </button>
-
-              {showBubble && (
-                <div className="absolute right-0 w-56 p-4 bg-white dark:bg-sky-600 rounded-lg shadow-lg text-base text-gray-900 dark:text-white" style={{ bottom: 'calc(100% + 16px)' }}>
-                  PrepChatBot'a sormak istediğiniz bir şey var mı?
-                </div>
-              )}
-            </div>
-          </div>
-        )}
-
-        {isChatOpen && (
-          <div
-            className="fixed top-0 right-4 z-50 bg-violet-50 dark:bg-slate-800 rounded-l-2xl shadow-2xl h-screen flex flex-col"
-            style={{ width: '480px', maxWidth: '35vw', minWidth: '320px' }}
+    <div className={`${darkMode ? 'dark' : ''} flex h-screen bg-violet-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-sans`}>
+      {currentUser ? (
+        <>
+          <aside
+            className={`bg-white/80 dark:bg-slate-800 backdrop-blur-lg p-4 flex flex-col border-r border-violet-100 dark:border-slate-700 transition-width duration-300 ease-in-out`}
+            style={{
+              width: isSidebarOpen ? '16rem' : '6rem',
+            }}
           >
-            <button
-              onClick={() => setIsChatOpen(false)}
-              className="absolute top-3 left-3 text-slate-400 hover:text-slate-800 dark:hover:text-slate-100 z-10"
-              aria-label="Chat Kapat"
+            <div
+              className={`flex items-center mb-8 px-2 cursor-pointer justify-center`}
+              onClick={toggleSidebar}
             >
-              <XCircle size={28} />
-            </button>
-            <div className="flex-1 overflow-auto p-2">
-              <AIChat saveProgress={saveProgressToFirestore} />
+              <img
+                src="https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/public/images/PrepmateLogo.png"
+                alt="PrepMate Logo"
+                className="w-13 h-8 object-contain transition-transform hover:scale-105 duration-200"
+              />
             </div>
-          </div>
-        )}
-      </div>
 
-      
+            <button
+              onClick={toggleDarkMode}
+              className="mb-4 px-4 py-2 flex items-center space-x-2 bg-violet-500 text-white rounded hover:bg-violet-600 transition duration-200"
+            >
+              {darkMode ? (
+                <>
+                  <Sun size={18} />
+                  {isSidebarOpen && <span>Açık Moda Geç</span>}
+                </>
+              ) : (
+                <>
+                  <Moon size={18} />
+                  {isSidebarOpen && <span>Koyu Moda Geç</span>}
+                </>
+              )}
+            </button>
+
+            <nav className="flex flex-col space-y-2">
+              <NavItem tabName="profile" icon={<User className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Profilim</NavItem>
+
+              <NavItem tabName="dashboard" icon={<LayoutDashboard className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>İlerleme Paneli</NavItem>
+              <NavItem tabName="word" icon={<Component className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Kelime Karşılaştırma</NavItem>
+              <NavItem tabName="reading" icon={<BookOpen className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Okuma Alıştırması</NavItem>
+              <NavItem tabName="notifications" icon={<BellRing className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Günlük Bildirimler</NavItem>
+              <NavItem tabName="notebook" icon={<BookText className="mr-3" size={18} />} activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen}>Not Defteri</NavItem>
+              <button
+                onClick={handleSignOut}
+                className="flex items-center w-full py-2 px-4 rounded-lg text-red-600 hover:bg-red-100 dark:hover:bg-red-900 transition-colors duration-200"
+              >
+                <XCircle className="mr-3" size={18} /> {isSidebarOpen && <span>Çıkış Yap</span>}
+              </button>
+            </nav>
+          </aside>
+
+          <main className="flex-1 overflow-y-auto bg-violet-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100">
+            {statusMessage && (
+              <div className="mb-4 p-3 bg-blue-100 text-blue-800 rounded-lg text-center">
+                {statusMessage}
+              </div>
+            )}
+            {renderAppContent()}
+          </main>
+
+           {!isChatOpen && (
+             <div className="fixed bottom-8 right-8 z-40">
+               <div className="relative inline-block">
+                 <button
+                   onClick={handleButtonClick}
+                   className="bg-sky-500 hover:bg-sky-600 text-white p-4 rounded-full shadow-lg transition-all transform hover:scale-110 focus:outline-none ring-4 ring-white/30"
+                   aria-label="Chat Aç"
+                 >
+                   <img
+                     src="https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/public/images/chatavatar.png"
+                     alt="Chat Aç"
+                     className="w-9 h-9 transform scale-125"
+                   />
+                 </button>
+
+                 {showBubble && (
+                   <div className="absolute right-0 w-56 p-4 bg-white dark:bg-sky-600 rounded-lg shadow-lg text-base text-gray-900 dark:text-white" style={{ bottom: 'calc(100% + 16px)' }}>
+                     PrepChatBot'a sormak istediğiniz bir şey var mı?
+                   </div>
+                 )}
+               </div>
+             </div>
+           )}
+
+           {isChatOpen && (
+             <div
+               className="fixed top-0 right-4 z-50 bg-violet-50 dark:bg-slate-800 rounded-l-2xl shadow-2xl h-screen flex flex-col"
+               style={{ width: '480px', maxWidth: '35vw', minWidth: '320px' }}
+             >
+               <button
+                 onClick={() => setIsChatOpen(false)}
+                 className="absolute top-3 left-3 text-slate-400 hover:text-slate-800 dark:hover:text-slate-100 z-10"
+                 aria-label="Chat Kapat"
+               >
+                 <XCircle size={28} />
+               </button>
+               <div className="flex-1 overflow-auto p-2">
+                 <AIChat saveProgress={saveProgressToFirestore} />
+               </div>
+             </div>
+           )}
+
           {/* Profil Resmi Seçim Modalı */}
           {showProfilePicModal && (
             <div className="fixed inset-0 bg-slate-900 bg-opacity-75 backdrop-blur-sm flex justify-center items-center z-50">
@@ -1065,6 +1058,3 @@ const handleRemoveLearnedWord = async (wordToRemove) => {
 };
 
 export default App;
-
-
-
