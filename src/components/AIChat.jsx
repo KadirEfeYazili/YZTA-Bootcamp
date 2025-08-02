@@ -17,9 +17,10 @@ const TypingDots = () => {
     }, 500);
     return () => clearInterval(interval);
   }, []);
-  return `Yanıt yazıyor${dots}`;
+  return <span>Yanıt yazıyor{dots}</span>;
 };
 
+// chatHistory ve setChatHistory artık props olarak üst bileşenden geliyor
 const AIChat = ({ chatHistory, setChatHistory, saveProgress }) => {
   const [prompt, setPrompt] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -52,7 +53,9 @@ const AIChat = ({ chatHistory, setChatHistory, saveProgress }) => {
     setError('');
     setIsLoading(true);
     setIsTypingEffect(true);
-    
+
+    // GÜVENLİK UYARISI: API anahtarını kod içinde açıkça yazmak risklidir.
+    // Bunu bir ortam değişkeni (.env dosyası) ile yönetmeniz önerilir.
     const apiKey = "AIzaSyCSuzlRr7AmF59CsaNC9S5Asa-U9Rpx7Mo";
     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
@@ -88,6 +91,7 @@ const AIChat = ({ chatHistory, setChatHistory, saveProgress }) => {
   };
 
   const handleQuickCommandClick = (cmd) => {
+    // Mesajı doğrudan gönderir
     handleSendMessage(cmd);
   };
 
@@ -96,12 +100,12 @@ const AIChat = ({ chatHistory, setChatHistory, saveProgress }) => {
       {/* Header */}
       <div className="flex items-center gap-3 p-4 bg-violet-500 text-white rounded-t-lg shadow-md">
         <div className="w-10 h-10 flex-shrink-0 bg-white rounded-full flex items-center justify-center">
-          <img src="https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/public/images/avatar.png" alt="AI Avatar" className="w-6 h-6" />
+          <img src="/img/ai-avatar.png" alt="AI Avatar" className="w-6 h-6" />
         </div>
         <h2 className="text-xl font-semibold">PrepMate Sohbet Asistanı</h2>
       </div>
 
-      {/* Quick Commands - Now with horizontal scroll */}
+      {/* Quick Commands - Yatay olarak kaydırılabilir */}
       <div className="flex-shrink-0 p-4 bg-white dark:bg-slate-800 border-b border-violet-200 dark:border-violet-700 overflow-x-auto whitespace-nowrap scrollbar-hide">
         <div className="flex gap-2">
           {quickCommands.map((cmd, i) => (
@@ -116,7 +120,7 @@ const AIChat = ({ chatHistory, setChatHistory, saveProgress }) => {
         </div>
       </div>
 
-      {/* Chat History - Expanded and with reduced padding */}
+      {/* Sohbet Geçmişi - Genişletilmiş ve padding'i azaltılmış */}
       <div className="flex-1 overflow-y-auto p-4 space-y-3">
         {chatHistory.map((message, index) => (
           <div
@@ -146,10 +150,12 @@ const AIChat = ({ chatHistory, setChatHistory, saveProgress }) => {
             </div>
           </div>
         ))}
+
+        {/* Yazma ve Hata Durumu Arayüzü */}
         {isTypingEffect && (
           <div className="flex items-start gap-2">
             <div className="w-8 h-8 flex-shrink-0 bg-white dark:bg-slate-700 rounded-full flex items-center justify-center mt-1">
-              <img src="/img/ai-avatar.png" alt="AI Avatar" className="w-5 h-5" />
+              <img src="https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/public/images/avatar.png" alt="AI Avatar" className="w-5 h-5" />
             </div>
             <div className="bg-white dark:bg-slate-700 rounded-xl rounded-bl-none shadow-md p-3 text-sm animate-pulse">
               <TypingDots />
@@ -164,7 +170,7 @@ const AIChat = ({ chatHistory, setChatHistory, saveProgress }) => {
         <div ref={chatEndRef} />
       </div>
 
-      {/* Input Area */}
+      {/* Input Alanı */}
       <div className="flex-shrink-0 p-4 bg-white dark:bg-slate-800 border-t border-violet-200 dark:border-violet-700">
         <div className="flex items-end gap-2">
           <textarea
@@ -194,4 +200,3 @@ const AIChat = ({ chatHistory, setChatHistory, saveProgress }) => {
 };
 
 export default AIChat;
-
