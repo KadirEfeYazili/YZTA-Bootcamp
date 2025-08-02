@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Send, Loader2 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
-// arrayUnion'a bu dosyada artık gerek yok, çünkü mantık üst bileşene taşındı.
 import { serverTimestamp } from 'firebase/firestore';
 
 const formatTime = (date) => {
@@ -11,14 +10,16 @@ const formatTime = (date) => {
 };
 
 const TypingDots = () => {
-  const [dots, setDots] = useState('');
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setDots(d => (d.length < 3 ? d + '.' : ''));
-    }, 500);
-    return () => clearInterval(interval);
-  }, []);
-  return <span>Yanıt yazıyor{dots}</span>;
+  return (
+    <span className="flex items-center gap-1">
+      Yanıt yazıyor
+      <span className="flex space-x-1">
+        <span className="w-1 h-1 bg-slate-600 dark:bg-slate-300 rounded-full animate-bounce [animation-delay:.0s]"></span>
+        <span className="w-1 h-1 bg-slate-600 dark:bg-slate-300 rounded-full animate-bounce [animation-delay:.2s]"></span>
+        <span className="w-1 h-1 bg-slate-600 dark:bg-slate-300 rounded-full animate-bounce [animation-delay:.4s]"></span>
+      </span>
+    </span>
+  );
 };
 
 const AIChat = ({ saveProgress }) => {
@@ -47,15 +48,13 @@ const AIChat = ({ saveProgress }) => {
 
     try {
       const payload = { contents: [{ role: 'user', parts: [{ text: userPrompt }] }] };
-      // GÜVENLİK UYARISI: API anahtarını kod içinde açıkça yazmak risklidir.
-      // Bunu bir ortam değişkeni (.env dosyası) ile yönetmeniz önerilir.
       const apiKey = "AIzaSyCSuzlRr7AmF59CsaNC9S5Asa-U9Rpx7Mo";
       const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-      
+
       const response = await fetch(apiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload )
+        body: JSON.stringify(payload)
       });
 
       if (!response.ok) {
@@ -64,11 +63,9 @@ const AIChat = ({ saveProgress }) => {
 
       const result = await response.json();
       const aiResponse = result.candidates?.[0]?.content?.parts?.[0]?.text || 'Üzgünüm, bir yanıt oluşturulamadı.';
-      
+
       setChatHistory(prev => [...prev, { role: 'ai', text: aiResponse, timestamp: new Date() }]);
 
-      // HATA 1 ÇÖZÜMÜ: `saveProgress` çağrısı düzeltildi.
-      // Artık `arrayUnion` sarmalayıcısı olmadan, sadece eklenecek nesneyi gönderiyoruz.
       const newActivityObject = {
         text: `AI Asistanına bir soru sordunuz: "${userPrompt.substring(0, 50)}${userPrompt.length > 50 ? '...' : ''}"`,
         timestamp: serverTimestamp()
@@ -109,16 +106,18 @@ const AIChat = ({ saveProgress }) => {
         PrepMate Sohbet Asistanı
       </h2>
 
-      <div className="mb-4 flex flex-wrap gap-2">
-        {quickCommands.map((cmd, i) => (
-          <button
-            key={i}
-            onClick={() => handleQuickCommandClick(cmd)}
-            className="bg-violet-200 dark:bg-violet-700 text-violet-900 dark:text-violet-200 rounded-full px-4 py-1 text-sm hover:bg-violet-300 dark:hover:bg-violet-600 transition"
-          >
-            {cmd}
-          </button>
-        ))}
+      <div className="overflow-x-auto mb-4">
+        <div className="flex gap-2 w-max min-w-full">
+          {quickCommands.map((cmd, i) => (
+            <button
+              key={i}
+              onClick={() => handleQuickCommandClick(cmd)}
+              className="whitespace-nowrap bg-violet-200 dark:bg-violet-700 text-violet-900 dark:text-violet-200 rounded-full px-4 py-1 text-sm hover:bg-violet-300 dark:hover:bg-violet-600 transition"
+            >
+              {cmd}
+            </button>
+          ))}
+        </div>
       </div>
 
       <div className="flex-1 bg-white dark:bg-slate-800 border border-violet-200 dark:border-violet-700 rounded-xl shadow-inner p-4 mb-4 overflow-y-auto flex flex-col-reverse custom-scrollbar">
@@ -130,7 +129,6 @@ const AIChat = ({ saveProgress }) => {
             }`}
           >
             {message.role === 'ai' && (
-              // HATA 2 ÇÖZÜMÜ: Resim yolu düzeltildi.
               <img
                 src="https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/public/images/avatar.png"
                 alt="AI asistanı avatarı"
@@ -154,7 +152,6 @@ const AIChat = ({ saveProgress }) => {
 
         {isTypingEffect && (
           <div className="mb-4 flex items-end gap-3 justify-start">
-            {/* HATA 2 ÇÖZÜMÜ: Resim yolu düzeltildi. */}
             <img
               src="/images/avatar.png"
               alt="AI avatar"
@@ -178,8 +175,8 @@ const AIChat = ({ saveProgress }) => {
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
           placeholder="AI Asistanına bir şeyler sorun..."
-          className="flex-grow bg-white dark:bg-slate-800 border border-violet-200 dark:border-violet-700 rounded-lg p-3 text-slate-700 dark:text-slate-200 focus:ring-2 focus:ring-sky-400 focus:outline-none transition-all resize-none shadow-sm"
-          rows="2"
+          className="flex-grow bg-white dark:bg-slate-800 border border-violet-200 dark:border-violet-700 rounded-lg px-3 py-2 text-slate-700 dark:text-slate-200 focus:ring-2 focus:ring-sky-400 focus:outline-none transition-all resize-none shadow-sm text-sm"
+          rows="1"
           onKeyDown={(e) => {
             if (e.key === 'Enter' && !e.shiftKey) {
               e.preventDefault();
@@ -200,4 +197,3 @@ const AIChat = ({ saveProgress }) => {
 };
 
 export default AIChat;
-
