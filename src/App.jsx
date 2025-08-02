@@ -686,7 +686,7 @@ const handleRemoveLearnedWord = async (wordToRemove) => {
     switch (activeTab) {
           
       case 'about':
-        return <About />;
+        return <AboutPage />;
       case 'dashboard': 
         // App12.jsx'ten gelen fark: Dashboard'a ek proplar eklendi
         return <Dashboard 
@@ -1070,3 +1070,4 @@ const handleRemoveLearnedWord = async (wordToRemove) => {
 };
 
 export default App;
+
