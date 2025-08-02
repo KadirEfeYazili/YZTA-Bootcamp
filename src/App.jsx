@@ -134,26 +134,6 @@ const App = () => {
   }, [darkMode]);
 
   useEffect(() => {
-    function handleClickOutside(event) {
-      const chatBox = document.getElementById("chatbox");
-      if (chatBox && !chatBox.contains(event.target)) {
-        setIsChatOpen(false);
-      }
-    }
-
-    if (isChatOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isChatOpen]);
-
-
-  useEffect(() => {
     console.log("Auth durumu dinleyicisi başlatılıyor...");
     const initFirebase = async () => {
       const unsubscribeAuth = onAuthStateChanged(auth, async (user) => {
@@ -829,35 +809,21 @@ const handleRemoveLearnedWord = async (wordToRemove) => {
             {renderAppContent()}
           </main>
 
-           {!isChatOpen && (
-             <button
-               onClick={() => setIsChatOpen(true)}
-               className="fixed bottom-8 right-8 z-40 bg-sky-500 hover:bg-sky-600 text-white px-5 py-3 rounded-full shadow-lg transition-all transform hover:scale-110 focus:outline-none ring-4 ring-white/30 flex items-center space-x-3 relative"
-               style={{ borderTopRightRadius: '0', borderBottomLeftRadius: '20px', borderTopLeftRadius: '20px', borderBottomRightRadius: '20px' }}
-             >
-               <img
-                 src="https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/public/images/avatar.png"
-                 alt="Chat Aç"
-                 className="w-10 h-10"
-               />
-               <span className="hidden sm:inline text-lg font-semibold select-none">Sohbet Et</span>
-               <span
-                 style={{
-                   position: 'absolute',
-                   bottom: '0',
-                   right: '-10px',
-                   width: '0',
-                   height: '0',
-                   borderTop: '10px solid transparent',
-                   borderBottom: '10px solid transparent',
-                   borderLeft: '10px solid #0ea5e9' // bg-sky-500 rengi
-                 }}
-               />
-             </button>
-           )}
+          {!isChatOpen && (
+            <button
+              onClick={() => setIsChatOpen(true)}
+              className="fixed bottom-8 right-8 z-40 bg-sky-500 hover:bg-sky-600 text-white p-4 rounded-full shadow-lg transition-all transform hover:scale-110 focus:outline-none ring-4 ring-white/30"
+            >
+              <img
+                src="https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/public/images/avatar.png"
+                alt="Chat Aç"
+                className="w-8 h-8"
+              />
+            </button>
+          )}
 
           {isChatOpen && (
-            <div className="fixed top-0 right-0 h-full w-full sm:w-[400px] z-50 bg-white dark:bg-gray-900 shadow-xl border-l border-gray-300 dark:border-gray-700 flex flex-col">
+            <div className="fixed inset-0 bg-slate-900 bg-opacity-50 backdrop-blur-sm flex justify-center items-center z-50">
               <div className="bg-violet-50 dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-2xl h-[85vh] max-h-[700px] flex flex-col relative">
                 <button
                   onClick={() => setIsChatOpen(false)}
@@ -1072,6 +1038,4 @@ const handleRemoveLearnedWord = async (wordToRemove) => {
 };
 
 export default App;
-
-
 
