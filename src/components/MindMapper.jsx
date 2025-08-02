@@ -135,9 +135,9 @@ const MindMapper = ({ saveProgress, userProgress }) => {
 
     return (
         <div className="p-8 animate-fade-in">
-            <h2 className="text-3xl font-bold text-slate-800 mb-6 flex items-center">
+            <h2 className="text-3xl font-bold text-slate-800 dark:text-white mb-6 flex items-center"> 
                 <Map className="mr-3 text-rose-600" size={32} />
-                Akıl Haritası Oluşturucu
+                Akıl Haritası Oluşturucu 
             </h2>
             <div className="flex flex-col sm:flex-row gap-4 mb-4">
                 <input
@@ -169,7 +169,7 @@ const MindMapper = ({ saveProgress, userProgress }) => {
                         <button
                             onClick={handleMarkAsLearned}
                             disabled={!topic.trim() || learnedWords.includes(topic.trim().toLowerCase())}
-                            className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded-full flex items-center transition-colors shadow hover:shadow-md disabled:bg-teal-200 disabled:cursor-not-allowed"
+                            className="bg-teal-500 hover:bg-teal-600 active:scale-95 text-white font-bold py-2 px-4 rounded-full flex items-center transition-all shadow hover:shadow-md disabled:bg-teal-200 disabled:cursor-not-allowed"
                         >
                             <PlusCircle className="mr-2" /> Öğrenildi Olarak İşaretle
                         </button>
@@ -195,3 +195,4 @@ const MindMapper = ({ saveProgress, userProgress }) => {
 };
 
 export default MindMapper;
+
