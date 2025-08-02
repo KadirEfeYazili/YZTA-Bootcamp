@@ -348,7 +348,7 @@ const Dashboard = ({ 
                     onClick={() => handleReviewWord(wordObj.word)}
                     className="text-sm text-white bg-violet-600 hover:bg-violet-700 px-4 py-1 rounded-full transition-colors duration-200"
                   >
-                    Gözden Geçir
+                    Gözden Geçirildi
                   </button>
                 </li>
               ))}
@@ -365,3 +365,4 @@ const Dashboard = ({ 
 };
 
 export default Dashboard;
+
