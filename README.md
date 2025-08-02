@@ -440,8 +440,8 @@ Kadir Efe Yazılı, Ebral Karabulut, Muhammet Berke Ağaya, Ebrar Ağralı, Nurc
 ### ✨ Kullanılan Teknolojiler
 
 * **Frontend:** React.js, Tailwind CSS, React Markdown
-* **API:** Google Gemini API
-* **Backend & Hosting:** Firebase, Firestore, Firebase API Key
+* **API:** Google Gemini API , Firestore API
+* **Backend & Hosting:** Firebase, Firestore, Firebase API Key , Render , FastAPI
 * **Versiyon Kontrol & Deploy:** GitHub, GitHub Pages, GitHub Actions
 
 ### 📚 Sprint 3 Hedefleri
