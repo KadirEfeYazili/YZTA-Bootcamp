@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Send, Loader2 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
-import { arrayUnion, serverTimestamp } from 'firebase/firestore';
+// arrayUnion'a bu dosyada artık gerek yok, çünkü mantık üst bileşene taşındı.
+import { serverTimestamp } from 'firebase/firestore';
 
 const formatTime = (date) => {
   if (!date) return '';
@@ -27,7 +28,6 @@ const AIChat = ({ saveProgress }) => {
   const [error, setError] = useState('');
   const [isTypingEffect, setIsTypingEffect] = useState(false);
 
-  // Hazır komutlar listesi
   const quickCommands = [
     'YDS nasıl hazırlanırım?',
     'İngilizce kaynak önerisi',
@@ -47,27 +47,33 @@ const AIChat = ({ saveProgress }) => {
 
     try {
       const payload = { contents: [{ role: 'user', parts: [{ text: userPrompt }] }] };
+      // GÜVENLİK UYARISI: API anahtarını kod içinde açıkça yazmak risklidir.
+      // Bunu bir ortam değişkeni (.env dosyası) ile yönetmeniz önerilir.
       const apiKey = "AIzaSyCSuzlRr7AmF59CsaNC9S5Asa-U9Rpx7Mo";
       const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+      
       const response = await fetch(apiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload )
       });
 
-      if (!response.ok) throw new Error(`API Hatası: ${response.status}`);
+      if (!response.ok) {
+        throw new Error(`API Hatası: Sunucu ${response.status} koduyla yanıt verdi.`);
+      }
 
       const result = await response.json();
-      const aiResponse = result.candidates?.[0]?.content?.parts?.[0]?.text || 'Üzgünüm, yanıt oluşturulamadı.';
+      const aiResponse = result.candidates?.[0]?.content?.parts?.[0]?.text || 'Üzgünüm, bir yanıt oluşturulamadı.';
       
       setChatHistory(prev => [...prev, { role: 'ai', text: aiResponse, timestamp: new Date() }]);
 
-      await saveProgress({
-        activities: arrayUnion({
-          text: `AI Asistanına bir soru sordunuz: "${userPrompt.substring(0, 50)}${userPrompt.length > 50 ? '...' : ''}"`,
-          timestamp: serverTimestamp()
-        })
-      });
+      // HATA 1 ÇÖZÜMÜ: `saveProgress` çağrısı düzeltildi.
+      // Artık `arrayUnion` sarmalayıcısı olmadan, sadece eklenecek nesneyi gönderiyoruz.
+      const newActivityObject = {
+        text: `AI Asistanına bir soru sordunuz: "${userPrompt.substring(0, 50)}${userPrompt.length > 50 ? '...' : ''}"`,
+        timestamp: serverTimestamp()
+      };
+      await saveProgress(newActivityObject);
 
     } catch (err) {
       setError(`Bir hata oluştu: ${err.message}`);
@@ -78,7 +84,6 @@ const AIChat = ({ saveProgress }) => {
     }
   };
 
-  // Hazır komut butonuna tıklandığında prompt'a komut yazılır
   const handleQuickCommandClick = (cmd) => {
     setPrompt(cmd);
   };
@@ -104,7 +109,6 @@ const AIChat = ({ saveProgress }) => {
         PrepMate Sohbet Asistanı
       </h2>
 
-      {/* Hazır Komutlar */}
       <div className="mb-4 flex flex-wrap gap-2">
         {quickCommands.map((cmd, i) => (
           <button
@@ -118,7 +122,6 @@ const AIChat = ({ saveProgress }) => {
       </div>
 
       <div className="flex-1 bg-white dark:bg-slate-800 border border-violet-200 dark:border-violet-700 rounded-xl shadow-inner p-4 mb-4 overflow-y-auto flex flex-col-reverse custom-scrollbar">
-        {/* Mesajlar */}
         {chatHistory.slice().reverse().map((message, index) => (
           <div
             key={index}
@@ -127,8 +130,9 @@ const AIChat = ({ saveProgress }) => {
             }`}
           >
             {message.role === 'ai' && (
+              // HATA 2 ÇÖZÜMÜ: Resim yolu düzeltildi.
               <img
-                src={`${process.env.PUBLIC_URL}/images/avatar.png`}
+                src="/images/avatar.png"
                 alt="AI asistanı avatarı"
                 className="w-10 h-10 rounded-full flex-shrink-0 object-cover"
               />
@@ -148,11 +152,11 @@ const AIChat = ({ saveProgress }) => {
           </div>
         ))}
 
-        {/* Yazma efekti */}
         {isTypingEffect && (
           <div className="mb-4 flex items-end gap-3 justify-start">
+            {/* HATA 2 ÇÖZÜMÜ: Resim yolu düzeltildi. */}
             <img
-              src={`${process.env.PUBLIC_URL}/images/avatar.png`}
+              src="/images/avatar.png"
               alt="AI avatar"
               className="w-10 h-10 rounded-full flex-shrink-0 object-cover"
             />
@@ -162,7 +166,6 @@ const AIChat = ({ saveProgress }) => {
           </div>
         )}
 
-        {/* Hata mesajı */}
         {error && (
           <div className="bg-red-100 dark:bg-red-900 border border-red-200 dark:border-red-700 text-red-700 dark:text-red-400 px-4 py-3 rounded-lg my-2">
             {error}
@@ -170,7 +173,6 @@ const AIChat = ({ saveProgress }) => {
         )}
       </div>
 
-      {/* Giriş alanı */}
       <div className="flex gap-2">
         <textarea
           value={prompt}
