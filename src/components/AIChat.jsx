@@ -132,7 +132,7 @@ const AIChat = ({ saveProgress }) => {
             {message.role === 'ai' && (
               // HATA 2 ÇÖZÜMÜ: Resim yolu düzeltildi.
               <img
-                src="/images/avatar.png"
+                src="https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/public/images/avatar.png"
                 alt="AI asistanı avatarı"
                 className="w-10 h-10 rounded-full flex-shrink-0 object-cover"
               />
@@ -200,3 +200,4 @@ const AIChat = ({ saveProgress }) => {
 };
 
 export default AIChat;
+
