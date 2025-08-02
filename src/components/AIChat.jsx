@@ -77,7 +77,17 @@ const AIChat = ({ saveProgress }) => {
     console.log(`[${new Date().toLocaleString()}] Kullanıcı mesajı: "${userPrompt}"`);
 
     try {
-      const payload = { contents: [{ role: 'user', parts: [{ text: userPrompt }] }] };
+       const contextPrompt = `
+       Sen bir dil öğrenme asistanısın. Kullanıcı, YDS gibi İngilizce sınavlarına nasıl hazırlanacağı, kaynak önerileri, motivasyon tavsiyeleri ve dil öğrenme teknikleri hakkında sana sorular sorabilir. 
+       Uygulama, PrepChatBot adını taşır ve temel amacı, İngilizce sınavlarına hazırlık sürecinde kullanıcıya rehberlik etmektir. Yanıtlarını kısa, anlaşılır ve teşvik edici tut.
+       `;
+
+       const payload = {
+         contents: [
+           { role: 'user', parts: [{ text: contextPrompt }] },
+           { role: 'user', parts: [{ text: userPrompt }] }
+         ]
+       };
       const apiKey = "AIzaSyCSuzlRr7AmF59CsaNC9S5Asa-U9Rpx7Mo";
       const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
@@ -243,4 +253,5 @@ const AIChat = ({ saveProgress }) => {
 };
 
 export default AIChat;
+
 
