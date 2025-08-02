@@ -73,7 +73,7 @@ const App = () => {
   });
   const [activeTab, setActiveTab] = useState('dashboard');
   const [isChatOpen, setIsChatOpen] = useState(false);
-  const [showBubble, setShowBubble] = useState(false);
+  const [showBubble, setShowBubble] = useState(true);
   const handleButtonClick = () => {
     setShowBubble(false);
     setIsChatOpen(true);
@@ -1058,6 +1058,7 @@ const handleRemoveLearnedWord = async (wordToRemove) => {
 };
 
 export default App;
+
 
 
 
