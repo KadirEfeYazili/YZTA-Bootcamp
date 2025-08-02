@@ -96,7 +96,7 @@ const AIChat = ({ chatHistory, setChatHistory, saveProgress }) => {
       {/* Header */}
       <div className="flex items-center gap-3 p-4 bg-violet-500 text-white rounded-t-lg shadow-md">
         <div className="w-10 h-10 flex-shrink-0 bg-white rounded-full flex items-center justify-center">
-          <img src="/img/ai-avatar.png" alt="AI Avatar" className="w-6 h-6" />
+          <img src="https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/public/images/avatar.png" alt="AI Avatar" className="w-6 h-6" />
         </div>
         <h2 className="text-xl font-semibold">PrepMate Sohbet Asistanı</h2>
       </div>
@@ -125,7 +125,7 @@ const AIChat = ({ chatHistory, setChatHistory, saveProgress }) => {
           >
             {message.role === 'ai' && (
               <div className="w-8 h-8 flex-shrink-0 bg-white dark:bg-slate-700 rounded-full flex items-center justify-center mt-1">
-                <img src="/img/ai-avatar.png" alt="AI Avatar" className="w-5 h-5" />
+                <img src="https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/public/images/avatar.png" alt="AI Avatar" className="w-5 h-5" />
               </div>
             )}
             <div
@@ -194,3 +194,4 @@ const AIChat = ({ chatHistory, setChatHistory, saveProgress }) => {
 };
 
 export default AIChat;
+
