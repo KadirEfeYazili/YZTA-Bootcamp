@@ -767,7 +767,7 @@ const handleRemoveLearnedWord = async (wordToRemove) => {
               <img
                 src="https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/public/images/PrepmateLogo.png"
                 alt="PrepMate Logo"
-                className="w-24 h-auto object-contain transition-transform hover:scale-105 duration-200"
+                className="w-13 h-8 object-contain transition-transform hover:scale-105 duration-200"
               />
             </div>
 
@@ -1058,6 +1058,7 @@ const handleRemoveLearnedWord = async (wordToRemove) => {
 };
 
 export default App;
+
 
 
 
