@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Send, Loader2 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { serverTimestamp } from 'firebase/firestore';
@@ -33,6 +33,8 @@ const AIChat = ({ saveProgress }) => {
   const [error, setError] = useState('');
   const [isTypingEffect, setIsTypingEffect] = useState(false);
 
+  const messagesEndRef = useRef(null);
+
   const quickCommands = [
     'YDS nasıl hazırlanırım?',
     'İngilizce kaynak önerisi',
@@ -40,7 +42,7 @@ const AIChat = ({ saveProgress }) => {
     'Motivasyon için öneriler'
   ];
 
-  // ✅ Sayfa yüklendiğinde localStorage’dan geçmiş mesajları al
+  // localStorage'dan geçmişi yükle
   useEffect(() => {
     const storedHistory = localStorage.getItem('chatHistory');
     if (storedHistory) {
@@ -51,6 +53,11 @@ const AIChat = ({ saveProgress }) => {
       }
     }
   }, []);
+
+  // Her yeni mesajda scrollu en alta kaydır
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [chatHistory, isTypingEffect]);
 
   const updateLocalStorage = (updatedHistory) => {
     localStorage.setItem('chatHistory', JSON.stringify(updatedHistory));
@@ -69,7 +76,6 @@ const AIChat = ({ saveProgress }) => {
     setIsLoading(true);
     setIsTypingEffect(true);
 
-    // ✅ Günlük log kaydı
     console.log(`[${new Date().toLocaleString()}] Kullanıcı mesajı: "${userPrompt}"`);
 
     try {
@@ -117,6 +123,15 @@ const AIChat = ({ saveProgress }) => {
   const handleSendMessage = () => sendMessage(prompt);
   const handleQuickCommandClick = (cmd) => sendMessage(cmd);
 
+  // Sohbet temizleme fonksiyonu
+  const clearChat = () => {
+    setChatHistory([]);
+    localStorage.removeItem('chatHistory');
+    setError('');
+    setIsLoading(false);
+    setIsTypingEffect(false);
+  };
+
   return (
     <div className="p-6 animate-fade-in flex flex-col h-full">
       <h2 className="text-2xl font-bold text-slate-800 dark:text-white mb-4 flex items-center">
@@ -129,8 +144,19 @@ const AIChat = ({ saveProgress }) => {
         PrepMate Sohbet Asistanı
       </h2>
 
-      <div className=""flex-1 bg-white dark:bg-slate-800 border border-violet-200 dark:border-violet-700 rounded-xl shadow-inner p-4 mb-4 overflow-y-auto flex flex-col custom-scrollbar">
-          {chatHistory.map((message, index) => (
+      {/* Sohbeti Temizle Butonu */}
+      <div className="flex justify-end mb-2">
+        <button
+          onClick={clearChat}
+          className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg shadow-sm transition"
+          type="button"
+        >
+          Sohbeti Temizle
+        </button>
+      </div>
+
+      <div className="flex-1 bg-white dark:bg-slate-800 border border-violet-200 dark:border-violet-700 rounded-xl shadow-inner p-4 mb-4 overflow-y-auto flex flex-col custom-scrollbar">
+        {chatHistory.map((message, index) => (
           <div
             key={index}
             className={`mb-4 flex items-end gap-3 ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
@@ -175,6 +201,8 @@ const AIChat = ({ saveProgress }) => {
             {error}
           </div>
         )}
+
+        <div ref={messagesEndRef} />
       </div>
 
       <div className="overflow-x-auto mb-3 mt-1">
@@ -204,7 +232,7 @@ const AIChat = ({ saveProgress }) => {
               handleSendMessage();
             }
           }}
-        ></textarea>
+        />
         <button
           onClick={handleSendMessage}
           disabled={isLoading}
@@ -218,4 +246,3 @@ const AIChat = ({ saveProgress }) => {
 };
 
 export default AIChat;
-
