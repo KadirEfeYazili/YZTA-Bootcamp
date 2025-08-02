@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/YZTA-Bootcamp/static/css/main.a5ffba10.css",
-    "main.js": "/YZTA-Bootcamp/static/js/main.1a5278f1.js",
+    "main.css": "/YZTA-Bootcamp/static/css/main.3bdf4eaf.css",
+    "main.js": "/YZTA-Bootcamp/static/js/main.33b5bcea.js",
     "index.html": "/YZTA-Bootcamp/index.html",
-    "main.a5ffba10.css.map": "/YZTA-Bootcamp/static/css/main.a5ffba10.css.map",
-    "main.1a5278f1.js.map": "/YZTA-Bootcamp/static/js/main.1a5278f1.js.map"
+    "main.3bdf4eaf.css.map": "/YZTA-Bootcamp/static/css/main.3bdf4eaf.css.map",
+    "main.33b5bcea.js.map": "/YZTA-Bootcamp/static/js/main.33b5bcea.js.map"
   },
   "entrypoints": [
-    "static/css/main.a5ffba10.css",
-    "static/js/main.1a5278f1.js"
+    "static/css/main.3bdf4eaf.css",
+    "static/js/main.33b5bcea.js"
   ]
 }
