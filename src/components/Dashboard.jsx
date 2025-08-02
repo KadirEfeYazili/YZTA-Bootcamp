@@ -15,16 +15,11 @@ import {
 // Yardımcı fonksiyon: Yeterlilik seviyesini hesapla
 const calculateProficiencyLevel = (progress) => {
   if (!progress || !progress.reading) {
-    console.warn(
-      "calculateProficiencyLevel: 'progress' veya 'progress.reading' tanımsız. Varsayılan olarak 0 döndürülüyor."
-    );
     return 0;
   }
-
   const { correct, total } = progress.reading;
   const safeCorrect = typeof correct === 'number' ? correct : 0;
   const safeTotal = typeof total === 'number' ? total : 0;
-
   if (safeTotal === 0) {
     return 0;
   }
@@ -46,18 +41,7 @@ const Dashboard = ({ 
   const [showQuiz, setShowQuiz] = useState(false);
   const [showMindMap, setShowMindMap] = useState(false);
   
-  useEffect(() => {
-    console.log('Dashboard Bileşeni yüklendi.');
-    console.log('Dashboard useEffect: userProgress', userProgress);
-    if (userProgress) {
-      console.log('Dashboard useEffect: userProgress.reading', userProgress.reading);
-      console.log('Dashboard useEffect: userProgress.learnedWords', userProgress.learnedWords);
-      console.log('Dashboard useEffect: userProgress.activities', userProgress.activities);
-    } else {
-      console.log('Dashboard useEffect: userProgress tanımsız veya boş.');
-    }
-  }, [userProgress]);
-
+  // Güvenli userProgress nesnesi oluşturma
   const safeUserProgress = userProgress || {
     reading: { correct: 0, total: 0 },
     learnedWords: [],
@@ -68,11 +52,15 @@ const Dashboard = ({ 
   const { reading, learnedWords, activities } = safeUserProgress;
   const currentReading = reading || { correct: 0, total: 0 };
   const currentActivities = activities || [];
-  const currentLearnedWords = learnedWords || [];
-
-  useEffect(() => {
-    console.log('Dashboard: currentLearnedWords güncellendi:', currentLearnedWords);
-  }, [currentLearnedWords]);
+  
+  // learnedWords'un basit bir kelime dizisi veya kelime nesneleri dizisi olabileceğini kontrol et
+  const currentLearnedWords = learnedWords.map(word => {
+    if (typeof word === 'string') {
+      // Eğer kelime string ise, onu lastReviewed tarihi olan bir nesneye dönüştür
+      return { word: word, lastReviewed: new Date(0) }; // Çok eski bir tarih ata
+    }
+    return word; // Zaten nesne ise olduğu gibi döndür
+  });
 
   // İstatistik hesaplamaları
   const readingPercentage = calculateProficiencyLevel(safeUserProgress);
@@ -81,12 +69,18 @@ const Dashboard = ({ 
   
   // Gözden geçirilecek kelimeleri filtrele
   const wordsToReview = currentLearnedWords.filter(wordObj => {
-    // Kelime nesnesinde bir `lastReviewed` tarihi yoksa, gözden geçirilmesi gerekir.
-    if (!wordObj.lastReviewed) {
-      return true;
+    // wordObj'nin ve lastReviewed'un tanımlı olduğundan emin ol
+    if (!wordObj || !wordObj.lastReviewed) {
+      return true; // lastReviewed yoksa gözden geçirilmesi gerekir
     }
-    // `lastReviewed` bir Firebase Timestamp veya Date nesnesi olabilir
-    const lastReviewedDate = wordObj.lastReviewed.toDate ? wordObj.lastReviewed.toDate() : new Date(wordObj.lastReviewed);
+    
+    let lastReviewedDate;
+    if (wordObj.lastReviewed.toDate) {
+        lastReviewedDate = wordObj.lastReviewed.toDate();
+    } else {
+        lastReviewedDate = new Date(wordObj.lastReviewed);
+    }
+
     const threeDaysAgo = new Date();
     threeDaysAgo.setDate(threeDaysAgo.getDate() - 3); // 3 gün öncesini hesapla
     
@@ -274,28 +268,18 @@ const Dashboard = ({ 
               currentActivities
                 .slice()
                 .sort((a, b) => {
-                  const timestampA = a.timestamp?.toDate
-                    ? a.timestamp.toDate().getTime()
-                    : a.timestamp instanceof Date
-                    ? a.timestamp.getTime()
-                    : 0;
-                  const timestampB = b.timestamp?.toDate
-                    ? b.timestamp.toDate().getTime()
-                    : b.timestamp instanceof Date
-                    ? b.timestamp.getTime()
-                    : 0;
+                  const timestampA = a.timestamp?.toDate ? a.timestamp.toDate().getTime() : a.timestamp instanceof Date ? a.timestamp.getTime() : 0;
+                  const timestampB = b.timestamp?.toDate ? b.timestamp.toDate().getTime() : b.timestamp instanceof Date ? b.timestamp.getTime() : 0;
                   return timestampB - timestampA;
                 })
-                .slice(0, 10) // Son 10 etkinliği göster
+                .slice(0, 10)
                 .map((activity, index) => (
                   <li key={index} className="flex items-center">
                     <Clock className="inline mr-3 text-slate-400" size={16} />
                     {activity.text} -{' '}
                     {activity.timestamp
                       ? new Date(
-                          activity.timestamp.toDate
-                            ? activity.timestamp.toDate()
-                            : activity.timestamp
+                          activity.timestamp.toDate ? activity.timestamp.toDate() : activity.timestamp
                         ).toLocaleString('tr-TR', {
                           year: 'numeric',
                           month: 'short',
