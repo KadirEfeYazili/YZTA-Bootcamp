@@ -809,32 +809,35 @@ const handleRemoveLearnedWord = async (wordToRemove) => {
             {renderAppContent()}
           </main>
 
-          {!isChatOpen && (
-            <button
-              onClick={() => setIsChatOpen(true)}
-              className="fixed bottom-8 right-8 z-40 bg-sky-500 hover:bg-sky-600 text-white p-4 rounded-full shadow-lg transition-all transform hover:scale-110 focus:outline-none ring-4 ring-white/30"
-            >
-              <img
-                src="https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/public/images/avatar.png"
-                alt="Chat Aç"
-                className="w-8 h-8"
-              />
-            </button>
-          )}
+           {!isChatOpen && (
+             <button
+               onClick={() => setIsChatOpen(true)}
+               className="fixed bottom-8 right-8 z-40 bg-sky-500 hover:bg-sky-600 text-white p-4 rounded-full shadow-lg transition-all transform hover:scale-110 focus:outline-none ring-4 ring-white/30"
+             >
+               <img
+                 src="https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/public/images/avatar.png"
+                 alt="Chat Aç"
+                 className="w-8 h-8"
+               />
+             </button>
+           )}
 
-          {isChatOpen && (
-            <div className="fixed inset-0 bg-slate-900 bg-opacity-50 backdrop-blur-sm flex justify-center items-center z-50">
-              <div className="bg-violet-50 dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-2xl h-[85vh] max-h-[700px] flex flex-col relative">
-                <button
-                  onClick={() => setIsChatOpen(false)}
-                  className="absolute top-3 right-3 text-slate-400 hover:text-slate-800 dark:hover:text-slate-100 z-10"
-                >
-                  <XCircle size={28} />
-                </button>
-                <AIChat saveProgress={saveProgressToFirestore} />
-              </div>
-            </div>
-          )}
+           {isChatOpen && (
+             <div
+               className="fixed top-0 right-4 z-50 bg-violet-50 dark:bg-slate-800 rounded-l-2xl shadow-2xl h-screen flex flex-col"
+               style={{ width: '320px', maxWidth: '25vw', minWidth: '280px' }}
+             >
+               <button
+                 onClick={() => setIsChatOpen(false)}
+                 className="absolute top-3 left-3 text-slate-400 hover:text-slate-800 dark:hover:text-slate-100 z-10"
+               >
+                 <XCircle size={28} />
+               </button>
+               <div className="flex-1 overflow-auto p-2">
+                 <AIChat saveProgress={saveProgressToFirestore} />
+               </div>
+             </div>
+           )}
 
           {/* Profil Resmi Seçim Modalı */}
           {showProfilePicModal && (
@@ -1038,4 +1041,5 @@ const handleRemoveLearnedWord = async (wordToRemove) => {
 };
 
 export default App;
+
 
