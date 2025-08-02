@@ -751,7 +751,7 @@ const handleRemoveLearnedWord = async (wordToRemove) => {
   }
 
   return (
-    <div className={`${darkMode ? 'dark' : ''} flex h-screen bg-violet-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-sans`}>
+    <div className={`${darkMode ? 'dark' : ''} flex h-screen background-stars bg-violet-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-sans`}>
       {currentUser ? (
         <>
           <aside
@@ -1058,6 +1058,7 @@ const handleRemoveLearnedWord = async (wordToRemove) => {
 };
 
 export default App;
+
 
 
 
