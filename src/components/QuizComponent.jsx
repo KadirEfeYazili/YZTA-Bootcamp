@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { CheckCircle, XCircle, ArrowLeft, BookOpen, Trophy, Star, AlertTriangle } from 'lucide-react';
-import quizzesData from './quizzes.json'; 
+import quizzesData from './quizzes.json'; 
 
 
 const QuizComponent = () => {
@@ -21,7 +21,7 @@ const QuizComponent = () => {
     // 2. ADIM: fetch() yerine doğrudan import edilen veriyi kullanın.
     try {
       setAllQuestions(quizzesData);
-      
+      
       const categoryGroups = quizzesData.reduce((acc, question) => {
         const categoryName = question.category;
         if (!acc[categoryName]) {
@@ -57,29 +57,26 @@ const QuizComponent = () => {
       setScore(0);
       setCurrentView('quiz');
     };
-  
+  
     const handleAnswerSelect = (option) => {
       if (isAnswered) return;
-  
+  
       setSelectedAnswer(option);
       setIsAnswered(true);
-  
+  
       const currentQuestion = selectedCategory.questions[currentQuestionIndex];
       if (option === currentQuestion.answer) {
         setScore((prev) => prev + 1);
       }
     };
-  
+  
     const handleNextQuestion = () => {
       const isLastQuestion = currentQuestionIndex === selectedCategory.questions.length - 1;
-  
+  
       if (isLastQuestion) {
         const categoryId = selectedCategory.id;
         const existingScore = categoryScores[categoryId] || 0;
-        
-        const currentQuestion = selectedCategory.questions[currentQuestionIndex];
-        const finalScore = (selectedAnswer === currentQuestion.answer) ? score + 1 : score;
-        
+        const finalScore = (selectedAnswer === selectedCategory.questions[currentQuestionIndex].answer) ? score + 1 : score;
         if (finalScore > existingScore) {
             setCategoryScores(prev => ({ ...prev, [categoryId]: finalScore }));
         }
@@ -91,12 +88,12 @@ const QuizComponent = () => {
         setCurrentQuestionIndex((prev) => prev + 1);
       }
     };
-  
+  
     const handleBackToCategories = () => {
       setCurrentView('categories');
       setSelectedCategory(null);
     };
-  
+  
     const getButtonClass = (option) => {
       if (!isAnswered) {
         return "bg-white dark:bg-slate-800 hover:bg-violet-100 dark:hover:bg-slate-700 border-slate-300 dark:border-slate-600 hover:border-violet-400";
@@ -110,7 +107,7 @@ const QuizComponent = () => {
       }
       return "bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-600 opacity-60 cursor-not-allowed";
     };
-  
+  
     if (status === 'loading') {
       return (
         <div className="min-h-screen bg-gradient-to-br from-violet-50 to-blue-50 dark:from-slate-900 dark:to-slate-800 flex items-center justify-center text-center">
@@ -121,7 +118,7 @@ const QuizComponent = () => {
         </div>
       );
     }
-  
+  
     if (status === 'error') {
       return (
         <div className="min-h-screen bg-gradient-to-br from-red-50 to-orange-50 dark:from-slate-900 dark:to-slate-800 flex items-center justify-center text-center p-4">
@@ -135,7 +132,7 @@ const QuizComponent = () => {
         </div>
       );
     }
-  
+  
     if (currentView === 'categories') {
       return (
         <div className="min-h-screen bg-gradient-to-br from-violet-50 to-blue-50 dark:from-slate-900 dark:to-slate-800 p-4 sm:p-6">
@@ -150,7 +147,7 @@ const QuizComponent = () => {
                 const isCompleted = completedCategories[category.id];
                 const maxScore = category.questionCount;
                 const userScore = categoryScores[category.id] || 0;
-                
+                
                 return (
                   <div
                     key={category.id}
@@ -165,7 +162,7 @@ const QuizComponent = () => {
                     </div>
                     <h3 className="text-xl font-bold text-slate-800 dark:text-white mb-2">{category.name}</h3>
                     <p className="text-slate-600 dark:text-slate-300 text-sm mb-4">{category.questionCount} soru • {category.difficulty}</p>
-                    
+                    
                     {isCompleted && (
                       <div className="mb-4">
                         <div className="flex justify-between text-sm text-slate-600 dark:text-slate-300 mb-1">
@@ -173,12 +170,12 @@ const QuizComponent = () => {
                           <span>{userScore}/{maxScore}</span>
                         </div>
                         <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
-                          <div 
-                            className="bg-green-500 h-2 rounded-full transition-all duration-500" 
+                          <div 
+                            className="bg-green-500 h-2 rounded-full transition-all duration-500" 
                             style={{ width: `${(userScore / maxScore) * 100}%` }}
                           ></div>
+                        </div>
                       </div>
-                    </div>
                     )}
                     <button className="w-full bg-slate-800 dark:bg-violet-600 text-white py-2 px-4 rounded-lg hover:bg-slate-900 dark:hover:bg-violet-700 transition-colors">
                       {isCompleted ? 'Tekrar Çöz' : 'Başla'}
@@ -186,16 +183,16 @@ const QuizComponent = () => {
                   </div>
                 );
               })}
-          </div>
+            </div>
           </div>
         </div>
       );
     }
-  
+  
     if (currentView === 'results') {
       const totalQuestions = selectedCategory.questions.length;
       const percentage = totalQuestions > 0 ? Math.round((score / totalQuestions) * 100) : 0;
-      
+      
       return (
         <div className="min-h-screen bg-gradient-to-br from-violet-50 to-blue-50 dark:from-slate-900 dark:to-slate-800 flex items-center justify-center p-4">
           <div className="text-center p-8 max-w-md mx-auto bg-white dark:bg-slate-800 rounded-xl shadow-lg">
@@ -217,13 +214,13 @@ const QuizComponent = () => {
               <p className="text-lg text-slate-600 dark:text-slate-300">%{percentage} başarı</p>
             </div>
             <div className="space-y-3">
-              <button 
+              <button 
                 onClick={() => handleCategorySelect(selectedCategory)}
                 className="w-full bg-violet-600 hover:bg-violet-700 text-white font-bold py-3 px-6 rounded-lg transition-all"
               >
                 Tekrar Çöz
               </button>
-              <button 
+              <button 
                 onClick={handleBackToCategories}
                 className="w-full bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-800 dark:text-white font-bold py-3 px-6 rounded-lg transition-all"
               >
@@ -234,10 +231,10 @@ const QuizComponent = () => {
         </div>
       );
     }
-  
+  
     const currentQuestion = selectedCategory.questions[currentQuestionIndex];
     const progressPercentage = ((currentQuestionIndex + 1) / selectedCategory.questions.length) * 100;
-  
+  
     return (
       <div className="min-h-screen bg-gradient-to-br from-violet-50 to-blue-50 dark:from-slate-900 dark:to-slate-800">
         <div className="p-4 sm:p-6 md:p-8 max-w-3xl mx-auto">
@@ -261,8 +258,8 @@ const QuizComponent = () => {
               </p>
             </div>
             <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-3">
-              <div 
-                className="bg-violet-600 h-3 rounded-full transition-all duration-500" 
+              <div 
+                className="bg-violet-600 h-3 rounded-full transition-all duration-500" 
                 style={{ width: `${progressPercentage}%` }}
               ></div>
             </div>
@@ -286,7 +283,7 @@ const QuizComponent = () => {
               </button>
             ))}
           </div>
-  
+  
           {isAnswered && (
             <div className="text-center mt-6 animate-fade-in">
               <button
