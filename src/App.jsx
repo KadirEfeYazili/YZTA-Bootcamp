@@ -75,7 +75,7 @@ const App = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [showBubble, setShowBubble] = useState(false);
   const handleButtonClick = () => {
-    setShowBubble(true);
+    setShowBubble(false);
     setIsChatOpen(true);
   };
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -1058,6 +1058,7 @@ const handleRemoveLearnedWord = async (wordToRemove) => {
 };
 
 export default App;
+
 
 
 
