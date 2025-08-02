@@ -8,32 +8,47 @@ const AIChat = ({ saveProgress }) => {
     const [chatHistory, setChatHistory] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
+    const [isTypingEffect, setIsTypingEffect] = useState(false);
 
     const handleSendMessage = async () => {
-        if (!prompt.trim()) { return; }
+        if (!prompt.trim()) return;
         const userPrompt = prompt.trim();
         const newChatHistory = [...chatHistory, { role: 'user', text: userPrompt }];
         setChatHistory(newChatHistory);
         setPrompt('');
-        setIsLoading(true);
         setError('');
+        setIsLoading(true);
+        setIsTypingEffect(true); // Yazma efekti başlat
 
         try {
             const payload = { contents: [{ role: 'user', parts: [{ text: userPrompt }] }] };
-            const apiKey = "AIzaSyCSuzlRr7AmF59CsaNC9S5Asa-U9Rpx7Mo"; // Bu anahtarın güvenli bir şekilde yönetildiği varsayılıyor
+            const apiKey = "AIzaSyCSuzlRr7AmF59CsaNC9S5Asa-U9Rpx7Mo";
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-            const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
             if (!response.ok) throw new Error(`API Hatası: ${response.status}`);
             const result = await response.json();
             const aiResponse = result.candidates?.[0]?.content?.parts?.[0]?.text || 'Üzgünüm, yanıt oluşturulamadı.';
             setChatHistory(prev => [...prev, { role: 'ai', text: aiResponse }]);
 
-            await saveProgress({ activities: arrayUnion({ text: `AI Asistanına bir soru sordunuz: "${userPrompt.substring(0, 50)}${userPrompt.length > 50 ? '...' : ''}"`, timestamp: serverTimestamp() }) });
+            await saveProgress({
+                activities: arrayUnion({
+                    text: `AI Asistanına bir soru sordunuz: "${userPrompt.substring(0, 50)}${userPrompt.length > 50 ? '...' : ''}"`,
+                    timestamp: serverTimestamp()
+                })
+            });
 
         } catch (err) {
             setError(`Bir hata oluştu: ${err.message}`);
             setChatHistory(prev => [...prev, { role: 'ai', text: `Hata: ${err.message}` }]);
-        } finally { setIsLoading(false); }
+        } finally {
+            setIsLoading(false);
+            setIsTypingEffect(false); // Yazma efekti bitir
+        }
     };
 
     return (
@@ -48,17 +63,16 @@ const AIChat = ({ saveProgress }) => {
             </h2>
 
             <div className="flex-1 bg-white dark:bg-slate-800 border border-violet-200 dark:border-violet-700 rounded-xl shadow-inner p-4 mb-4 overflow-y-auto flex flex-col-reverse custom-scrollbar">
+                {/* Mesajlar */}
                 {chatHistory.slice().reverse().map((message, index) => (
                     <div key={index} className={`mb-4 flex items-end gap-3 ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                        
                         {message.role === 'ai' && (
                             <img 
-                                src={`${process.env.PUBLIC_URL}/images/avatar.png`}  // Avatar resmi eklendi
+                                src={`${process.env.PUBLIC_URL}/images/avatar.png`} 
                                 alt="AI asistanı avatarı"
                                 className="w-10 h-10 rounded-full flex-shrink-0 object-cover"
                             />
                         )}
-
                         <div className={`inline-block p-3 rounded-lg max-w-[80%] prose
                             ${message.role === 'user' 
                                 ? 'bg-violet-600 text-white rounded-br-none dark:bg-violet-700' 
@@ -67,11 +81,22 @@ const AIChat = ({ saveProgress }) => {
                         </div>
                     </div>
                 ))}
-                {isLoading && (
-                    <div className="flex justify-center items-center py-4">
-                        <Loader2 className="animate-spin text-violet-400 dark:text-violet-500" size={32} />
+
+                {/* Yazma efekti */}
+                {isTypingEffect && (
+                    <div className="mb-4 flex items-end gap-3 justify-start">
+                        <img 
+                            src={`${process.env.PUBLIC_URL}/images/avatar.png`} 
+                            alt="AI avatar"
+                            className="w-10 h-10 rounded-full flex-shrink-0 object-cover"
+                        />
+                        <div className="inline-block px-4 py-3 rounded-lg max-w-[80%] bg-violet-100 text-slate-600 dark:bg-violet-900 dark:text-violet-300">
+                            <span className="animate-pulse">Yanıt yazıyor<span className="dots">...</span></span>
+                        </div>
                     </div>
                 )}
+
+                {/* Hata mesajı */}
                 {error && (
                     <div className="bg-red-100 dark:bg-red-900 border border-red-200 dark:border-red-700 text-red-700 dark:text-red-400 px-4 py-3 rounded-lg my-2">
                         {error}
@@ -79,6 +104,7 @@ const AIChat = ({ saveProgress }) => {
                 )}
             </div>
 
+            {/* Giriş alanı */}
             <div className="flex gap-2">
                 <textarea
                     value={prompt}
@@ -101,4 +127,3 @@ const AIChat = ({ saveProgress }) => {
 };
 
 export default AIChat;
-
