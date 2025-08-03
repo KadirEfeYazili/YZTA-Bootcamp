@@ -437,7 +437,8 @@ Kadir Efe Yazılı, Ebral Karabulut, Muhammet Berke Ağaya, Ebrar Ağralı, Nurc
 
 <details>
   <summary><h2>Üçüncü Sprint</h2></summary>
-### ✨ Kullanılan Teknolojiler
+
+  ### ✨ Kullanılan Teknolojiler
 
 * **Frontend:** React.js, Tailwind CSS, React Markdown
 * **API:** Google Gemini API , Firestore API
@@ -531,8 +532,12 @@ Kadir Efe Yazılı, Ebral Karabulut, Muhammet Berke Ağaya, Ebrar Ağralı, Nurc
 
 ### 📆 Sprint 3 - Board & Toplantı Görselleri
 
-* Trello üzerinden tamamlanan kartlar ekran kaydı
-* Sprint Review ve Demo sunumu toplantı ekran görünütüleri
+### Toplantı Görseli
+![Sprint 3 Toplantı](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint%203%20Toplant%C4%B1%20G%C3%B6rselleri.jpeg?raw=true)
+
+### Board Screenshot
+![Sprint 3 Board](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint%203%20Board%20Update%20Screenshot.jpg?raw=true)
+
 
   
  Genel İlerleme ve Hedef Gerçekleşme  
