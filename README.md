@@ -85,13 +85,21 @@ Frequently Asked Questions: [FAQ](https://github.com/KadirEfeYazili/YZTA-Bootcam
 - 🤖[English Personalities](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Persona_English.pdf "PrepMate Kullanıcı Personaları")
 </details>
 
+<details>
+  <summary><h2>Lean Canvas</h2></summary>
+
+  <h3>Business Model Canvas Poster</h3>
+
+  ![Canvas Poster](https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/main/ProjectManagementFiles/General_Documents/Lean_canvas.png)
+
+</details>
 
 ---
 
 # Sprint Yol Haritalarımız
 
 <details>
-  <summary><h2>İlk Sprint</h2></summary>
+  <summary><h2>Sprint 1</h2></summary>
 
 ### Kullanılan Teknolojiler
 - **Frontend:** React.js, Tailwind CSS, React Markdown
@@ -232,9 +240,9 @@ Birinci sprintte, fikir oturması, tasarımların yapılması ve API ekleme plan
   
 </details>
 </details>
-
+---
 <details>
-  <summary><h2>İkinci Sprint</h2></summary>
+  <summary><h2>Sprint 2</h2></summary>
 
 
 ## Kullanılan Teknolojiler
@@ -426,9 +434,9 @@ Kadir Efe Yazılı, Ebral Karabulut, Muhammet Berke Ağaya, Ebrar Ağralı, Nurc
 </details>
 </details>
 
-
+---
 <details>
-  <summary><h2>Üçüncü Sprint</h2></summary>
+  <summary><h2>Sprint 3</h2></summary>
   
   ### Kullanılan Teknolojiler
 
@@ -611,14 +619,6 @@ Planlamaya sadık kalındı, iletişim güçlüydü, ekip öğrenerek ilerledi.
 </details>
 </details>
 
-<details>
-  <summary><h2>Lean Canvas</h2></summary>
-
-  <h3>Business Model Canvas Poster</h3>
-
-  ![Canvas Poster](https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/main/ProjectManagementFiles/General_Documents/Lean_canvas.png)
-
-</details>
  
 Proje yönetim sürecimizi Trello üzerinden takip ediyoruz:  
 [🔗 Trello Board](https://trello.com/b/8fP9S0KF/bootcamp)
