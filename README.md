@@ -516,10 +516,19 @@ Kadir Efe Yazılı, Ebral Karabulut, Muhammet Berke Ağaya, Ebrar Ağralı, Nurc
 <details>
   <summary> Sprint 3 Uygulama Ekran Görselleri</summary>
 
-  ![Ekran 1](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint-3%20About1.jpg?raw=true)  
-  ![Ekran 2](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint-3%20About2.jpg?raw=true)  
-  ![Ekran 3](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint-3About3.jpg?raw=true)  
-  ![Ekran 4](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint-3About4.jpg?raw=true)
+  ![Ekran 1](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint-3%20About2.jpg?raw=true)
+  ![Ekran 2](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint-3%20About1.jpg?raw=true)  
+  ![Ekran 3](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint-3%20About4.png)
+  ![Ekran 4](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint-3About3.jpg?raw=true)  
+  ![Ekran 5](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint-3%20Dashboard.png)
+  ![Ekran 6](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint-3%20Chatbot.png)
+  ![Ekran 7](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sptrint-3%20Quiz.png)
+  ![Ekran 8](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sptrint-3%20Quiz2.png)
+  ![Ekran 9](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint-3%20OkudugunuAnlama1.png)
+  ![Ekran 10](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint-3%20OkudugunuAnlama2.png)
+  ![Ekran 11](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint-3%20AnlamKarsilastirma.png)
+  ![Ekran 12](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint-3%20AkilHaritasi.png)
+  ![Ekran 13](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint-3%20NotPaneli.png)
 
 </details>
 
