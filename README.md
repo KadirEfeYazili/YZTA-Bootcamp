@@ -517,24 +517,40 @@ Kadir Efe Yazılı, Ebral Karabulut, Muhammet Berke Ağaya, Ebrar Ağralı, Nurc
 
 * Son sunum dosyası PDF'e çevrilecek
 * Kullanıcı test raporları dökümante edilecek
+  
+<details>
+<summary>📸 Spirnt -3 Ekran Görselleri</summary>
 
-<summary>Spirnt -3 - Sprint Board Update Screenshots</summary>
+#### 🗂️ Board Screenshot  
+![Board Screenshot](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint%203%20Board%20Update%20Screenshot.jpg?raw=true)
+
 </details>
 
-### 📈 Spirnt -3 - Burndown Chart
+---
 
-###  Spirnt -3 Toplantı Görselleri 
+<details>
+<summary>🔄 Spirnt -3 Toplantı Görselleri</summary>
+
+#### 🖼️ Toplantı  
+![Toplantı 1](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint%203%20Toplant%C4%B1%20G%C3%B6rselleri.jpeg?raw=true)
+
+#### 🖼️ Toplantı  
 ![Toplantı 2](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint%203%20Toplant%C4%B1%20G%C3%B6rselleri.jpg?raw=true)
-[Toplantı 1](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint%203%20Toplant%C4%B1%20G%C3%B6rselleri.jpeg?raw=true)
 
-###  Spirnt -3 Board Screenshot 
+</details>
+
+---
+
+<details>
+<summary>🧾 Spirnt -3 About Görselleri</summary>
+
 ![About 1](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Spirnt-3About1.jpg?raw=true)  
 ![About 2](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Spirnt-3About2.jpg?raw=true)  
 ![About 3](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Spirnt-3About3.jpg?raw=true)  
 ![About 4](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Spirnt-3About4.jpg?raw=true)
 
 </details>
-</details>
+
 
  Genel İlerleme ve Hedef Gerçekleşme  
 | Sprint   | Hedef Puan | Tamamlanan Puan | Başarı Oranı | Not                                     |
