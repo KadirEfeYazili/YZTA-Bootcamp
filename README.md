@@ -239,7 +239,7 @@ Birinci sprintte, fikir oturması, tasarımların yapılması ve API ekleme plan
 </details>
 </details>
 
----
+ ---
 
 <details>
   <summary><h2>Sprint 2</h2></summary>
