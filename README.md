@@ -518,28 +518,24 @@ Kadir Efe Yazılı, Ebral Karabulut, Muhammet Berke Ağaya, Ebrar Ağralı, Nurc
 * Son sunum dosyası PDF'e çevrilecek
 * Kullanıcı test raporları dökümante edilecek
 
-### 📸 Sprint 3 - Ekran Görselleri
+<summary>Spirnt -3 - Sprint Board Update Screenshots</summary>
+</details>
 
-* Dark Mode / Light Mode uyumluluğu
-* Kullanıcı profili ve planlayıcı modül ekranları
-* Sınav/Test bileşenleri ekranları
-* Gelişmiş Chatbot ekranları
-* Demo video çıktıları
+### 📈 Spirnt -3 - Burndown Chart
 
-### 📊 Sprint 3 - Burndown Chart
+###  Spirnt -3 Toplantı Görselleri 
+![Toplantı 2](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint%203%20Toplant%C4%B1%20G%C3%B6rselleri.jpg?raw=true)
+[Toplantı 1](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint%203%20Toplant%C4%B1%20G%C3%B6rselleri.jpeg?raw=true)
 
-* Gün başı vs. tamamlanan task'lar grafiği eklenecek
+###  Spirnt -3 Board Screenshot 
+![About 1](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Spirnt-3About1.jpg?raw=true)  
+![About 2](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Spirnt-3About2.jpg?raw=true)  
+![About 3](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Spirnt-3About3.jpg?raw=true)  
+![About 4](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Spirnt-3About4.jpg?raw=true)
 
-### 📆 Sprint 3 - Board & Toplantı Görselleri
+</details>
+</details>
 
-### Toplantı Görseli
-![Sprint 3 Toplantı](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint%203%20Toplant%C4%B1%20G%C3%B6rselleri.jpeg?raw=true)
-
-### Board Screenshot
-![Sprint 3 Board](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint%203%20Board%20Update%20Screenshot.jpg?raw=true)
-
-
-  
  Genel İlerleme ve Hedef Gerçekleşme  
 | Sprint   | Hedef Puan | Tamamlanan Puan | Başarı Oranı | Not                                     |
 | -------- | ---------- | --------------- | ------------ | --------------------------------------- |
@@ -550,20 +546,21 @@ Kadir Efe Yazılı, Ebral Karabulut, Muhammet Berke Ağaya, Ebrar Ağralı, Nurc
 Yorum:
 Tüm sprintlerde hedeflenen puanlar başarıyla tamamlandı, bu da projenin planlanan zaman ve kapsam çerçevesinde yüksek başarıyla yürütüldü. 
 Her sprint, öncekine göre daha fazla iş yükü taşımasına rağmen, takım uyumu ve süreç yönetimi sayesinde bu yük başarıyla taşınmış.
-
+---
 Ekip Performansı ve Katılım
 Kod Katılımı: Tüm ekip üyeleri kodlama sürecine aktif biçimde katıldı. Özellikle Sprint 2 ve 3'te modül geliştirme ve hata düzeltme konusunda yoğun katkılar sağlandı.
 
 Tasarım Katkısı: UI/UX tasarımcılarının sprint boyunca sürekli destek sunması, ürünün kullanıcı deneyimi açısından tutarlı ve kaliteli olmasını sağladı.
 
 Scrum Süreçleri: Günlük Scrum toplantıları, Trello panosunun düzenli güncellenmesi ve sprint değerlendirme toplantıları ekip içi iletişimi ve ilerlemeyi güçlendirdi.
-
+---
  Teknoloji ve Entegrasyonlar
 OpenAI Gemini API, Firebase, React.js, GitHub Actions gibi teknolojiler projede başarıyla entegre edildi.
 
 Sürekli dağıtım ve test işlemleri GitHub Actions ile otomatize edilerek, entegrasyon süreçleri hatasız ilerledi.
 
 Frontend, backend ve tasarım modülleri arasında güçlü bir senkronizasyon sağlandı.
+---
 
 📈 İyileşen Alanlar
 UI/UX tutarlılığı: Her sprintte görünüm ve kullanıcı deneyimi daha stabil hale getirildi.
@@ -571,6 +568,7 @@ UI/UX tutarlılığı: Her sprintte görünüm ve kullanıcı deneyimi daha stab
 Modülerlik: Özellikle Sprint 3’te modüller birbirinden bağımsız hale getirilerek sürdürülebilirlik sağlandı.
 
 Test Mekanizmaları: Son sprintte testler ve hata yakalama mekanizmaları büyük ölçüde tamamlandı.
+---
 
 ⚠️ Geliştirilebilir Noktalar
 Erken geri bildirim mekanizmaları Sprint 2 ve 3 boyunca sınırlı kaldı. Kullanıcı testlerinin ilk sprintten itibaren başlaması daha faydalı olurdu.
@@ -578,6 +576,7 @@ Erken geri bildirim mekanizmaları Sprint 2 ve 3 boyunca sınırlı kaldı. Kull
 API entegrasyon planlaması daha detaylı yapılabilir; bazı API gecikmeleri sprint planlarını zorladı.
 
 Veri izleme ve analiz modülü, temel düzeyde yapıldı. İleri seviyede kullanıcı davranışı analizi sonraki versiyonlar için planlanmalı.
+---
 
 🧠 Öğrenilen Dersler
 Sprint planlarının gerçekçi olması, motivasyonu ve iş takibini olumlu etkiledi.
@@ -587,6 +586,7 @@ Tüm ekip üyelerinin sürekli katılımı, bilgi paylaşımını ve çözüm h�
 UI/UX düzenlemelerinin sürekli yapılması, kullanıcı memnuniyetine doğrudan yansıdı.
 
 Karmaşık entegrasyonlara zaman ayırmak, uzun vadeli başarıyı garantiliyor.
+---
 
 📦 Genel Değerlendirme
 Projede 3 sprint boyunca hem teknik hem organizasyonel yönden yüksek düzeyde bir disiplin sağlandı. Hedeflere sadık kalındı, ekip iletişimi güçlüydü ve her sprint öğrenerek daha verimli hale geldi.
@@ -599,12 +599,11 @@ Projede 3 sprint boyunca hem teknik hem organizasyonel yönden yüksek düzeyde 
 
 
 </details>
- ---
 
 </details>
 </details>
 
- ---
+ 
 Proje yönetim sürecimizi Trello üzerinden takip ediyoruz:  
 [🔗 Trello Board](https://trello.com/b/8fP9S0KF/bootcamp)
 
