@@ -94,7 +94,6 @@ Frequently Asked Questions: [FAQ](https://github.com/KadirEfeYazili/YZTA-Bootcam
 
 </details>
 
----
 
 # Sprint Yol Haritalarımız
 
