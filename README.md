@@ -620,7 +620,13 @@ Planlamaya sadık kalındı, iletişim güçlüydü, ekip öğrenerek ilerledi.
 </details>
 </details>
 
+### PrepMate Tanıtım Videosu
 
+<div align="center">
+  <a href="https://youtu.be/3M9PzuCZlyI?si=gyb6mhJ36wl9rPsi" target="_blank">
+    <img src="https://img.youtube.com/vi/3M9PzuCZlyI/maxresdefault.jpg" alt="PrepMate Tanıtım Videosu" style="width:100%; height:auto;">
+  </a>
+</div>
  
 Proje yönetim sürecimizi Trello üzerinden takip ediyoruz:  
 [🔗 Trello Board](https://trello.com/b/8fP9S0KF/bootcamp)
