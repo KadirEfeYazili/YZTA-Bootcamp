@@ -525,7 +525,15 @@ Kadir Efe Yazılı, Ebral Karabulut, Muhammet Berke Ağaya, Ebrar Ağralı, Nurc
 
 </details>
 
----
+
+<details>
+  <summary><strong>Sprint-3 Burndown Chart</strong></summary>
+
+  <p align="center">
+    <img src="ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint-3%20Burndown_Chart.jpg" alt="Sprint-3 Burndown Chart" width="600"/>
+  </p>
+
+</details>
 
 <details>
   <summary>🔄 Sprint 3 Toplantı Görselleri</summary>
