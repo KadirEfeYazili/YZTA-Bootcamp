@@ -100,7 +100,8 @@ Frequently Asked Questions: [FAQ](https://github.com/KadirEfeYazili/YZTA-Bootcam
 
 <details>
   <summary><h2>Sprint 1</h2></summary>
-
+---
+  
 ### Kullanılan Teknolojiler
 - **Frontend:** React.js, Tailwind CSS, React Markdown
 - **API:** Google Gemini API
@@ -619,6 +620,7 @@ Planlamaya sadık kalındı, iletişim güçlüydü, ekip öğrenerek ilerledi.
 </details>
 </details>
 
+---
  
 Proje yönetim sürecimizi Trello üzerinden takip ediyoruz:  
 [🔗 Trello Board](https://trello.com/b/8fP9S0KF/bootcamp)
