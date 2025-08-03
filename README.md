@@ -521,8 +521,18 @@ Kadir Efe Yazılı, Ebral Karabulut, Muhammet Berke Ağaya, Ebrar Ağralı, Nurc
 <details>
 <summary>📸 Spirnt -3 Ekran Görselleri</summary>
 
-#### 🗂️ Board Screenshot  
 ![Board Screenshot](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint%203%20Board%20Update%20Screenshot.jpg?raw=true)
+
+<details>
+<summary>📱 Spirnt -3 Uygulama Ekran Görselleri</summary>
+
+![Ekran 1](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint-3%20About1.jpg?raw=true)  
+![Ekran 2](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint-3%20About2.jpg?raw=true)  
+![Ekran 3](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint-3About3.jpg?raw=true)  
+![Ekran 4](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint-3About4.jpg?raw=true)
+
+</details>
+
 
 </details>
 
@@ -531,25 +541,15 @@ Kadir Efe Yazılı, Ebral Karabulut, Muhammet Berke Ağaya, Ebrar Ağralı, Nurc
 <details>
 <summary>🔄 Spirnt -3 Toplantı Görselleri</summary>
 
-#### 🖼️ Toplantı  
+
 ![Toplantı 1](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint%203%20Toplant%C4%B1%20G%C3%B6rselleri.jpeg?raw=true)
 
-#### 🖼️ Toplantı  
 ![Toplantı 2](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint%203%20Toplant%C4%B1%20G%C3%B6rselleri.jpg?raw=true)
 
 </details>
 
 ---
 
-<details>
-<summary>🧾 Spirnt -3 About Görselleri</summary>
-
-![About 1](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Spirnt-3About1.jpg?raw=true)  
-![About 2](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Spirnt-3About2.jpg?raw=true)  
-![About 3](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Spirnt-3About3.jpg?raw=true)  
-![About 4](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Spirnt-3About4.jpg?raw=true)
-
-</details>
 
 
  Genel İlerleme ve Hedef Gerçekleşme  
