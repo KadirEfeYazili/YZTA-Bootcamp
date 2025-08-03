@@ -518,12 +518,8 @@ Kadir Efe Yazılı, Ebral Karabulut, Muhammet Berke Ağaya, Ebrar Ağralı, Nurc
 * Son sunum dosyası PDF'e çevrilecek
 * Kullanıcı test raporları dökümante edilecek
   
-<details>
-<summary>📸 Spirnt -3 Ekran Görselleri</summary>
-
-![Board Screenshot](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint%203%20Board%20Update%20Screenshot.jpg?raw=true)
-
-<details>
+---
+### Spirnt -3 Uygulama Ekran Görselleri
 <summary>📱 Spirnt -3 Uygulama Ekran Görselleri</summary>
 
 ![Ekran 1](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint-3%20About1.jpg?raw=true)  
@@ -537,7 +533,7 @@ Kadir Efe Yazılı, Ebral Karabulut, Muhammet Berke Ağaya, Ebrar Ağralı, Nurc
 </details>
 
 ---
-
+### Spirnt -3 Toplantı Görselleri
 <details>
 <summary>🔄 Spirnt -3 Toplantı Görselleri</summary>
 
