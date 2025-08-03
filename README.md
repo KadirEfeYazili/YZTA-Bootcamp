@@ -99,8 +99,7 @@ Frequently Asked Questions: [FAQ](https://github.com/KadirEfeYazili/YZTA-Bootcam
 
 <details>
   <summary><h2>Sprint 1</h2></summary>
-
----
+  ---
 
 ### Kullanılan Teknolojiler
 - **Frontend:** React.js, Tailwind CSS, React Markdown
@@ -217,8 +216,6 @@ Birinci sprintte, fikir oturması, tasarımların yapılması ve API ekleme plan
 
 
 <details>
-
-
   <summary>Sprint 1 - App Screenshots</summary>
 
   ![Uygulama Görüntüsü](https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/refs/heads/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint%201%20App%20Screenshot.png)
@@ -241,10 +238,11 @@ Birinci sprintte, fikir oturması, tasarımların yapılması ve API ekleme plan
   
 </details>
 </details>
+
 ---
+
 <details>
   <summary><h2>Sprint 2</h2></summary>
-
 
 ## Kullanılan Teknolojiler
 
@@ -376,7 +374,7 @@ Kadir Efe Yazılı, Ebral Karabulut, Muhammet Berke Ağaya, Ebrar Ağralı, Nurc
 
   * UI/UX iyileştirmeleri, kullanıcı deneyimi için sürekli bir çaba gerektirir.
 
----
+ ---
 
 * **Eylem Maddeleri:**
 
