@@ -439,20 +439,20 @@ Kadir Efe Yazılı, Ebral Karabulut, Muhammet Berke Ağaya, Ebrar Ağralı, Nurc
 <details>
   <summary><h2>Üçüncü Sprint</h2></summary>
   
-  ### ✨ Kullanılan Teknolojiler
+  ### Kullanılan Teknolojiler
 
   * **Frontend:** React.js, Tailwind CSS, React Markdown  
   * **API:** Google Gemini API , Firestore API  
   * **Backend & Hosting:** Firebase, Firestore, Firebase API Key , Render , FastAPI  
   * **Versiyon Kontrol & Deploy:** GitHub, GitHub Pages, GitHub Actions
 
-  ### 📚 Sprint 3 Hedefleri
+  ### Sprint 3 Hedefleri
 
   * Uygulamanın tam anlamıyla yayına hazır hale getirilmesi  
   * Tüm temel modül ve işlevlerin stabil çalışacak şekilde tamamlanması  
   * Proje sunumu, dökümantasyon, prototip yayını ve test süreçlerinin yürütülmesi  
 
-  ### 🔢 Görev (Task) Tablosu
+  ### Görev (Task) Tablosu
 
   | Görev (Task)                                                   | Tahmini Süre (Gün) | Puan (Story Point) | Sorumlu          | Durum      |
   | -------------------------------------------------------------- | ------------------ | ------------------ | ---------------- | ---------- |
@@ -486,14 +486,14 @@ Kadir Efe Yazılı, Ebral Karabulut, Muhammet Berke Ağaya, Ebrar Ağralı, Nurc
   ### 🌟 Sprint 3 Tamamlanması Beklenen Puan:
   **450 Puan**
 
-  ### 🔄 Sprint Gözden Geçirilmesi
+  ### Sprint Gözden Geçirilmesi
 
   * Tüm modüllerin fonksiyonel şekilde tamamlanması sağlandı  
   * Tasarım detayları ve son UX incelemeleri tamamlandı  
   * Yayın ve sunum çalışmaları başarıyla yürütüldü  
   * Kullanıcı testlerinden pozitif geri bildirimler alındı
 
-  ### 💬 Sprint Retrospektifi
+  ### Sprint Retrospektifi
 
   **Ne İyi Gitti?**  
   * Ekip tam zamanlı ve organize çalıştı  
@@ -516,7 +516,7 @@ Kadir Efe Yazılı, Ebral Karabulut, Muhammet Berke Ağaya, Ebrar Ağralı, Nurc
 ---
 
 <details>
-  <summary>📱 Sprint 3 Uygulama Ekran Görselleri</summary>
+  <summary> Sprint 3 Uygulama Ekran Görselleri</summary>
 
   ![Ekran 1](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint-3%20About1.jpg?raw=true)  
   ![Ekran 2](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint-3%20About2.jpg?raw=true)  
@@ -536,7 +536,7 @@ Kadir Efe Yazılı, Ebral Karabulut, Muhammet Berke Ağaya, Ebrar Ağralı, Nurc
 </details>
 
 <details>
-  <summary>🔄 Sprint 3 Toplantı Görselleri</summary>
+  <summary> Sprint 3 Toplantı Görselleri</summary>
 
   ![Toplantı 1](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint%203%20Toplant%C4%B1%20G%C3%B6rselleri.jpeg?raw=true)  
   ![Toplantı 2](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Github_Pages_Images/Sprint%203%20Toplant%C4%B1%20G%C3%B6rselleri.jpg?raw=true)
@@ -545,7 +545,7 @@ Kadir Efe Yazılı, Ebral Karabulut, Muhammet Berke Ağaya, Ebrar Ağralı, Nurc
 
 ---
 
-### 📊 Genel İlerleme ve Hedef Gerçekleşme
+### Genel İlerleme ve Hedef Gerçekleşme
 
 | Sprint   | Hedef Puan | Tamamlanan Puan | Başarı Oranı | Not                                      |
 | -------- | ---------- | --------------- | ------------ | ---------------------------------------- |
@@ -558,7 +558,7 @@ Tüm sprintlerde hedeflenen puanlar başarıyla tamamlandı. Her sprint, bir ön
 
 ---
 
-### 👥 Ekip Performansı ve Katılım
+### Ekip Performansı ve Katılım
 
 **Kod Katılımı:**  
 Tüm ekip üyeleri aktif olarak katkı sağladı. Özellikle Sprint 2 ve 3’te geliştirme ve hata çözümü yoğunlaştı.
@@ -571,7 +571,7 @@ Günlük Scrum’lar, Trello takibi ve sprint toplantıları iletişimi güçlen
 
 ---
 
-### 🔧 Teknoloji ve Entegrasyonlar
+### Teknoloji ve Entegrasyonlar
 
 * Google Gemini API, Firebase, React.js, GitHub Actions gibi teknolojiler etkin kullanıldı.  
 * CI/CD süreçleri GitHub Actions ile otomatize edildi.  
@@ -579,7 +579,7 @@ Günlük Scrum’lar, Trello takibi ve sprint toplantıları iletişimi güçlen
 
 ---
 
-### 📈 İyileşen Alanlar
+### İyileşen Alanlar
 
 * UI/UX tutarlılığı  
 * Modülerlik (özellikle Sprint 3’te)  
@@ -587,7 +587,7 @@ Günlük Scrum’lar, Trello takibi ve sprint toplantıları iletişimi güçlen
 
 ---
 
-### ⚠️ Geliştirilebilir Noktalar
+### Geliştirilebilir Noktalar
 
 * Kullanıcı testlerine daha erken başlanmalıydı  
 * API entegrasyon planı daha net olabilirdi  
@@ -595,7 +595,7 @@ Günlük Scrum’lar, Trello takibi ve sprint toplantıları iletişimi güçlen
 
 ---
 
-### 🧠 Öğrenilen Dersler
+### Öğrenilen Dersler
 
 * Gerçekçi planlama → motivasyon & netlik  
 * Sürekli ekip katkısı = yüksek üretkenlik  
@@ -604,7 +604,7 @@ Günlük Scrum’lar, Trello takibi ve sprint toplantıları iletişimi güçlen
 
 ---
 
-### 🎯 Genel Değerlendirme
+### Genel Değerlendirme
 
 Projede 3 sprint boyunca teknik ve süreç anlamında yüksek disiplin sağlandı.  
 Planlamaya sadık kalındı, iletişim güçlüydü, ekip öğrenerek ilerledi.  
@@ -612,7 +612,7 @@ Planlamaya sadık kalındı, iletişim güçlüydü, ekip öğrenerek ilerledi.
 
 ---
 
-### 👥 Sprint Gözden Geçirme Katılımcıları
+### Sprint Gözden Geçirme Katılımcıları
 
 **Kadir Efe Yazılı**, **Ebral Karabulut**, **Muhammet Berke Ağaya**, **Ebrar Ağralı**, **Nurcan Düzkaya**
 
