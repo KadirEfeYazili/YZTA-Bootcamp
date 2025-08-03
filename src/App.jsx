@@ -511,7 +511,7 @@ const handleRemoveLearnedWord = async (wordToRemove) => {
   };
 
   const handleGoogleLogin = async () => {
-    setStatusMessage('Google ile giriş yapılıyor...');
+    //setStatusMessage('Google ile giriş yapılıyor...');
     console.log("Google ile giriş butonu tıklandı.");
     try {
       const provider = new GoogleAuthProvider();
@@ -578,7 +578,7 @@ const handleRemoveLearnedWord = async (wordToRemove) => {
         setUserProfilePicture('/images/profile_pics/default_profile.png');
 
       } else {
-        setStatusMessage('Google ile giriş başarılı!');
+        //setStatusMessage('Google ile giriş başarılı!');
         console.log("Google ile mevcut kullanıcı giriş yaptı:", user.uid);
 
         try {
@@ -1070,4 +1070,5 @@ const handleRemoveLearnedWord = async (wordToRemove) => {
 };
 
 export default App;
+
 
