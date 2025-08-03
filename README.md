@@ -85,14 +85,6 @@ Frequently Asked Questions: [FAQ](https://github.com/KadirEfeYazili/YZTA-Bootcam
 - 🤖[English Personalities](https://github.com/KadirEfeYazili/YZTA-Bootcamp/blob/main/ProjectManagementFiles/General_Documents/Persona_English.pdf "PrepMate Kullanıcı Personaları")
 </details>
 
-<details>
-  <summary><h2>Lean Canvas</h2></summary>
-
-  <h3>Business Model Canvas Poster</h3>
-
-  ![Canvas Poster](https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/main/ProjectManagementFiles/General_Documents/Lean_canvas.png)
-
-</details>
 
 ---
 
@@ -619,6 +611,14 @@ Planlamaya sadık kalındı, iletişim güçlüydü, ekip öğrenerek ilerledi.
 </details>
 </details>
 
+<details>
+  <summary><h2>Lean Canvas</h2></summary>
+
+  <h3>Business Model Canvas Poster</h3>
+
+  ![Canvas Poster](https://raw.githubusercontent.com/KadirEfeYazili/YZTA-Bootcamp/main/ProjectManagementFiles/General_Documents/Lean_canvas.png)
+
+</details>
  
 Proje yönetim sürecimizi Trello üzerinden takip ediyoruz:  
 [🔗 Trello Board](https://trello.com/b/8fP9S0KF/bootcamp)
@@ -631,6 +631,7 @@ Proje yönetim sürecimizi Trello üzerinden takip ediyoruz:
 ## Proje Dokümanı
 
 [🔗 Canva](https://www.canva.com/design/DAGr9V-hQBg/k5EpeSP5GUWiXgXTwk_Thw/edit)
+
 
 ## PrepMate Tanıtım Videosu
 
