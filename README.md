@@ -629,11 +629,11 @@ Proje yönetim sürecimizi Trello üzerinden takip ediyoruz:
 [Projeye Git](https://kadirefeyazili.github.io/YZTA-Bootcamp/)
 
 
-## 📃 Proje Dokümanı
+## Proje Dokümanı
 
 [🔗 Canva](https://www.canva.com/design/DAGr9V-hQBg/k5EpeSP5GUWiXgXTwk_Thw/edit)
 
-### PrepMate Tanıtım Videosu
+## PrepMate Tanıtım Videosu
 
 <div align="center">
   <a href="https://youtu.be/3M9PzuCZlyI?si=gyb6mhJ36wl9rPsi" target="_blank">
