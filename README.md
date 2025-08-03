@@ -244,7 +244,6 @@ Birinci sprintte, fikir oturması, tasarımların yapılması ve API ekleme plan
 <details>
   <summary><h2>İkinci Sprint</h2></summary>
 
----
 
 ## Kullanılan Teknolojiler
 
